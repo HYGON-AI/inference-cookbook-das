@@ -2,12 +2,7 @@
 
 本文汇总 MiniMax-H3 在 BW1000 和 BW1100 上的 8 卡推荐部署策略。默认运行环境已包含 SGLang 0.5.18，本文不展开镜像安装和性能数据，只说明模型分区、8 卡并行方式、CacheDiT 使用边界和验证口径。
 
-本文下方提供一份通用 8 卡启动、请求和验证模板；更细的平台策略见：
-
-| 硬件 | 单卡显存 | 详细文档 |
-| --- | ---: | --- |
-| BW1000 | 64 GiB | [MiniMax-H3 on BW1000](./minimax-h3-bw1000.md) |
-| BW1100 | 144 GiB | [MiniMax-H3 on BW1100](./minimax-h3-bw1100.md) |
+本文下方按 BW1000 和 BW1100 分别给出可复制的 8 卡启动、请求和验证模板。
 
 ## 模型列表
 
@@ -36,119 +31,152 @@ T2VA 与 FL2VA 可以共用 `fl2va` Server；切换到 Ref2VA 时需要以 `ref2
 | BW1000 | TP2 + SP4 | T2VA、FL2VA、Ref2VA | 默认全关；Ref2VA 复杂参考素材 OOM 时优先开启 Text Encoder offload | 64 GiB 卡的通用 8 卡部署入口 |
 | BW1100 | SP8 | T2VA、FL2VA、Ref2VA | 默认全关 | 144 GiB 卡显存余量更大，先按纯序列并行作为统一 8 卡入口 |
 
-## 运行变量
+## 启动前环境变量
 
-先设置通用路径和端口。`MODEL_PATH` 指向 MiniMax-H3 权重根目录，目录内应包含 `FL2VA` 和 `Ref2VA`。
+以下环境变量用于固定 MiniMax-H3 的 HCU 性能路径。启动命令直接使用官方模型名 `MiniMax/MiniMax-H3` 和 SGLang 默认服务端口 `30000`。
 
 ```bash
-export MODEL_PATH=/models/MiniMax-H3
-export OUTPUT_PATH=/workspace/outputs
-
-export PORT=30010
-export SCHEDULER_PORT=30011
-export MASTER_PORT=30012
-export WARMUP_MODE=server
-
 export OMP_NUM_THREADS=32
 export AllTOAll_STREAM_WITH_COMPUTE=1
 export MINIMAX_H3_TORCH_SDPA_BACKEND=flash
 export MINIMAX_H3_VAE_DECODER_STREAM_TEMPORAL_CAT=1
 ```
 
-再按硬件选择一组 8 卡布局。
-
-BW1000 推荐 8 卡配置：
-
-```bash
-export GPU_IDS=0,1,2,3,4,5,6,7
-export NUM_GPUS=8
-export TP_SIZE=2
-export SP_DEGREE=4
-export ULYSSES_DEGREE=4
-```
-
-BW1100 推荐 8 卡配置：
-
-```bash
-export GPU_IDS=0,1,2,3,4,5,6,7
-export NUM_GPUS=8
-export TP_SIZE=1
-export SP_DEGREE=8
-export ULYSSES_DEGREE=8
-```
-
-默认关闭组件 offload。BW1000 的 Ref2VA 复杂参考素材或更长视频 OOM 时，可以优先把 `TEXT_ENCODER_OFFLOAD` 改成 `true`。
-
-```bash
-export TEXT_ENCODER_OFFLOAD=false
-export IMAGE_ENCODER_OFFLOAD=false
-export DIT_OFFLOAD=false
-export DIT_LAYERWISE_OFFLOAD=false
-export VAE_OFFLOAD=false
-export PIN_CPU_MEMORY=false
-export USE_FSDP=false
-```
-
 ## 启动 Server
 
-T2VA 和 FL2VA 使用 `fl2va` 分区：
+T2VA 和 FL2VA 使用 `fl2va` 分区；Ref2VA 需要单独启动 `ref2va` 分区。MiniMax-H3 建议显式指定组件级 attention backend：`transformer=fa` 给 DiT 主干，`text_encoder=torch_sdpa` 给文本/视觉编码器，避免不同组件都继承同一个默认 backend。
+
+### BW1000：T2VA / FL2VA，8 卡 TP2 + SP4
 
 ```bash
-export MODEL_VARIANT=fl2va
-```
-
-Ref2VA 需要重启 Server，并改用 `ref2va` 分区：
-
-```bash
-export MODEL_VARIANT=ref2va
-```
-
-启动命令。MiniMax-H3 建议显式指定组件级 attention backend：`transformer=fa` 给 DiT 主干，`text_encoder=torch_sdpa` 给文本/视觉编码器，避免不同组件都继承同一个默认 backend。
-
-```bash
-HIP_VISIBLE_DEVICES="$GPU_IDS" sglang serve \
+HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
   --model-type diffusion \
-  --model-path "$MODEL_PATH" \
-  --model-variant "$MODEL_VARIANT" \
-  --num-gpus "$NUM_GPUS" \
-  --tp-size "$TP_SIZE" \
-  --sp-degree "$SP_DEGREE" \
-  --ulysses-degree "$ULYSSES_DEGREE" \
+  --model-path MiniMax/MiniMax-H3 \
+  --model-variant fl2va \
+  --num-gpus 8 \
+  --tp-size 2 \
+  --sp-degree 4 \
+  --ulysses-degree 4 \
   --ring-degree 1 \
   --encoder-parallel auto \
   --attention-backend fa \
   --component-attention-backends text_encoder=torch_sdpa,transformer=fa \
   --performance-mode manual \
-  --dit-cpu-offload "$DIT_OFFLOAD" \
-  --dit-layerwise-offload "$DIT_LAYERWISE_OFFLOAD" \
-  --text-encoder-cpu-offload "$TEXT_ENCODER_OFFLOAD" \
-  --image-encoder-cpu-offload "$IMAGE_ENCODER_OFFLOAD" \
-  --vae-cpu-offload "$VAE_OFFLOAD" \
-  --pin-cpu-memory "$PIN_CPU_MEMORY" \
-  --use-fsdp-inference "$USE_FSDP" \
+  --dit-cpu-offload false \
+  --dit-layerwise-offload false \
+  --text-encoder-cpu-offload false \
+  --image-encoder-cpu-offload false \
+  --vae-cpu-offload false \
+  --pin-cpu-memory false \
+  --use-fsdp-inference false \
   --trust-remote-code \
-  --warmup-mode "$WARMUP_MODE" \
+  --warmup-mode server \
   --host 0.0.0.0 \
-  --port "$PORT" \
-  --scheduler-port "$SCHEDULER_PORT" \
-  --master-port "$MASTER_PORT" \
-  --strict-ports \
-  --output-path "$OUTPUT_PATH"
+  --output-path ./outputs/minimax-h3
 ```
+
+### BW1000：Ref2VA，8 卡 TP2 + SP4
+
+```bash
+HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+  --model-type diffusion \
+  --model-path MiniMax/MiniMax-H3 \
+  --model-variant ref2va \
+  --num-gpus 8 \
+  --tp-size 2 \
+  --sp-degree 4 \
+  --ulysses-degree 4 \
+  --ring-degree 1 \
+  --encoder-parallel auto \
+  --attention-backend fa \
+  --component-attention-backends text_encoder=torch_sdpa,transformer=fa \
+  --performance-mode manual \
+  --dit-cpu-offload false \
+  --dit-layerwise-offload false \
+  --text-encoder-cpu-offload false \
+  --image-encoder-cpu-offload false \
+  --vae-cpu-offload false \
+  --pin-cpu-memory false \
+  --use-fsdp-inference false \
+  --trust-remote-code \
+  --warmup-mode server \
+  --host 0.0.0.0 \
+  --output-path ./outputs/minimax-h3
+```
+
+### BW1100：T2VA / FL2VA，8 卡 SP8
+
+```bash
+HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+  --model-type diffusion \
+  --model-path MiniMax/MiniMax-H3 \
+  --model-variant fl2va \
+  --num-gpus 8 \
+  --tp-size 1 \
+  --sp-degree 8 \
+  --ulysses-degree 8 \
+  --ring-degree 1 \
+  --encoder-parallel auto \
+  --attention-backend fa \
+  --component-attention-backends text_encoder=torch_sdpa,transformer=fa \
+  --performance-mode manual \
+  --dit-cpu-offload false \
+  --dit-layerwise-offload false \
+  --text-encoder-cpu-offload false \
+  --image-encoder-cpu-offload false \
+  --vae-cpu-offload false \
+  --pin-cpu-memory false \
+  --use-fsdp-inference false \
+  --trust-remote-code \
+  --warmup-mode server \
+  --host 0.0.0.0 \
+  --output-path ./outputs/minimax-h3
+```
+
+### BW1100：Ref2VA，8 卡 SP8
+
+```bash
+HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+  --model-type diffusion \
+  --model-path MiniMax/MiniMax-H3 \
+  --model-variant ref2va \
+  --num-gpus 8 \
+  --tp-size 1 \
+  --sp-degree 8 \
+  --ulysses-degree 8 \
+  --ring-degree 1 \
+  --encoder-parallel auto \
+  --attention-backend fa \
+  --component-attention-backends text_encoder=torch_sdpa,transformer=fa \
+  --performance-mode manual \
+  --dit-cpu-offload false \
+  --dit-layerwise-offload false \
+  --text-encoder-cpu-offload false \
+  --image-encoder-cpu-offload false \
+  --vae-cpu-offload false \
+  --pin-cpu-memory false \
+  --use-fsdp-inference false \
+  --trust-remote-code \
+  --warmup-mode server \
+  --host 0.0.0.0 \
+  --output-path ./outputs/minimax-h3
+```
+
+默认关闭组件 offload。BW1000 的 Ref2VA 复杂参考素材或更长视频 OOM 时，可以优先把对应启动命令中的 `--text-encoder-cpu-offload false` 改成 `true`，其他选项保持不变。
 
 Server 是前台常驻进程。服务启动完成后，在另一个 Shell 中验活：
 
 ```bash
-curl -sS "http://127.0.0.1:${PORT}/health"
-curl -sS "http://127.0.0.1:${PORT}/v1/models" | python3 -m json.tool
+curl -sS http://127.0.0.1:30000/health
+curl -sS http://127.0.0.1:30000/v1/models | python3 -m json.tool
 ```
 
 ## Warmup
 
-Warmup 不能省略。严格验收建议把 `WARMUP_MODE` 设为 `off`，手动执行 3 次 2-step 请求，然后再发送正式请求。
+Warmup 不能省略。严格验收时可以把启动命令中的 `--warmup-mode server` 改为 `--warmup-mode off`，手动执行 3 次 2-step 请求，然后再发送正式请求。
 
 ```bash
-curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
+curl -sS -X POST http://127.0.0.1:30000/v1/videos \
   -H "Content-Type: application/json" \
   -d '{
     "task": "t2va",
@@ -171,10 +199,10 @@ curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
 
 ### T2VA
 
-T2VA 使用 `MODEL_VARIANT=fl2va`。
+T2VA 使用 `model-variant=fl2va`。
 
 ```bash
-curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
+curl -sS -X POST http://127.0.0.1:30000/v1/videos \
   -H "Content-Type: application/json" \
   -o create.json \
   -d '{
@@ -196,10 +224,10 @@ curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
 
 ### FL2VA
 
-FL2VA 使用 `MODEL_VARIANT=fl2va`。首帧使用 `frame_index=0`，尾帧使用 `frame_index=-1`；图片路径必须能在 Server 容器内访问。
+FL2VA 使用 `model-variant=fl2va`。首帧使用 `frame_index=0`，尾帧使用 `frame_index=-1`；示例中的 `/inputs/fl2va_first_frame.png` 是客户或读者自备图片，替换成 Server 容器内可访问的实际路径即可。
 
 ```bash
-curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
+curl -sS -X POST http://127.0.0.1:30000/v1/videos \
   -H "Content-Type: application/json" \
   -o create.json \
   -d '{
@@ -228,10 +256,10 @@ curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
 
 ### Ref2VA
 
-Ref2VA 使用 `MODEL_VARIANT=ref2va`，需要单独启动 `ref2va` Server。参考图片、音频或视频路径必须能在 Server 容器内访问。
+Ref2VA 使用 `model-variant=ref2va`，需要单独启动 `ref2va` Server。示例中的 `/inputs/ref2va_image.png` 和 `/inputs/ref2va_audio.mp3` 是客户或读者自备参考素材，替换成 Server 容器内可访问的实际路径即可。
 
 ```bash
-curl -sS -X POST "http://127.0.0.1:${PORT}/v1/videos" \
+curl -sS -X POST http://127.0.0.1:30000/v1/videos \
   -H "Content-Type: application/json" \
   -o create.json \
   -d '{
@@ -273,11 +301,11 @@ print(json.load(open("create.json"))["id"])
 PY
 )
 
-curl -sS "http://127.0.0.1:${PORT}/v1/videos/${VIDEO_ID}" | python3 -m json.tool
-curl -sS -L "http://127.0.0.1:${PORT}/v1/videos/${VIDEO_ID}/content" -o output.mp4
+curl -sS "http://127.0.0.1:30000/v1/videos/${VIDEO_ID}" | python3 -m json.tool
+curl -sS -L "http://127.0.0.1:30000/v1/videos/${VIDEO_ID}/content" -o output.mp4
 ```
 
-如果只看 Server 落盘结果，日志出现 `Output saved to ...mp4` 和 `Pixel data generated successfully` 后，视频也会保存在 `OUTPUT_PATH` 下。
+如果只看 Server 落盘结果，日志出现 `Output saved to ...mp4` 和 `Pixel data generated successfully` 后，视频也会保存在 `./outputs/minimax-h3` 下。
 
 ## 可选：开启 CacheDiT
 
@@ -290,8 +318,7 @@ export SGLANG_CACHE_DIT_BN=0
 export SGLANG_CACHE_DIT_WARMUP=4
 export SGLANG_CACHE_DIT_RDT=0.24
 export SGLANG_CACHE_DIT_MC=3
-
-
+```
 
 如果明确要关掉 CacheDiT，启动 Server 前执行：
 
@@ -307,7 +334,7 @@ AdaLN cache 是给固定 T2VA 配置用的精确预计算 sidecar，不是 Cache
 
 ```bash
 HIP_VISIBLE_DEVICES=0 python3 -m sglang.multimodal_gen.tools.build_minimax_h3_adaln_cache \
-  --transformer-path "$MODEL_PATH/FL2VA/transformer" \
+  --transformer-path /path/to/MiniMax-H3/FL2VA/transformer \
   --model-variant fl2va \
   --mode t2va \
   --num-inference-steps 50 \
@@ -324,7 +351,7 @@ ls -lh /path/minimax_h3_t2va_50step_adaln.safetensors
   --minimax-h3-adaln-cache-path /path/minimax_h3_t2va_50step_adaln.safetensors \
 ```
 
-例如把它放在 `--output-path "$OUTPUT_PATH"` 前面；注意前一行要保留反斜杠。默认不启用 AdaLN cache 时，不需要设置 `MINIMAX_H3_ADALN_CACHE_PATH`，也不需要加这行参数。
+例如把它放在 `--output-path ./outputs/minimax-h3` 前面；注意前一行要保留反斜杠。默认不启用 AdaLN cache 时，不需要设置 `MINIMAX_H3_ADALN_CACHE_PATH`，也不需要加这行参数。
 
 ## 日志检查
 
