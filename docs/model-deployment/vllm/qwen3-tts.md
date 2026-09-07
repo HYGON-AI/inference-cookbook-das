@@ -35,65 +35,65 @@ Qwen3-TTS 基于 12 Hz 语音 tokenizer 生成 codec codes，再由 Code2Wav 解
 
 ### 0.6B Base
 
-启动前按上表设置 0.6B Base 的性能环境变量，使用 `qwen3_tts_base.yaml`：
+启动命令已包含 0.6B Base 的性能环境变量，使用 `qwen3_tts_base.yaml`：
 
 ```bash
-vllm-omni serve Qwen/Qwen3-TTS-12Hz-0.6B-Base \
+QWEN3_TTS_USE_HIP_TOPK_SAMPLER=1 TORCHINDUCTOR_MAX_AUTOTUNE=1 \
+  vllm-omni serve Qwen/Qwen3-TTS-12Hz-0.6B-Base \
     --deploy-config ./qwen3_tts_base.yaml \
     --host 0.0.0.0 \
-    --port 8000 \
     --trust-remote-code \
     --omni
 ```
 
 ### 1.7B Base
 
-启动前按上表设置 1.7B Base 的性能环境变量，使用 `qwen3_tts_base.yaml`：
+启动命令已包含 1.7B Base 的性能环境变量，使用 `qwen3_tts_base.yaml`：
 
 ```bash
-vllm-omni serve Qwen/Qwen3-TTS-12Hz-1.7B-Base \
+QWEN3_TTS_USE_HIP_TOPK_SAMPLER=1 TORCHINDUCTOR_MAX_AUTOTUNE=1 \
+  vllm-omni serve Qwen/Qwen3-TTS-12Hz-1.7B-Base \
     --deploy-config ./qwen3_tts_base.yaml \
     --host 0.0.0.0 \
-    --port 8000 \
     --trust-remote-code \
     --omni
 ```
 
 ### 0.6B CustomVoice
 
-启动前按上表设置 0.6B CustomVoice 的性能环境变量。使用 `qwen3_tts_customvoice.yaml`；该文件以 Base YAML 为基础，增加 CustomVoice 与 VoiceDesign 的公共配置。
+启动命令已包含 0.6B CustomVoice 的性能环境变量。使用 `qwen3_tts_customvoice.yaml`，完整 YAML 见下文。
 
 ```bash
-vllm-omni serve Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice \
+QWEN3_TTS_USE_HIP_TOPK_SAMPLER=1 TORCHINDUCTOR_MAX_AUTOTUNE=1 \
+  vllm-omni serve Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice \
     --deploy-config ./qwen3_tts_customvoice.yaml \
     --host 0.0.0.0 \
-    --port 8000 \
     --trust-remote-code \
     --omni
 ```
 
 ### 1.7B CustomVoice
 
-启动前按上表设置 1.7B CustomVoice 的三项性能环境变量。使用与 0.6B CustomVoice 相同的 `qwen3_tts_customvoice.yaml`。
+启动命令已包含 1.7B CustomVoice 的三项性能环境变量。使用与 0.6B CustomVoice 相同的 `qwen3_tts_customvoice.yaml`。
 
 ```bash
-vllm-omni serve Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice \
+QWEN3_TTS_USE_HIP_TOPK_SAMPLER=1 TORCHINDUCTOR_MAX_AUTOTUNE=1 TORCHINDUCTOR_MAX_AUTOTUNE_POINTWISE=1 \
+  vllm-omni serve Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice \
     --deploy-config ./qwen3_tts_customvoice.yaml \
     --host 0.0.0.0 \
-    --port 8000 \
     --trust-remote-code \
     --omni
 ```
 
 ### 1.7B VoiceDesign
 
-启动前只设置 HIP sampler 开关，不设置 `TORCHINDUCTOR_*` 环境变量。使用 `qwen3_tts_voicedesign.yaml`；该文件以 Base YAML 为基础，先增加公共配置，再在 stage0 设置 `cudagraph_mode: FULL`。
+启动命令只设置 HIP sampler 开关，不设置 `TORCHINDUCTOR_*` 环境变量。使用 `qwen3_tts_voicedesign.yaml`，完整 YAML 见下文。
 
 ```bash
-vllm-omni serve Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign \
+QWEN3_TTS_USE_HIP_TOPK_SAMPLER=1 \
+  vllm-omni serve Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign \
     --deploy-config ./qwen3_tts_voicedesign.yaml \
     --host 0.0.0.0 \
-    --port 8000 \
     --trust-remote-code \
     --omni
 ```
@@ -105,6 +105,8 @@ curl http://127.0.0.1:8000/health
 ```
 
 ## API 调用示例
+
+请求 JSON 中的 `model` 必须与当前启动的模型名称一致；下面示例以常用模型为例，使用其他规格时替换为对应的 `Qwen/Qwen3-TTS-12Hz-*` 名称。
 
 ### CustomVoice
 
@@ -143,7 +145,7 @@ curl -X POST http://127.0.0.1:8000/v1/audio/speech \
 
 ### Base 音色复刻
 
-下面示例使用 Linux `base64 -w 0` 将本地 WAV 参考音频编码为 data URL。`ref_text` 应与参考音频内容一致。
+下面示例使用 Linux `base64 -w 0` 将本地 WAV 参考音频编码为 data URL。`reference.wav` 是客户或读者自备的参考音频；如果文件名或路径不同，替换命令中的 `reference.wav` 即可。`ref_text` 应与参考音频内容一致。
 
 ```bash
 curl -X POST http://127.0.0.1:8000/v1/audio/speech \
@@ -184,10 +186,7 @@ curl -N -X POST http://127.0.0.1:8000/v1/audio/speech \
 
 ## YAML 配置
 
-五个单卡场景实际只有两类 YAML：
-
-- 两种 Base 模型共用同一份完整 Base YAML。
-- 两种 CustomVoice 模型和 VoiceDesign 都以 Base YAML 为基础，只在两个 stage 增加 `distributed_executor_backend: mp`。
+五个单卡场景使用三份 YAML。两种 Base 模型共用 `qwen3_tts_base.yaml`，两种 CustomVoice 模型共用 `qwen3_tts_customvoice.yaml`，VoiceDesign 使用 `qwen3_tts_voicedesign.yaml`。
 
 ### Base 推荐配置
 
@@ -263,24 +262,159 @@ platforms:
       enforce_eager: true
 ```
 
-### CustomVoice 与 VoiceDesign 推荐公共配置
+### CustomVoice 推荐配置
 
-将 Base YAML 分别复制为 `qwen3_tts_customvoice.yaml` 和 `qwen3_tts_voicedesign.yaml`。在两个 stage 的 `enforce_eager` 后都增加：
-
-```yaml
-distributed_executor_backend: mp
-```
-
-### VoiceDesign 额外配置
-
-在公共配置基础上，VoiceDesign 仅在 stage0 的 `enforce_eager` 后增加：
+将以下完整内容保存为 `qwen3_tts_customvoice.yaml`。
 
 ```yaml
-compilation_config:
-  cudagraph_mode: FULL
+async_chunk: true  # 两阶段流水线异步传递 codec 数据。
+connectors:
+  connector_of_shared_memory:
+    name: SharedMemoryConnector  # Talker 与 Code2Wav 之间使用共享内存传递数据。
+    extra:
+      shm_threshold_bytes: 65536  # 大于此阈值的数据通过共享内存传递。
+      codec_streaming: true       # 允许 Code2Wav 按音频 chunk 输出。
+      connector_get_sleep_s: 0.01
+      connector_get_max_wait_first_chunk: 3000
+      connector_get_max_wait: 300
+      codec_chunk_frames: 150           # non-stream 与 stream 稳态使用 150 帧解码窗口。
+      codec_left_context_frames: 72     # Code2Wav 解码时保留的左侧上下文。
+      initial_codec_chunk_frames: 1     # 首个音频包先使用较小窗口。
+      decode_enable_tf32: true          # 允许 Code2Wav 解码路径使用 TF32。
+      codec_chunk_schedule_frames:      # 仅 stream 请求按顺序扩大解码窗口。
+      - 2
+      - 8
+      - 32
+      - 150
+stages:
+- stage_id: 0
+  max_num_seqs: 16
+  gpu_memory_utilization: 0.3
+  trust_remote_code: true
+  enable_prefix_caching: false
+  async_scheduling: true
+  max_num_batched_tokens: 4096
+  max_model_len: 4096
+  devices: '0'
+  enforce_eager: false
+  distributed_executor_backend: mp
+  output_connectors:
+    to_stage_1: connector_of_shared_memory
+  default_sampling_params:
+    temperature: 0.9
+    top_k: 50
+    max_tokens: 4096
+    seed: 42
+    repetition_penalty: 1.05
+  subtalker_sampling_params:
+    do_sample: true
+    temperature: 0.9
+    top_k: 50
+    top_p: 1.0
+- stage_id: 1
+  max_num_seqs: 16
+  gpu_memory_utilization: 0.2
+  trust_remote_code: true
+  enable_prefix_caching: false
+  async_scheduling: true
+  max_num_batched_tokens: 16384
+  max_model_len: 32768
+  devices: '0'
+  enforce_eager: true
+  distributed_executor_backend: mp
+  input_connectors:
+    from_stage_0: connector_of_shared_memory
+  default_sampling_params:
+    temperature: 0.0
+    top_p: 1.0
+    top_k: -1
+    max_tokens: 32768
+    seed: 42
+    repetition_penalty: 1.0
+platforms:
+  npu:
+    stages:
+    - stage_id: 0
+      enforce_eager: true
 ```
 
-除公共配置和上述字段外，VoiceDesign 使用与 Base 相同的 YAML 内容。
+### VoiceDesign 推荐配置
+
+将以下完整内容保存为 `qwen3_tts_voicedesign.yaml`。
+
+```yaml
+async_chunk: true  # 两阶段流水线异步传递 codec 数据。
+connectors:
+  connector_of_shared_memory:
+    name: SharedMemoryConnector  # Talker 与 Code2Wav 之间使用共享内存传递数据。
+    extra:
+      shm_threshold_bytes: 65536  # 大于此阈值的数据通过共享内存传递。
+      codec_streaming: true       # 允许 Code2Wav 按音频 chunk 输出。
+      connector_get_sleep_s: 0.01
+      connector_get_max_wait_first_chunk: 3000
+      connector_get_max_wait: 300
+      codec_chunk_frames: 150           # non-stream 与 stream 稳态使用 150 帧解码窗口。
+      codec_left_context_frames: 72     # Code2Wav 解码时保留的左侧上下文。
+      initial_codec_chunk_frames: 1     # 首个音频包先使用较小窗口。
+      decode_enable_tf32: true          # 允许 Code2Wav 解码路径使用 TF32。
+      codec_chunk_schedule_frames:      # 仅 stream 请求按顺序扩大解码窗口。
+      - 2
+      - 8
+      - 32
+      - 150
+stages:
+- stage_id: 0
+  max_num_seqs: 16
+  gpu_memory_utilization: 0.3
+  trust_remote_code: true
+  enable_prefix_caching: false
+  async_scheduling: true
+  max_num_batched_tokens: 4096
+  max_model_len: 4096
+  devices: '0'
+  enforce_eager: false
+  distributed_executor_backend: mp
+  compilation_config:
+    cudagraph_mode: FULL
+  output_connectors:
+    to_stage_1: connector_of_shared_memory
+  default_sampling_params:
+    temperature: 0.9
+    top_k: 50
+    max_tokens: 4096
+    seed: 42
+    repetition_penalty: 1.05
+  subtalker_sampling_params:
+    do_sample: true
+    temperature: 0.9
+    top_k: 50
+    top_p: 1.0
+- stage_id: 1
+  max_num_seqs: 16
+  gpu_memory_utilization: 0.2
+  trust_remote_code: true
+  enable_prefix_caching: false
+  async_scheduling: true
+  max_num_batched_tokens: 16384
+  max_model_len: 32768
+  devices: '0'
+  enforce_eager: true
+  distributed_executor_backend: mp
+  input_connectors:
+    from_stage_0: connector_of_shared_memory
+  default_sampling_params:
+    temperature: 0.0
+    top_p: 1.0
+    top_k: -1
+    max_tokens: 32768
+    seed: 42
+    repetition_penalty: 1.0
+platforms:
+  npu:
+    stages:
+    - stage_id: 0
+      enforce_eager: true
+```
 
 ## 关键配置说明
 
@@ -297,5 +431,5 @@ compilation_config:
 ## 注意事项
 
 - 请求中的 `stream` 字段决定是否启用阶梯式 chunk：`stream=true` 使用 `[2, 8, 32, 150]`；`stream=false` 始终使用 `codec_chunk_frames=150`。
-- 同一物理 DCU 上不要同时运行多个独立服务或 benchmark；性能测试前后应检查 HCU 利用率、显存和相关进程。
+- 同一物理 HCU 上不要同时运行多个独立服务或 benchmark；性能测试前后应检查 HCU 利用率、显存和相关进程。
 - `TORCHINDUCTOR_*` 变量仅按模型场景设置，会增加首次编译耗时；服务完成 warmup 后再进行性能测量。
