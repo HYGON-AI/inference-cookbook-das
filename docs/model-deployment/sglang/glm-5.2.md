@@ -600,8 +600,7 @@ sglang serve \
   --disaggregation-mode decode \
   --disaggregation-transfer-backend mooncake \
   --disaggregation-bootstrap-port 8998 \
-  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
-  --ep-num-redundant-experts 64
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4
 ~~~
 
 #### D node 1
@@ -691,8 +690,7 @@ sglang serve \
   --disaggregation-mode decode \
   --disaggregation-transfer-backend mooncake \
   --disaggregation-bootstrap-port 8998 \
-  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
-  --ep-num-redundant-experts 64
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4
 ~~~
 
 #### D node 2
@@ -782,8 +780,7 @@ sglang serve \
   --disaggregation-mode decode \
   --disaggregation-transfer-backend mooncake \
   --disaggregation-bootstrap-port 8998 \
-  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
-  --ep-num-redundant-experts 64
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4
 ~~~
 
 #### D node 3
@@ -873,8 +870,7 @@ sglang serve \
   --disaggregation-mode decode \
   --disaggregation-transfer-backend mooncake \
   --disaggregation-bootstrap-port 8998 \
-  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
-  --ep-num-redundant-experts 64
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4
 ~~~
 
 #### Router
