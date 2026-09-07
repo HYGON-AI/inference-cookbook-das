@@ -880,7 +880,7 @@ python3 -m sglang_router.launch_router \
   --prefill http://prefill \
   --decode http://decode \
   --policy round_robin \
-  --port 30020
+  --port 30001
 ~~~
 
 
@@ -1014,12 +1014,12 @@ curl http://localhost:30000/v1/chat/completions \
 
 ### PD 分离
 
-PD 分离模式下，客户端请求发送到 SGLang Router。示例中 Router 端口为 `30020`。
+PD 分离模式下，客户端请求发送到 SGLang Router。示例中 Router 端口为 `30001`。
 
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="http://<router_ip>:30020/v1", api_key="not-needed")
+client = OpenAI(base_url="http://<router_ip>:30001/v1", api_key="not-needed")
 
 response = client.chat.completions.create(
     model="hygon/GLM-5.2-Channel-FP8-w8a8",
@@ -1029,7 +1029,7 @@ response = client.chat.completions.create(
 ```
 
 ```bash
-curl http://<router_ip>:30020/v1/chat/completions \
+curl http://<router_ip>:30001/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model": "hygon/GLM-5.2-Channel-FP8-w8a8", "messages": [{"role": "user", "content": "你好"}], "max_tokens": 128}'
 ```
