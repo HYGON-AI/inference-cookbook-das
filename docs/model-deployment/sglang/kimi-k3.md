@@ -116,7 +116,7 @@ sglang serve \
   --mamba-full-memory-ratio 0.1 \
   --mamba-ssm-dtype bfloat16 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path /public/opendas/DL_DATA/llm-models/Kimi-K3-DSpark \
+  --speculative-draft-model-path RadixArk/Kimi-K3-DSpark \
   --speculative-dspark-block-size 7  \
   --speculative-draft-attention-backend triton \
   --speculative-draft-model-quantization unquant \
@@ -154,7 +154,7 @@ sglang serve \
   --mamba-full-memory-ratio 0.1 \
   --mamba-ssm-dtype bfloat16 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path /public/opendas/DL_DATA/llm-models/Kimi-K3-DSpark \
+  --speculative-draft-model-path RadixArk/Kimi-K3-DSpark \
   --speculative-dspark-block-size 7  \
   --speculative-draft-attention-backend triton \
   --speculative-draft-model-quantization unquant \
@@ -239,7 +239,7 @@ sglang serve \
   --linear-attn-prefill-backend flashkda \
   --quantization slimquant_w4a8_marlin \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/sglang-Kimi-K3-DSpark \
+  --speculative-draft-model-path RadixArk/Kimi-K3-DSpark \
   --speculative-dspark-block-size 7 \
   --speculative-draft-attention-backend triton \
   --speculative-draft-model-quantization unquant \
