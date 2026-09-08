@@ -6,8 +6,8 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
-| -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
+| 模型权重 | 量化方式 | SGLang 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| -------- | -------- | :-----------: | -------- | ---- | -------- | -------- |
 | [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0512) |
 |                                                                                                 | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0512) |
 |                                                                                                 | INT4 W4A8 | 0.5.10 | BW1000 |  8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0510) |

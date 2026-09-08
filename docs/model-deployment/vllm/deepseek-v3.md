@@ -6,8 +6,8 @@ DeepSeek-V3 是由深度求索推出的基于MoE架构的高性能开源大语�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
-| -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| 模型权重 | 量化方式 | vLLM 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| -------- | -------- | :---------: | -------- | ---- | -------- | -------- |
 | [hygon/DeepSeek-V3-0324-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3-0324-Channel-FP8-w8a8) | FP8 W8A8 | 0.21    | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |                                                                                    | FP8 W8A8 | 0.18    | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |                                                                                    | FP8 W8A8 | 0.15    | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |

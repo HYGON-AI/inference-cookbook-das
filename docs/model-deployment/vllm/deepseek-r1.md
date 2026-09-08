@@ -6,8 +6,8 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
-| -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| 模型权重 | 量化方式 | vLLM 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| -------- | -------- | :---------: | -------- | ---- | -------- | -------- |
 | [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | 0.21 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-021) |
 |                                                                                                                   | FP16 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-021) |
 |                                                                                                                   | FP16 | 0.21 | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100_ai-4x-vllm-021) |
