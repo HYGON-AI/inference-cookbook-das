@@ -6,7 +6,7 @@ Kimi-K2 是月之暗面（Moonshot AI）推出的新一代大语言模型，以�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :---------: | -------- | ---- | -------- | -------- |
 | [moonshotai/Kimi-K2-Instruct](https://www.modelscope.cn/models/moonshotai/Kimi-K2-Instruct) | FP8 W8A8 | 0.15 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k2-instruct-ifb-bw1100-16x-vllm-015) |
 

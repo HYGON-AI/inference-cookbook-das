@@ -6,7 +6,7 @@ Qwen2.5-VL 是通义千问视觉语言模型系列，覆盖多种参数规模和
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :-----------: | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen2.5-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-4x-sglang-0512) |

@@ -6,7 +6,7 @@ Qwen2 是阿里通义千问开源大语言模型系列，支持多种参数规�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :---------: | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen2-0.5B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-0.5B-Instruct) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1000-1x-vllm-021) |

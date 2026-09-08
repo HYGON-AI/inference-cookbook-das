@@ -6,7 +6,7 @@ QwQ 是 Qwen 系列的推理模型。本页提供 QwQ-32B 在 HCU 平台上的 v
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :---------: | -------- | ---- | -------- | -------- |
 | [Qwen/QwQ-32B](https://www.modelscope.cn/models/Qwen/QwQ-32B) | BF16 | [0.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwq-32b-ifb-bw1100-4x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwq-32b-ifb-bw1000-4x-vllm-018) |

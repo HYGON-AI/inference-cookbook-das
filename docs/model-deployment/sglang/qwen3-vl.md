@@ -6,7 +6,7 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型，支持文�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :-----------: | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3-VL-30B-A3B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-30B-A3B-Thinking) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1100-1x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1000-2x-sglang-0512) |

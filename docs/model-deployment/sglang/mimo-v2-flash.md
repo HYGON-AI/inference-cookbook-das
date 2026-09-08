@@ -6,7 +6,7 @@ MiMo-V2-Flash 是小米推出的大规模 MoE（混合专家）语言模型，�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :-----------: | -------- | ---- | -------- | -------- |
 | [XiaomiMiMo/MiMo-V2-Flash](https://www.modelscope.cn/models/XiaomiMiMo/MiMo-V2-Flash) | BF16 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#mimo-v2-flash-ifb-bw1100-8x-sglang-0510) |
 | [hygon/MiMo-V2-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2-Flash-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |

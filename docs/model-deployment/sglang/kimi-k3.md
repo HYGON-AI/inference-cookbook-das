@@ -6,7 +6,7 @@ Kimi-K3 是 Moonshot AI 推出的 Kimi 系列模型，面向长上下文、工�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 版本<br>镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | :-----------: | -------- | ---- | -------- | -------- |
 | [moonshotai/Kimi-K3](https://www.modelscope.cn/models/moonshotai/Kimi-K3) | BF16 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-ifb-bw1100-16x-sglang-0518) |
 | [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-int4-ifb-bw1100-16x-sglang-0518) |
