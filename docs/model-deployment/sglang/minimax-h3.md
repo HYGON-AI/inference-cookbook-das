@@ -8,8 +8,8 @@
 
 | 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [MiniMax/MiniMax-H3](https://www.modelscope.cn/models/MiniMax/MiniMax-H3) | BF16 | 0.5.18 | BW1000 | 8 | Online | [启动命令](#启动-server) |
-| [MiniMax/MiniMax-H3](https://www.modelscope.cn/models/MiniMax/MiniMax-H3) | BF16 | 0.5.18 | BW1100 | 8 | Online | [启动命令](#启动-server) |
+| [MiniMax/MiniMax-H3](https://www.modelscope.cn/models/MiniMax/MiniMax-H3) | BF16 | 0.5.18 | BW1000 | 8 | Online | [**`>_`**](#启动-server) |
+| [MiniMax/MiniMax-H3](https://www.modelscope.cn/models/MiniMax/MiniMax-H3) | BF16 | 0.5.18 | BW1100 | 8 | Online | [**`>_`**](#启动-server) |
 
 
 ## 模型与场景
@@ -49,7 +49,7 @@ T2VA 和 FL2VA 使用 `fl2va` 分区；Ref2VA 需要单独启动 `ref2va` 分区
 ### BW1000：T2VA / FL2VA，8 卡 TP2 + SP4
 
 ```bash
-HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+sglang serve \
   --model-type diffusion \
   --model-path MiniMax/MiniMax-H3 \
   --model-variant fl2va \
@@ -78,7 +78,7 @@ HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
 ### BW1000：Ref2VA，8 卡 TP2 + SP4
 
 ```bash
-HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+sglang serve \
   --model-type diffusion \
   --model-path MiniMax/MiniMax-H3 \
   --model-variant ref2va \
@@ -107,7 +107,7 @@ HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
 ### BW1100：T2VA / FL2VA，8 卡 SP8
 
 ```bash
-HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+sglang serve \
   --model-type diffusion \
   --model-path MiniMax/MiniMax-H3 \
   --model-variant fl2va \
@@ -136,7 +136,7 @@ HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
 ### BW1100：Ref2VA，8 卡 SP8
 
 ```bash
-HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
+sglang serve \
   --model-type diffusion \
   --model-path MiniMax/MiniMax-H3 \
   --model-variant ref2va \
@@ -162,7 +162,27 @@ HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sglang serve \
   --output-path ./outputs/minimax-h3
 ```
 
-默认关闭组件 offload。BW1000 的 Ref2VA 复杂参考素材或更长视频 OOM 时，可以优先把对应启动命令中的 `--text-encoder-cpu-offload false` 改成 `true`，其他选项保持不变。
+默认关闭组件 offload。
+
+## 显存不足处理
+
+如果遇到 OOM，优先使用本文推荐的 8 卡布局。BW1000 推荐 TP2 + SP4；BW1100 推荐 SP8。更小卡数或更复杂参考素材下，可以按下面顺序降低显存压力：
+
+1. 先开启 Text Encoder 和 VAE offload，并打开 pinned CPU memory：
+
+```bash
+  --text-encoder-cpu-offload true \
+  --vae-cpu-offload true \
+  --pin-cpu-memory true \
+```
+
+2. 如果仍然 OOM，再考虑开启 DiT layerwise offload；它会进一步降低显存压力，但通常会明显牺牲性能：
+
+```bash
+  --dit-layerwise-offload true \
+```
+
+CacheDiT 主要用于加速 denoising，不建议把它作为主要降显存手段。AdaLN cache 只适用于固定 T2VA、固定 step/timestep 配置，可作为专项显存优化选项使用。
 
 Server 是前台常驻进程。服务启动完成后，在另一个 Shell 中验活：
 
@@ -333,7 +353,7 @@ AdaLN cache 是给固定 T2VA 配置用的精确预计算 sidecar，不是 Cache
 先准备模型权重，再生成 sidecar：
 
 ```bash
-HIP_VISIBLE_DEVICES=0 python3 -m sglang.multimodal_gen.tools.build_minimax_h3_adaln_cache \
+python3 -m sglang.multimodal_gen.tools.build_minimax_h3_adaln_cache \
   --transformer-path /path/to/MiniMax-H3/FL2VA/transformer \
   --model-variant fl2va \
   --mode t2va \
