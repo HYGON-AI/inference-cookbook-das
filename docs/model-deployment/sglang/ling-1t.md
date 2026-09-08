@@ -6,7 +6,7 @@ Ling-1T-FP8 是 inclusionAI 发布的 Ling 系列模型。
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [inclusionAI/Ling-1T-FP8](https://www.modelscope.cn/models/inclusionAI/Ling-1T-FP8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#ling-1t-fp8-ifb-bw1100-8x-sglang-0512) |
 
