@@ -17,7 +17,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 |  | W8A8 | 0.21 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-vllm-021) |
 |  | W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-vllm-018-hotfix) |
-| Qwen3.8-Flash-Next-FP8-Channelwise | FP8 | 0.28 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-fp8-channelwise-ifb-bw1100-4x-vllm-028) |
+| [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-vllm-028) |
 
 ## 启动命令
 
@@ -169,10 +169,10 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   -q slimquant_marlin
 ```
 
-### Qwen3.8-Flash-Next-FP8-Channelwise IFB BW1100 4x vLLM 0.28
+### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x vLLM 0.28
 
 ```bash
-vllm serve hygon/Qwen3.8-Flash-Next-FP8-Channelwise \
+vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   -tp 4 \
   --moe-backend aiter \
   --trust-remote-code \
