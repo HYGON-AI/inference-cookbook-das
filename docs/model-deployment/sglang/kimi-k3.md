@@ -168,6 +168,7 @@ sglang serve \
 ```bash
 NODE_RANK="${1:-}"
 
+export SGLANG_USE_LIGHTOP=1
 export SGLANG_K3_ATTN_RESIDUAL_HCU=1
 export SGLANG_KDA_USE_HCU_OP=1
 export SGLANG_USE_INT4_W4A8=1
@@ -209,6 +210,7 @@ sglang serve \
 ```bash
 NODE_RANK="${1:-}"
 
+export SGLANG_USE_LIGHTOP=1
 export SGLANG_K3_ATTN_RESIDUAL_HCU=1
 export SGLANG_KDA_USE_HCU_OP=1
 export SGLANG_USE_INT4_W4A8=1
@@ -246,7 +248,7 @@ sglang serve \
   --page-size 64 \
   --reasoning-parser kimi_k3 \
   --tool-call-parser kimi_k3 \
-  --mem-fraction-static 0.86 \
+  --mem-fraction-static 0.88 \
   --host 0.0.0.0 \
   --mm-attention-backend fa3 \
   --kv-cache-dtype fp8_e4m3 \
