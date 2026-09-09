@@ -221,6 +221,7 @@ export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
 export ROCSHMEM_TOPO_FILE_FORCE=topo.config
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_1,shca_2,shca_3,shca_4
 export ROCSHMEM_IPC_MNVL=1
+export DEEP_EP_NORMAL_MNVL=1
 
 sglang serve \
   --trust-remote-code \
