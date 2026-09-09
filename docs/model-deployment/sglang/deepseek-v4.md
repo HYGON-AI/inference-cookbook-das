@@ -10,7 +10,11 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
-| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
+| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB(TP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-tp8-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB(DP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-dp8-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB(DP8+EP8+DSpark) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-dp8ep8dspark-deepep-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P2D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p2d-bw1100-24x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0512) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-p-bw1100-16x-sglang-0512) |
@@ -520,6 +524,437 @@ python3 -m sglang_router.launch_router \
   --decode "http://<D_node_ip>:<D_service_port>" \
   --host 0.0.0.0 \
   --port <router_port>
+```
+
+### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB TP8 BW1100 8x SGLang 0.5.18
+
+节点 IP、网卡等请按实际环境填写。
+
+```bash
+export NCCL_SOCKET_IFNAME=xxx
+export GLOO_SOCKET_IFNAME=xxx
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=1
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=compact
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 8 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --host <node_ip> \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs-decode 256 \
+  --mem-fraction-static 0.8 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 64 \
+  --context-length 81920 \
+  --enable-metrics
+```
+
+### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB DP8 BW1100 8x SGLang 0.5.18
+
+节点 IP、网卡等请按实际环境填写。
+
+```bash
+export NCCL_SOCKET_IFNAME=xxx
+export GLOO_SOCKET_IFNAME=xxx
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=1
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=compact
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 8 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --host <node_ip> \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs-decode 256 \
+  --mem-fraction-static 0.8 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 64 \
+  --context-length 81920 \
+  --enable-metrics \
+  --dp 8 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --moe-a2a-backend none
+```
+
+### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB DP8+EP8+DSpark deepep BW1100 8x SGLang 0.5.18
+
+节点 IP、网卡等请按实际环境填写。
+
+```bash
+export NCCL_SOCKET_IFNAME=xxx
+export GLOO_SOCKET_IFNAME=xxx
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=1
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 8 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --host <node_ip> \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 32 \
+  --mem-fraction-static 0.90 \
+  --dist-init-addr <node_ip>:<dist_port> \
+  --speculative-algorithm DSPARK \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 32 \
+  --context-length 32768 \
+  --dp 8 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --ep 8 \
+  --moe-a2a-backend deepep \
+  --deepep-mode auto \
+  --deepep-config /xxxx/ep_config.json \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --moe-runner-backend deep_gemm \
+  --enable-metrics \
+  --disable-radix-cache
+```
+
+### DeepSeek-V4-Flash-Channel-FP8-w8a8 1P2D BW1100 24x SGLang 0.5.18
+
+以下示例为 1P2D 部署：1 个 P 节点 + 2 个 D 节点，每个节点 8 张卡，总计 24 张卡。节点 IP、网卡等请按实际环境填写。
+
+D 集群主节点和从节点使用相同的 `dist-init-addr`，均填写 `<D_node0_ip>:<D_dist_port>`。Router 连接 `<P_node_ip>:<P_service_port>` 和 `<D_node0_ip>:<D_service_port>`。
+
+#### P node CP+DeepEP
+
+```bash
+export NCCL_SOCKET_IFNAME=xxx
+export GLOO_SOCKET_IFNAME=xxx
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=1
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 8 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port <P_service_port> \
+  --host <P_node_ip> \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --disable-radix-cache \
+  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 32 \
+  --mem-fraction-static 0.8 \
+  --speculative-algorithm DSPARK \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 32 \
+  --context-length 32768 \
+  --disable-cuda-graph \
+  --max-total-tokens 131072 \
+  --speculative-moe-a2a-backend none \
+  --enable-metrics \
+  --enable-prefill-cp \
+  --cp-strategy interleave \
+  --dp 1 \
+  --attn-cp-size 8 \
+  --enable-dp-attention \
+  --moe-a2a-backend deepep \
+  --deepep-mode auto \
+  --deepep-config /xxxx/ep_config.json \
+  --moe-runner-backend deep_gemm \
+  --disaggregation-ib-device mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9 \
+  --disaggregation-mode prefill \
+  --disaggregation-transfer-backend mooncake \
+  --disaggregation-bootstrap-port 8998
+```
+
+#### D node DP+DeepEP+DSpark
+
+说明：D 主节点使用 `NODE_RANK=0`，从节点使用 `NODE_RANK=1`。
+
+```bash
+export NCCL_SOCKET_IFNAME=xxx
+export GLOO_SOCKET_IFNAME=xxx
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=1
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+
+NODE_RANK="${1:-${NODE_RANK:-0}}"
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 16 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port <D_service_port> \
+  --host <D_node_ip> \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --disable-radix-cache \
+  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 32 \
+  --mem-fraction-static 0.8 \
+  --speculative-algorithm DSPARK \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 32 \
+  --context-length 32768 \
+  --dp 16 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --ep 16 \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend deep_gemm \
+  --deepep-mode auto \
+  --deepep-config /xxxx/ep_config.json \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --enable-metrics \
+  --disaggregation-ib-device mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9 \
+  --disaggregation-mode decode \
+  --disaggregation-transfer-backend mooncake \
+  --disaggregation-bootstrap-port 8998 \
+  --nodes 2 \
+  --node-rank "${NODE_RANK}" \
+  --dist-init-addr <D_node0_ip>:<D_dist_port>
 ```
 
 ### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB  BW1100 16x SGLang 0.5.12
