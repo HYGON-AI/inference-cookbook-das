@@ -8,6 +8,8 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型系列，面向复杂推理�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
+| [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-sglang-0512) |
 | [hygon/DeepSeek-R1-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8x | IFB | [**\`>_\`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 | [deepseek-ai/DeepSeek-R1-Distill-Llama-70B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-8x-sglang-0512) |
@@ -18,6 +20,100 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型系列，面向复杂推理�
 |  | FP8 W8A8 | 0.5.10 | BW1100 | 8x | IFB | [**\`>_\`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
 
 ## 启动命令
+
+### DeepSeek-R1-Distill-Qwen-32B IFB BW1100 2x SGLang 0.5.12
+
+```bash
+unset NCCL_TOPO_FILE
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_TORCH_PROFILER_DIR=/home/profile
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=3
+sysctl -w kernel.numa_balancing=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_MARLIN_W16A16_MOE=1
+
+sglang serve \
+  --model-path deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
+  --trust-remote-code \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype bfloat16 \
+  --kv-cache-dtype bfloat16 \
+  --tensor-parallel-size 2 \
+  --page-size 64 \
+  --nnodes 1 \
+  --node-rank 0 \
+  --mem-fraction-static 0.9 \
+  --attention-backend fa3
+```
+
+### DeepSeek-R1-Distill-Qwen-32B IFB BW1000 4x SGLang 0.5.12
+
+```bash
+unset NCCL_TOPO_FILE
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_TORCH_PROFILER_DIR=/home/profile
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=3
+sysctl -w kernel.numa_balancing=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_MARLIN_W16A16_MOE=1
+
+sglang serve \
+  --model-path deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
+  --trust-remote-code \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype bfloat16 \
+  --kv-cache-dtype bfloat16 \
+  --tensor-parallel-size 4 \
+  --page-size 64 \
+  --nnodes 1 \
+  --node-rank 0 \
+  --mem-fraction-static 0.9 \
+  --attention-backend fa3
+```
 
 ### DeepSeek-R1-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12
 
