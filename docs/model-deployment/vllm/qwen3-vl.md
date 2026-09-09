@@ -18,7 +18,7 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3-VL-2B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-2B-Instruct) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1000-1x-vllm-021) |
@@ -497,7 +497,7 @@ export VLLM_KV_CACHE_LAYOUT=NHD
 
 vllm serve \
   --model Qwen/Qwen3-VL-8B-Instruct \
-  --attention-backend FLASH_ATTN_VARLEN \
+  --attention-backend FLASH_ATTN \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --max-model-len 32768
