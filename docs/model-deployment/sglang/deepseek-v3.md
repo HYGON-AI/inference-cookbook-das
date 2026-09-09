@@ -6,7 +6,7 @@ DeepSeek-V3-0324 是 DeepSeek V3 系列的 MoE 大模型版本，适用于对话
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/DeepSeek-V3-0324-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3-0324-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 144GB | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 64GB | 16 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-bw1000-16x-sglang-0512) |

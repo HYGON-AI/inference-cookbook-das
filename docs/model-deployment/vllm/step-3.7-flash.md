@@ -6,7 +6,7 @@ Step-3.7-Flash 是 Step 系列大语言模型，本文档提供其在 vLLM 上�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Step-3.7-Flash-FP8-Channel](https://www.modelscope.cn/models/hygon/Step-3.7-Flash-FP8-Channel) | FP8 Channel | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-fp8-channel-ifb-bw1100-8x-vllm-021) |
 
