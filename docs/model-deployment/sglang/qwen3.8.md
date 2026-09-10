@@ -9,8 +9,14 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.5.12 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-sglang-0512) |
-| [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | W8A8 | 0.5.12 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-2x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100ai-2x-sglang-0512) |
+| [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
+|  | W8A8 | 0.5.12 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-sglang-0512) |
 |  | W8A8 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512-262k) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-k100ai-2x-sglang-0512) |
 
 ## 启动命令
 
@@ -43,6 +49,102 @@ sglang serve --model-path Qwen/Qwen3.8-27B \
     --reasoning-parser qwen3 \
     --mamba-scheduler-strategy extra_buffer \
     --kv-cache-dtype fp8_e4m3
+```
+
+### Qwen3.8-27B IFB BW1100 2x SGLang 0.5.12
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve --model-path Qwen/Qwen3.8-27B \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 --pp-size 1 \
+  --page-size 64 \
+  --mamba-scheduler-strategy extra_buffer \
+  --kv-cache-dtype fp8_e4m3 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
+```
+
+### Qwen3.8-27B IFB BW1000 2x SGLang 0.5.12
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve --model-path Qwen/Qwen3.8-27B \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 --pp-size 1 \
+  --page-size 64 \
+  --mamba-scheduler-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
+```
+
+### Qwen3.8-27B IFB K100_AI 2x SGLang 0.5.12
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_ROCM_USE_AITER_MOE=False
+export SGLANG_USE_CUDA_IPC_TRANSPORT=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve --model-path Qwen/Qwen3.8-27B \
+  --tp-size 2 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --pp-size 1 \
+  --mem-fraction-static 0.8 \
+  --max-prefill-tokens 45000 \
+  --mamba-scheduler-strategy extra_buffer \
+  --disable-custom-all-reduce \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
+```
+
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 2x SGLang 0.5.12
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 --pp-size 1 \
+  --page-size 64 \
+  --mamba-scheduler-strategy extra_buffer \
+  --kv-cache-dtype fp8_e4m3 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
 ```
 
 ### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1000 1x SGLang 0.5.12
@@ -101,6 +203,51 @@ sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
     --reasoning-parser qwen3 \
     --mamba-scheduler-strategy extra_buffer \
     --kv-cache-dtype fp8_e5m2
+```
+
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1000 2x SGLang 0.5.12
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 --pp-size 1 \
+  --page-size 64 \
+  --mamba-scheduler-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
+```
+
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB K100_AI 2x SGLang 0.5.12
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_ROCM_USE_AITER_MOE=False
+export SGLANG_USE_CUDA_IPC_TRANSPORT=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
+  --tp-size 2 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --pp-size 1 \
+  --mem-fraction-static 0.8 \
+  --mamba-scheduler-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --disable-custom-all-reduce
 ```
 
 ## API 调用
