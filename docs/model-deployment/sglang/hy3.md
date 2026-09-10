@@ -4,7 +4,7 @@
 
 ## 模型列表
 
-|模型权重|量化方式|SGLang 版本|推荐硬件|卡数|部署方式|启动命令|
+|模型权重|量化方式|SGLang 镜像|推荐硬件|卡数|部署方式|启动命令|
 |---|---|---|---|---|---|---|
 |[hygon/Hy3\-Channel\-INT8\-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8)|INT8 W8A8|0\.5\.12|BW1100|8|IFB\(tp8\)|**`>_`**|
 ||INT8 W8A8|0\.5\.12|BW1100|8|IFB \(tp8dp8\)|**`>_`**|
