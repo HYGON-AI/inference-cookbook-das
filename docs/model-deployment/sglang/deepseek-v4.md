@@ -14,6 +14,10 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | ScaleX40 | 16 | PD | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-pd-scalex40-16x-sglang-0512) |
+| [hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | BW1000 | 24 | PD | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-pd-bw1000-24x-sglang-0518) |
+| [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
+|  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | PD | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-pd-bw1000-24x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-p-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-d-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-bw1100-32x-sglang-0512) |
@@ -982,6 +986,809 @@ python3 -m sglang_router.launch_router \
   --decode http://<D_node0_ip>:<port1> \
   --host 0.0.0.0 \
   --port <router_port>
+```
+
+### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
+
+```bash
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_LIGHTOP_TOPK=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 8 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port 30001 \
+  --host 0.0.0.0 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --disable-radix-cache \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 8 \
+  --mem-fraction-static 0.9 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 128 \
+  --enable-metrics \
+  --swa-full-tokens-ratio 0.9 \
+  --moe-runner-backend aiter \
+  --quantization slimquant_marlin \
+  --dp 8 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --moe-a2a-backend none \
+  --tokenizer-worker-num 8
+```
+
+### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 PD BW1000 24x SGLang 0.5.18
+
+以下示例为 PD 分离部署：P 节点使用 8 张卡（CP8EP8），D 节点使用 2 个节点共 16 张卡（EP16DP16）。节点 IP、网卡等请按实际环境填写，`--dist-init-addr` 填写对应分组 node0 的 IP。
+
+#### P node 0
+
+```bash
+export PYTORCH_ALLOC_CONF=expandable_segments:True
+export SGLANG_SET_CPU_AFFINITY=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_PD_HIDDEN_POOL_TOKENS=140000
+export SGLANG_LIGHTOP_TOPK=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_GROUPGEMM=true
+export SGLANG_USE_FP8_W8A8_MOE=0
+unset SGLANG_DEEPEP_BF16_DISPATCH
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_TOPK_TRANSFORM_512_TORCH=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=0
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_USE_AITER_AG=0
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_DSV4_HCU_USE_BF16_FLASH_MLA=1
+export SGLANG_DSV4_HCU_USE_LIGHTOP_BF16_GATHER=1
+export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
+export NCCL_NET_PLUGIN=shca
+export NCCL_PLUGIN_P2P=ib
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export ROCSHMEM_MAX_NUM_CONTEXTS=48
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:$LD_LIBRARY_PATH
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --quantization slimquant_marlin \
+  --host 0.0.0.0 \
+  --port 30001 \
+  --tp 8 \
+  --dp 1 \
+  --enable-prefill-cp \
+  --cp-strategy interleave \
+  --ep 8 \
+  --moe-dense-tp-size 1 \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend aiter \
+  --deepep-mode normal \
+  --deepep-config /xxx/deepep-config.json \
+  --dist-init-addr <P_node0_ip>:5123 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --max-total-tokens 950000 \
+  --disaggregation-mode prefill \
+  --disaggregation-transfer-backend mooncake \
+  --disaggregation-bootstrap-port 8998 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+  --disable-cuda-graph \
+  --max-running-requests 16 \
+  --chunked-prefill-size 32768 \
+  --max-prefill-tokens 131072 \
+  --mem-fraction-static 0.87 \
+  --swa-full-tokens-ratio 0.9 \
+  --kv-cache-dtype auto \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --disable-flashinfer-autotune \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --model-loader-extra-config "{\"enable_multithread_load\": \"true\",\"num_threads\": 64}"
+```
+
+#### D node 0
+
+```bash
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:${LD_LIBRARY_PATH:-}
+export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
+export NCCL_NET_PLUGIN=shca
+export NCCL_PLUGIN_P2P=ib
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_LIGHTOP_TOPK=1
+export HSA_USE_SVM=0
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export SGLANG_PD_HIDDEN_RECV_POOL_TOKENS=8192
+export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
+export SGLANG_ENABLE_UNIFIED_RADIX_TREE=1
+export SGLANG_EXPERIMENTAL_DSV4_DECODE_RADIX_CACHE=1
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 16 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port 30002 \
+  --host 0.0.0.0 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 8 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --max-running-requests 128 \
+  --mem-fraction-static 0.88 \
+  --enable-metrics \
+  --swa-full-tokens-ratio 0.55 \
+  --quantization slimquant_marlin \
+  --dp 16 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --ep 16 \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend deep_gemm \
+  --deepep-mode auto \
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr <D_node0_ip>:5123 \
+  --disaggregation-mode decode \
+  --disaggregation-transfer-backend mooncake \
+  --disaggregation-bootstrap-port 8998 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+  --disaggregation-decode-enable-radix-cache
+```
+
+#### D node 1
+
+与 D node 0 相同，仅将 `--node-rank` 改为 `1`，`--dist-init-addr` 仍填写 D node 0 的 IP。
+
+```bash
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:${LD_LIBRARY_PATH:-}
+export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
+export NCCL_NET_PLUGIN=shca
+export NCCL_PLUGIN_P2P=ib
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_LIGHTOP_TOPK=1
+export HSA_USE_SVM=0
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export SGLANG_PD_HIDDEN_RECV_POOL_TOKENS=8192
+export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
+export SGLANG_ENABLE_UNIFIED_RADIX_TREE=1
+export SGLANG_EXPERIMENTAL_DSV4_DECODE_RADIX_CACHE=1
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 16 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port 30002 \
+  --host 0.0.0.0 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 8 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --max-running-requests 128 \
+  --mem-fraction-static 0.88 \
+  --enable-metrics \
+  --swa-full-tokens-ratio 0.55 \
+  --quantization slimquant_marlin \
+  --dp 16 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --ep 16 \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend deep_gemm \
+  --deepep-mode auto \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr <D_node0_ip>:5123 \
+  --disaggregation-mode decode \
+  --disaggregation-transfer-backend mooncake \
+  --disaggregation-bootstrap-port 8998 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+  --disaggregation-decode-enable-radix-cache
+```
+
+#### Router
+
+```bash
+python3 -m sglang_router.launch_router \
+  --pd-disaggregation \
+  --prefill http://<P_node0_ip>:30001 8998 \
+  --decode http://<D_node0_ip>:30002 \
+  --host 0.0.0.0 \
+  --port 10015 \
+  --policy round_robin \
+  --health-check-endpoint /v1/models \
+  --request-timeout-secs 18000 \
+  --worker-startup-timeout-secs 18000
+```
+
+### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel IFB BW1000 8x SGLang 0.5.18
+
+```bash
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_LIGHTOP_TOPK=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export SGLANG_W4A8_TPMOE_BACKEND=aiter
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 8 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port 30001 \
+  --host 0.0.0.0 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --disable-radix-cache \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --disable-flashinfer-autotune \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 8 \
+  --mem-fraction-static 0.9 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --max-running-requests 128 \
+  --enable-metrics \
+  --swa-full-tokens-ratio 0.9 \
+  --moe-runner-backend aiter \
+  --quantization slimquant_marlin \
+  --dp 8 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --moe-a2a-backend none \
+  --tokenizer-worker-num 8
+```
+
+### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel PD BW1000 24x SGLang 0.5.18
+
+以下示例为 PD 分离部署：P 节点使用 8 张卡（CP8EP8），D 节点使用 2 个节点共 16 张卡（EP16DP16）。节点 IP、网卡等请按实际环境填写，`--dist-init-addr` 填写对应分组 node0 的 IP。
+
+#### P node 0
+
+```bash
+export PYTORCH_ALLOC_CONF=expandable_segments:True
+unset SGLANG_PD_HIDDEN_POOL_TOKENS
+unset SGLANG_PD_HIDDEN_RECV_POOL_TOKENS
+export SGLANG_SET_CPU_AFFINITY=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_GROUPGEMM=true
+export SGLANG_USE_FP8_W8A8_MOE=0
+unset SGLANG_DEEPEP_BF16_DISPATCH
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_USE_AITER_AG=0
+export SGLANG_W4A8_EP_USE_GROUPGEMM=true
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
+export SGLANG_DSV4_HCU_USE_BF16_FLASH_MLA=0
+export SGLANG_DSV4_HCU_USE_LIGHTOP_BF16_GATHER=0
+export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1
+export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=false
+export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
+export SGLANG_LIGHTOP_TOPK=1
+export SGL_USE_LIGHTOP_TOPK_BACKAND=2
+export SGLANG_LIGHTOP_KVALLOC_KERNEL=1
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_LIGHTOP_DEQUANTIZE_K_CACHE_PAGED=1
+export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
+export NCCL_NET_PLUGIN=shca
+export NCCL_PLUGIN_P2P=ib
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export ROCSHMEM_MAX_NUM_CONTEXTS=48
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:$LD_LIBRARY_PATH
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --trust-remote-code \
+  --quantization slimquant_marlin \
+  --host 0.0.0.0 \
+  --port 30001 \
+  --tp 8 \
+  --dp 1 \
+  --enable-prefill-cp \
+  --cp-strategy interleave \
+  --ep 8 \
+  --moe-dense-tp-size 1 \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend aiter \
+  --deepep-mode normal \
+  --deepep-config /xxx/deepep_config.json \
+  --dist-init-addr <P_node0_ip>:5125 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --max-total-tokens 950000 \
+  --disaggregation-mode prefill \
+  --disaggregation-transfer-backend mooncake \
+  --disaggregation-bootstrap-port 8998 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+  --disable-cuda-graph \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --chunked-prefill-size 32768 \
+  --max-prefill-tokens 131072 \
+  --mem-fraction-static 0.75 \
+  --swa-full-tokens-ratio 0.55 \
+  --kv-cache-dtype auto \
+  --disable-flashinfer-autotune \
+  --model-loader-extra-config "{\"enable_multithread_load\": \"true\",\"num_threads\": 64}" \
+  --tokenizer-worker-num 8
+```
+
+#### D node 0
+
+```bash
+unset SGLANG_PD_HIDDEN_POOL_TOKENS
+unset SGLANG_PD_HIDDEN_RECV_POOL_TOKENS
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_ENABLE_HEALTH_ENDPOINT_GENERATION=0
+export SGLANG_UVICORN_WORKER_HEALTHCHECK_TIMEOUT=120
+export SGLANG_SET_CPU_AFFINITY=1
+export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_LIGHTOP_TOPK=1
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=1610612736
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=0
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=0
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_USE_W4A8_MASKED_HIPC=1
+export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=false
+export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
+export NCCL_NET_PLUGIN=shca
+export NCCL_PLUGIN_P2P=ib
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export HSA_USE_SVM=0
+export SGLANG_GROUPGEMM=true
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:${LD_LIBRARY_PATH:-}
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 16 \
+  --dp 16 \
+  --ep 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr <D_node0_ip>:5123 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port 30001 \
+  --host 0.0.0.0 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --max-total-tokens 950000 \
+  --disable-flashinfer-autotune \
+  --cuda-graph-max-bs 16 \
+  --mem-fraction-static 0.85 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --max-running-requests 160 \
+  --enable-metrics \
+  --swa-full-tokens-ratio 0.15 \
+  --quantization slimquant_marlin \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend deep_gemm \
+  --deepep-mode low_latency \
+  --disaggregation-mode decode \
+  --tokenizer-worker-num 16 \
+  --disaggregation-bootstrap-port 8998 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+  --enable-dp-attention-local-control-broadcast
+```
+
+#### D node 1
+
+说明：`--dist-init-addr` 填写 D node 0 的 IP，其余参数同 D node 0，仅 `--node-rank` 改为 `1`。
+
+```bash
+unset SGLANG_PD_HIDDEN_POOL_TOKENS
+unset SGLANG_PD_HIDDEN_RECV_POOL_TOKENS
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_ENABLE_HEALTH_ENDPOINT_GENERATION=0
+export SGLANG_UVICORN_WORKER_HEALTHCHECK_TIMEOUT=120
+export SGLANG_SET_CPU_AFFINITY=1
+export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_LIGHTOP_TOPK=1
+export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
+export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
+export SGLANG_USE_AITER_AG=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=1610612736
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_APPLY_CONFIG_BACKUP=none
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=0
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=0
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
+export SGLANG_USE_LIGHTOP_EP_SCATTER=1
+export SGLANG_USE_LIGHTOP_EP_GATHER=1
+export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export SGLANG_OPT_FP8_WO_A_GEMM=0
+export SGLANG_RAGGED_VERIFY_MODE=static
+export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
+export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
+export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
+export SGLANG_DSPARK_FAST_KERNEL=1
+export SGLANG_DSPARK_FAST_SAMPLING=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
+export SGLANG_USE_W4A8_MASKED_HIPC=1
+export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=false
+export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
+export NCCL_NET_PLUGIN=shca
+export NCCL_PLUGIN_P2P=ib
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export HSA_USE_SVM=0
+export SGLANG_GROUPGEMM=true
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:${LD_LIBRARY_PATH:-}
+
+sglang serve \
+  --reasoning-parser deepseek-v4 \
+  --tool-call-parser deepseekv4 \
+  --tp-size 16 \
+  --dp 16 \
+  --ep 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr <D_node0_ip>:5123 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --port 30001 \
+  --host 0.0.0.0 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}' \
+  --trust-remote-code \
+  --chunked-prefill-size 32768 \
+  --max-total-tokens 950000 \
+  --disable-flashinfer-autotune \
+  --cuda-graph-max-bs 16 \
+  --mem-fraction-static 0.85 \
+  --speculative-algorithm DSPARK \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --max-running-requests 160 \
+  --enable-metrics \
+  --swa-full-tokens-ratio 0.15 \
+  --quantization slimquant_marlin \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --moe-a2a-backend deepep \
+  --moe-runner-backend deep_gemm \
+  --deepep-mode low_latency \
+  --disaggregation-mode decode \
+  --tokenizer-worker-num 16 \
+  --disaggregation-bootstrap-port 8998 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+  --enable-dp-attention-local-control-broadcast
+```
+
+#### Router
+
+```bash
+python3 -m sglang_router.launch_router \
+  --pd-disaggregation \
+  --prefill http://<P_node0_ip>:30001 8998 \
+  --decode http://<D_node0_ip>:30001 \
+  --host 0.0.0.0 \
+  --port 10015 \
+  --policy round_robin \
+  --health-check-endpoint /v1/models \
+  --request-timeout-secs 18000 \
+  --worker-startup-timeout-secs 18000
 ```
 
 ### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB  BW1100 16x SGLang 0.5.12
