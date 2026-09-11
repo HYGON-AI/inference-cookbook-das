@@ -8,12 +8,13 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB(TP) | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281-tp) |
-|  | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB(PP) | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281-pp) |
+| [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 
 ## 启动命令
 
-### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1 TP
+### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+#### TP 方式
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
@@ -36,7 +37,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}'
 ```
 
-### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1 PP
+#### PP 方式
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
