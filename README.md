@@ -13,6 +13,10 @@
 - **多模态模型 (VLM)** — 视觉语言模型、图像生成、语音识别等
 - **全模态模型 (Omni)** — 文本+图像+音频统一理解与生成
 
+## 🐳 Docker 镜像列表
+
+[查看推荐 Docker 镜像及拉取命令](docs/model-deployment/docker_images.md)
+
 ## 📋 模型列表
 
 ✅ 已验证 &nbsp;|&nbsp; 🚧 开发中 &nbsp;|&nbsp; `-` 暂未验证
@@ -28,14 +32,14 @@
   </tr>
   <tbody>
     <tr>
-      <td rowspan="20" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
+      <td rowspan="22" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
       <td rowspan="2">Qwen3.8</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.8.md">✅</a></td>
+      <td align="center"><a href="docs/model-deployment/sglang/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.8.md">✅</a></td>
     </tr>
     <tr>
       <td rowspan="2">Qwen3.6</td>
@@ -117,6 +121,15 @@
     <tr>
       <td>SGLang</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Qwen3-TTS</td>
+      <td>vLLM-Omni</td>
+      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-tts.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-tts.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang-Omni</td>
+      <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
       <td rowspan="2" align="center">inclusionAI</td>
@@ -396,4 +409,3 @@
 ## 🤝 贡献
 
 欢迎提交 Issue 和 PR！详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
