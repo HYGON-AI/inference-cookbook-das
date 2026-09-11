@@ -26,9 +26,9 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --gpu-memory-utilization 0.95 \
-  --max-model-len 4096 \
+  --max-model-len 8192 \
   --max-num-seqs 16 \
-  --max-num-batched-tokens 4096 \
+  --max-num-batched-tokens 8192 \
   --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
   --reasoning-parser hy_v4 \
   --enable-auto-tool-choice \
@@ -50,9 +50,9 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --gpu-memory-utilization 0.95 \
-  --max-model-len 4096 \
+  --max-model-len 8192 \
   --max-num-seqs 16 \
-  --max-num-batched-tokens 4096 \
+  --max-num-batched-tokens 8192 \
   --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
   --reasoning-parser hy_v4 \
   --enable-auto-tool-choice \
