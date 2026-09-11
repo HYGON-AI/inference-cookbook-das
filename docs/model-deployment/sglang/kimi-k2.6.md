@@ -8,7 +8,7 @@ Kimi K2.6 是一个开源的原生多模态智能体模型，在长周期编码�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [moonshotai/Kimi-K2.6](https://www.modelscope.cn/models/moonshotai/Kimi-K2.6) | INT4 W4A16 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | 1P1D | [**`>_`**](#kimi-k26-1p1d-scalex40-3g-24x-sglang-0512) |
+| [moonshotai/Kimi-K2.6](https://www.modelscope.cn/models/moonshotai/Kimi-K2.6) | INT4 W4A16 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | 1P1D | [**`>_`**](#kimi-k26-pd-scalex40-3g-24x-sglang-0512) |
 |  | INT4 W4A16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#kimi-k26-ifb-bw1100-8x-sglang-0512) |
 |  | INT4 W4A16 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#kimi-k26-ifb-bw1000-16x-sglang-0512) |
 |  | INT4 W4A16 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k26-ifb-bw1100-8x-sglang-0510) |
@@ -16,7 +16,7 @@ Kimi K2.6 是一个开源的原生多模态智能体模型，在长周期编码�
 
 ## 启动命令
 
-### Kimi-K2.6 1P1D scaleX40-3G 24x SGLang 0.5.12
+### Kimi-K2.6 PD scaleX40-3G 24x SGLang 0.5.12
 
 #### EPLB 配置参考：[EPLB](../../optimization/static-eplb-sglang.md)。
 
