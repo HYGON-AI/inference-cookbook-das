@@ -8,7 +8,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-vllm-028) |
+| [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-vllm-0281) |
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.25 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-025) |
 |  | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-021) |
@@ -21,17 +21,20 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 
 ## 启动命令
 
-### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x vLLM 0.28
+### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x vLLM 0.28.1
 
 ```bash
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
-  -tp 4 \
-  --moe-backend aiter \
   --trust-remote-code \
-  --attention-backend FLASH_ATTN  \
-  --max-num-batched-tokens 10240 \
-  --speculative-config.method mtp \
-  --speculative-config.num_speculative_tokens 3
+  --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 32 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}'
 ```
 
 ### Qwen3.8-27B IFB BW1000 2x vLLM 0.25
