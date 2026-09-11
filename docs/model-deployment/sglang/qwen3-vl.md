@@ -162,8 +162,7 @@ sglang serve \
   --kv-cache-dtype fp8_e4m3 \
   --mem-fraction-static 0.9 \
   --attention-backend fa3 \
-  --mm-attention-backend fa3 \
-  --host 0.0.0.0
+  --mm-attention-backend fa3
 ```
 
 ### Qwen3-VL-32B-Instruct IFB BW1000 4x SGLang 0.5.12
@@ -209,8 +208,7 @@ sglang serve \
   --kv-cache-dtype fp8_e5m2 \
   --mem-fraction-static 0.9 \
   --attention-backend fa3 \
-  --mm-attention-backend fa3 \
-  --host 0.0.0.0
+  --mm-attention-backend fa3
 ```
 
 ### Qwen3-VL-32B-Instruct IFB K100_AI 4x SGLang 0.5.12
@@ -256,7 +254,6 @@ sglang serve \
   --mem-fraction-static 0.9 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
-  --host "$(hostname -I | awk '{print $1}')" \
   --tool-call-parser qwen
 ```
 
