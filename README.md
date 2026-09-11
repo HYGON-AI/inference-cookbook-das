@@ -188,7 +188,12 @@
       <td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="8" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
+      <td rowspan="9" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
+      <td>GLM-5.3</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.3.md">✅</a></td>
+    </tr>
+    <tr>
       <td rowspan="2">GLM-5.2</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td>
