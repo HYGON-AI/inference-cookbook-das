@@ -13,6 +13,10 @@
 - **多模态模型 (VLM)** — 视觉语言模型、图像生成、语音识别等
 - **全模态模型 (Omni)** — 文本+图像+音频统一理解与生成
 
+## 🐳 Docker 镜像列表
+
+[查看推荐 Docker 镜像及拉取命令](docs/model-deployment/docker_images.md)
+
 ## 📋 模型列表
 
 ✅ 已验证 &nbsp;|&nbsp; 🚧 开发中 &nbsp;|&nbsp; `-` 暂未验证
@@ -405,4 +409,3 @@
 ## 🤝 贡献
 
 欢迎提交 Issue 和 PR！详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
