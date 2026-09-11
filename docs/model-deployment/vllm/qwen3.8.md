@@ -112,6 +112,9 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --attention-backend FLASH_ATTN \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 32
