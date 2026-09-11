@@ -33,7 +33,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 8 \
+  --max-num-seqs 32 \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}'
 ```
 
