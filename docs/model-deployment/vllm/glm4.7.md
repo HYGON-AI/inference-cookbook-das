@@ -6,7 +6,7 @@ GLM-4.7 是智谱 AI 推出的大语言模型，支持长上下文和高效推�
 
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [GLM-4.7-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-4.7-Channel-INT8-w8a8) | INT8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
 |                                                                               | INT8 W8A8 | 0.21 | BW1000 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-021) |
@@ -66,7 +66,6 @@ export VLLM_ROCM_USE_AITER_MOE=0
 
 vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
   -tp 8 \
-  -q slimquant_marlin \
   --trust-remote-code \
   --attention-backend TRITON_ATTN \
   --dtype bfloat16 \
