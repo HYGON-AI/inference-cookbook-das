@@ -417,10 +417,10 @@ python3 -m sglang.launch_server \
 ```
 python3 -m sglang_router.launch_router \
   --pd-disaggregation \
-  --prefill http://<P_node_ip>:30000 \
-  --decode http://<D_node_ip>:30000 \
+  --prefill http://<P_node_ip>:<port1> \
+  --decode http://<D_node_ip>:<port1>\
   --policy round_robin \
-  --port 30020
+  --port 30001
 ```
 
 ### Kimi-K2.6 IFB BW1100 8x SGLang 0.5.12
