@@ -379,7 +379,6 @@ export SGLANG_USE_FP8_W8A8_MOE=0
 export SGLANG_ROCM_USE_AITER_MOE=1
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_AITER_AR=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
 export SGLANG_USE_VARLEN_FWD_UNIFIED=1
 
 sglang serve \
@@ -387,7 +386,7 @@ sglang serve \
   --pp-size 1 \
   --dp-size 2 \
   --tp-size 4 \
-  --page-size 64 \
+  --page-size 128 \
   --trust-remote-code \
   --mem-fraction-static 0.85 \
   --max-running-requests 128 \
@@ -413,7 +412,6 @@ export SGLANG_USE_FP8_W8A8_MOE=0
 export SGLANG_ROCM_USE_AITER_MOE=1
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_AITER_AR=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
 export SGLANG_USE_VARLEN_FWD_UNIFIED=1
 
 sglang serve \
@@ -421,9 +419,11 @@ sglang serve \
   --pp-size 1 \
   --dp-size 1 \
   --tp-size 8 \
-  --page-size 64 \
+  --page-size 128 \
   --trust-remote-code \
   --mem-fraction-static 0.85 \
+  --quantization w8a8_int8 \
+  --moe-runner-backend lightop \
   --max-running-requests 128 \
   --tool-call-parser mimo \
   --reasoning-parser mimo \
