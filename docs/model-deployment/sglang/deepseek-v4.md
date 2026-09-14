@@ -11,7 +11,7 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 | [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
-|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P2D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p2d-bw1100-24x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0512) |
@@ -256,7 +256,7 @@ sglang serve \
   --enable-metrics
 ```
 
-### DeepSeek-V4-Flash-Channel-FP8-w8a8 1P2D BW1100 24x SGLang 0.5.18
+### DeepSeek-V4-Flash-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
