@@ -106,6 +106,7 @@ vllm serve Qwen/Qwen3.8-27B \
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --trust-remote-code \
