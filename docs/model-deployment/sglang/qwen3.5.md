@@ -169,14 +169,6 @@ sglang serve --model-path Qwen/Qwen3.5-27B \
 ### Qwen3.5-35B-A3B IFB BW1000 2x SGLang 0.5.18
 
 ```bash
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
-export SGLANG_USE_LIGHTOP=1
-export SGLANG_USE_CAUSAL_CONV1D=1
-export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_CUDA_IPC_TRANSPORT=1
-export SGLANG_ROCM_USE_AITER_MOE=1
-
 sglang serve \
   --model-path Qwen/Qwen3.5-35B-A3B \
   --dtype bfloat16 \
