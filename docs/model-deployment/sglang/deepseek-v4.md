@@ -18,9 +18,9 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 |  | FP8 W8A8 | 0.5.12 | ScaleX40 | 16 | PD | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-pd-scalex40-16x-sglang-0512) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
 | [hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 24 | PD | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-pd-bw1000-24x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-1p1d-bw1000-24x-sglang-0518) |
 | [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
-|  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | PD | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-pd-bw1000-24x-sglang-0518) |
+|  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-p-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-d-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-bw1100-32x-sglang-0512) |
@@ -1536,6 +1536,8 @@ sglang serve \
   --tool-call-parser deepseekv4 \
   --reasoning-parser deepseek-v4 \
   --model-loader-extra-config '{"enable_multithread_load": true, "num_threads": 16}'
+```
+
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
 
 ```bash
@@ -1585,8 +1587,6 @@ sglang serve \
   --tp-size 8 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --port 30001 \
-  --host 0.0.0.0 \
   --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
@@ -1611,7 +1611,9 @@ sglang serve \
   --tokenizer-worker-num 8
 ```
 
-### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 PD BW1000 24x SGLang 0.5.18
+### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 1P1D BW1000 24x SGLang 0.5.18
+
+网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
 以下示例为 PD 分离部署：P 节点使用 8 张卡（CP8EP8），D 节点使用 2 个节点共 16 张卡（EP16DP16）。节点 IP、网卡等请按实际环境填写，`--dist-init-addr` 填写对应分组 node0 的 IP。
 
@@ -1677,10 +1679,11 @@ sglang serve \
   --reasoning-parser deepseek-v4 \
   --tool-call-parser deepseekv4 \
   --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --quantization slimquant_marlin \
-  --host 0.0.0.0 \
-  --port 30001 \
+  --host <P_node0_ip> \
+  --port 30000 \
   --tp 8 \
   --dp 1 \
   --enable-prefill-cp \
@@ -1778,9 +1781,10 @@ sglang serve \
   --tp-size 16 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --port 30002 \
-  --host 0.0.0.0 \
+  --port 30000 \
+  --host <D_node0_ip> \
   --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -1879,9 +1883,10 @@ sglang serve \
   --tp-size 16 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --port 30002 \
-  --host 0.0.0.0 \
+  --port 30000 \
+  --host <D_node1_ip> \
   --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -1920,10 +1925,10 @@ sglang serve \
 ```bash
 python3 -m sglang_router.launch_router \
   --pd-disaggregation \
-  --prefill http://<P_node0_ip>:30001 8998 \
-  --decode http://<D_node0_ip>:30002 \
+  --prefill http://<P_node0_ip>:30000 \
+  --decode http://<D_node0_ip>:30000 \
   --host 0.0.0.0 \
-  --port 10015 \
+  --port 30001 \
   --policy round_robin \
   --health-check-endpoint /v1/models \
   --request-timeout-secs 18000 \
@@ -1980,8 +1985,6 @@ sglang serve \
   --tp-size 8 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --port 30001 \
-  --host 0.0.0.0 \
   --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --disable-radix-cache \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
@@ -2006,7 +2009,9 @@ sglang serve \
   --tokenizer-worker-num 8
 ```
 
-### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel PD BW1000 24x SGLang 0.5.18
+### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel 1P1D BW1000 24x SGLang 0.5.18
+
+网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
 以下示例为 PD 分离部署：P 节点使用 8 张卡（CP8EP8），D 节点使用 2 个节点共 16 张卡（EP16DP16）。节点 IP、网卡等请按实际环境填写，`--dist-init-addr` 填写对应分组 node0 的 IP。
 
@@ -2074,10 +2079,11 @@ sglang serve \
   --reasoning-parser deepseek-v4 \
   --tool-call-parser deepseekv4 \
   --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
   --quantization slimquant_marlin \
-  --host 0.0.0.0 \
-  --port 30001 \
+  --host <P_node0_ip> \
+  --port 30000 \
   --tp 8 \
   --dp 1 \
   --enable-prefill-cp \
@@ -2186,9 +2192,10 @@ sglang serve \
   --dist-init-addr <D_node0_ip>:5123 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --port 30001 \
-  --host 0.0.0.0 \
+  --port 30000 \
+  --host <D_node0_ip> \
   --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -2293,9 +2300,10 @@ sglang serve \
   --dist-init-addr <D_node0_ip>:5123 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --port 30001 \
-  --host 0.0.0.0 \
+  --port 30000 \
+  --host <D_node1_ip> \
   --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -2329,10 +2337,10 @@ sglang serve \
 ```bash
 python3 -m sglang_router.launch_router \
   --pd-disaggregation \
-  --prefill http://<P_node0_ip>:30001 8998 \
-  --decode http://<D_node0_ip>:30001 \
+  --prefill http://<P_node0_ip>:30000 \
+  --decode http://<D_node0_ip>:30000 \
   --host 0.0.0.0 \
-  --port 10015 \
+  --port 30001 \
   --policy round_robin \
   --health-check-endpoint /v1/models \
   --request-timeout-secs 18000 \
