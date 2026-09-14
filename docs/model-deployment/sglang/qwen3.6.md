@@ -225,6 +225,7 @@ sglang serve \
   --speculative-num-draft-tokens 4 \
   --mamba-scheduler-strategy extra_buffer \
   --chunked-prefill-size -1 \
+  --kv-cache-dtype auto \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
