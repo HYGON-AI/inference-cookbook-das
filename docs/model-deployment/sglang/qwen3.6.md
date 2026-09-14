@@ -16,7 +16,7 @@ Qwen3.6 模型相较于 Qwen3.5 模型，**在智能体编程能力、推理速�
 | [hygon/Qwen3.6-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0512) |
-| [Qwen/Qwen3.6-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.6-35B-A3B) | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-sglang-0518) |
+| [Qwen/Qwen3.6-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.6-35B-A3B) | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-sglang-0518) |
 |                                                                                             | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1100-2x-sglang-0512) |
 |                                                                                             | BF16 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-sglang-0512) |
 |                                                                                             | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-k100_ai-2x-sglang-0512) |
