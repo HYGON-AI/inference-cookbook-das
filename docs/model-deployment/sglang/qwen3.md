@@ -15,8 +15,8 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |                                                                     | BF16 | [0.5.12](../docker_images.md) | BW1000 | 1 | IFB | [**\`>_\`**](#qwen3-4b-ifb-bw1000-1x-sglang-0512) |
 |                                                                     | BF16 | [0.5.12](../docker_images.md) | K100_AI | 1 | IFB | [**\`>_\`**](#qwen3-4b-ifb-k100_ai-1x-sglang-0512) |
 | [Qwen/Qwen3-4B-Thinking-2507](https://www.modelscope.cn/models/Qwen/Qwen3-4B-Thinking-2507) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1100-1x-sglang-0512) |
-| [Qwen/Qwen3-8B](https://www.modelscope.cn/models/Qwen/Qwen3-8B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1100-1x-sglang-0518) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0518) |
+| [Qwen/Qwen3-8B](https://www.modelscope.cn/models/Qwen/Qwen3-8B) | BF16 | 0.5.18 | BW1100 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1100-1x-sglang-0518) |
+|  | BF16 | 0.5.18 | BW1000 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1100-1x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0512) |
 |  | BF16 | 0.5.10 | BW1000 | 1x | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0510) |
