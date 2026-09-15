@@ -36,7 +36,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-prefix-caching \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 32 \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}'
 ```
@@ -56,7 +56,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --attention-backend FLASH_ATTN  \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-num-batched-tokens   10240 \
+  --max-num-batched-tokens 8192
 ```
 
 ### Qwen3.8-27B IFB BW1000 2x vLLM 0.25
@@ -83,7 +83,7 @@ vllm serve Qwen/Qwen3.8-27B \
   -tp 1 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --compilation-config '{"cudagraph_mode":"FULL","max_cudagraph_capture_size":2048}' \
@@ -99,7 +99,7 @@ vllm serve Qwen/Qwen3.8-27B \
   -tp 2 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --compilation-config '{"cudagraph_mode":"FULL","max_cudagraph_capture_size":2048}' \
@@ -133,7 +133,7 @@ vllm serve Qwen/Qwen3.8-27B \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
   --no-enable-prefix-caching \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --compilation-config '{"cudagraph_mode":"FULL","max_cudagraph_capture_size":2048}' \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3
@@ -154,7 +154,7 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 32
 ```
 
@@ -165,7 +165,7 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   -tp 1 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   -q slimquant_marlin \
@@ -183,7 +183,7 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   -tp 1 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   -q slimquant_marlin \
@@ -201,7 +201,7 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   -tp 2 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   -q slimquant_marlin \
@@ -242,7 +242,7 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   -tp 1 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --compilation-config '{"cudagraph_mode":"FULL","max_cudagraph_capture_size":2048}' \
   --speculative-config.method mtp \
   --speculative-config.quantization "slimquant_marlin" \
@@ -257,7 +257,7 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   -tp 2 \
   --trust-remote-code \
   --attention-backend FLASH_ATTN_CUSTOM \
-  --max-num-batched-tokens 10240 \
+  --max-num-batched-tokens 8192 \
   --compilation-config '{"cudagraph_mode":"FULL","max_cudagraph_capture_size":2048}' \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
