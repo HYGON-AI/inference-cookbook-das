@@ -46,17 +46,18 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | [0.18](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-k100ai-1x-vllm-018) |
-| [Qwen/Qwen3-8B](https://www.modelscope.cn/models/Qwen/Qwen3-8B) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3-8B](https://www.modelscope.cn/models/Qwen/Qwen3-8B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | [0.18](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-8b-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen3-8B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-8B-Channel-INT8-w8a8) | INT8 W8A8 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
-|  | INT8 W8A8 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
+| [Qwen/Qwen3-8B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-8B-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-021) |
 |  | INT8 W8A8 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1100-1x-vllm-018) |
 |  | INT8 W8A8 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-8b-channel-int8-w8a8-ifb-bw1100-1x-vllm-018-hotfix) |
@@ -728,6 +729,24 @@ vllm serve Qwen/Qwen3-8B-Channel-INT8-w8a8 \
   --max-num-batched-tokens 10240 \
   --q slimquant_marlin \
   --attention-backend FLASH_ATTN_CUSTOM
+```
+
+### Qwen3-8B-Channel-INT8-w8a8 IFB K100_AI 1x vLLM 0.21
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+export VLLM_ROCM_USE_AITER_MOE=0
+
+vllm serve hygon/Qwen3-8B-Channel-INT8-w8a8 \
+  -tp 1 \
+  --trust-remote-code \
+  --attention-backend TRITON_ATTN \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --reasoning-parser qwen3
 ```
 
 ### Qwen3-8B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.18
