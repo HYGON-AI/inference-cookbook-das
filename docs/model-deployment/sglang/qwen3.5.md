@@ -15,7 +15,8 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0510) |
 |                                                                       | BF16 | 0.5.10 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-sglang-0510) |
-| [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0512) |
+| [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-sglang-0518) |
+|                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0510) |
@@ -163,6 +164,30 @@ sglang serve --model-path Qwen/Qwen3.5-27B \
     --speculative-num-steps 1 \
     --speculative-eagle-topk 1 \
     --speculative-num-draft-tokens 2
+```
+
+### Qwen3.5-35B-A3B IFB BW1000 2x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3.5-35B-A3B \
+  --dtype bfloat16 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --mem-fraction-static 0.9 \
+  --page-size 64 \
+  --tp-size 2 \
+  --pp-size 1 \
+  --trust-remote-code \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --mamba-scheduler-strategy extra_buffer \
+  --chunked-prefill-size -1 \
+  --kv-cache-dtype auto \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
 ```
 
 ### Qwen3.5-35B-A3B IFB BW1100 2x SGLang 0.5.12
