@@ -17,7 +17,8 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1100 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-int8-w8a8-1p1d-bw1100-16x) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-int8-w8a8-ifb-bw1000-8x) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1000 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-int8-w8a8-1p1d-bw1000-16x) |
-| [hygon/MiniMax-M2.5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
+| [hygon/MiniMax-M2.5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 8 | PD | [**`>_`**](#minimax-m25-channel-fp8-w8a8-pd-scalex40-3g-8x-sglang-0512) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-fp8-w8a8-ifb-bw1100-8x) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-fp8-w8a8-1p1d-bw1100-16x) |
 
@@ -213,6 +214,151 @@ sglang serve \
   --max-running-requests 512 \
   --context-length 131072 \
   --port 30000
+```
+
+### MiniMax-M2.5-Channel-FP8-w8a8 PD scaleX40-3G 8x SGLang 0.5.12
+
+#### P node
+
+```bash
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_USE_AITER_AR=0
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export VLLM_USE_LIGHTOP_MOE_ALIGN=1
+export LMSLIM_USE_LIGHTOP=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export NCCL_SIMPLE_CHANNELS=20
+export RCCL_P2P_XHCL_CHANNEL_NUM=16
+export RCCL_COLL_XHCL_CHANNEL_NUM=16
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export HSA_FORCE_FINE_GRAIN_PCIE=1
+export ROC_AQL_QUEUE_SIZE=131072
+export NCCL_PLUGIN_P2P=ib
+export NCCL_IB_DISABLE=0
+unset NCCL_IB_GID_INDEX
+export NCCL_NET_PLUGIN=shca
+export NCCL_IB_HCA=shca_0:1,shca_1:1,shca_2:1,shca_4:1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+unset MC_GID_INDEX
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export W8A8_SUPPORT_METHODS=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=0
+export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_4
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_4
+export SGLANG_USE_FUSED_RMS_QUANT=0
+
+sglang serve \
+  --model-path hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
+  --chunked-prefill-size 61568 \
+  --max-prefill-tokens 61568 \
+  --max-running-requests 256 \
+  --context-length 131072 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
+  --disaggregation-mode prefill \
+  --load-balance-method round_robin \
+  --host <P_node_ip> \
+  --port 30000 \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 8}' \
+  --quantization w8a8_fp8 \
+  --kv-cache-dtype fp8_e4m3 \
+  --trust-remote-code \
+  --page-size 64 \
+  --dtype bfloat16 \
+  --tp-size 4 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --tool-call-parser minimax-m2 \
+  --reasoning-parser minimax-append-think \
+  --skip-server-warmup \
+  --mem-fraction-static 0.9 \
+  --attention-backend fa3
+```
+
+#### D node
+
+```bash
+export NCCL_NET_PLUGIN=shca
+export NCCL_IB_HCA=shca_0:1,shca_1:1,shca_2:1,shca_4:1
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_USE_AITER_AR=0
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export VLLM_USE_LIGHTOP_MOE_ALIGN=1
+export LMSLIM_USE_LIGHTOP=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export NCCL_SIMPLE_CHANNELS=20
+export RCCL_P2P_XHCL_CHANNEL_NUM=16
+export RCCL_COLL_XHCL_CHANNEL_NUM=16
+export SGLANG_USE_FP32GEMM_GATE_CUSTOM=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_4
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_4
+
+sglang serve \
+  --model-path hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
+  --chunked-prefill-size 61568 \
+  --max-prefill-tokens 61568 \
+  --max-running-requests 512 \
+  --context-length 131072 \
+  --disaggregation-mode decode \
+  --prefill-round-robin-balance \
+  --host <D_node_ip> \
+  --port 30000 \
+  --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
+  --disable-radix-cache \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 2}' \
+  --quantization w8a8_fp8 \
+  --kv-cache-dtype fp8_e4m3 \
+  --trust-remote-code \
+  --page-size 64 \
+  --dtype bfloat16 \
+  --tp-size 4 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --tool-call-parser minimax-m2 \
+  --reasoning-parser minimax-append-think \
+  --mem-fraction-static 0.90 \
+  --attention-backend fa3 \
+  --cuda-graph-max-bs 512
+```
+
+#### Router
+
+```bash
+python3 -m sglang_router.launch_router \
+  --pd-disaggregation \
+  --prefill http://<P_node_ip>:30000 \
+  --decode http://<D_node_ip>:30000 \
+  --policy cache_aware \
+  --port 30001
 ```
 
 ### MiniMax-M2.5-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12
