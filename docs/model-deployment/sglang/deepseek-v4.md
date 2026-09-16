@@ -2423,7 +2423,7 @@ sglang serve \
   --ep-num-redundant-experts 8 \
   --eplb-algorithm deepseek \
   --host 0.0.0.0 \
-  --port <port1>\
+  --port <port1>
 ```
 
 #### Node 1
@@ -2499,7 +2499,7 @@ sglang serve \
   --ep-num-redundant-experts 8 \
   --eplb-algorithm deepseek \
   --host 0.0.0.0 \
-  --port <port1>\
+  --port <port1>
 ```
 
 ### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB D BW1100 16x SGLang 0.5.12
