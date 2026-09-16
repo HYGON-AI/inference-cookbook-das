@@ -21,9 +21,9 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
 |  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
-| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-p-bw1100-16x-sglang-0512) |
+| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-d-bw1100-16x-sglang-0512) |
-|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(EP16DP16-MTP314) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16-mtp314) |
+|  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16-MTP314) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16-mtp314) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-bw1100-32x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-scalex40-3g-32x-sglang-0512) |
 
@@ -2348,34 +2348,23 @@ sglang serve \
   --model-loader-extra-config '{"enable_multithread_load": true, "num_threads": 16}'
 ```
 
-### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB  BW1100 16x SGLang 0.5.12
+### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.12 (CP8EP8PP2)
 
-主节点：`NODE_RANK="${NODE_RANK:-0}"`
-
-从节点：`NODE_RANK="${NODE_RANK:-1}"`
+#### Node 0
 
 ```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-NODE_RANK="${NODE_RANK:-0}"
-if [[ $# -gt 0 ]]; then
-  NODE_RANK="$1"
-  shift
-fi
-
+export SGLANG_DSV4_REQUEST_SCOPED_C128_STATE=true
+export SGLANG_OPT_USE_ONLINE_COMPRESS=false
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9 #按照实际
-export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config #按照实际
+export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
 export MC_IB_GID_INDEX=0
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9 #按照实际
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1 #按照实际
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
 export ROCSHMEM_IB_GID_INDEX=0
-export NCCL_SOCKET_IFNAME=xxxxx  #按照实际
-export GLOO_SOCKET_IFNAME=xxxxx  #按照实际
-export MODEL_PATH="${MODEL_PATH:-/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8}"
-export TOKENIZER_PATH="${TOKENIZER_PATH:-$MODEL_PATH}"
+export NCCL_SOCKET_IFNAME=xxxxx
+export GLOO_SOCKET_IFNAME=xxxxx
 export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-0,1,2,3,4,5,6,7}"
 export SGLANG_TORCH_PROFILER_DIR="/home/work/prof"
 export SGLANG_OPT_USE_FUSED_STORE_CACHE="${SGLANG_OPT_USE_FUSED_STORE_CACHE:-false}"
@@ -2404,55 +2393,22 @@ export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FP8_W8A8_MOE=1
 export SGLANG_USE_DEEPGEMM_MOE=1
-export SGLANG_ROCM_USE_AITER_MOE=1
-export PP="${PP:-2}"
-export DP="${DP:-1}"
-export TP="${TP:-8}"
-export EP="${EP:-8}"
-export NNODES="${NNODES:-2}"
-export DIST_INIT_ADDR="${DIST_INIT_ADDR:-13.13.4.20:20002}" #按照实际
-export HOST="${HOST:-0.0.0.0}"
-export PORT="${PORT:-30002}" #按照实际
-export CHUNKED_PREFILL_SIZE="${CHUNKED_PREFILL_SIZE:--1}"
-export MEM_FRACTION_STATIC="${MEM_FRACTION_STATIC:-0.93}"
-export MAX_RUNNING_REQUESTS="${MAX_RUNNING_REQUESTS:-128}"
-
-export SERVE_LOG="./logs/sgl_rank${NODE_RANK}_$(date +%Y%m%d_%H%M%S).log"
-SERVE_LOG_DIR="${SERVE_LOG%/*}"
-mkdir -p "$SERVE_LOG_DIR" "$SGLANG_TORCH_PROFILER_DIR"
-: > "${SERVE_LOG}"
-exec > >(tee -a "${SERVE_LOG}") 2>&1
-
-echo "== Starting DeepSeek V4 Pro multi-node =="
-echo "host: $(hostname)"
-echo "node_rank: ${NODE_RANK}"
-echo "nnodes: ${NNODES}"
-echo "dist_init_addr: ${DIST_INIT_ADDR}"
-echo "model: ${MODEL_PATH}"
-echo "tokenizer: ${TOKENIZER_PATH}"
-echo "pp: ${PP}"
-echo "tp: ${TP}"
-echo "ep: ${EP}"
-echo "dp: ${DP}"
-echo "devices: ${HIP_VISIBLE_DEVICES}"
-echo "port: ${PORT}"
-echo "log: ${SERVE_LOG}"
 
 sglang serve \
   --trust-remote-code \
-  --model-path "${MODEL_PATH}" \
-  --tokenizer-path "${TOKENIZER_PATH}" \
-  --pp-size "${PP}" \
-  --tp-size "${TP}" \
-  --ep-size "${EP}" \
-  --nnodes "${NNODES}" \
-  --node-rank "${NODE_RANK}" \
-  --dist-init-addr "${DIST_INIT_ADDR}" \
+  --model-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --tokenizer-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --pp-size 2 \
+  --tp-size 8 \
+  --ep-size 8 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr <node0_ip>:<port0> \
   --dist-timeout 1800 \
   --watchdog-timeout 3600 \
-  --chunked-prefill-size "${CHUNKED_PREFILL_SIZE}" \
-  --mem-fraction-static "${MEM_FRACTION_STATIC}" \
-  --max-running-requests "${MAX_RUNNING_REQUESTS}" \
+  --chunked-prefill-size 16384 \
+  --mem-fraction-static 0.93 \
+  --max-running-requests 128 \
   --disable-flashinfer-autotune \
   --disable-radix-cache \
   --deepep-config /xxx/ep_config.json \
@@ -2462,13 +2418,88 @@ sglang serve \
   --deepep-mode normal \
   --max-total-tokens 1048576 \
   --kv-cache-dtype fp8_e4m3 \
-  --init-expert-location /xxx/expert_distribution.pt \ #见上述EPLB配置参考 
+  --init-expert-location /xxx/expert_distribution.pt \
   --ep-dispatch-algorithm static \
   --ep-num-redundant-experts 8 \
   --eplb-algorithm deepseek \
-  --host "${HOST}" \
-  --port "${PORT}" \
-  "$@"
+  --host 0.0.0.0 \
+  --port <port1>\
+```
+
+#### Node 1
+
+```bash
+export SGLANG_DSV4_REQUEST_SCOPED_C128_STATE=true
+export SGLANG_OPT_USE_ONLINE_COMPRESS=false
+export ROCSHMEM_MAX_NUM_CONTEXTS=60
+export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export ROCSHMEM_TOPO_FILE_FORCE=/xxx/topo.config
+export MC_IB_GID_INDEX=0
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export ROCSHMEM_IB_GID_INDEX=0
+export NCCL_SOCKET_IFNAME=xxxxx
+export GLOO_SOCKET_IFNAME=xxxxx
+export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-0,1,2,3,4,5,6,7}"
+export SGLANG_TORCH_PROFILER_DIR="/home/work/prof"
+export SGLANG_OPT_USE_FUSED_STORE_CACHE="${SGLANG_OPT_USE_FUSED_STORE_CACHE:-false}"
+export SGLANG_OPT_USE_FUSED_HASH_TOPK="${SGLANG_OPT_USE_FUSED_HASH_TOPK:-true}"
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION="${SGLANG_OPT_SWIGLU_CLAMP_FUSION:-false}"
+export SGLANG_TOPK_TRANSFORM_512_TORCH="${SGLANG_TOPK_TRANSFORM_512_TORCH:-false}"
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK="${SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK:-false}"
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE="${SGLANG_JIT_DEEPGEMM_PRECOMPILE:-0}"
+export SGLANG_ROCM_USE_AITER_MOE="${SGLANG_ROCM_USE_AITER_MOE:-false}"
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA="${SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA:-0}"
+export SGLANG_DSV4_SPLIT_HCA_NONSPARSE_MLA="${SGLANG_DSV4_SPLIT_HCA_NONSPARSE_MLA:-false}"
+export SGLANG_DSV4_SPARSE_PREFILL_SINGLE_CALL="${SGLANG_DSV4_SPARSE_PREFILL_SINGLE_CALL:-false}"
+export SGLANG_DSV4_SPARSE_PREFILL_TRITON_GATHER="${SGLANG_DSV4_SPARSE_PREFILL_TRITON_GATHER:-false}"
+export SGLANG_DISABLED_MODEL_ARCHS="${SGLANG_DISABLED_MODEL_ARCHS:-midashenglm}"
+export SGLANG_DEBUG_DSV4_LOAD="${SGLANG_DEBUG_DSV4_LOAD:-0}"
+export SGLANG_APPLY_CONFIG_BACKUP="${SGLANG_APPLY_CONFIG_BACKUP:-none}"
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export GPU_MAX_HW_QUEUES=2
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export TVM_FFI_DISABLE_TORCH_C_DLPACK=1
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+
+sglang serve \
+  --trust-remote-code \
+  --model-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --tokenizer-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --pp-size 2 \
+  --tp-size 8 \
+  --ep-size 8 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr <node0_ip>:<port0> \
+  --dist-timeout 1800 \
+  --watchdog-timeout 3600 \
+  --chunked-prefill-size 16384 \
+  --mem-fraction-static 0.93 \
+  --max-running-requests 128 \
+  --disable-flashinfer-autotune \
+  --disable-radix-cache \
+  --deepep-config /xxx/ep_config.json \
+  --enable-nsa-prefill-context-parallel \
+  --nsa-prefill-cp-mode round-robin-split \
+  --moe-a2a-backend deepep \
+  --deepep-mode normal \
+  --max-total-tokens 1048576 \
+  --kv-cache-dtype fp8_e4m3 \
+  --init-expert-location /xxx/expert_distribution.pt \
+  --ep-dispatch-algorithm static \
+  --ep-num-redundant-experts 8 \
+  --eplb-algorithm deepseek \
+  --host 0.0.0.0 \
+  --port <port1>\
 ```
 
 ### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB D BW1100 16x SGLang 0.5.12
