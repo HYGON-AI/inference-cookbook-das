@@ -21,9 +21,9 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
 |  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
-| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
-|  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-d-bw1100-16x-sglang-0512) |
-|  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16-MTP314) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16-mtp314) |
+| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(EP16DP16-MTP314) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16-mtp314) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-bw1100-32x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-scalex40-3g-32x-sglang-0512) |
 
@@ -2502,47 +2502,20 @@ sglang serve \
   --port <port1>
 ```
 
-### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB D BW1100 16x SGLang 0.5.12
+### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.12 (EP16DP16)
 
-
-
-主节点：`NODE_RANK="${NODE_RANK:-0}"`
-
-从节点：`NODE_RANK="${NODE_RANK:-1}"`
+#### Node 0
 
 ```bash
-#!/usr/bin/env bash
-set -euo pipefail
+export SGLANG_DSV4_REQUEST_SCOPED_C128_STATE=true
+export SGLANG_OPT_USE_ONLINE_COMPRESS=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export PYTORCH_ALLOC_CONF=expandable_segments:True
-
-log() {
-  local level="$1"
-  shift
-  local message="$*"
-  local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-  echo "[${timestamp}] [${level}] ${message}"
-}
-
-log_info() { log "INFO" "$@"; }
-log_warn() { log "WARN" "$@"; }
-log_error() { log "ERROR" "$@"; }
-
-log_info "Initializing system environment..."
-hy-smi
-
-NODE_RANK="${1:-${NODE_RANK:-0}}"
-if [[ $# -gt 0 ]]; then
-  shift
-fi
-
 export HIPBLASLT_TUNING_OVERRIDE_FILE=/XXX/ep16.config
 export SGLANG_LIGHTOP_KVALLOC_KERNEL=1
 export SGLANG_NCCL_ALL_GATHER_IN_OVERLAP_SCHEDULER_SYNC_BATCH=1
 export SGLANG_LIGHTOP_TOPK=true
 export SGLANG_OPT_USE_MULTI_STREAM_OVERLAP=false
-export MODEL_PATH="${MODEL_PATH:-/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8}"
-export TOKENIZER_PATH="${TOKENIZER_PATH:-${MODEL_PATH}}"
 export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-0,1,2,3,4,5,6,7}"
 export SGLANG_HEALTH_CHECK_TIMEOUT=1000
 export HSA_ENABLE_COREDUMP=1
@@ -2550,13 +2523,13 @@ export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_HEAP_SIZE=3173741824
 export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9 #按照实际
+export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
 export ROCSHMEM_TOPO_FILE_FORCE=/XXX/topo.config
 export MC_IB_GID_INDEX=0
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export NCCL_SOCKET_IFNAME=ens61f1np1 #按照实际
-export GLOO_SOCKET_IFNAME=ens61f1np1 #按照实际
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9 #按照实际
+export NCCL_SOCKET_IFNAME=ens61f1np1
+export GLOO_SOCKET_IFNAME=ens61f1np1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
 export ROCSHMEM_IB_GID_INDEX=0
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
@@ -2577,7 +2550,6 @@ export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
 export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
 export SGLANG_USE_FP8_W8A8_MOE=1
 export SGLANG_USE_DEEPGEMM_MOE=1
-export SGLANG_ROCM_USE_AITER_MOE=1
 export SGLANG_OPT_USE_FUSED_STORE_CACHE="${SGLANG_OPT_USE_FUSED_STORE_CACHE:-false}"
 export SGLANG_OPT_USE_FUSED_HASH_TOPK="${SGLANG_OPT_USE_FUSED_HASH_TOPK:-true}"
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION="${SGLANG_OPT_SWIGLU_CLAMP_FUSION:-false}"
@@ -2597,59 +2569,131 @@ export SGLANG_USE_LIGHTOP_EP_SCATTER=false
 export SGLANG_USE_LIGHTOP_EP_GATHER=false
 export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=false
 
-export TP="${TP:-16}"
-export PP="${PP:-1}"
-export EP_SIZE="${EP_SIZE:-16}"
-export DP_SIZE="${DP_SIZE:-16}"
-export MOE_DENSE_TP_SIZE="${MOE_DENSE_TP_SIZE:-1}"
-export NNODES="${NNODES:-2}"
-export DIST_INIT_ADDR="${DIST_INIT_ADDR:-13.13.4.20:21000}" #按照实际
-export HOST="${HOST:-0.0.0.0}"
-export PORT="${PORT:-10030}" #按照实际
-export SPEC_ALGO="${SPEC_ALGO:-EAGLE}"
-export SPEC_NUM_STEPS="${SPEC_NUM_STEPS:-2}"
-export SPEC_EAGLE_TOPK="${SPEC_EAGLE_TOPK:-1}"
-export SPEC_NUM_DRAFT_TOKENS="${SPEC_NUM_DRAFT_TOKENS:-2}"
-export CHUNKED_PREFILL_SIZE="${CHUNKED_PREFILL_SIZE:-16384}"
-export MEM_FRACTION_STATIC="${MEM_FRACTION_STATIC:-0.89}"
-RUN_TS="${RUN_TS:-$(date +%Y%m%d_%H%M%S)}"
-export SERVE_LOG="./pro_multinode_rank${NODE_RANK}_${RUN_TS}.log"
-
-mkdir -p "$(dirname "${SERVE_LOG}")"
-: > "${SERVE_LOG}"
-exec > >(tee -a "${SERVE_LOG}") 2>&1
-
-
 sglang serve \
-  --model-path "${MODEL_PATH}" \
-  --tokenizer-path "${TOKENIZER_PATH}" \
-  --tp-size "${TP}" \
-  --ep-size "${EP_SIZE}" \
-  --dp-size "${DP_SIZE}" \
-  --moe-dense-tp-size "${MOE_DENSE_TP_SIZE}" \
+  --model-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --tokenizer-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --tp-size 16 \
+  --ep-size 16 \
+  --dp-size 16 \
+  --moe-dense-tp-size 1 \
   --enable-dp-attention \
   --enable-dp-lm-head \
-  --nnodes "${NNODES}" \
-  --node-rank "${NODE_RANK}" \
-  --dist-init-addr "${DIST_INIT_ADDR}" \
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr <node0_ip>:<port0> \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --mem-fraction-static "${MEM_FRACTION_STATIC}" \
+  --mem-fraction-static 0.89 \
   --trust-remote-code \
-  --chunked-prefill-size "${CHUNKED_PREFILL_SIZE}" \
-  --speculative-algo "${SPEC_ALGO}" \
-  --speculative-num-steps "${SPEC_NUM_STEPS}" \
-  --speculative-eagle-topk "${SPEC_EAGLE_TOPK}" \
-  --speculative-num-draft-tokens "${SPEC_NUM_DRAFT_TOKENS}" \
+  --chunked-prefill-size 16384 \
+  --speculative-algo EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 2 \
   --disable-flashinfer-autotune \
   --cuda-graph-max-bs 16 \
   --max-running-requests 256 \
   --skip-server-warmup \
   --moe-a2a-backend deepep \
   --deepep-mode auto \
-  --host "${HOST}" \
-  --port "${PORT}" \
-  "$@"
+  --host 0.0.0.0 \
+  --port <port1>
+```
+
+#### Node 1
+
+```bash
+export SGLANG_DSV4_REQUEST_SCOPED_C128_STATE=true
+export SGLANG_OPT_USE_ONLINE_COMPRESS=false
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export PYTORCH_ALLOC_CONF=expandable_segments:True
+export HIPBLASLT_TUNING_OVERRIDE_FILE=/XXX/ep16.config
+export SGLANG_LIGHTOP_KVALLOC_KERNEL=1
+export SGLANG_NCCL_ALL_GATHER_IN_OVERLAP_SCHEDULER_SYNC_BATCH=1
+export SGLANG_LIGHTOP_TOPK=true
+export SGLANG_OPT_USE_MULTI_STREAM_OVERLAP=false
+export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-0,1,2,3,4,5,6,7}"
+export SGLANG_HEALTH_CHECK_TIMEOUT=1000
+export HSA_ENABLE_COREDUMP=1
+export ROCSHMEM_MAX_NUM_CONTEXTS=60
+export ROCSHMEM_HEAP_SIZE=3173741824
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export ROCSHMEM_TOPO_FILE_FORCE=/XXX/topo.config
+export MC_IB_GID_INDEX=0
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export NCCL_SOCKET_IFNAME=ens61f1np1
+export GLOO_SOCKET_IFNAME=ens61f1np1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export ROCSHMEM_IB_GID_INDEX=0
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FUSED_MLA_CAT=1
+export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
+export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=1
+export SGLANG_USE_LINEAR_BF16_FP32_USE_BLASLT=1
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
+export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_OPT_USE_FUSED_STORE_CACHE="${SGLANG_OPT_USE_FUSED_STORE_CACHE:-false}"
+export SGLANG_OPT_USE_FUSED_HASH_TOPK="${SGLANG_OPT_USE_FUSED_HASH_TOPK:-true}"
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION="${SGLANG_OPT_SWIGLU_CLAMP_FUSION:-false}"
+export SGLANG_TOPK_TRANSFORM_512_TORCH="${SGLANG_TOPK_TRANSFORM_512_TORCH:-false}"
+export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK="${SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK:-false}"
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE="${SGLANG_JIT_DEEPGEMM_PRECOMPILE:-0}"
+export SGLANG_ROCM_USE_AITER_MOE="${SGLANG_ROCM_USE_AITER_MOE:-false}"
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA="${SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA:-0}"
+export SGLANG_DSV4_SPLIT_HCA_NONSPARSE_MLA="${SGLANG_DSV4_SPLIT_HCA_NONSPARSE_MLA:-false}"
+export SGLANG_DSV4_SPARSE_PREFILL_SINGLE_CALL="${SGLANG_DSV4_SPARSE_PREFILL_SINGLE_CALL:-false}"
+export SGLANG_DSV4_SPARSE_PREFILL_TRITON_GATHER="${SGLANG_DSV4_SPARSE_PREFILL_TRITON_GATHER:-false}"
+export SGLANG_JIT_DEEPGEMM_PRECOMPILE="${SGLANG_JIT_DEEPGEMM_PRECOMPILE:-0}"
+export SGLANG_DISABLED_MODEL_ARCHS="${SGLANG_DISABLED_MODEL_ARCHS:-midashenglm}"
+export SGLANG_DEBUG_DSV4_LOAD="${SGLANG_DEBUG_DSV4_LOAD:-0}"
+export SGLANG_APPLY_CONFIG_BACKUP="${SGLANG_APPLY_CONFIG_BACKUP:-none}"
+export SGLANG_USE_LIGHTOP_EP_SCATTER=false
+export SGLANG_USE_LIGHTOP_EP_GATHER=false
+export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=false
+
+sglang serve \
+  --model-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --tokenizer-path /hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --tp-size 16 \
+  --ep-size 16 \
+  --dp-size 16 \
+  --moe-dense-tp-size 1 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr <node0_ip>:<port0> \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --mem-fraction-static 0.89 \
+  --trust-remote-code \
+  --chunked-prefill-size 16384 \
+  --speculative-algo EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 2 \
+  --disable-flashinfer-autotune \
+  --cuda-graph-max-bs 16 \
+  --max-running-requests 256 \
+  --skip-server-warmup \
+  --moe-a2a-backend deepep \
+  --deepep-mode auto \
+  --host 0.0.0.0 \
+  --port <port1>
 ```
 
 ### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.12 (EP16DP16-MTP314)
