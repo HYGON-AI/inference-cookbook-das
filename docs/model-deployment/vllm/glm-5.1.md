@@ -246,24 +246,23 @@ vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
 ### GLM-5.1-Channel-INT4-w4a8 IFB BW1000 8x vLLM 0.21
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
 
 vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
   --trust-remote-code \
   --dtype bfloat16 \
-  -tp 8 \
-  --max-model-len 56320 \
-  --gpu-memory-utilization 0.92 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 8192 \
+  -tp 8 \
+  --gpu-memory-utilization 0.92 \
+  --max-num-seqs 64 \
+  --block-size 64 \
+  --speculative_config '{
+    "method":"deepseek_mtp",
+    "num_speculative_tokens":2
+  }' \
   --kv-cache-dtype fp8_ds_mla \
-  --speculative_config '{"method": "mtp", "num_speculative_tokens": 2}' \
-  --no-async-scheduling \
-  --moe-backend aiter \
   --attention-backend FLASHMLA_SPARSE \
-  --nnodes 1 \
-  --node-rank 0 \
-  --master-addr $(hostname -I | awk '{print $1}') \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45
