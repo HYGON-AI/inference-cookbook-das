@@ -7,8 +7,8 @@
 | [hygon/GLM-5.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |                                                                                                 | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1000-16x-sglang-0512) |
 | [hygon/GLM-5.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8) |
-|                                                                                                 | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8ep8) | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8ep8) |
-|                                                                                                 | FP8 W8A8 | [0.5.12](../docker_images.md) | ScaleX40 | 24 | PD | [**`>_`**](#glm-52-channel-fp8-w8a8-pd-scalex40-24x-sglang-0512) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8ep8) | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8ep8) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#glm-52-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
 | [hygon/GLM-5.2-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-4x-sglang-0512) |
 |                                                                                                 | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1000-8x-sglang-0512) |
 
@@ -303,7 +303,7 @@ sglang serve \
   --deepep-mode auto
 ~~~
 
-### GLM-5.2-Channel-FP8-w8a8 PD ScaleX40 24x SGLang 0.5.12
+### GLM-5.2-Channel-FP8-w8a8 PD scaleX40-3G 24x SGLang 0.5.12
 #### DeepEP 配置
 
 以下 `ep_config.json` 仅作为参考配置。使用时请将其保存为 `ep_config.json`
