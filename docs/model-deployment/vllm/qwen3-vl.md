@@ -102,7 +102,7 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-32b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-32b-instruct-ifb-bw1000-2x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-32b-instruct-ifb-k100_ai-2x-vllm-018-hotfix) |
-| [Qwen/Qwen3-VL-235B-A22B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Instruct) | BF16 | 0.21 | BW1100 | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-8x-vllm-021) |
+| [Qwen/Qwen3-VL-235B-A22B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-8x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1000-16x-vllm-021) |
 |  | BF16 | 0.21 | K100_AI | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-k100_ai-16x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-8x-vllm-018) |
