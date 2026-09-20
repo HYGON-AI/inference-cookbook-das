@@ -27,7 +27,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 |                                                                                                                                             | INT8 W8A8 | [0.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1000-4x-vllm-018) |
 |                                                                                                                                             | INT8 W8A8 | [0.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-k100ai-8x-vllm-018) |
 | [hygon/DeepSeek-R1-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
-|                                                                                                              | INT8 W8A8 | 0.21 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
+|                                                                                                              | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
 |                                                                                                              | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-018) |
 |                                                                                                              | INT8 W8A8 | [0.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-018) |
 |                                                                                                              | INT8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-015) |
@@ -348,7 +348,10 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA \
   --nnodes 2 \
   --node-rank 0 \
-  --master-addr <master_node_ip>
+  --master-addr <master_node_ip> \
+  --reasoning-parser deepseek_r1 \
+  --tool-call-parser deepseek_v3 \
+  --no-async-scheduling
 ```
 
 #### Worker node
@@ -369,6 +372,9 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
   --nnodes 2 \
   --node-rank 1 \
   --master-addr <master_node_ip> \
+  --reasoning-parser deepseek_r1 \
+  --tool-call-parser deepseek_v3 \
+  --no-async-scheduling \
   --headless
 ```
 ### DeepSeek-R1-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.18
