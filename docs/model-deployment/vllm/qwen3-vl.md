@@ -20,18 +20,18 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3-VL-2B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-2B-Instruct) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3-VL-2B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-2B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-instruct-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen3-VL-2B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-2B-Thinking) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3-VL-2B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-2B-Thinking) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-2b-thinking-ifb-k100_ai-1x-vllm-018) |
@@ -47,9 +47,9 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen3-VL-4B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-4B-Thinking) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3-VL-4B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-4B-Thinking) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-4b-thinking-ifb-k100_ai-1x-vllm-018) |
@@ -66,27 +66,27 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen3-VL-8B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-8B-Thinking) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3-VL-8B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-8B-Thinking) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-8b-thinking-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen3-VL-30B-A3B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-30B-A3B-Instruct) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1000-2x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-k100_ai-2x-vllm-021) |
+| [Qwen/Qwen3-VL-30B-A3B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-30B-A3B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1000-2x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-k100_ai-2x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1000-2x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-k100_ai-2x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-bw1000-2x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-instruct-ifb-k100_ai-2x-vllm-018-hotfix) |
-| [Qwen/Qwen3-VL-30B-A3B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-30B-A3B-Thinking) | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1000-2x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-k100_ai-2x-vllm-021) |
+| [Qwen/Qwen3-VL-30B-A3B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-30B-A3B-Thinking) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1000-2x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-k100_ai-2x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-bw1000-2x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 2x | IFB | [**`>_`**](#qwen3-vl-30b-a3b-thinking-ifb-k100_ai-2x-vllm-018) |
