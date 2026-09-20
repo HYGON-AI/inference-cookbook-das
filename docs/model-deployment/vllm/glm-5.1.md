@@ -58,7 +58,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --moe-backend triton \
   --nnodes 2 \
   --node-rank 0 \
-  --master-addr 10.16.1.9 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45
@@ -90,7 +90,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --moe-backend triton \
   --nnodes 2 \
   --node-rank 1 \
-  --master-addr 10.16.1.9 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45 \
@@ -124,7 +124,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --attention-backend FLASHMLA_SPARSE \
   --nnodes 4 \
   --node-rank 0 \
-  --master-addr 10.16.1.42 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45
@@ -153,7 +153,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --attention-backend FLASHMLA_SPARSE \
   --nnodes 4 \
   --node-rank 1 \
-  --master-addr 10.16.1.42 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45
@@ -182,7 +182,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --attention-backend FLASHMLA_SPARSE \
   --nnodes 4 \
   --node-rank 2 \
-  --master-addr 10.16.1.42 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45
@@ -211,7 +211,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --attention-backend FLASHMLA_SPARSE \
   --nnodes 4 \
   --node-rank 3 \
-  --master-addr 10.16.1.42 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45 \
@@ -536,7 +536,7 @@ vllm serve hygon/GLM-5.1-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA_SPARSE \
   --nnodes 2 \
   --node-rank 0 \
-  --master-addr 10.16.1.42 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45
@@ -567,7 +567,7 @@ vllm serve hygon/GLM-5.1-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA_SPARSE \
   --nnodes 2 \
   --node-rank 1 \
-  --master-addr 10.16.1.42 \
+  --master-addr <master_node_ip> \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm45 \
