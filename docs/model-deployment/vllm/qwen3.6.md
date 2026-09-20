@@ -381,7 +381,6 @@ vllm serve hygon/Qwen3.6-35B-A3B-Channel-INT8-w8a8 \
   -tp 1 \
   --trust-remote-code \
   --max-num-batched-tokens 16384 \
-  -q slimquant_marlin \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --speculative-config.attention_backend TRITON_ATTN \
