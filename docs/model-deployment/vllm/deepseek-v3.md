@@ -12,6 +12,7 @@ DeepSeek-V3 是由深度求索推出的基于MoE架构的高性能开源大语�
 |                                                                                    | FP8 W8A8 | 0.18    | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |                                                                                    | FP8 W8A8 | 0.15    | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/DeepSeek-V3-0324-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3-0324-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
 
 ## 启动命令
 
@@ -114,6 +115,51 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --no-enable-prefix-caching \
   --kv-cache-dtype fp8_e4m3 \
   --attention-backend FLASHMLA
+```
+
+### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.21
+
+#### Node 0
+
+```bash
+vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  -q slimquant_marlin \
+  -tp 16 \
+  --dtype bfloat16 \
+  --gpu-memory-utilization 0.90 \
+  --no-enable-prefix-caching \
+  --max-model-len 65536 \
+  --max-num-seqs 256 \
+  --max-num-batched-tokens 16384 \
+  --speculative_config '{"method": "deepseek_mtp", "num_speculative_tokens": 3, "quantization": "slimquant_marlin"}' \
+  --attention-backend FLASHMLA \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr <master_node_ip> \
+  --no-async-scheduling
+```
+
+#### Node 1
+
+```bash
+vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  -q slimquant_marlin \
+  -tp 16 \
+  --dtype bfloat16 \
+  --gpu-memory-utilization 0.90 \
+  --no-enable-prefix-caching \
+  --max-model-len 65536 \
+  --max-num-seqs 256 \
+  --max-num-batched-tokens 16384 \
+  --speculative_config '{"method": "deepseek_mtp", "num_speculative_tokens": 3, "quantization": "slimquant_marlin"}' \
+  --attention-backend FLASHMLA \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr <master_node_ip> \
+  --no-async-scheduling \
+  --headless
 ```
 
 ## API 调用
