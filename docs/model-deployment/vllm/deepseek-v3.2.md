@@ -80,7 +80,7 @@ vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
   --dtype bfloat16 \
   --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
-  -tp 8 \
+  -tp 16 \
   --gpu-memory-utilization 0.92 \
   --max-num-seqs 64 \
   --block-size 64 \
@@ -102,7 +102,7 @@ vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
   --dtype bfloat16 \
   --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
-  -tp 8 \
+  -tp 16 \
   --gpu-memory-utilization 0.92 \
   --max-num-seqs 64 \
   --block-size 64 \
