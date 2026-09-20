@@ -21,6 +21,7 @@ Qwen3.6 模型相较于 Qwen3.5 模型，**在智能体编程能力、推理速�
 | [hygon/Qwen3.6-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-021) |
+| [hygon/Qwen3.6-27B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen36-27b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-021) |
 | [Qwen/Qwen3.6-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.6-35B-A3B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-k100_ai-2x-vllm-021) |
@@ -250,6 +251,28 @@ vllm serve hygon/Qwen3.6-27B-Channel-INT8-w8a8 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
+
+### Qwen3.6-27B-Channel-FP8-w8a8 IFB BW1100 1x vLLM 0.21
+
+```bash
+export HIP_VISIBLE_DEVICES=3
+
+vllm serve hygon/Qwen3.6-27B-Channel-FP8-w8a8 \
+  -tp 1 \
+  --trust-remote-code \
+  --max-num-batched-tokens 16384 \
+  -q slimquant_marlin \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --speculative-config.quantization "slimquant_marlin" \
+  --kv-cache-dtype fp8_e4m3 \
+  --attention-backend FLASH_ATTN_CUSTOM \
+  --max-num-seqs 128 \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
+```
+
 ### Qwen3.6-35B-A3B IFB BW1100 1x vLLM 0.21
 
 ```bash
