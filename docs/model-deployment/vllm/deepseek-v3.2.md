@@ -27,7 +27,7 @@ vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
   --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   -tp 8 \
-  --gpu-memory-utilization 0.92 \
+  --gpu-memory-utilization 0.9 \
   --max-num-seqs 64 \
   --block-size 64 \
   --speculative_config '{
@@ -52,7 +52,7 @@ vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
     --max-model-len 65536 \
     --max-num-batched-tokens 16384 \
     -tp 8 \
-    --gpu-memory-utilization 0.92 \
+    --gpu-memory-utilization 0.9 \
     --max-num-seqs 64 \
     --block-size 64 \
     --speculative_config '{
