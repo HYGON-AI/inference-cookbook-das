@@ -8,18 +8,18 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3.5-4B](https://www.modelscope.cn/models/Qwen/Qwen3.5-4B) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3.5-4B](https://www.modelscope.cn/models/Qwen/Qwen3.5-4B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen3.5-9B](https://www.modelscope.cn/models/Qwen/Qwen3.5-9B) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen3.5-9B](https://www.modelscope.cn/models/Qwen/Qwen3.5-9B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-k100_ai-1x-vllm-018) |
@@ -35,25 +35,25 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-vllm-018-hotfix) |
-| [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-021) |
+| [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-018-hotfix) |
-| [hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
-|  | INT8 W8A8 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
-|  | INT8 W8A8 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-021) |
+| [hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-021) |
 |  | INT8 W8A8 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-1x-vllm-018) |
 |  | INT8 W8A8 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018) |
 |  | INT8 W8A8 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-018) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-021) |
+| [hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-021) |
 |  | FP8 W8A8 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-018) |
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3.5-122B-A10B](https://www.modelscope.cn/models/Qwen/Qwen3.5-122B-A10B) | BF16 | 0.21 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-vllm-021) |
