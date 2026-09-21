@@ -10,9 +10,9 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
-| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
-|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
-|  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
+| [hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
+| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | ScaleX40 | 16 | PD | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-pd-scalex40-16x-sglang-0512) |
@@ -199,7 +199,7 @@ sglang serve \
   --cuda-graph-max-bs 64
 ```
 
-### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
+### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
 export NCCL_SOCKET_IFNAME=xxx
@@ -247,7 +247,7 @@ sglang serve \
   --tp-size 8 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -263,7 +263,7 @@ sglang serve \
   --enable-metrics
 ```
 
-### DeepSeek-V4-Flash-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18
+### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
@@ -324,8 +324,8 @@ sglang serve \
   --watchdog-timeout 3600 \
   --port 30000 \
   --host <P_node_ip> \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --served-model-name hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
@@ -335,7 +335,7 @@ sglang serve \
   --cuda-graph-max-bs 32 \
   --mem-fraction-static 0.8 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
   --max-running-requests 32 \
@@ -416,8 +416,8 @@ sglang serve \
   --watchdog-timeout 3600 \
   --port 30000 \
   --host <D_node0_ip> \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --served-model-name hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
@@ -427,7 +427,7 @@ sglang serve \
   --cuda-graph-max-bs 32 \
   --mem-fraction-static 0.8 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
   --max-running-requests 32 \
@@ -511,8 +511,8 @@ sglang serve \
   --watchdog-timeout 3600 \
   --port 30000 \
   --host <D_node1_ip> \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --served-model-name hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
@@ -522,7 +522,7 @@ sglang serve \
   --cuda-graph-max-bs 32 \
   --mem-fraction-static 0.8 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
   --max-running-requests 32 \
