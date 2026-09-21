@@ -255,8 +255,6 @@ vllm serve hygon/Qwen3.6-27B-Channel-INT8-w8a8 \
 ### Qwen3.6-27B-Channel-FP8-w8a8 IFB BW1100 1x vLLM 0.21
 
 ```bash
-export HIP_VISIBLE_DEVICES=3
-
 vllm serve hygon/Qwen3.6-27B-Channel-FP8-w8a8 \
   -tp 1 \
   --trust-remote-code \

@@ -43,7 +43,6 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-4b-channel-int8-w8a8-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-4b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3-4B-Thinking-2507](https://www.modelscope.cn/models/Qwen/Qwen3-4B-Thinking-2507) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-k100ai-1x-vllm-021) |
 |  | BF16 | [0.18](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-4b-thinking-2507-ifb-bw1000-1x-vllm-018) |
@@ -559,15 +558,6 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --attention-backend FLASH_ATTN_CUSTOM
 ```
 
-### Qwen3-4B-Thinking-2507 IFB BW1000 1x vLLM 0.21
-
-```bash
-vllm serve Qwen/Qwen3-4B-Thinking-2507 \
-  -tp 1 \
-  --trust-remote-code \
-  --max-num-batched-tokens 10240 \
-  --reasoning-parser qwen3
-```
 ### Qwen3-4B-Thinking-2507 IFB K100_AI 1x vLLM 0.21
 
 ```bash
