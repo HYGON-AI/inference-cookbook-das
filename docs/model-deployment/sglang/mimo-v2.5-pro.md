@@ -8,10 +8,68 @@ MiMo-V2.5-Pro 是小米推出的大规模 MoE（混合专家）语言模型，�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.10 | BW1100 | 16x | IFB | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512) |
-| [hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 32x | 1P1D | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-1p1d-bw1100-32x-sglang-0512) |
+| [hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518) |
+| | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16x | IFB | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512) |
+| | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 32x | 1P1D | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-1p1d-bw1100-32x-sglang-0512) |
 
 ## 启动命令
+
+### MiMo-V2.5-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.18
+
+#!/usr/bin/env bash
+
+NODE_RANK="${1:-}"
+
+export NCCL_SOCKET_IFNAME=$IFNAME
+export GLOO_SOCKET_IFNAME=$IFNAME
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_KV_LAYOUT_HCU_FA=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_AITER_ASM_MOE_USE_SHUFFLE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export ROCSHMEM_TOPO_FILE_FORCE=/home/sglang-ws/920-mimo-perf/topo.config
+export ROCSHMEM_IB_GID_INDEX=0
+export SGLANG_USE_VARLEN_FWD_UNIFIED=1
+export SGLANG_USE_AITER_AR=1
+
+sglang serve \
+    --model-path /model/xiaomi/MiMo-V2.5-Pro-Channel-FP8-W8A8 \
+    --host 0.0.0.0 \
+    --trust-remote-code \
+    --pp-size 1 \
+    --dp-size 2 \
+    --tp-size 16 \
+    --ep-size 16 \
+    --attn-cp-size 1 \
+    --enable-dp-attention \
+    --moe-dense-tp-size 1 \
+    --enable-dp-lm-head \
+    --moe-a2a-backend deepep \
+    --deepep-mode auto \
+    --attention-backend fa3 \
+    --kv-cache-dtype fp8_e4m3 \
+    --page-size 128 \
+    --chunked-prefill-size 32768 \
+    --mem-fraction-static 0.84 \
+    --max-running-requests 128 \
+    --context-length 1048576 \
+    --dist-init-addr <ip:port> \
+    --nnodes 2 \
+    --node-rank "${NODE_RANK}" \
+    --speculative-algorithm EAGLE \
+    --speculative-num-steps 3 \
+    --speculative-eagle-topk 1 \
+    --speculative-num-draft-tokens 4 \
+    --tokenizer-worker-num 64 \
+    --disable-radix-cache \
+    --load-balance-method auto \
+    --reasoning-parser qwen3 \
+    --tool-call-parser mimo \
+    --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}'
 
 ### MiMo-V2.5-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.12
 
