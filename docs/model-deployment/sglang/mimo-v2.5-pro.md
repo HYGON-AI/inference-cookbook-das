@@ -8,7 +8,7 @@ MiMo-V2.5-Pro 是小米推出的大规模 MoE（混合专家）语言模型，�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518) |
+| [hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 16x | IFB | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518) |
 | | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16x | IFB | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512) |
 | | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 32x | 1P1D | [**`>_`**](#mimo-v25-pro-channel-fp8-w8a8-1p1d-bw1100-32x-sglang-0512) |
 
@@ -16,6 +16,7 @@ MiMo-V2.5-Pro 是小米推出的大规模 MoE（混合专家）语言模型，�
 
 ### MiMo-V2.5-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.18
 
+```bash
 #!/usr/bin/env bash
 
 NODE_RANK="${1:-}"
@@ -64,12 +65,11 @@ sglang serve \
     --speculative-num-steps 3 \
     --speculative-eagle-topk 1 \
     --speculative-num-draft-tokens 4 \
-    --tokenizer-worker-num 64 \
     --disable-radix-cache \
     --load-balance-method auto \
     --reasoning-parser qwen3 \
-    --tool-call-parser mimo \
-    --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}'
+    --tool-call-parser mimo
+```
 
 ### MiMo-V2.5-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.12
 
