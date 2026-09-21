@@ -20,40 +20,6 @@ MiMo-V2-Flash 是小米推出的大规模 MoE（混合专家）语言模型，�
 
 ## 启动命令
 
-### MiMo-V2-Flash-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
-
-```bash
-export SGLANG_USE_LIGHTOP=1
-export SGLANG_KV_LAYOUT_HCU_FA=0
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FP8_W8A8_MOE=0
-export SGLANG_ROCM_USE_AITER_MOE=1
-export SGLANG_USE_MODELSCOPE=1
-export SGLANG_USE_AITER_AR=1
-export SGLANG_USE_VARLEN_FWD_UNIFIED=1
-
-sglang serve \
-  --model-path hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
-  --pp-size 1 \
-  --dp-size 1 \
-  --tp-size 8 \
-  --page-size 128 \
-  --trust-remote-code \
-  --mem-fraction-static 0.85 \
-  --quantization w8a8_int8 \
-  --moe-runner-backend lightop \
-  --max-running-requests 128 \
-  --tool-call-parser mimo \
-  --reasoning-parser mimo \
-  --context-length 262144 \
-  --attention-backend fa3 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4
-```
-
 ### MiMo-V2-Flash IFB BW1100 8x SGLang 0.5.10
 
 ```bash
@@ -83,7 +49,7 @@ sglang serve \
     --speculative-num-draft-tokens 4
 ```
 
-### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
+### MiMo-V2-Flash-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
 
 ```bash
 export SGLANG_USE_LIGHTOP=1
@@ -96,19 +62,20 @@ export SGLANG_USE_AITER_AR=1
 export SGLANG_USE_VARLEN_FWD_UNIFIED=1
 
 sglang serve \
-  --model-path hygon/MiMo-V2-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
   --pp-size 1 \
-  --dp-size 2 \
-  --tp-size 4 \
+  --dp-size 1 \
+  --tp-size 8 \
   --page-size 128 \
   --trust-remote-code \
   --mem-fraction-static 0.85 \
+  --quantization w8a8_int8 \
+  --moe-runner-backend lightop \
   --max-running-requests 128 \
   --tool-call-parser mimo \
   --reasoning-parser mimo \
   --context-length 262144 \
   --attention-backend fa3 \
-  --kv-cache-dtype fp8_e4m3 \
   --chunked-prefill-size -1 \
   --speculative-algorithm EAGLE \
   --speculative-num-steps 3 \
@@ -185,6 +152,40 @@ sglang serve \
   --moe-runner-backend triton \
   --custom-all-reduce-backend native
 ```
+
+### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_KV_LAYOUT_HCU_FA=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FP8_W8A8_MOE=0
+export SGLANG_ROCM_USE_AITER_MOE=1
+export SGLANG_USE_MODELSCOPE=1
+export SGLANG_USE_AITER_AR=1
+export SGLANG_USE_VARLEN_FWD_UNIFIED=1
+
+sglang serve \
+  --model-path hygon/MiMo-V2-Flash-Channel-FP8-w8a8 \
+  --pp-size 1 \
+  --dp-size 2 \
+  --tp-size 4 \
+  --page-size 128 \
+  --trust-remote-code \
+  --mem-fraction-static 0.85 \
+  --max-running-requests 128 \
+  --tool-call-parser mimo \
+  --reasoning-parser mimo \
+  --context-length 262144 \
+  --attention-backend fa3 \
+  --kv-cache-dtype fp8_e4m3 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4
+```
+
 ### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12
 
 ```bash
