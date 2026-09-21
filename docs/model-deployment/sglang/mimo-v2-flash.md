@@ -54,6 +54,35 @@ sglang serve \
   --speculative-num-draft-tokens 4
 ```
 
+### MiMo-V2-Flash IFB BW1100 8x SGLang 0.5.10
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_KV_LAYOUT_DCU_FA=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_AITER_FP8_ASM_MOE=1
+export SGLANG_USE_MODELSCOPE=1
+
+sglang serve \
+    --model-path XiaomiMiMo/MiMo-V2-Flash \
+    --pp-size 1 \
+    --dp-size 2 \
+    --tp-size 4 \
+    --page-size 64 \
+    --trust-remote-code \
+    --mem-fraction-static 0.85 \
+    --max-running-requests 128 \
+    --tool-call-parser mimo \
+    --disable-radix-cache \
+    --context-length 262144 \
+    --attention-backend fa3 \
+    --chunked-prefill-size -1 \
+    --speculative-algorithm EAGLE \
+    --speculative-num-steps 3 \
+    --speculative-eagle-topk 1 \
+    --speculative-num-draft-tokens 4
+```
+
 ### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
@@ -87,34 +116,6 @@ sglang serve \
   --speculative-num-draft-tokens 4
 ```
 
-### MiMo-V2-Flash IFB BW1100 8x SGLang 0.5.10
-
-```bash
-export SGLANG_USE_LIGHTOP=1
-export SGLANG_KV_LAYOUT_DCU_FA=0
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_AITER_FP8_ASM_MOE=1
-export SGLANG_USE_MODELSCOPE=1
-
-sglang serve \
-    --model-path XiaomiMiMo/MiMo-V2-Flash \
-    --pp-size 1 \
-    --dp-size 2 \
-    --tp-size 4 \
-    --page-size 64 \
-    --trust-remote-code \
-    --mem-fraction-static 0.85 \
-    --max-running-requests 128 \
-    --tool-call-parser mimo \
-    --disable-radix-cache \
-    --context-length 262144 \
-    --attention-backend fa3 \
-    --chunked-prefill-size -1 \
-    --speculative-algorithm EAGLE \
-    --speculative-num-steps 3 \
-    --speculative-eagle-topk 1 \
-    --speculative-num-draft-tokens 4
-```
 ### MiMo-V2-Flash-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.12
 
 ```bash
