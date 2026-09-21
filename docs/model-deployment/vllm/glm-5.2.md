@@ -57,7 +57,7 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
 
 以下示例为双节点部署，请将 `<master_node_ip>` 替换为主节点 IP。
 
-#### Node 1
+#### Node 0
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
@@ -88,7 +88,7 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
 
 ```
 
-#### Node 2
+#### Node 1
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
