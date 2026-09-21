@@ -218,6 +218,8 @@ sglang serve \
 
 ### MiniMax-M2.5-Channel-FP8-w8a8 PD scaleX40-3G 8x SGLang 0.5.12
 
+P/D 服务端口分别填写 `<P_port>` 和 `<D_port>`，Router 端口填写 `<router_port>`。
+
 #### P node
 
 ```bash
@@ -275,7 +277,7 @@ sglang serve \
   --disaggregation-mode prefill \
   --load-balance-method round_robin \
   --host <P_node_ip> \
-  --port 30000 \
+  --port <P_port> \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 8}' \
   --quantization w8a8_fp8 \
   --kv-cache-dtype fp8_e4m3 \
@@ -331,7 +333,7 @@ sglang serve \
   --disaggregation-mode decode \
   --prefill-round-robin-balance \
   --host <D_node_ip> \
-  --port 30000 \
+  --port <D_port> \
   --disaggregation-ib-device shca_0,shca_1,shca_2,shca_4 \
   --disable-radix-cache \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 2}' \
@@ -355,10 +357,10 @@ sglang serve \
 ```bash
 python3 -m sglang_router.launch_router \
   --pd-disaggregation \
-  --prefill http://<P_node_ip>:30000 \
-  --decode http://<D_node_ip>:30000 \
+  --prefill http://<P_node_ip>:<P_port> \
+  --decode http://<D_node_ip>:<D_port> \
   --policy cache_aware \
-  --port 30001
+  --port <router_port>
 ```
 
 ### MiniMax-M2.5-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12
