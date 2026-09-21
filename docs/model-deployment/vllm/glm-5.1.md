@@ -101,7 +101,7 @@ vllm serve ZhipuAI/GLM-5.1 \
 
 以下示例为四节点部署。
 
-#### Node 1
+#### Node 0
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
@@ -132,7 +132,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --reasoning-parser glm45
 ```
 
-#### Node 2
+#### Node 1
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
@@ -163,7 +163,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --reasoning-parser glm45
 ```
 
-#### Node 3
+#### Node 2
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
@@ -194,7 +194,7 @@ vllm serve ZhipuAI/GLM-5.1 \
   --reasoning-parser glm45
 ```
 
-#### Node 4
+#### Node 3
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
