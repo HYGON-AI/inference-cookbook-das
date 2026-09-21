@@ -33,6 +33,7 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 ```bash
 export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
 
 vllm serve ZhipuAI/GLM-5 \
   --trust-remote-code \
@@ -49,6 +50,7 @@ vllm serve ZhipuAI/GLM-5 \
   }' \
   --kv-cache-dtype fp8_ds_mla \
   --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
   --nnodes 4 \
   --node-rank 0 \
   --master-addr <master_node_ip> \
@@ -62,6 +64,7 @@ vllm serve ZhipuAI/GLM-5 \
 ```bash
 export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
 
 vllm serve ZhipuAI/GLM-5 \
   --trust-remote-code \
@@ -78,6 +81,7 @@ vllm serve ZhipuAI/GLM-5 \
   }' \
   --kv-cache-dtype fp8_ds_mla \
   --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
   --nnodes 4 \
   --node-rank 1 \
   --master-addr <master_node_ip> \
@@ -91,6 +95,7 @@ vllm serve ZhipuAI/GLM-5 \
 ```bash
 export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
 
 vllm serve ZhipuAI/GLM-5 \
   --trust-remote-code \
@@ -107,6 +112,7 @@ vllm serve ZhipuAI/GLM-5 \
   }' \
   --kv-cache-dtype fp8_ds_mla \
   --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
   --nnodes 4 \
   --node-rank 2 \
   --master-addr <master_node_ip> \
@@ -120,6 +126,7 @@ vllm serve ZhipuAI/GLM-5 \
 ```bash
 export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
 
 vllm serve ZhipuAI/GLM-5 \
   --trust-remote-code \
@@ -136,6 +143,7 @@ vllm serve ZhipuAI/GLM-5 \
   }' \
   --kv-cache-dtype fp8_ds_mla \
   --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
   --nnodes 4 \
   --node-rank 3 \
   --master-addr <master_node_ip> \
