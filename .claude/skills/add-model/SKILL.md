@@ -251,8 +251,6 @@ sglang serve \
 
 #### P node 1
 
-说明：`--dist-init-addr` 指向 P node 0，`--host` 使用当前节点 IP。
-
 ```bash
 export ...
 
