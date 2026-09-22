@@ -20,7 +20,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 | [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
-| Qwen3.8-2.4T-A95B-ChannelWise-W4A16 | INT4 W4A16 | 0.5.12 | BW1100 | 16 | IFB | [**`>_`**](#qwen38-24t-a95b-channelwise-w4a16-ifb-bw1100-16x-sglang-0512) |
+| Qwen3.8-2.4T-A95B-ChannelWise-W4A16 | INT4 W4A16 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#qwen38-24t-a95b-channelwise-w4a16-ifb-bw1100-16x-sglang-0518) |
 
 ## 启动命令
 
@@ -369,7 +369,7 @@ sglang serve \
   --numa-node 0 0 0 0
 ```
 
-### Qwen3.8-2.4T-A95B-ChannelWise-W4A16 IFB BW1100 16x SGLang 0.5.12
+### Qwen3.8-2.4T-A95B-ChannelWise-W4A16 IFB BW1100 16x SGLang 0.5.18
 
 权重路径：nmz16 / nmz18 上 `/data/models/Qwen3.8-2.4T-A95B-ChannelWise-W4A16`。网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。先起 Node 1，再起 Node 0。
 
