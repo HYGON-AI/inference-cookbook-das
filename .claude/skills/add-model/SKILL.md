@@ -1,6 +1,6 @@
 ---
 name: add-model
-description: Guide for adding a new model deployment doc to the HCU inference cookbook. Use this when asked to add a new model or create a new model deployment page.
+description: Guide for adding a new model deployment doc to inference-cookbook-das. Use this when asked to add a new model or create a new model deployment page.
 ---
 
 ## Docker 镜像与硬件规则
