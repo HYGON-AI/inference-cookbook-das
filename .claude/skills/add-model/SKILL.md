@@ -26,8 +26,6 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
 - SGLang `0.5.12` 按硬件使用镜像，完整 tag 不得互换或缩写：
   - `scaleX40-3G`：`docker pull harbor.sourcefind.cn:5443/hcu/admin/base/sglang:0.5.12-ubuntu22.04-dtk26041-py3.10-scalex40-sf_b020`
   - `K100_AI` / `BW1000` / `BW1100`：`docker pull harbor.sourcefind.cn:5443/hcu/admin/base/sglang:0.5.12-ubuntu22.04-dtk2604-py3.10`
-- 镜像、启动参数和环境变量不得在 `scaleX40-3G` 与其他三种硬件之间复用。
-- 为 `scaleX40-3G` 生成命令时，不套用普通硬件的显存、每节点 8 卡和 TP 拓扑规则；缺少显存、拓扑、卡数或完整命令时逐项询问，不得推断。
 
 示例：
 
