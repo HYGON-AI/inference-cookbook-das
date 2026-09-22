@@ -38,6 +38,14 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
 ```
 
 
+超节点示例：
+
+```markdown
+| 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
+| [hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
+```
+
 # 新增模型部署文档规范
 
 ## 信息收集
