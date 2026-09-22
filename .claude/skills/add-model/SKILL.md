@@ -230,7 +230,7 @@ sglang serve \
 
 ### SGLang PD 分离章节结构
 
-SGLang PD 分离章节开头加一行 IB 网卡配置说明，然后用 `####` 划分各节点。**缩进规范同 IFB**：`sglang serve \` 首行，后续参数缩进 2 个空格。P/D 节点服务端口使用 `3000`，Router 使用 `30001`，除非用户明确要求保留具体自定义端口。
+SGLang PD 分离章节开头加一行 IB 网卡配置说明，然后用 `####` 划分各节点。**缩进规范同 IFB**：`sglang serve \` 首行，后续参数缩进 2 个空格。P/D 节点服务端口使用 `30000`，Router 使用 `30001`，除非用户明确要求保留具体自定义端口。
 
 ````markdown
 ### GLM-5-Channel-INT4-w4a8 PD BW1000 32x SGLang 0.5.10
@@ -246,7 +246,7 @@ sglang serve \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --trust-remote-code \
   --host "<P_node0_ip>" \
-  --port 3000 \
+  --port 30000 \
   --dist-init-addr "<P_node0_ip>:5000" \
   --nnodes <P节点数> \
   --node-rank 0 \
@@ -264,7 +264,7 @@ sglang serve \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --trust-remote-code \
   --host "<P_node1_ip>" \
-  --port 3000 \
+  --port 30000 \
   --dist-init-addr "<P_node0_ip>:5000" \
   --nnodes <P节点数> \
   --node-rank 1 \
@@ -282,7 +282,7 @@ sglang serve \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --trust-remote-code \
   --host "<D_node0_ip>" \
-  --port 3000 \
+  --port 30000 \
   --dist-init-addr "<D_node0_ip>:5000" \
   --nnodes <D节点数> \
   --node-rank 0 \
@@ -300,7 +300,7 @@ sglang serve \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --trust-remote-code \
   --host "<D_node1_ip>" \
-  --port 3000 \
+  --port 30000 \
   --dist-init-addr "<D_node0_ip>:5000" \
   --nnodes <D节点数> \
   --node-rank 1 \
@@ -314,8 +314,8 @@ sglang serve \
 ```bash
 python3 -m sglang_router.launch_router \
   --pd-disaggregation \
-  --prefill http://<P_node0_ip>:3000 \
-  --decode http://<D_node0_ip>:3000 \
+  --prefill http://<P_node0_ip>:30000 \
+  --decode http://<D_node0_ip>:30000 \
   --policy cache_aware \
   --port 30001
 ```
