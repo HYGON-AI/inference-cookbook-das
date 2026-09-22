@@ -20,6 +20,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 | [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
+| Qwen3.8-2.4T-A95B-ChannelWise-W4A16 | INT4 W4A16 | 0.5.12 | BW1100 | 16 | IFB | [**`>_`**](#qwen38-24t-a95b-channelwise-w4a16-ifb-bw1100-16x-sglang-0512) |
 
 ## 启动命令
 
@@ -366,6 +367,114 @@ sglang serve \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
   --numa-node 0 0 0 0
+```
+
+### Qwen3.8-2.4T-A95B-ChannelWise-W4A16 IFB BW1100 16x SGLang 0.5.12
+
+权重路径：nmz16 / nmz18 上 `/data/models/Qwen3.8-2.4T-A95B-ChannelWise-W4A16`。网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。先起 Node 1，再起 Node 0。
+
+#### Node 0
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_W4A8_TPMOE_BACKEND=aiter
+export SGLANG_USE_AITER_AR=1
+export NCCL_SOCKET_IFNAME=ens14f0
+export GLOO_SOCKET_IFNAME=ens14f0
+export NCCL_TOPO_FILE=/public5/AItest_0316/zhoubo/topo.xml
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+
+sglang serve \
+  --model-path /data/models/Qwen3.8-2.4T-A95B-ChannelWise-W4A16 \
+  --trust-remote-code \
+  --host 10.16.1.16 \
+  --dist-init-addr 10.16.1.16:50000 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --tp-size 16 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype bfloat16 \
+  --quantization slimquant_w4a8_marlin \
+  --moe-runner-backend triton \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e4m3 \
+  --mem-fraction-static 0.82 \
+  --chunked-prefill-size 4096 \
+  --mamba-radix-cache-strategy no_buffer \
+  --disable-radix-cache \
+  --watchdog-timeout 36000 \
+  --skip-server-warmup \
+  --model-loader-extra-config '{"enable_multithread_load": true, "num_threads": 32}' \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --speculative-draft-model-path /data/models/Qwen3.8-2.4T-A95B-ChannelWise-W4A16 \
+  --cuda-graph-bs-decode 2 16 64 \
+  --max-running-requests 64 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder
+```
+
+#### Node 1
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_W4A8_TPMOE_BACKEND=aiter
+export SGLANG_USE_AITER_AR=1
+export NCCL_SOCKET_IFNAME=ens14f0
+export GLOO_SOCKET_IFNAME=ens14f0
+export NCCL_TOPO_FILE=/public5/AItest_0316/zhoubo/topo.xml
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+
+sglang serve \
+  --model-path /data/models/Qwen3.8-2.4T-A95B-ChannelWise-W4A16 \
+  --trust-remote-code \
+  --host 10.16.1.18 \
+  --dist-init-addr 10.16.1.16:50000 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --tp-size 16 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype bfloat16 \
+  --quantization slimquant_w4a8_marlin \
+  --moe-runner-backend triton \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e4m3 \
+  --mem-fraction-static 0.82 \
+  --chunked-prefill-size 4096 \
+  --mamba-radix-cache-strategy no_buffer \
+  --disable-radix-cache \
+  --watchdog-timeout 36000 \
+  --skip-server-warmup \
+  --model-loader-extra-config '{"enable_multithread_load": true, "num_threads": 32}' \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --speculative-draft-model-path /data/models/Qwen3.8-2.4T-A95B-ChannelWise-W4A16 \
+  --cuda-graph-bs-decode 2 16 64 \
+  --max-running-requests 64 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder
 ```
 
 ## API 调用
