@@ -1,5 +1,6 @@
 # GLM-5.3
-
+GLM-5.3 是智谱(Z.ai)推出的开放权重大语言模型, 属于 GLM-5 系列，重点强化了编程、复杂推理和智能体任务能力. 它采用 MoE（混合专家）架构，并与 GLM-5.2 使用相同基础模型, 主要通过后训练提升效果, 适合代码生成, 调试, 长流程任
+务规划和工具调用等场景.
 ## 模型列表
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
@@ -10,19 +11,13 @@
 
 ### GLM-5.3-Channel-FP8-w8a8 PD 24x SGLang 0.5.18
 
-#### Nodew P  
+#### Node P  
 ~~~bash
-#!/usr/bin/env bash
-# Runtime and Python
 export GLIBC_TUNABLES="glibc.rtld.optional_static_tls=0x40000"
-
-# Network and collectives
 export NCCL_SOCKET_IFNAME="xx"
 export GLOO_SOCKET_IFNAME="xx"
 export USE_DCU_CUSTOM_ALLREDUCE=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-# MTP, KV allocation, and scheduler
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_KVALLOC_KERNEL=1
@@ -32,14 +27,10 @@ export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
 export SGLANG_GET_LAST_LOC=1
 export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-
-# LightOp sparse MQA and mask top-k
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_NSA_FUSE_TOPK=1
 export SGLANG_OPT_USE_TOPK_V2=0
 export SGLANG_DSA_HCU_LIGHTOP_MASK_TOPK=1
-
-# HCU runtime and graph dispatch
 export HSA_ENABLE_COREDUMP=0
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
 export HIP_KERNEL_BATCH_CEILING=100
@@ -50,8 +41,6 @@ export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=1
 export SGLANG_ENABLE_HCU_CONCAT_MLA_ABSORB_Q=1
 export SGLANG_NSA_MQA_LOGITS_MEMORY_BUDGET_GB=2
-
-# DeepGEMM and DeepEP
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_USE_FP8_W8A8_MOE=1
 export DEEP_EP_NORMAL_MNVL=1
@@ -106,18 +95,11 @@ sglang serve \
 #### Node D 
 
 ~~~bash
-#!/usr/bin/env bash
-
-# Runtime / Python
 export GLIBC_TUNABLES="glibc.rtld.optional_static_tls=0x40000"
-
-# Network / Collectives
 export NCCL_SOCKET_IFNAME="$IFACE"
 export GLOO_SOCKET_IFNAME="$IFACE"
 export USE_DCU_CUSTOM_ALLREDUCE=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-# MTP / KV allocation / Scheduler
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_KVALLOC_KERNEL=1
@@ -127,27 +109,19 @@ export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
 export SGLANG_GET_LAST_LOC=1
 export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-
-# LightOp / NSA
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_NSA_FUSE_TOPK=1
 export SGLANG_OPT_USE_TOPK_V2=0
 export SGLANG_DSA_HCU_LIGHTOP_MASK_TOPK=1
-
-# FlashMLA sparse decode
 export FLASH_MLA_SPARSE_DECODE_DISABLE_SPLITKV=0
 export FLASH_MLA_SPARSE_PAGE64_SPECIALIZE=1
 export FLASH_MLA_SPARSE_DECODE_NUM_SM_PARTS=32
-
-# DeepGEMM / DeepEP
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_USE_FP8_W8A8_MOE=1
 export DEEP_EP_NORMAL_MNVL=1
 export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_ALLOWED_IBV_DEVICES="xx"
-
-# HCU runtime
 export HSA_ENABLE_COREDUMP=0
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
 export HIP_KERNEL_BATCH_CEILING=100
@@ -158,8 +132,6 @@ export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=1
 export SGLANG_ENABLE_HCU_CONCAT_MLA_ABSORB_Q=1
 export SGLANG_NSA_MQA_LOGITS_MEMORY_BUDGET_GB=2
-
-# PD disaggregation
 export MC_GID_INDEX=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 
