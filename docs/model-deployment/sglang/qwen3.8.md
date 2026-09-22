@@ -296,7 +296,7 @@ sglang serve \
 
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x SGLang 0.5.18
 
-开启 `--ple-offload-embedding` 后可用 4 卡部署。
+开启 `--ple-offload-embedding` 后可用 4 卡部署。PLE 权重会 pin 到 CPU，`--numa-node` 必须按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node；全部绑到同一 node（如 `0 0 0 0`）容易把该 node 内存打满。
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
@@ -375,7 +375,7 @@ sglang serve \
   --numa-node 0 0 0 0
 ```
 
-可选：增加 `--ple-offload-embedding` 开启 PLE offload。
+可选：增加 `--ple-offload-embedding` 开启 PLE offload。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
 ### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x SGLang 0.5.18
 
@@ -414,7 +414,7 @@ sglang serve \
   --numa-node 0 0 0 0
 ```
 
-可选：增加 `--ple-offload-embedding` 开启 PLE offload。
+可选：增加 `--ple-offload-embedding` 开启 PLE offload。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
 ### Qwen3.8-2.4T-A95B-ChannelWise-W4A16 IFB BW1100 16x SGLang 0.5.18
 
