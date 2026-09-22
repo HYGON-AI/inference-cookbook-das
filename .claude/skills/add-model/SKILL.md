@@ -565,8 +565,8 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
 
 单元格取值：
 - **有文档且支持该硬件**：`<td align="center"><a href="docs/model-deployment/{vllm|sglang}/{filename}.md">✅</a></td>`
-- **暂未验证**：`<td align="center">-</td>`
-- **开发中/验证中**：`<td align="center">🚧</td>`
+- **已知不支持**：`<td align="center">-</td>`
+- **计划中/待验证**：`<td align="center">🚧</td>`
 
 ### 操作步骤
 
@@ -576,4 +576,4 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
 
 2. **文档路径**格式为：`docs/model-deployment/{vllm|sglang}/{filename}.md`，`{filename}` 与新建文档的文件名一致。
 
-3. **只改动必要行**，不调整其他模型的内容，保持 diff 最小。首次增加 scaleX40-3G 列时，需给所有现有数据行补齐该列；无验证依据的行填写 `-`。
+3. **只改动必要行**，不调整其他模型的内容，保持 diff 最小。
