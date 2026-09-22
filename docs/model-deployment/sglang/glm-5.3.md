@@ -5,7 +5,7 @@ GLM-5.3 是智谱(Z.ai)推出的开放权重大语言模型, 属于 GLM-5 系列
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | ScaleX | 24 | PD | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-24x-sglang-0518) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-24x-sglang-0518) |
 
 ## 启动命令
 
