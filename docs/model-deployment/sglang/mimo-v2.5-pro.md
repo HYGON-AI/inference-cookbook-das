@@ -20,7 +20,7 @@ MiMo-V2.5-Pro 是小米推出的大规模 MoE（混合专家）语言模型，�
 #!/usr/bin/env bash
 
 NODE_RANK="${1:-}"
-
+IFNAME="${2:-ens82f1np1}"
 export NCCL_SOCKET_IFNAME=$IFNAME
 export GLOO_SOCKET_IFNAME=$IFNAME
 export SGLANG_USE_LIGHTOP=1
@@ -32,7 +32,6 @@ export SGLANG_USE_AITER_ASM_MOE_USE_SHUFFLE=1
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
 export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=/home/sglang-ws/920-mimo-perf/topo.config
 export ROCSHMEM_IB_GID_INDEX=0
 export SGLANG_USE_VARLEN_FWD_UNIFIED=1
 export SGLANG_USE_AITER_AR=1
