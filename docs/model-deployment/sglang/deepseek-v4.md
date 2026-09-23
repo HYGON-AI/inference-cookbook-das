@@ -204,6 +204,9 @@ sglang serve \
 ```bash
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME=xxx
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
 export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
 export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
@@ -233,8 +236,15 @@ export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
 export SGLANG_USE_LIGHTOP_EP_SCATTER=1
 export SGLANG_USE_LIGHTOP_EP_GATHER=1
 export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_FP8_WO_A_GEMM=0
-export SGLANG_RAGGED_VERIFY_MODE=compact
+export SGLANG_RAGGED_VERIFY_MODE=static
 export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
 export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
 export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
@@ -248,19 +258,31 @@ sglang serve \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
   --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
-  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
   --disable-flashinfer-autotune \
   --skip-server-warmup \
-  --cuda-graph-max-bs-decode 256 \
-  --mem-fraction-static 0.8 \
+  --cuda-graph-max-bs 32 \
+  --mem-fraction-static 0.90 \
   --speculative-algorithm DSPARK \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
-  --max-running-requests 64 \
-  --context-length 81920 \
-  --enable-metrics
+  --max-running-requests 32 \
+  --context-length 32768 \
+  --dp 8 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --ep 8 \
+  --moe-a2a-backend deepep \
+  --deepep-mode auto \
+  --deepep-config /xxx/deepep-config.json \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --moe-runner-backend deep_gemm \
+  --enable-metrics \
+  --disable-radix-cache
 ```
 
 ### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18
@@ -342,7 +364,8 @@ sglang serve \
   --context-length 32768 \
   --disable-cuda-graph \
   --max-total-tokens 131072 \
-  --speculative-moe-a2a-backend none \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
   --enable-metrics \
   --enable-prefill-cp \
   --cp-strategy interleave \
@@ -1417,12 +1440,14 @@ sglang serve \
   --max-running-requests 128 \
   --enable-metrics \
   --swa-full-tokens-ratio 0.9 \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --quantization slimquant_marlin \
   --dp 8 \
   --enable-dp-attention \
   --enable-dp-lm-head \
-  --moe-a2a-backend none \
+  --moe-a2a-backend deepep \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
   --tokenizer-worker-num 8
 ```
 
@@ -1506,7 +1531,7 @@ sglang serve \
   --ep 8 \
   --moe-dense-tp-size 1 \
   --moe-a2a-backend deepep \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --deepep-mode normal \
   --deepep-config /xxx/deepep-config.json \
   --dist-init-addr <P_node0_ip>:5123 \
@@ -1792,7 +1817,6 @@ export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
 export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
 export SGLANG_DSPARK_FAST_KERNEL=1
 export SGLANG_DSPARK_FAST_SAMPLING=1
-export SGLANG_W4A8_TPMOE_BACKEND=aiter
 
 sglang serve \
   --reasoning-parser deepseek-v4 \
@@ -1815,12 +1839,14 @@ sglang serve \
   --max-running-requests 128 \
   --enable-metrics \
   --swa-full-tokens-ratio 0.9 \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --quantization slimquant_marlin \
   --dp 8 \
   --enable-dp-attention \
   --enable-dp-lm-head \
-  --moe-a2a-backend none \
+  --moe-a2a-backend deepep \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
   --tokenizer-worker-num 8
 ```
 
@@ -1906,7 +1932,7 @@ sglang serve \
   --ep 8 \
   --moe-dense-tp-size 1 \
   --moe-a2a-backend deepep \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --deepep-mode normal \
   --deepep-config /xxx/deepep_config.json \
   --dist-init-addr <P_node0_ip>:5125 \
