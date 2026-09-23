@@ -35,7 +35,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --moe-backend aiter \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-prefix-caching \
-  --kv-cache-dtype fp8_e4m3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 32 \
@@ -54,7 +53,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --dtype bfloat16 \
   --trust-remote-code \
-  --kv-cache-dtype fp8_e5m2 \
   --engram-config.cpu_offload=true \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
@@ -74,7 +72,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --enable-ep-weight-filter \
   --skip-mm-profiling \
   --trust-remote-code \
-  --kv-cache-dtype fp8_e5m2 \
   --engram-config.cpu_offload=true \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
