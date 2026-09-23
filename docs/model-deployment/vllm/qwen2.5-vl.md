@@ -8,9 +8,9 @@ Qwen2.5-VL 是阿里通义千问视觉语言模型系列，支持图像、视频
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen2.5-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-2x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-k100_ai-4x-vllm-021) |
+| [Qwen/Qwen2.5-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-2x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-k100_ai-4x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-2x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-k100_ai-4x-vllm-018) |

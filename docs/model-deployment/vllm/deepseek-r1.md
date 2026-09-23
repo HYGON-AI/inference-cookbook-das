@@ -8,31 +8,31 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | 0.21 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-021) |
-|                                                                                                                   | FP16 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-021) |
-|                                                                                                                   | FP16 | 0.21 | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100_ai-4x-vllm-021) |
+| [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-021) |
+|                                                                                                                   | FP16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-021) |
+|                                                                                                                   | FP16 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100_ai-4x-vllm-021) |
 |                                                                                                                   | FP16 | [0.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-018) |
 |                                                                                                                   | FP16 | [0.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-018) |
 |                                                                                                                   | FP16 | [0.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100ai-4x-vllm-018) |
-| [deepseek-ai/DeepSeek-R1-Distill-Llama-70B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) | BF16 | 0.21 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-2x-vllm-021) |
-|                                                                                                                     | BF16 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-4x-vllm-021) |
-|                                                                                                                     | BF16 | 0.21 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100_ai-8x-vllm-021) |
+| [deepseek-ai/DeepSeek-R1-Distill-Llama-70B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) | BF16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-2x-vllm-021) |
+|                                                                                                                     | BF16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-4x-vllm-021) |
+|                                                                                                                     | BF16 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100_ai-8x-vllm-021) |
 |                                                                                                                     | BF16 | [0.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-2x-vllm-018) |
 |                                                                                                                     | BF16 | [0.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-4x-vllm-018) |
 |                                                                                                                     | BF16 | [0.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100ai-8x-vllm-018) |
-| [hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8) | INT8 W8A8 | 0.21 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1100-2x-vllm-021) |
-|                                                                                                                                             | INT8 W8A8 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1000-4x-vllm-021) |
-|                                                                                                                                             | INT8 W8A8 | 0.21 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-k100_ai-8x-vllm-021) |
+| [hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1100-2x-vllm-021) |
+|                                                                                                                                             | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1000-4x-vllm-021) |
+|                                                                                                                                             | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-k100_ai-8x-vllm-021) |
 |                                                                                                                                             | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1100-2x-vllm-018) |
 |                                                                                                                                             | INT8 W8A8 | [0.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1000-4x-vllm-018) |
 |                                                                                                                                             | INT8 W8A8 | [0.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-k100ai-8x-vllm-018) |
-| [hygon/DeepSeek-R1-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-INT8-w8a8) | INT8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
-|                                                                                                              | INT8 W8A8 | 0.21 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
+| [hygon/DeepSeek-R1-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
+|                                                                                                              | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
 |                                                                                                              | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-018) |
 |                                                                                                              | INT8 W8A8 | [0.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-018) |
 |                                                                                                              | INT8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1100-8x-vllm-015) |
 |                                                                                                              | INT8 W8A8 | [0.15](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-channel-int8-w8a8-ifb-bw1000-16x-vllm-015) |
-| [hygon/DeepSeek-R1-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-FP8-w8a8) | FP8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
+| [hygon/DeepSeek-R1-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |                                                                                                             | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |                                                                                                             | FP8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/DeepSeek-R1-W4A8-V2_6](https://www.modelscope.cn/models/hygon/DeepSeek-R1-W4A8-V2_6) | INT4 W4A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-021) |
@@ -348,7 +348,10 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA \
   --nnodes 2 \
   --node-rank 0 \
-  --master-addr <master_node_ip>
+  --master-addr <master_node_ip> \
+  --reasoning-parser deepseek_r1 \
+  --tool-call-parser deepseek_v3 \
+  --no-async-scheduling
 ```
 
 #### Worker node
@@ -369,6 +372,9 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
   --nnodes 2 \
   --node-rank 1 \
   --master-addr <master_node_ip> \
+  --reasoning-parser deepseek_r1 \
+  --tool-call-parser deepseek_v3 \
+  --no-async-scheduling \
   --headless
 ```
 ### DeepSeek-R1-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.18
