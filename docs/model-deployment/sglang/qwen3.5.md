@@ -535,7 +535,6 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_CUDA_IPC_TRANSPORT=1
 export SGLANG_USE_MODELSCOPE=1
 
 sglang serve \
@@ -543,6 +542,7 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
+  --mm-feature-transport cuda_ipc \
   --trust-remote-code \
   --mem-fraction-static 0.9 \
   --page-size 64 \
@@ -568,7 +568,6 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_CUDA_IPC_TRANSPORT=1
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_MARLIN_W16A16_MOE=0
 export SGLANG_ROCM_USE_AITER_MOE=1
@@ -578,6 +577,7 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
+  --mm-feature-transport cuda_ipc \
   --mem-fraction-static 0.9 \
   --page-size 64 \
   --tp-size 8 \
@@ -603,7 +603,6 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_CUDA_IPC_TRANSPORT=1
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_MARLIN_W16A16_MOE=0
 export SGLANG_ROCM_USE_AITER_MOE=0
@@ -613,6 +612,7 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
+  --mm-feature-transport cuda_ipc \
   --mem-fraction-static 0.9 \
   --page-size 64 \
   --tp-size 8 \
@@ -743,7 +743,6 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_CUDA_IPC_TRANSPORT=1
 export SGLANG_USE_MODELSCOPE=1
 
 sglang serve \
@@ -751,6 +750,7 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
+  --mm-feature-transport cuda_ipc \
   --trust-remote-code \
   --mem-fraction-static 0.9 \
   --page-size 64 \
@@ -885,7 +885,6 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_CUDA_IPC_TRANSPORT=1
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_FP8_W8A8_MOE=1
 
@@ -894,6 +893,7 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
+  --mm-feature-transport cuda_ipc \
   --mem-fraction-static 0.9 \
   --page-size 64 \
   --tp-size 4 \
