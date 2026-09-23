@@ -204,8 +204,6 @@ sglang serve \
 ```bash
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME=xxx
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
 export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
 export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
