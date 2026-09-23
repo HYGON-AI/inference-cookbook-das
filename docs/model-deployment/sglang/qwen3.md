@@ -29,11 +29,17 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 | [Qwen/Qwen3-32B](https://www.modelscope.cn/models/Qwen/Qwen3-32B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2x | IFB | [**\`>_\`**](#qwen3-32b-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4x | IFB | [**\`>_\`**](#qwen3-32b-ifb-bw1000-4x-sglang-0512) |
 | [Qwen/Qwen3-32B](https://www.modelscope.cn/models/Qwen/Qwen3-32B) | BF16 | 0.5.10 | BW1100 | 2x | IFB | [**\`>_\`**](#qwen3-32b-ifb-bw1100-2x-sglang-0510) |
-| [Qwen/Qwen3-235B-A22B](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-bw1100-8x-sglang-0512) |
+| [Qwen/Qwen3-235B-A22B](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B) | BF16 | 0.5.18 | BW1100 | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-bw1100-8x-sglang-0518) |
+|  | BF16 | 0.5.18 | BW1000 | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-bw1000-8x-sglang-0518) |
+|  | BF16 | 0.5.18 | K100_AI | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-k100_ai-8x-sglang-0518) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-bw1100-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-bw1000-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-k100_ai-8x-sglang-0512) |
 |  | BF16 | 0.5.10 | BW1100 | 4x | IFB | [**\`>_\`**](#qwen3-235b-a22b-ifb-bw1100-4x-sglang-0510) |
-| [Qwen/Qwen3-235B-A22B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B-Instruct-2507) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-8x-sglang-0512) |
+| [Qwen/Qwen3-235B-A22B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B-Instruct-2507) | BF16 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-8x-sglang-0518) |
+|  | BF16 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1000-8x-sglang-0518) |
+|  | BF16 | 0.5.18 | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-k100_ai-8x-sglang-0518) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1000-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-k100_ai-8x-sglang-0512) |
 
@@ -789,6 +795,49 @@ python -m sglang.launch_server \
     --mem-fraction-static 0.85
 ```
 
+### Qwen3-235B-A22B IFB BW1100 8x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3-235B-A22B \
+  --tp-size 8 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --trust-remote-code \
+  --mem-fraction-static 0.85 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder
+```
+
+### Qwen3-235B-A22B IFB BW1000 8x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3-235B-A22B \
+  --tp-size 8 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --trust-remote-code \
+  --mem-fraction-static 0.95 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder
+```
+
+### Qwen3-235B-A22B IFB K100_AI 8x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3-235B-A22B \
+  --tp-size 8 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --trust-remote-code \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --mem-fraction-static 0.95 \
+  --disable-custom-all-reduce
+```
+
 ### Qwen3-235B-A22B IFB BW1100 8x SGLang 0.5.12
 
 ```bash
@@ -842,6 +891,50 @@ python -m sglang.launch_server \
     --attention-backend fa3 \
     --page-size 64 \
     --mem-fraction-static 0.90
+```
+
+### Qwen3-235B-A22B-Instruct-2507 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3-235B-A22B-Instruct-2507 \
+  --tp-size 8 \
+  --trust-remote-code \
+  --mem-fraction-static 0.85 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
+```
+
+### Qwen3-235B-A22B-Instruct-2507 IFB BW1000 8x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3-235B-A22B-Instruct-2507 \
+  --tp-size 8 \
+  --trust-remote-code \
+  --mem-fraction-static 0.95 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --context-length 32768
+```
+
+### Qwen3-235B-A22B-Instruct-2507 IFB K100_AI 8x SGLang 0.5.18
+
+```bash
+sglang serve \
+  --model-path Qwen/Qwen3-235B-A22B-Instruct-2507 \
+  --tp-size 8 \
+  --trust-remote-code \
+  --mem-fraction-static 0.90 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --disable-custom-all-reduce
 ```
 
 ### Qwen3-235B-A22B-Instruct-2507 IFB BW1100 8x SGLang 0.5.12
