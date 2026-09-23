@@ -60,6 +60,15 @@
       <td align="center"><a href="docs/model-deployment/sglang/qwen3.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.5.md">✅</a></td>
     </tr>
     <tr>
+      <td rowspan="2">Qwen3-TTS</td>
+      <td>vLLM-Omni</td>
+      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-tts.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-tts.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang-Omni</td>
+      <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
+    </tr>
+    <tr>
       <td rowspan="2">Qwen3-VL</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">✅</a></td><td align="center">🚧</td>
@@ -123,16 +132,7 @@
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
-      <td rowspan="2">Qwen3-TTS</td>
-      <td>vLLM-Omni</td>
-      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-tts.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-tts.md">✅</a></td>
-    </tr>
-    <tr>
-      <td>SGLang-Omni</td>
-      <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
-    </tr>
-    <tr>
-      <td rowspan="2" align="center">inclusionAI</td>
+      <td rowspan="2" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/662e1f9da266499277937d33/fyKuazRifqiaIO34xrhhm.jpeg" height="40"/><br/>InclusionAI</td>
       <td rowspan="2">Ling-1T</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
@@ -188,12 +188,7 @@
       <td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="9" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
-      <td>GLM-5.3</td>
-      <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.3.md">✅</a></td>
-    </tr>
-    <tr>
+      <td rowspan="8" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
       <td rowspan="2">GLM-5.2</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td>
@@ -230,10 +225,14 @@
       <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
-      <td rowspan="3" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
-      <td>Hy4</td>
+      <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
+      <td rowspan="2">Hy4</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy4.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
       <td rowspan="2">Hy3</td>
