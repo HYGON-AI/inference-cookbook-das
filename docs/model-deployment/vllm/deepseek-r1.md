@@ -35,8 +35,9 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 | [hygon/DeepSeek-R1-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |                                                                                                             | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |                                                                                                             | FP8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
-| [hygon/DeepSeek-R1-W4A8-V2_6](https://www.modelscope.cn/models/hygon/DeepSeek-R1-W4A8-V2_6) | INT4 W4A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-021) |
-|                                                                                              | INT4 W4A8 | 0.21 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1000-8x-vllm-021) |
+| [hygon/DeepSeek-R1-W4A8-V2_6](https://www.modelscope.cn/models/hygon/DeepSeek-R1-W4A8-V2_6) | INT4 W4A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-021) |
+|                                                                                              | INT4 W4A8 | [0.21](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1000-8x-vllm-021) |
+|                                                                                              | INT4 W4A8 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-k100_ai-8x-vllm-021) |
 |                                                                                              | INT4 W4A8 | 0.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-018) |
 |                                                                                              | INT4 W4A8 | 0.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1000-8x-vllm-018) |
 | [hygon/DeepSeek-R1-0528-W4A8-V2](https://www.modelscope.cn/models/hygon/DeepSeek-R1-0528-W4A8-V2) | INT4 W4A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-0528-w4a8-v2-ifb-bw1100-8x-vllm-021) |
@@ -661,6 +662,30 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
 ### DeepSeek-R1-W4A8-V2_6 IFB BW1000 8x vLLM 0.21
 
 ```bash
+export VLLM_USE_MODELSCOPE=1
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_CAT_MLA=0
+
+vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 8192 \
+  -tp 8 \
+  --gpu-memory-utilization 0.92 \
+  --max-num-seqs 256 \
+  --speculative_config '{"method":"deepseek_mtp","num_speculative_tokens":2}' \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter
+```
+
+### DeepSeek-R1-W4A8-V2_6 IFB K100_AI 8x vLLM 0.21
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+export VLLM_ROCM_USE_AITER_MOE=0
 export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
 export VLLM_HCU_USE_CAT_MLA=0
