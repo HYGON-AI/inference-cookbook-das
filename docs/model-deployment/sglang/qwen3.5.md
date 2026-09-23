@@ -542,7 +542,6 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
-  --mm-feature-transport cuda_ipc \
   --trust-remote-code \
   --mem-fraction-static 0.9 \
   --page-size 64 \
@@ -577,7 +576,6 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
-  --mm-feature-transport cuda_ipc \
   --mem-fraction-static 0.9 \
   --page-size 64 \
   --tp-size 8 \
@@ -612,7 +610,6 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
-  --mm-feature-transport cuda_ipc \
   --mem-fraction-static 0.9 \
   --page-size 64 \
   --tp-size 8 \
@@ -750,7 +747,6 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
-  --mm-feature-transport cuda_ipc \
   --trust-remote-code \
   --mem-fraction-static 0.9 \
   --page-size 64 \
@@ -893,7 +889,6 @@ sglang serve \
   --dtype bfloat16 \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
-  --mm-feature-transport cuda_ipc \
   --mem-fraction-static 0.9 \
   --page-size 64 \
   --tp-size 4 \
