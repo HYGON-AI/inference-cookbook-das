@@ -17,7 +17,7 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1100 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-int8-w8a8-1p1d-bw1100-16x) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-int8-w8a8-ifb-bw1000-8x) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1000 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-int8-w8a8-1p1d-bw1000-16x) |
-| [hygon/MiniMax-M2.5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 8 | PD | [**`>_`**](#minimax-m25-channel-fp8-w8a8-pd-scalex40-3g-8x-sglang-0512) |
+| [hygon/MiniMax-M2.5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 8 | 1P1D | [**`>_`**](#minimax-m25-channel-fp8-w8a8-1p1d-scalex40-3g-8x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-fp8-w8a8-ifb-bw1100-8x) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-fp8-w8a8-1p1d-bw1100-16x) |
@@ -216,7 +216,9 @@ sglang serve \
   --port 30000
 ```
 
-### MiniMax-M2.5-Channel-FP8-w8a8 PD scaleX40-3G 8x SGLang 0.5.12
+### MiniMax-M2.5-Channel-FP8-w8a8 1P1D scaleX40-3G 8x SGLang 0.5.12
+
+网卡配置参考：[shca]
 
 P/D 服务端口分别填写 `<P_port>` 和 `<D_port>`，Router 端口填写 `<router_port>`。
 
