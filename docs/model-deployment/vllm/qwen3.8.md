@@ -48,11 +48,9 @@ github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 ```bash
 export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0 
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
-export VLLM_HCU_USE_CUSTOM_TOPK_TOPP_SAMPLER=1
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   -tp 4 \
   --moe-backend aiter \
-  --host 0.0.0.0 \
   --dtype bfloat16 \
   --trust-remote-code \
   --engram-config.cpu_offload=true \
@@ -67,7 +65,6 @@ github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 
 ```bash
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
-export VLLM_HCU_USE_CUSTOM_TOPK_TOPP_SAMPLER=1
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   -tp 4 \
   --moe-backend aiter \
