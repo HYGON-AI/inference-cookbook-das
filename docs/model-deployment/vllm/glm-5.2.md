@@ -8,17 +8,18 @@ GLM-5.2 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.2-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT4-w4a8) | INT4 W4A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-021) |
+| [hygon/GLM-5.2-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT4-w4a8) | INT4 W4A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-021) |
+|  | INT4 W4A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1000-16x-vllm-021) |
 |  | INT4 W4A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-018) |
 |  | INT4 W4A8 | [0.18](../docker_images.md) | BW1000 | 16 | PP2+TP8 | [**`>_`**](#glm-52-channel-int4-w4a8-pp2tp8-bw1000-16x-vllm-018) |
 |  | INT4 W4A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-015) |
-| [hygon/GLM-5.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-FP8-w8a8) | FP8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
-|  | FP8 W8A8 | 0.21 | BW1100 | 16 | 1P1D | [**`>_`**](#glm-52-channel-fp8-w8a8-1p1d-bw1100-16x-vllm-021) |
+| [hygon/GLM-5.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
+|  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 16 | 1P1D | [**`>_`**](#glm-52-channel-fp8-w8a8-1p1d-bw1100-16x-vllm-021) |
 |  | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |  | FP8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/GLM-5.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT8-w8a8) | INT8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-0251) |
-|  | INT8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
-|  | INT8 W8A8 | 0.21 | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
 |  | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-018) |
 |  | INT8 W8A8 | [0.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1000-16x-vllm-018) |
 |  | INT8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-015) |
@@ -50,6 +51,73 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
     --enable-auto-tool-choice \
     --tool-call-parser glm47 \
     --reasoning-parser glm45
+```
+
+### GLM-5.2-Channel-INT4-w4a8 IFB BW1000 16x vLLM 0.21
+
+以下示例为双节点部署，请将 `<master_node_ip>` 替换为主节点 IP。
+
+#### Node 0
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+
+vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
+    --trust-remote-code \
+    --dtype bfloat16 \
+    --max-model-len 65536 \
+    --max-num-batched-tokens 8192 \
+    -tp 16 \
+    --gpu-memory-utilization 0.92 \
+    --max-num-seqs 64 \
+    --block-size 64 \
+    --speculative_config '{
+        "method":"deepseek_mtp",
+        "num_speculative_tokens":2
+    }' \
+    --kv-cache-dtype fp8_ds_mla \
+    --moe-backend aiter \
+    --attention-backend FLASHMLA_SPARSE \
+    --enable-auto-tool-choice \
+    --tool-call-parser glm47 \
+    --reasoning-parser glm45 \
+    --master-addr <master_node_ip> \
+    --nnodes 2 \
+    --node-rank 0
+
+```
+
+#### Node 1
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+
+vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
+    --trust-remote-code \
+    --dtype bfloat16 \
+    --max-model-len 65536 \
+    --max-num-batched-tokens 8192 \
+    -tp 16 \
+    --gpu-memory-utilization 0.92 \
+    --max-num-seqs 64 \
+    --block-size 64 \
+    --speculative_config '{
+        "method":"deepseek_mtp",
+        "num_speculative_tokens":2
+    }' \
+    --kv-cache-dtype fp8_ds_mla \
+    --moe-backend aiter \
+    --attention-backend FLASHMLA_SPARSE \
+    --enable-auto-tool-choice \
+    --tool-call-parser glm47 \
+    --reasoning-parser glm45 \
+    --master-addr <master_node_ip> \
+    --nnodes 2 \
+    --node-rank 1 \
+    --headless
+
 ```
 
 ### GLM-5.2-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.18
