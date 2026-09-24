@@ -83,7 +83,7 @@ sglang serve \
   --skip-server-warmup \
   --disable-overlap-schedule \
   --attention-backend fa3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -131,7 +131,7 @@ sglang serve \
   --skip-server-warmup \
   --disable-overlap-schedule \
   --attention-backend fa3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -179,7 +179,7 @@ sglang serve \
   --skip-server-warmup \
   --disable-overlap-schedule \
   --attention-backend fa3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -227,7 +227,7 @@ sglang serve \
   --skip-server-warmup \
   --disable-overlap-schedule \
   --attention-backend fa3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -275,7 +275,7 @@ sglang serve \
   --skip-server-warmup \
   --disable-overlap-schedule \
   --attention-backend fa3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -323,7 +323,7 @@ sglang serve \
   --skip-server-warmup \
   --disable-overlap-schedule \
   --attention-backend fa3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -726,7 +726,7 @@ sglang serve \
   --numa-node 0 0 0 0 1 1 1 1 \
   --page-size 64 \
   --trust-remote-code \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3 \
   --model-path Qwen/Qwen3-32B \
   --attention-backend fa3 \
@@ -767,7 +767,7 @@ sglang serve \
   --page-size 64 \
   --kv-cache-dtype fp8_e5m2 \
   --trust-remote-code \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --disable-custom-all-reduce \
   --reasoning-parser qwen3 \
   --model-path Qwen/Qwen3-32B \
@@ -800,7 +800,7 @@ sglang serve \
   --trust-remote-code \
   --mem-fraction-static 0.85 \
   --reasoning-parser qwen3 \
-  --tool-call-parser qwen3
+  --tool-call-parser qwen
 ```
 
 ### Qwen3-235B-A22B IFB BW1000 8x SGLang 0.5.12
@@ -814,7 +814,7 @@ sglang serve \
   --trust-remote-code \
   --mem-fraction-static 0.95 \
   --reasoning-parser qwen3 \
-  --tool-call-parser qwen3
+  --tool-call-parser qwen
 ```
 
 ### Qwen3-235B-A22B IFB K100_AI 8x SGLang 0.5.12
@@ -827,7 +827,7 @@ sglang serve \
   --page-size 64 \
   --trust-remote-code \
   --reasoning-parser qwen3 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --mem-fraction-static 0.95 \
   --disable-custom-all-reduce
 ```
@@ -854,7 +854,7 @@ sglang serve \
   --mem-fraction-static 0.85 \
   --attention-backend fa3 \
   --page-size 64 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3
 ```
 
@@ -868,7 +868,7 @@ sglang serve \
   --mem-fraction-static 0.95 \
   --attention-backend fa3 \
   --page-size 64 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3 \
   --context-length 32768
 ```
@@ -883,7 +883,7 @@ sglang serve \
   --mem-fraction-static 0.90 \
   --attention-backend fa3 \
   --page-size 64 \
-  --tool-call-parser qwen3 \
+  --tool-call-parser qwen \
   --reasoning-parser qwen3 \
   --disable-custom-all-reduce
 ```
