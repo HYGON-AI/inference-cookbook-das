@@ -8,7 +8,7 @@ Kimi K2.6 是一个开源的原生多模态智能体模型，在长周期编码�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [moonshotai/Kimi-K2.6](https://www.modelscope.cn/models/moonshotai/Kimi-K2.6) | INT4 W4A16 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | 1P1D | [**`>_`**](#kimi-k26-pd-scalex40-3g-24x-sglang-0512) |
+| [moonshotai/Kimi-K2.6](https://www.modelscope.cn/models/moonshotai/Kimi-K2.6) | INT4 W4A16 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | 1P1D | [**`>_`**](#kimi-k26-1p1d-scalex40-3g-24x-sglang-0512) |
 |  | INT4 W4A16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#kimi-k26-ifb-bw1100-8x-sglang-0512) |
 |  | INT4 W4A16 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#kimi-k26-ifb-bw1000-16x-sglang-0512) |
 |  | INT4 W4A16 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k26-ifb-bw1100-8x-sglang-0510) |
@@ -16,7 +16,7 @@ Kimi K2.6 是一个开源的原生多模态智能体模型，在长周期编码�
 
 ## 启动命令
 
-### Kimi-K2.6 PD scaleX40-3G 24x SGLang 0.5.12
+### Kimi-K2.6 1P1D scaleX40-3G 24x SGLang 0.5.12
 
 #### EPLB 配置参考：[EPLB](../../optimization/static-eplb-sglang.md)。
 
@@ -163,7 +163,7 @@ export HIP_BUFFER_EXTRA_SIZE=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
 export PYTHONUNBUFFERED=1
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path moonshotai/Kimi-K2.6 \
   --kv-cache-dtype fp8_e4m3 \
   --host <D_node0_ip> \
@@ -234,7 +234,7 @@ export HIP_BUFFER_EXTRA_SIZE=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
 export PYTHONUNBUFFERED=1
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path moonshotai/Kimi-K2.6 \
   --kv-cache-dtype fp8_e4m3 \
   --host <D_node1_ip> \
@@ -304,7 +304,7 @@ export HIP_BUFFER_EXTRA_SIZE=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
 export PYTHONUNBUFFERED=1
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path moonshotai/Kimi-K2.6 \
   --kv-cache-dtype fp8_e4m3 \
   --host <D_node2_ip> \
@@ -375,7 +375,7 @@ export HIP_BUFFER_EXTRA_SIZE=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
 export PYTHONUNBUFFERED=1
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path moonshotai/Kimi-K2.6 \
   --kv-cache-dtype fp8_e4m3 \
   --host <D_node3_ip> \
@@ -412,7 +412,7 @@ python3 -m sglang.launch_server \
   --ep-num-redundant-experts 16
 ```
 
-## Router
+#### Router
 
 ```
 python3 -m sglang_router.launch_router \

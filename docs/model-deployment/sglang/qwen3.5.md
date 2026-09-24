@@ -895,6 +895,7 @@ sglang serve \
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3
+export NCCL_MIN_NCHANNELS=32
 export RCCL_COLL_XHCL_CHANNEL_NUM=28
 export RCCL_P2P_XHCL_CHANNEL_NUM=29
 export NCCL_MIN_P2P_NCHANNELS=32
@@ -965,6 +966,7 @@ sglang serve \
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3
+export NCCL_MIN_NCHANNELS=32
 export RCCL_COLL_XHCL_CHANNEL_NUM=28
 export RCCL_P2P_XHCL_CHANNEL_NUM=29
 export NCCL_MIN_P2P_NCHANNELS=32
@@ -1034,6 +1036,8 @@ sglang serve \
 #### D node 0
 
 ```bash
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_qwen3.5-397b/profiling
 export HSA_ENABLE_COREDUMP=1
@@ -1115,6 +1119,8 @@ sglang serve \
 #### D node 1
 
 ```bash
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_qwen3.5-397b/profiling
 export HSA_ENABLE_COREDUMP=1
@@ -1196,6 +1202,8 @@ sglang serve \
 #### D node 2
 
 ```bash
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_qwen3.5-397b/profiling
 export HSA_ENABLE_COREDUMP=1
@@ -1277,6 +1285,8 @@ sglang serve \
 #### D node 3
 
 ```bash
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_qwen3.5-397b/profiling
 export HSA_ENABLE_COREDUMP=1
