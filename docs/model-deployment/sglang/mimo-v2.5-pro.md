@@ -16,8 +16,6 @@ MiMo-V2.5-Pro 是小米推出的大规模 MoE（混合专家）语言模型，�
 
 ### MiMo-V2.5-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.18
 
-双机部署（2 nodes），每机 8 卡，ep=16 跨双机，dp=2。
-
 #### Node 0
 
 ```bash
@@ -38,7 +36,6 @@ export SGLANG_USE_AITER_AR=1
 
 sglang serve \
     --model-path hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8 \
-    --host 0.0.0.0 \
     --trust-remote-code \
     --pp-size 1 \
     --dp-size 2 \
@@ -90,7 +87,6 @@ export SGLANG_USE_AITER_AR=1
 
 sglang serve \
     --model-path hygon/MiMo-V2.5-Pro-Channel-FP8-w8a8 \
-    --host 0.0.0.0 \
     --trust-remote-code \
     --pp-size 1 \
     --dp-size 2 \
