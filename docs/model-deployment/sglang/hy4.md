@@ -1,16 +1,14 @@
-# hy4
-
 # Hy4
 
 ## 模型列表
 
-|模型权重|量化方式|SGLang 镜像|推荐硬件|卡数|部署方式|启动命令|
+|模型权重|量化方式|SGLang 版本|推荐硬件|卡数|部署方式|启动命令|
 |---|---|---|---|---|---|---|
-|[hygon/Hy4\-preview\-Channel\-FP8\-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8)|FP8 W8A8|0\.5\.18|BW1100|8|IFB \(tp8dp8\)|**`>_`**|
+|[hygon/Hy4\-preview\-Channel\-FP8\-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8)|FP8 W8A8|0.5.18|BW1100|8|IFB \(tp8dp8\)|[**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8)|
 
 ## 启动命令
 
-### Hy4\-preview\-Channel\-FP8\-w8a8 IFB BW1100 8x SGLang 0\.5\.18 \(tp8dp8\)
+### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (tp8dp8)
 
 ```Bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
@@ -19,9 +17,8 @@ export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_ROCM_USE_AITER_MOE=1
 export SGLANG_OPT_HY4_IHC_TILELANG=1
-# export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH #按照实际需求
 
-python -m sglang.launch_server \
+sglang serve \
   --model-path hygon/Hy4-preview-Channel-FP8-w8a8 \
   --trust-remote-code \
   --dtype bfloat16 \
