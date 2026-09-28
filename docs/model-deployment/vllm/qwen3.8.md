@@ -10,6 +10,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-vllm-0281) |
+| hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 | W4A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int4-w4a8-ifb-bw1000-4x-vllm-0281) |
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.25 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-025) |
 |  | BF16 |  [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 |  [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-021) |
@@ -35,6 +36,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --moe-backend aiter \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-prefix-caching \
+  --kv-cache-dtype fp8_e4m3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 32 \
@@ -53,6 +55,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --dtype bfloat16 \
   --trust-remote-code \
+  --kv-cache-dtype fp8_e5m2 \
   --engram-config.cpu_offload=true \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
@@ -72,11 +75,33 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --enable-ep-weight-filter \
   --skip-mm-profiling \
   --trust-remote-code \
+  --kv-cache-dtype fp8_e5m2 \
   --engram-config.cpu_offload=true \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 8192
+```
+
+### Qwen3.8-Flash-Next-Channel-INT4-w4a8 IFB BW1000 4x vLLM 0.28.1
+docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20260928-0235
+github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
+```bash
+export VLLM_HCU_PLE_PREFETCH_STREAM=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve /data/models/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
+  --tensor-parallel-size 4 \
+  --enable-expert-parallel \
+  --moe-backend triton \
+  --dtype bfloat16 \
+  --trust-remote-code \
+  --engram-config.cpu_offload=true \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
+  --kv-cache-dtype fp8_e5m2
 ```
 
 ### Qwen3.8-27B IFB BW1000 2x vLLM 0.25
