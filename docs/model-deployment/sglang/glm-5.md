@@ -415,7 +415,7 @@ sglang serve \
   --speculative-num-draft-tokens 4
 ```
 
-### GLM-5-Channel-INT4-w4a8 1P1D BW1000 32x SGLang 0.5.10
+### GLM-5-Channel-INT4-w4a8 1P1D BW1000 32x SGLang 0.5.18 0.5.10
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
@@ -713,7 +713,7 @@ python3 -m sglang_router.launch_router \
   --port 30001
 ```
 
-### GLM-5-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12
+### GLM-5-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18 0.5.12
 
 ```bash
 export SGLANG_ENABLE_SPEC_V2=1
@@ -763,7 +763,7 @@ sglang serve \
   --custom-all-reduce-backend aiter
 ```
 
-### GLM-5-Channel-INT8-w8a8 IFB BW1000 16x SGLang 0.5.12
+### GLM-5-Channel-INT8-w8a8 IFB BW1000 16x SGLang  0.5.18 0.5.12
 
 #### node 0
 
@@ -912,7 +912,7 @@ sglang serve \
   --mem-fraction-static 0.8
 ```
 
-### GLM-5-Channel-INT8-w8a8 1P1D BW1100 24x SGLang 0.5.10
+### GLM-5-Channel-INT8-w8a8 1P1D BW1100 24x SGLang 0.5.18 0.5.10
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
@@ -1142,7 +1142,7 @@ python3 -m sglang_router.launch_router \
 ```
 
 
-### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8)
+### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 0.5.12 (tp8)
 
 ~~~bash
 export SGLANG_ENABLE_SPEC_V2=1
@@ -1192,7 +1192,7 @@ sglang serve \
   --custom-all-reduce-backend aiter
 ~~~
 
-### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8ep8cp8)
+### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 0.5.12 (tp8ep8cp8)
 
 ~~~bash
 export SGLANG_ENABLE_SPEC_V2=1
@@ -1316,7 +1316,7 @@ sglang serve \
   --speculative-num-draft-tokens 4
 ```
 
-### GLM-5-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.10
+### GLM-5-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18 0.5.10
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
