@@ -400,6 +400,20 @@
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/wan-das/wan2.2-ti2v.md">✅</a></td><td align="center"><a href="docs/model-deployment/wan-das/wan2.2-ti2v.md">✅</a></td>
     </tr>
     <tr>
+      <td rowspan="3" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62abbcc426adcd4a38486cff/BRvA8VDnScMk16wiceLpW.jpeg" height="40"/><br/>Stability AI</td>
+      <td rowspan="3">Stable Diffusion v2.1</td>
+      <td>Diffusers</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/diffusion/stable-diffusion-v2-1.md">✅</a></td><td align="center"><a href="docs/model-deployment/diffusion/stable-diffusion-v2-1.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
+    </tr>
+    <tr>
+      <td>SGLang Diffusion</td>
+      <td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
+    </tr>
+    <tr>
       <td rowspan="2" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/1664511063789-632c234f42c386ebd2710434.png" height="40"/><br/>BAAI</td>
       <td rowspan="2">BGE</td>
       <td>Infinity</td>
