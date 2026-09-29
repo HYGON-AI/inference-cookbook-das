@@ -75,7 +75,7 @@ sglang serve \
   --tp-size 2 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -102,7 +102,7 @@ sglang serve \
   --tp-size 2 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -254,7 +254,7 @@ sglang serve \
   --tp-size 2 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -281,7 +281,7 @@ sglang serve \
   --max-running-requests 64 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -312,8 +312,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
@@ -336,8 +336,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --kv-cache-dtype auto \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
@@ -496,8 +496,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --quantization w8a8_int8 \
   --moe-runner-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
@@ -529,8 +529,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --quantization w8a8_int8 \
   --moe-runner-backend lightop \
   --kv-cache-dtype fp8_e5m2 \
@@ -667,8 +667,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
