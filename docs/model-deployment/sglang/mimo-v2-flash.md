@@ -10,6 +10,7 @@ MiMo-V2-Flash 是小米推出的大规模 MoE（混合专家）语言模型，�
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [XiaomiMiMo/MiMo-V2-Flash](https://www.modelscope.cn/models/XiaomiMiMo/MiMo-V2-Flash) | BLOCK FP8 | [0.5.10](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#mimo-v2-flash-ifb-bw1100-8x-sglang-0510) |
 | [hygon/MiMo-V2-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | K100_AI | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.10](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0510) |
@@ -81,6 +82,41 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
+  --disable-radix-cache
+```
+
+### MiMo-V2-Flash-Channel-INT8-w8a8 IFB K100_AI 8x SGLang 0.5.18
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_KV_LAYOUT_HCU_FA=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FP8_W8A8_MOE=0
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_USE_MODELSCOPE=1
+export SGLANG_USE_AITER_AR=1
+export SGLANG_USE_VARLEN_FWD_UNIFIED=1
+
+sglang serve \
+  --model-path hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --tp-size 8 \
+  --page-size 128 \
+  --trust-remote-code \
+  --mem-fraction-static 0.84 \
+  --quantization w8a8_int8 \
+  --moe-runner-backend triton \
+  --max-running-requests 128 \
+  --tool-call-parser mimo \
+  --reasoning-parser mimo \
+  --context-length 262144 \
+  --attention-backend triton \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4
   --disable-radix-cache
 ```
 
