@@ -177,7 +177,7 @@ sglang serve \
 ```
 
 ### GLM-5.3-Channel-FP8-w8a8 IFB 8x SGLang 0.5.18
-
+```bash
 export SGLANG_UVICORN_WORKER_HEALTHCHECK_TIMEOUT=120
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LIGHTOP_SPARSE_MQA_GROUP6_ROWS_PER_CTA=3
@@ -253,7 +253,7 @@ sglang serve \
     --cuda-graph-max-bs 8 \
     --max-running-requests 8 \
     --speculative-draft-lm-head-vp-size 8 \
-
+```
 
 ## API 调用
 
