@@ -75,7 +75,7 @@ sglang serve \
   --tp-size 2 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -102,7 +102,7 @@ sglang serve \
   --tp-size 2 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -254,7 +254,7 @@ sglang serve \
   --tp-size 2 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -278,10 +278,9 @@ sglang serve \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
   --tp-size 2 \
-  --max-running-requests 64 \
   --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
@@ -312,8 +311,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
@@ -336,9 +335,9 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
-  --kv-cache-dtype auto \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
+  --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
@@ -496,8 +495,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --quantization w8a8_int8 \
   --moe-runner-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
@@ -513,7 +512,7 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_ROCM_USE_AITER_MOE=1
 
 sglang serve \
   --model-path hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
@@ -529,10 +528,9 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --quantization w8a8_int8 \
-  --moe-runner-backend lightop \
   --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
@@ -667,8 +665,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --mamba-scheduler-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size 16384 \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
