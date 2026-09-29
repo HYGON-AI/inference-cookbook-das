@@ -1,16 +1,16 @@
-# Hy4
+# hy4
 
 ## 模型列表
 
-|模型权重|量化方式|SGLang 版本|推荐硬件|卡数|部署方式|启动命令|
+|模型权重|量化方式|SGLang 镜像|推荐硬件|卡数|部署方式|启动命令|
 |---|---|---|---|---|---|---|
-|[hygon/Hy4\-preview\-Channel\-FP8\-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8)|FP8 W8A8|0.5.18|BW1100|8|IFB \(tp8dp8\)|[**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8)|
+|[hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8)|FP8 W8A8|0.5.18|BW1100|8|IFB (tp8dp8)|[**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8)|
 
 ## 启动命令
 
 ### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (tp8dp8)
 
-```Bash
+```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export SGLANG_USE_FP8_W8A8_MOE=1
 export SGLANG_USE_DEEPGEMM_MOE=1
@@ -28,7 +28,7 @@ sglang serve \
   --enable-dp-lm-head \
   --moe-a2a-backend deepep \
   --deepep-mode auto \
-  --moe-dense-tp-size=1 \
+  --moe-dense-tp-size 1 \
   --disable-shared-experts-fusion \
   --attention-backend dsa \
   --dsa-prefill-backend flashmla_sparse \
@@ -42,7 +42,7 @@ sglang serve \
   --context-length 65536 \
   --max-running-requests 64 \
   --numa-node 0 0 0 0 1 1 1 1 \
-  --kv-cache-dtype fp8_e5m2 \
+  --kv-cache-dtype fp8_e4m3 \
   --disable-radix-cache \
   --disable-cuda-graph \
   --mem-fraction-static 0.95 \
@@ -54,7 +54,7 @@ sglang serve \
 
 ### IFB
 
-```Python
+```python
 from openai import OpenAI
 
 client = OpenAI(base_url="http://localhost:30000/v1", api_key="not-needed")
@@ -66,7 +66,7 @@ response = client.chat.completions.create(
 )
 ```
 
-```Bash
+```bash
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model": "hygon/Hy4-preview-Channel-FP8-w8a8", "messages": [{"role": "user", "content": "中国的首都是哪里？"}], "max_tokens": 128}'
