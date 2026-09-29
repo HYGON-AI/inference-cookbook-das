@@ -59,6 +59,56 @@ sglang serve \
   --attention-backend hcu_mla
 ```
 
+
+### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --disable-radix-cache \
+  --chunked-prefill-size -1 \
+  --max-running-requests 32 \
+  --context-length 32768 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 1 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 2 \
+  --cuda-graph-max-bs 32 \
+  --quantization slimquant_marlin \
+  --kv-cache-dtype fp8_e4m3 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 8 \
+  --pp-size 1 \
+  --mem-fraction-static 0.9 \
+  --attention-backend hcu_mla
+```
+
+
+
+
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1000 16x SGLang 0.5.12
 
 

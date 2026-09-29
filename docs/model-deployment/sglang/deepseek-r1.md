@@ -207,6 +207,308 @@ sglang serve \
   --attention-backend hcu_mla
 ```
 
+
+
+
+### DeepSeek-R1-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT_PATH=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=4
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export USE_SPE_MQP=1
+export MC_ALLOWED_IBV_DEVICES=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
+
+sglang serve \
+  --model-path hygon/DeepSeek-R1-Channel-FP8-w8a8 \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --chunked-prefill-size -1 \
+  --max-running-requests 256 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 1 \
+  --context-length 65536 \
+  --quantization w8a8_fp8 \
+  --kv-cache-dtype fp8_e4m3 \
+  --trust-remote-code \
+  --nnodes 1 \
+  --node-rank 0 \
+  --dtype bfloat16 \
+  --tp-size 8 \
+  --pp-size 1 \
+  --mem-fraction-static 0.9 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --attention-backend hcu_mla
+```
+
+
+
+### DeepSeek-R1-Channel-int8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT_PATH=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=4
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export USE_SPE_MQP=1
+export MC_ALLOWED_IBV_DEVICES=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
+
+sglang serve \
+  --model-path /public/opendas/DL_DATA/llm-models/DeepSeek-R1-Channel-INT8 \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --chunked-prefill-size -1 \
+  --max-running-requests 256 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 1 \
+  --context-length 65536 \
+  --quantization w8a8_fp8 \
+  --kv-cache-dtype fp8_e4m3 \
+  --trust-remote-code \
+  --nnodes 1 \
+  --node-rank 0 \
+  --dtype bfloat16 \
+  --tp-size 8 \
+  --pp-size 1 \
+  --mem-fraction-static 0.9 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --attention-backend hcu_mla
+```
+
+
+
+### DeepSeek-R1-Channel-bf16 IFB BW1100 16x SGLang 0.5.18
+
+
+```
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+
+# 0730-yucy
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+
+export NCCL_MAX_NCHANNELS=16
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MIN_NCHANNELS=16
+
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+model_path=/parastor/opendas/DL_DATA/llm-models/deepseek-r1/DeepSeek-R1-bf16
+# model_path=/models/deepseek-r1/DeepSeek-R1-bf16
+model=${model_path##*/}
+tp=16
+pp=1
+dp=1
+ep=1
+nodes=2
+rank=0
+host_ip=$(hostname -I | awk '{print $1}')
+port=30000
+hostname=$(hostname)
+master_ip=$host_ip
+max_model_len=40960
+gpu_mem=0.85
+time=$(date "+%m%d-%H%M")
+mode="cudagraph"
+logpath="server/$model-tp$tp-dp$dp-ep$ep-$hostname"
+
+if [ ! -f ${logpath} ]; then
+    mkdir ${logpath} -p
+fi
+
+# option="--numa-node 3 1 1 0 7 5 5 4 "
+option="--numa-node 0 0 1 1 2 2 3 3 "
+option+=" --chunked-prefill-size -1"
+option+=" --max-running-requests 512 "
+option+=" --context-length $max_model_len"
+
+option+=" --speculative-algorithm EAGLE --speculative-num-steps 3  --speculative-eagle-topk 1  --speculative-num-draft-tokens 4  --cuda-graph-max-bs 128"
+
+# --model-path $model_path ${option}  \
+python3 -m sglang.launch_server \
+    --model-path $model_path \
+    --host $host_ip \
+    --port 30000 \
+    --kv-cache-dtype fp8_e4m3 \
+    --trust-remote-code \
+    --dist-init-addr 10.16.1.8:5001 \
+    --nnodes 2 \
+    --node-rank $rank \
+    --dtype bfloat16 \
+    --tp-size 16 \
+    --pp-size 1 \
+    --reasoning-parser deepseek-r1 \
+    --tool-call-parser deepseekv31 \
+    --mem-fraction-static 0.85 \
+    --attention-backend hcu_mla
+```
+
+
+
+### DeepSeek-R1-0528-W4A8-V2 IFB BW1100 4x SGLang 0.5.18
+
+~~~bash
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export GPU_MAX_HW_QUEUES=3
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_KERNEL_BATCH_CEILING=100
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HSA_ENABLE_COREDUMP=1
+export HSA_FORCE_FINE_GRAIN_PCIE=1
+export HSA_KERNARG_POOL_SIZE=8388608
+export HSA_USE_SVM=0
+unset MC_GID_INDEX
+unset NCCL_DEBUG
+unset NCCL_DEBUG_FILE
+unset NCCL_DEBUG_SUBSYS
+export NCCL_IB_DISABLE=0
+unset NCCL_IB_GID_INDEX
+unset RCCL_DEBUG
+unset RCCL_DEBUG_SUBSYS
+unset ROCSHMEM_ALLOWED_IBV_DEVICES
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_SET_CPU_AFFINITY=1
+export SGLANG_USE_AITER_AR=0
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_MODELSCOPE=1
+export SGLANG_W4A8_TPMOE_BACKEND=aiter
+export TORCH_CPP_LOG_LEVEL=ERROR
+unset TORCH_NCCL_DEBUG
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export W8A8_SUPPORT_METHODS=3
+
+sglang serve \
+  --context-length 32768 \
+  --cuda-graph-max-bs 16 \
+  --disable-radix-cache \
+  --dist-timeout 10000 \
+  --dp-size 1 \
+  --dtype bfloat16 \
+  --ep-size 1 \
+  --kv-cache-dtype fp8_e4m3 \
+  --max-running-requests 64 \
+  --mem-fraction-static 0.90 \
+  --model-path hygon/DeepSeek-R1-0528-W4A8-V2 \
+  --moe-dense-tp-size 1 \
+  --nsa-decode-backend flashmla_kv \
+  --nsa-prefill-backend flashmla_auto \
+  --page-size 64 \
+  --quantization slimquant_w4a8_marlin \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --tp-size 8 \
+  --trust-remote-code \
+  --watchdog-timeout 3600 \
+  --port 30000
+~~~
+
+
+
+
+
+
+
+
 ### DeepSeek-R1-Distill-Llama-70B IFB BW1100 8x SGLang 0.5.12
 
 ```bash
