@@ -16,7 +16,7 @@ DeepSeek-V3-0324 是 DeepSeek V3 系列的 MoE 大模型版本，适用于对话
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
+export USE_HCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -63,7 +63,7 @@ sglang serve \
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
+export USE_HCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -115,7 +115,7 @@ sglang serve \
 #### Node 0
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
+export USE_HCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -167,7 +167,7 @@ sglang serve \
 `--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
+export USE_HCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
