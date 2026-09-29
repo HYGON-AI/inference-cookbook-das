@@ -80,7 +80,8 @@ sglang serve \
   --speculative-algorithm EAGLE \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4
+  --speculative-num-draft-tokens 4 \
+  --disable-radix-cache
 ```
 
 ### MiMo-V2-Flash-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.12
@@ -217,7 +218,8 @@ sglang serve \
   --speculative-algorithm EAGLE \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4
+  --speculative-num-draft-tokens 4 \
+  --disable-radix-cache
 ```
 
 ### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12

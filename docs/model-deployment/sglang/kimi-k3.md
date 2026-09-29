@@ -266,5 +266,6 @@ sglang serve \
   --disaggregation-mode decode \
   --disaggregation-ib-device shca_1,shca_2,shca_3,shca_4 \
   --disaggregation-transfer-backend fake \
-  --skip-server-warmup
+  --skip-server-warmup \
+  --disable-radix-cache
 ```
