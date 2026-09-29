@@ -399,7 +399,7 @@ sglang serve \
   --speculative-num-draft-tokens 4 \
   --mamba-radix-cache-strategy extra_buffer \
   --chunked-prefill-size 16384 \
-  --kv-cache-dtype auto \
+  --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
