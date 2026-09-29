@@ -259,7 +259,7 @@ sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
 
 权重：[Qwen3.8-Flash-Next](https://www.modelscope.cn/collections/Qwen/Qwen38-Flash-Next)（`export SGLANG_USE_MODELSCOPE=1` 后使用 `--model-path Qwen/Qwen3.8-Flash-Next`）。
 
-`--ple-offload-embedding` 会把 PLE 权重 pin 到 CPU，须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`，把各 rank 分散到不同 NUMA node；全部绑在同一 node（如 `0 0 0 0 0 0 0 0`）易打满该 node 内存。
+建议开启 `--ple-offload-embedding` 以节约显存；PLE 权重会 pin 到 CPU，须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`，把各 rank 分散到不同 NUMA node；全部绑在同一 node（如 `0 0 0 0 0 0 0 0`）易打满该 node 内存。
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
@@ -340,7 +340,7 @@ sglang serve \
 
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x SGLang 0.5.18
 
-开启 `--ple-offload-embedding` 后可用 4 卡部署。PLE 权重会 pin 到 CPU，`--numa-node` 必须按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node；全部绑到同一 node（如 `0 0 0 0`）容易把该 node 内存打满。
+建议开启 `--ple-offload-embedding` 以节约显存，4 卡即可部署。PLE 权重会 pin 到 CPU，`--numa-node` 必须按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node；全部绑到同一 node（如 `0 0 0 0`）容易把该 node 内存打满。
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
@@ -419,7 +419,7 @@ sglang serve \
   --numa-node 0 0 0 0
 ```
 
-可选：增加 `--ple-offload-embedding` 开启 PLE offload。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
+建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
 ### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x SGLang 0.5.18
 
@@ -458,7 +458,7 @@ sglang serve \
   --numa-node 0 0 0 0
 ```
 
-可选：增加 `--ple-offload-embedding` 开启 PLE offload。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
+建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
 ## API 调用
 
