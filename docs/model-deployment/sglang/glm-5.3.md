@@ -6,13 +6,14 @@ GLM-5.3 是智谱(Z.ai)推出的开放权重大语言模型, 属于 GLM-5 系列
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-24x-sglang-0518) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-8x-sglang-0518) |
 
 ## 启动命令
 
 ### GLM-5.3-Channel-FP8-w8a8 PD 24x SGLang 0.5.18
 
-#### Node P  
-~~~bash
+#### Node P
+```bash
 export GLIBC_TUNABLES="glibc.rtld.optional_static_tls=0x40000"
 export NCCL_SOCKET_IFNAME="xx"
 export GLOO_SOCKET_IFNAME="xx"
@@ -89,12 +90,12 @@ sglang serve \
   --disaggregation-bootstrap-port "xx" \
   --disaggregation-ib-device "xx" \
   --reasoning-parser glm45 \
-  --tool-call-parser glm47 \                                 
-~~~
+  --tool-call-parser glm47 \                          
+```
 
 #### Node D 
 
-~~~bash
+```bash
 export GLIBC_TUNABLES="glibc.rtld.optional_static_tls=0x40000"
 export NCCL_SOCKET_IFNAME="$IFACE"
 export GLOO_SOCKET_IFNAME="$IFACE"
@@ -173,7 +174,86 @@ sglang serve \
   --speculative-draft-lm-head-vp-size 16 \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
-~~~
+```
+
+### GLM-5.3-Channel-FP8-w8a8 IFB 8x SGLang 0.5.18
+
+export SGLANG_UVICORN_WORKER_HEALTHCHECK_TIMEOUT=120
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export LIGHTOP_SPARSE_MQA_GROUP6_ROWS_PER_CTA=3
+export SGLANG_OPT_USE_TOPK_V2=0
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_NSA_FUSE_TOPK=1
+export SGLANG_DSA_HCU_LIGHTOP_MASK_TOPK=1
+export SGLANG_ENABLE_HCU_CONCAT_MLA_ABSORB_Q=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export NCCL_IB_DISABLE=1
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+#export NCCL_SOCKET_IFNAME=ens33f0
+#export GLOO_SOCKET_IFNAME=ens33f0
+export HIP_BUFFER_EXTRA_SIZE=0
+export HSA_ENABLE_COREDUMP=0
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=1
+export GPU_MAX_HW_QUEUES=3
+export ROCSHMEM_GDR_DISABLE_XDP=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=4737418240
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+
+sglang serve \
+    --model-path "xx" \
+    --random-seed 536624121 \
+    --trust-remote-code \
+    --host "xx" \
+    --port "xx" \
+    --tokenizer-worker-num 16 \
+    --nnodes 1 \
+    --node-rank 0 \
+    --tp-size 8 \
+    --dp-size 8 \
+    --ep-size 8 \
+    --moe-dense-tp-size 1 \
+    --enable-dp-attention \
+    --moe-a2a-backend deepep \
+    --deepep-mode auto \
+    --enable-dp-lm-head \
+    --dsa-prefill-backend flashmla_sparse \
+    --dsa-decode-backend flashmla_kv \
+    --context-length 1048576 \
+    --dtype bfloat16 \
+    --dist-timeout 10000 \
+    --reasoning-parser glm45 \
+    --tool-call-parser glm47 \
+    --watchdog-timeout 3600 \
+    --page-size 64 \
+    --kv-cache-dtype fp8_e4m3 \
+    --mem-fraction-static 0.86 \
+    --chunked-prefill-size 32768 \
+    --speculative-algorithm EAGLE \
+    --speculative-num-steps 5 \
+    --speculative-eagle-topk 1 \
+    --speculative-num-draft-tokens 6 \
+    --cuda-graph-max-bs 8 \
+    --max-running-requests 8 \
+    --speculative-draft-lm-head-vp-size 8 \
+
 
 ## API 调用
 
