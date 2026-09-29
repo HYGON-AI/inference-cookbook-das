@@ -1,15 +1,17 @@
 # stable-diffusion-v2-1 on Diffusers
 
-本文提供 `stable-diffusion-v2-1` 在 BW1000 和 BW1100 上基于 Diffusers 的单卡文生图和图生图离线推理示例。
+本文提供 `stable-diffusion-v2-1` 在 K100_AI、BW1000 和 BW1100 上基于 Diffusers 的单卡文生图和图生图离线推理示例。
 
 ## 模型列表
 
 | 模型权重 | Diffusers 版本 | 推荐硬件 | 卡数 | 部署方式 | 场景 | 启动命令 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [stabilityai/stable-diffusion-2-1](https://modelscope.cn/models/stabilityai/stable-diffusion-2-1) | `0.37.0` | BW1100 | 1 | Offline | 文生图 | [**`>_`**](#stable-diffusion-v2-1-t2i-offline-bw1000-and-bw1100-1x-diffusers-0370) |
-|  | `0.37.0` | BW1000 | 1 | Offline | 文生图 | [**`>_`**](#stable-diffusion-v2-1-t2i-offline-bw1000-and-bw1100-1x-diffusers-0370) |
-|  | `0.37.0` | BW1100 | 1 | Offline | 图生图 | [**`>_`**](#stable-diffusion-v2-1-img2img-offline-bw1000-and-bw1100-1x-diffusers-0370) |
-|  | `0.37.0` | BW1000 | 1 | Offline | 图生图 | [**`>_`**](#stable-diffusion-v2-1-img2img-offline-bw1000-and-bw1100-1x-diffusers-0370) |
+| [stabilityai/stable-diffusion-2-1](https://modelscope.cn/models/stabilityai/stable-diffusion-2-1) | `0.37.0` | K100_AI | 1 | Offline | 文生图 | [**`>_`**](#stable-diffusion-v2-1-t2i-offline-1x-diffusers-0370) |
+|  | `0.37.0` | BW1100 | 1 | Offline | 文生图 | [**`>_`**](#stable-diffusion-v2-1-t2i-offline-1x-diffusers-0370) |
+|  | `0.37.0` | BW1000 | 1 | Offline | 文生图 | [**`>_`**](#stable-diffusion-v2-1-t2i-offline-1x-diffusers-0370) |
+|  | `0.37.0` | K100_AI | 1 | Offline | 图生图 | [**`>_`**](#stable-diffusion-v2-1-img2img-offline-1x-diffusers-0370) |
+|  | `0.37.0` | BW1100 | 1 | Offline | 图生图 | [**`>_`**](#stable-diffusion-v2-1-img2img-offline-1x-diffusers-0370) |
+|  | `0.37.0` | BW1000 | 1 | Offline | 图生图 | [**`>_`**](#stable-diffusion-v2-1-img2img-offline-1x-diffusers-0370) |
 
 ## 模型与场景
 
@@ -20,7 +22,7 @@
 
 ## 启动命令
 
-### stable-diffusion-v2-1 T2I Offline BW1000 and BW1100 1x Diffusers 0.37.0
+### stable-diffusion-v2-1 T2I Offline 1x Diffusers 0.37.0
 
 创建 `text_to_image.py`：
 
@@ -69,7 +71,7 @@ python3 text_to_image.py \
   --model-path /path/to/stable-diffusion-2-1
 ```
 
-### stable-diffusion-v2-1 Img2Img Offline BW1000 and BW1100 1x Diffusers 0.37.0
+### stable-diffusion-v2-1 Img2Img Offline 1x Diffusers 0.37.0
 
 图生图的输出尺寸由输入图片尺寸决定。下面的脚本会先将输入图片调整为 768×768。
 
