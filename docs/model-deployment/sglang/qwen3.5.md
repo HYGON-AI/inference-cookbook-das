@@ -278,7 +278,6 @@ sglang serve \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
   --tp-size 2 \
-  --max-running-requests 64 \
   --pp-size 1 \
   --page-size 64 \
   --mamba-radix-cache-strategy extra_buffer \
