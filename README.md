@@ -419,8 +419,13 @@
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/bge-reranker.md">✅</a></td><td align="center">-</td>
     </tr>
     <tr>
-      <td rowspan="1" align="center">Stability AI</td>
+      <td rowspan="2" align="center">Stability AI</td>
       <td rowspan="1">Stable Diffusion 1.5</td>
+      <td>Diffusers</td>
+      <td align="center">-</td><td align="center">✅</td><td align="center">✅</td>
+    </tr>
+    <tr>
+      <td rowspan="1">Stable Diffusion XL</td>
       <td>Diffusers</td>
       <td align="center">-</td><td align="center">✅</td><td align="center">✅</td>
     </tr>
