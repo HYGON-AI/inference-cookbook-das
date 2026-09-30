@@ -2,7 +2,9 @@
 
 ## 模型简介和适用任务
 
-[Stable Diffusion 1.5](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5) 是基于 Latent Diffusion 的图像生成模型，适用于文生图（text-to-image）和图生图（image-to-image）任务
+[Stable Diffusion 1.5](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5) 是基于 Latent Diffusion 的图像生成模型，适用于文生图（text-to-image）和图生图（image-to-image）任务。
+
+该模型的原生训练分辨率为 512×512，建议生成尺寸保持在 512×512（上限不超过 768×768）。超出原生分辨率生成会出现主体重复、构图畸变等画质退化，需要更高分辨率时应先生成 512×512 再做超分。
 
 ## Diffusers 离线推理部署
 
@@ -27,8 +29,8 @@ with torch.inference_mode():
         prompt="A kitten running on the grass",
         num_inference_steps=50,
         guidance_scale=7.5,
-        width=1024,
-        height=1024,
+        width=512,
+        height=512,
     ).images[0]
 
 image.save("sd15_txt2img.png")
@@ -51,18 +53,20 @@ pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
 
 pipe.unet = torch.compile(pipe.unet, mode="reduce-overhead", fullgraph=True)
 
-init_image = load_image("input.png").convert("RGB").resize((1024, 1024))
+init_image = load_image("input.png").convert("RGB").resize((512, 512))
 with torch.inference_mode():
     image = pipe(
         prompt="A fantasy landscape, trending on artstation",
         image=init_image,
-        strength=1.0,
+        strength=0.75,
         num_inference_steps=50,
         guidance_scale=7.5,
     ).images[0]
 
 image.save("sd15_img2img.png")
 ```
+
+`strength` 决定对初始图加噪并去噪的比例，取值为 `0.0`–`1.0`。值越大改动越剧烈：`1.0` 会把初始图加噪到接近纯噪声，输出由 prompt 主导、基本不保留初始图内容；常规图生图建议 `0.4`–`0.8`。该值也会影响实际去噪步数，`num_inference_steps` 与 `strength` 的乘积即为实际执行的步数。
 
 ## 性能优化
 

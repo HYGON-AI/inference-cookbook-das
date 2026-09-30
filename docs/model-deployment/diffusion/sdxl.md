@@ -28,7 +28,7 @@ with torch.inference_mode():
     image = pipe(
         prompt="A fantasy landscape, trending on artstation",
         image=init_image,
-        strength=1.0,
+        strength=0.75,
         num_inference_steps=50,
         guidance_scale=7,
         negative_prompt="blurry, low quality",
@@ -36,6 +36,8 @@ with torch.inference_mode():
 
 image.save("sdxl_img2img.png")
 ```
+
+`strength` 决定对初始图加噪并去噪的比例，取值为 `0.0`–`1.0`。值越大改动越剧烈：`1.0` 会把初始图加噪到接近纯噪声，输出由 prompt 主导、基本不保留初始图内容；常规图生图建议 `0.4`–`0.8`。该值也会影响实际去噪步数，`num_inference_steps` 与 `strength` 的乘积即为实际执行的步数。
 
 ## 性能优化
 
