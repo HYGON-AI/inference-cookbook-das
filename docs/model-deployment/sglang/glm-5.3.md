@@ -6,12 +6,12 @@ GLM-5.3 是智谱（Z.ai）推出的开放权重大语言模型，属于 GLM-5 �
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | ScaleX40-3G | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
-|                                                                                                 | FP8 W8A8 | 0.5.18 | ScaleX40-3G | 24 | 1P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | scaleX40-3G | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
+|                                                                                                 | FP8 W8A8 | 0.5.18 | scaleX40-3G | 24 | 1P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
 
 ## 启动命令
 
-### GLM-5.3-Channel-FP8-w8a8 IFB ScaleX40-3G 8x SGLang 0.5.18
+### GLM-5.3-Channel-FP8-w8a8 IFB scaleX40-3G 8x SGLang 0.5.18
 
 #### node 0
 
@@ -173,7 +173,7 @@ sglang serve \
   --speculative-draft-lm-head-vp-size 8
 ```
 
-### GLM-5.3-Channel-FP8-w8a8 PD ScaleX40-3G 24x SGLang 0.5.18
+### GLM-5.3-Channel-FP8-w8a8 PD scaleX40-3G 24x SGLang 0.5.18
 
 #### DeepEP 配置
 
