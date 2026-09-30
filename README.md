@@ -424,6 +424,16 @@
       <td>PyTorch</td>
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/diffusion/magi-2-preview/MAGI-2-preview.md">✅</a></td><td align="center">🚧</td>
     </tr>
+    <tr>
+      <td rowspan="2" align="center"><img src="https://resources.modelscope.cn/avatar/083cf66f-82f7-4e42-ae77-2ec3ddd7c4f0.jpeg" height="40"/><br/>Tongyi</td>
+      <td rowspan="2">Z-Image-Turbo</td>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/Z-Image-Turbo.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
   </tbody>
 </table>
 
