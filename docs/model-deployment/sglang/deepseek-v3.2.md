@@ -8,11 +8,10 @@ DeepSeek-V3.2 是 DeepSeek V3 系列的 MoE 大模型版本，面向高吞吐对
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/DeepSeek-V3.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**\`>_\`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
-|                                                                                                                     | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**\`>_\`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1000-16x-sglang-0512) |
-|                                                                                                                     | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 16 | IFB | [**\`>_\`**](#deepseek-v32-channel-int8-w8a8-ifb-k100_ai-16x-sglang-0512) |
-| [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**\`>_\`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
-|                                                                                                                   | FP8 W8A8 | 0.5.10 | BW1100 | 8x | IFB | [**\`>_\`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
+| [hygon/DeepSeek-V3.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
+|                                                                                                                     | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1000-16x-sglang-0512) |
+| [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
+|                                                                                                                   | FP8 W8A8 | [0.5.10](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
 
 ## 启动命令
 
@@ -309,7 +308,7 @@ export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export USE_SPE_MQP=1
 export MC_ALLOWED_IBV_DEVICES=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
 
-python3 -m sglang.launch_server \
+sglang serve \
     --model-path hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
     --numa-node 0 0 1 1 2 2 3 3 \
     --disable-radix-cache \
