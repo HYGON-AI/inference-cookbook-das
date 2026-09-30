@@ -16,6 +16,6 @@ concurrency:
 jobs:
   gate:
     name: Checks
-    uses: HYGON-AI/quality-gate/.github/workflows/pr-quality-gate.yml@v2.0.3
+    uses: HYGON-AI/quality-gate/.github/workflows/pr-quality-gate.yml@stable
     permissions:
       contents: read

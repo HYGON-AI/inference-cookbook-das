@@ -8,27 +8,27 @@ Qwen2 是阿里通义千问开源大语言模型系列，支持多种参数规�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen2-0.5B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-0.5B-Instruct) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen2-0.5B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-0.5B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-05b-instruct-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen2-1.5B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-1.5B-Instruct) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen2-1.5B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-1.5B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-15b-instruct-ifb-k100_ai-1x-vllm-018-hotfix) |
-| [Qwen/Qwen2-7B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-7B-Instruct) | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-bw1100-1x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-bw1000-1x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen2-7B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-7B-Instruct) | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-bw1000-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-k100_ai-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-k100_ai-1x-vllm-018) |
@@ -37,9 +37,9 @@ Qwen2 是阿里通义千问开源大语言模型系列，支持多种参数规�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-7b-instruct-ifb-k100_ai-1x-vllm-018-hotfix) |
 | [Qwen/Qwen2-57B-A14B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-57B-A14B-Instruct) | BF16 | 0.25 | BW1100 | 2 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1100-2x-vllm-025) |
 |  | BF16 | 0.25 | BW1000 | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1000-4x-vllm-025) |
-|  | BF16 | 0.21 | BW1100 | 2 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1100-2x-vllm-021) |
-|  | BF16 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1000-4x-vllm-021) |
-|  | BF16 | 0.21 | K100_AI | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-k100_ai-4x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1100-2x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1000-4x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-k100_ai-4x-vllm-021) |
 |  | BF16 | 0.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1100-2x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-bw1000-4x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 4 | IFB | [**`>_`**](#qwen2-57b-a14b-instruct-ifb-k100_ai-4x-vllm-018) |

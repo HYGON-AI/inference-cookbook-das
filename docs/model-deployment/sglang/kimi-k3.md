@@ -8,7 +8,7 @@ Kimi-K3 是 Moonshot AI 推出的 Kimi 系列模型，面向长上下文、工�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [moonshotai/Kimi-K3](https://www.modelscope.cn/models/moonshotai/Kimi-K3) | BF16 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-ifb-bw1100-16x-sglang-0518) |
+| [moonshotai/Kimi-K3](https://www.modelscope.cn/models/moonshotai/Kimi-K3) | FP4 W4A16 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-ifb-bw1100-16x-sglang-0518) |
 | [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-int4-ifb-bw1100-16x-sglang-0518) |
 | [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.5.18 | BW1100 | 32 | Prefill | [**`>_`**](#kimi-k3-int4-prefill-bw1100-32x-sglang-0518) |
 | [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.5.18 | BW1100 | 32 | Decode | [**`>_`**](#kimi-k3-int4-decode-bw1100-32x-sglang-0518) |
@@ -216,13 +216,18 @@ export SGLANG_KDA_USE_HCU_OP=1
 export SGLANG_USE_INT4_W4A8=1
 export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=0
 export SGLANG_USE_W4A8_MASKED_HIPC=1
-
+export NCCL_IB_HCA=shca_1:1,shca_2:1,shca_3:1,shca_4:1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=128
 export ROCSHMEM_TOPO_FILE_FORCE=topo.config
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_1,shca_2,shca_3,shca_4
-export ROCSHMEM_HEAP_SIZE=6442450944
 export ROCSHMEM_IPC_MNVL=1
-export DEEP_EP_NORMAL_MNVL=1
+export SGLANG_SIMULATE_ACC_LEN=5
+export SGLANG_SIMULATE_ACC_METHOD=match-expected
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export SGLANG_USE_AITER_AR=1
+export SGLANG_ENABLE_ATTN_TP_USE_AITER_CUSTOM_COMM=1
+export SGLANG_K3_DENSE_MLP_ATTN_TP=1
+export SGLANG_ENABLE_HCU_FA_PREFIX_VALID=1
 
 sglang serve \
   --trust-remote-code \
@@ -237,7 +242,7 @@ sglang serve \
   --ep-size 32 \
   --enable-dp-attention \
   --enable-dp-lm-head \
-  --deepep-mode auto \
+  --deepep-mode low_latency \
   --moe-a2a-backend deepep \
   --attention-backend hcu_mla \
   --linear-attn-prefill-backend flashkda \
@@ -250,14 +255,17 @@ sglang serve \
   --page-size 64 \
   --reasoning-parser kimi_k3 \
   --tool-call-parser kimi_k3 \
-  --mem-fraction-static 0.88 \
+  --mem-fraction-static 0.86 \
   --host 0.0.0.0 \
   --mm-attention-backend fa3 \
   --kv-cache-dtype fp8_e4m3 \
   --max-running-requests 128 \
-  --mamba-full-memory-ratio 0.9 \
+  --disaggregation-decode-extra-slots 16 \
+  --mamba-full-memory-ratio 0.2 \
   --mamba-ssm-dtype bfloat16 \
-  --model-loader-extra-config '{"enable_multithread_load":"true","num_threads":64}' \
+  --disaggregation-mode decode \
+  --disaggregation-ib-device shca_1,shca_2,shca_3,shca_4 \
+  --disaggregation-transfer-backend fake \
   --skip-server-warmup \
-  2>&1 | tee "${log_file}"
+  --disable-radix-cache
 ```
