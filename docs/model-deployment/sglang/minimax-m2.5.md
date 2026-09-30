@@ -38,7 +38,6 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 ### MiniMax-M2.5-bf16 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -75,7 +74,6 @@ sglang serve \
 ### MiniMax-M2.5-bf16 IFB BW1000 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -112,7 +110,6 @@ sglang serve \
 ### MiniMax-M2.5-bf16 IFB K100_AI 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -191,7 +188,6 @@ sglang serve \
 ### MiniMax-M2.5-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -238,7 +234,6 @@ sglang serve \
 #### P node
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -296,7 +291,6 @@ sglang serve \
 #### D node
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -367,7 +361,6 @@ python3 -m sglang_router.launch_router \
 ### MiniMax-M2.5-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -414,7 +407,6 @@ sglang serve \
 #### P node
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -472,7 +464,6 @@ sglang serve \
 #### D node
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -543,7 +534,6 @@ python3 -m sglang_router.launch_router \
 ### MiniMax-M2.5-Channel-INT8-w8a8 IFB K100_AI 8x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -793,7 +783,6 @@ sglang serve \
 export SGLANG_USE_FUSED_RMS_QUANT=0
 
 export SGLANG_USE_MODELSCOPE=1
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -856,7 +845,6 @@ sglang serve \
 export SGLANG_USE_FUSED_RMS_QUANT=0
 
 export SGLANG_USE_MODELSCOPE=1
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
