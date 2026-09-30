@@ -6,8 +6,8 @@ GLM-5.3 是智谱（Z.ai）推出的开放权重大语言模型，属于 GLM-5 �
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | ScaleX40-3G | 8 | IFB（2 节点 × 4 卡） | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
-|                                                                                                 | FP8 W8A8 | 0.5.18 | ScaleX40-3G | 24 | PD（P 2 节点 × 4 卡 + D 4 节点 × 4 卡） | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | ScaleX40-3G | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
+|                                                                                                 | FP8 W8A8 | 0.5.18 | ScaleX40-3G | 24 | 1P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
 
 ## 启动命令
 
