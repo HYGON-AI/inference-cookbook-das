@@ -133,11 +133,11 @@
     </tr>
     <tr>
       <td rowspan="2">Qwen-Image-Edit-2511</td>
-      <td>vLLM</td>
+      <td>vLLM-Omni</td>
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen-image-edit.md#qwen-image-edit-2511-online-1x-vllm-omni-0210">🚧</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen-image-edit.md#qwen-image-edit-2511-online-1x-vllm-omni-0210">🚧</a></td>
     </tr>
     <tr>
-      <td>SGLang</td>
+      <td>SGLang Diffusion</td>
       <td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
