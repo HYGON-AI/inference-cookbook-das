@@ -1,0 +1,617 @@
+diff --git a/extensions/magi_attn_extensions/__init__.py b/extensions/magi_attn_extensions/__init__.py
+index 92a5864..33cd18d 100644
+--- a/extensions/magi_attn_extensions/__init__.py
++++ b/extensions/magi_attn_extensions/__init__.py
+@@ -12,14 +12,17 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-from .fa2_interface_with_sink import (
+-    fa2_func_with_sink,
+-    fa2_kvpacked_func_with_sink,
+-    fa2_qkvpacked_func_with_sink,
+-    fa2_varlen_func_with_sink,
+-    fa2_varlen_kvpacked_func_with_sink,
+-    fa2_varlen_qkvpacked_func_with_sink,
+-)
++try:
++    from .fa2_interface_with_sink import (
++        fa2_func_with_sink,
++        fa2_kvpacked_func_with_sink,
++        fa2_qkvpacked_func_with_sink,
++        fa2_varlen_func_with_sink,
++        fa2_varlen_kvpacked_func_with_sink,
++        fa2_varlen_qkvpacked_func_with_sink,
++    )
++except ImportError:
++    pass
+ 
+ try:
+     from .fa4_interface_with_sink import fa4_func_with_sink, fa4_varlen_func_with_sink
+@@ -37,6 +40,11 @@ except ImportError:
+ 
+ from .dsa_interface import dsa_attn_func
+ 
++try:
++    from .dsa_interface import dsa_attn_func
++except ImportError:
++    pass
++
+ __all__ = [
+     "fa2_func_with_sink",
+     "fa2_qkvpacked_func_with_sink",
+diff --git a/extensions/magi_attn_extensions/fa3_interface_with_sink.py b/extensions/magi_attn_extensions/fa3_interface_with_sink.py
+index e6ecf6d..5314b7a 100644
+--- a/extensions/magi_attn_extensions/fa3_interface_with_sink.py
++++ b/extensions/magi_attn_extensions/fa3_interface_with_sink.py
+@@ -16,7 +16,20 @@
+ 
+ import torch
+ from einops import rearrange
+-from flash_attn_interface import _flash_attn_backward, _flash_attn_forward
++
++try:
++    from flash_attn_interface import _flash_attn_backward, _flash_attn_forward
++
++    _IS_AMD_FLASH_ATTN = False
++except ImportError:
++    from flash_attn.flash_attn_interface import (
++        _flash_attn_backward,
++        _flash_attn_forward,
++        _flash_attn_varlen_backward,
++        _flash_attn_varlen_forward,
++    )
++
++    _IS_AMD_FLASH_ATTN = True
+ 
+ from magi_attention.common.enum import AttnSinkLayout
+ from magi_attention.functional.utils import (
+@@ -24,6 +37,29 @@ from magi_attention.functional.utils import (
+     sink_bwd_compiled,
+ )
+ 
++
++def _check_amd_supported_options(
++    *, qv, attention_chunk, num_splits=1, pack_gqa=None, sm_margin=0
++):
++    if qv is not None:
++        raise NotImplementedError("The AMD FlashAttention backend does not support qv")
++    if attention_chunk != 0:
++        raise NotImplementedError(
++            "The AMD FlashAttention backend does not support attention_chunk"
++        )
++    if num_splits != 1:
++        raise NotImplementedError(
++            "The AMD FlashAttention backend does not support num_splits"
++        )
++    if pack_gqa not in (None, False):
++        raise NotImplementedError(
++            "The AMD FlashAttention backend does not support pack_gqa"
++        )
++    if sm_margin != 0:
++        raise NotImplementedError(
++            "The AMD FlashAttention backend does not support sm_margin"
++        )
++
+ # ---------------------------------------------------------------------------
+ # Autograd functions
+ # ---------------------------------------------------------------------------
+@@ -61,7 +97,28 @@ class FA3QKVPackedFuncWithSink(torch.autograd.Function):
+             assert num_heads_k * 2 + num_heads_q == qkv.shape[2]
+             q, k, v = qkv.split([num_heads_q, num_heads_k, num_heads_k], dim=-2)
+ 
+-        out, softmax_lse, *rest = _flash_attn_forward(
++        if _IS_AMD_FLASH_ATTN:
++            _check_amd_supported_options(
++                qv=None,
++                attention_chunk=attention_chunk,
++                sm_margin=sm_margin,
++            )
++            result = _flash_attn_forward(
++                q,
++                k,
++                v,
++                0.0,
++                softmax_scale,
++                causal,
++                window_size,
++                softcap,
++                None,
++                False,
++                s_aux=None,
++            )
++            out, softmax_lse = result[0], result[5]
++        else:
++            out, softmax_lse, *rest = _flash_attn_forward(
+             q,
+             k,
+             v,
+@@ -92,7 +149,7 @@ class FA3QKVPackedFuncWithSink(torch.autograd.Function):
+             attention_chunk=attention_chunk,
+             softcap=softcap,
+             sm_margin=sm_margin,
+-        )
++            )
+ 
+         out, softmax_lse = FA3FuncWithSink.correct_out_lse_with_sink(
+             out=out,
+@@ -136,7 +193,27 @@ class FA3QKVPackedFuncWithSink(torch.autograd.Function):
+             sink_layout=ctx.sink_layout,
+         )
+ 
+-        _flash_attn_backward(
++        if _IS_AMD_FLASH_ATTN:
++            _flash_attn_backward(
++                dout,
++                q,
++                k,
++                v,
++                out,
++                softmax_lse,
++                dq,
++                dk,
++                dv,
++                0.0,
++                ctx.softmax_scale,
++                ctx.causal,
++                ctx.window_size,
++                ctx.softcap,
++                None,
++                ctx.deterministic,
++            )
++        else:
++            _flash_attn_backward(
+             dout,
+             q,
+             k,
+@@ -159,7 +236,7 @@ class FA3QKVPackedFuncWithSink(torch.autograd.Function):
+             ctx.softcap,
+             ctx.deterministic,
+             ctx.sm_margin,
+-        )
++            )
+ 
+         dqkv = dqkv[..., : dout.shape[-1]]  # We could have padded the head dimension
+ 
+@@ -211,7 +288,30 @@ class FA3FuncWithSink(torch.autograd.Function):
+                 -0.5
+             )
+ 
+-        out, softmax_lse, *rest = _flash_attn_forward(
++        if _IS_AMD_FLASH_ATTN:
++            _check_amd_supported_options(
++                qv=qv,
++                attention_chunk=attention_chunk,
++                num_splits=num_splits,
++                pack_gqa=pack_gqa,
++                sm_margin=sm_margin,
++            )
++            result = _flash_attn_forward(
++                q,
++                k,
++                v,
++                0.0,
++                softmax_scale,
++                causal,
++                window_size,
++                softcap,
++                None,
++                False,
++                s_aux=None,
++            )
++            out, softmax_lse = result[0], result[5]
++        else:
++            out, softmax_lse, *rest = _flash_attn_forward(
+             q,
+             k,
+             v,
+@@ -244,7 +344,7 @@ class FA3FuncWithSink(torch.autograd.Function):
+             num_splits=num_splits,
+             pack_gqa=pack_gqa,
+             sm_margin=sm_margin,
+-        )
++            )
+ 
+         out, softmax_lse = FA3FuncWithSink.correct_out_lse_with_sink(
+             out=out,
+@@ -281,7 +381,27 @@ class FA3FuncWithSink(torch.autograd.Function):
+             sink_layout=ctx.sink_layout,
+         )
+ 
+-        _flash_attn_backward(
++        if _IS_AMD_FLASH_ATTN:
++            _flash_attn_backward(
++                dout,
++                q,
++                k,
++                v,
++                out,
++                softmax_lse,
++                dq,
++                dk,
++                dv,
++                0.0,
++                ctx.softmax_scale,
++                ctx.causal,
++                ctx.window_size,
++                ctx.softcap,
++                None,
++                ctx.deterministic,
++            )
++        else:
++            _flash_attn_backward(
+             dout,
+             q,
+             k,
+@@ -304,7 +424,7 @@ class FA3FuncWithSink(torch.autograd.Function):
+             ctx.softcap,
+             ctx.deterministic,
+             ctx.sm_margin,
+-        )
++            )
+ 
+         dq = dq[..., : q.shape[-1]]  # We could have padded the head dimension
+         dk = dk[..., : k.shape[-1]]
+@@ -458,7 +578,41 @@ class FA3VarlenFuncWithSink(torch.autograd.Function):
+                 -0.5
+             )
+ 
+-        out, softmax_lse, *rest = _flash_attn_forward(
++        if _IS_AMD_FLASH_ATTN:
++            _check_amd_supported_options(
++                qv=qv,
++                attention_chunk=attention_chunk,
++                num_splits=num_splits,
++                pack_gqa=pack_gqa,
++                sm_margin=sm_margin,
++            )
++            if seqused_q is not None or seqused_k is not None:
++                raise NotImplementedError(
++                    "The AMD FlashAttention backend does not support seqused_q/k"
++                )
++            result = _flash_attn_varlen_forward(
++                q,
++                k,
++                v,
++                cu_seqlens_q,
++                cu_seqlens_k,
++                max_seqlen_q,
++                max_seqlen_k,
++                0.0,
++                softmax_scale,
++                causal,
++                window_size,
++                softcap,
++                None,
++                False,
++                q_descale=q_descale,
++                k_descale=k_descale,
++                v_descale=v_descale,
++                s_aux=None,
++            )
++            out, softmax_lse = result[0], result[5]
++        else:
++            out, softmax_lse, *rest = _flash_attn_forward(
+             q,
+             k,
+             v,
+@@ -491,7 +645,7 @@ class FA3VarlenFuncWithSink(torch.autograd.Function):
+             num_splits=num_splits,
+             pack_gqa=pack_gqa,
+             sm_margin=sm_margin,
+-        )
++            )
+ 
+         out, softmax_lse = FA3VarlenFuncWithSink.correct_out_lse_with_sink(
+             out=out,
+@@ -552,7 +706,31 @@ class FA3VarlenFuncWithSink(torch.autograd.Function):
+             sink_layout=ctx.sink_layout,
+         )
+ 
+-        _flash_attn_backward(
++        if _IS_AMD_FLASH_ATTN:
++            _flash_attn_varlen_backward(
++                dout,
++                q,
++                k,
++                v,
++                out,
++                softmax_lse,
++                dq,
++                dk,
++                dv,
++                cu_seqlens_q,
++                cu_seqlens_k,
++                ctx.max_seqlen_q,
++                ctx.max_seqlen_k,
++                0.0,
++                ctx.softmax_scale,
++                ctx.causal,
++                ctx.window_size,
++                ctx.softcap,
++                None,
++                ctx.deterministic,
++            )
++        else:
++            _flash_attn_backward(
+             dout,
+             q,
+             k,
+@@ -575,7 +753,7 @@ class FA3VarlenFuncWithSink(torch.autograd.Function):
+             ctx.softcap,
+             ctx.deterministic,
+             ctx.sm_margin,
+-        )
++            )
+ 
+         dq = dq[..., : q.shape[-1]]  # We could have padded the head dimension
+         dk = dk[..., : k.shape[-1]]
+diff --git a/magi_attention/__init__.py b/magi_attention/__init__.py
+index 7c93e98..5bd6b3c 100644
+--- a/magi_attention/__init__.py
++++ b/magi_attention/__init__.py
+@@ -16,8 +16,11 @@ from __future__ import annotations
+ 
+ import importlib.util
+ import logging
++import os
+ import warnings
+ 
++import torch
++
+ from . import comm, config, env, functional
+ from .dist_attn_runtime_mgr import (
+     init_dist_attn_runtime_key,
+@@ -36,17 +39,30 @@ except ImportError as e:
+ try:
+     from . import magi_attn_comm  # type: ignore[attr-defined]  # noqa: F401
+ except ImportError as e:
+-    warnings.warn(
+-        f"Failed to import magi_attn_comm extension module. "
+-        f"Please make sure MagiAttention is properly installed. "
+-        f"Original error message: {e}"
+-    )
++    # Native grpcoll is optional and is not built on ROCm.  The default
++    # distributed path continues to use PyTorch collectives there.
++    if torch.version.hip is None or os.environ.get(
++        "MAGI_ATTENTION_NATIVE_GRPCOLL", "0"
++    ) == "1":
++        warnings.warn(
++            f"Failed to import magi_attn_comm extension module. "
++            f"Please make sure MagiAttention is properly installed. "
++            f"Original error message: {e}"
++        )
+ 
+ if importlib.util.find_spec("magi_attention._version") is None:
+-    warnings.warn(
+-        "You are using magi_attention without installing it. This may cause some unexpected errors."
+-    )
+-    version = None
++    try:
++        from importlib.metadata import (
++            PackageNotFoundError,
++            version as distribution_version,
++        )
++
++        version = distribution_version("magi_attention")
++    except PackageNotFoundError:
++        warnings.warn(
++            "You are using magi_attention without installing it. This may cause some unexpected errors."
++        )
++        version = None
+ else:
+     from ._version import __version__ as git_version
+ 
+diff --git a/magi_attention/csrc/extensions/unique_consecutive_pairs.cu b/magi_attention/csrc/extensions/unique_consecutive_pairs.cu
+index 2823a02..f5a1862 100644
+--- a/magi_attention/csrc/extensions/unique_consecutive_pairs.cu
++++ b/magi_attention/csrc/extensions/unique_consecutive_pairs.cu
+@@ -113,14 +113,11 @@ std::tuple<torch::Tensor, torch::Tensor, torch::Tensor> unique_consecutive_pairs
+ 
+   void* d_temp_storage_scan = nullptr;
+   size_t temp_storage_bytes_scan = 0;
+-  cuda::std::plus<> scan_op;
+-  int initial_value = 0;
+-
+-  cub::DeviceScan::ExclusiveScan(d_temp_storage_scan, temp_storage_bytes_scan, d_flags.data_ptr<int>(), d_write_indices.data_ptr<int>(), scan_op, initial_value, n);
++  cub::DeviceScan::ExclusiveSum(d_temp_storage_scan, temp_storage_bytes_scan, d_flags.data_ptr<int>(), d_write_indices.data_ptr<int>(), n);
+   auto d_temp_storage_tensor = torch::empty({(long)temp_storage_bytes_scan}, sorted_input_tensor.options().dtype(torch::kByte));
+   // Get the raw pointer from this byte tensor. It now points to a memory block of the exact required size.
+   d_temp_storage_scan = d_temp_storage_tensor.data_ptr();
+-  cub::DeviceScan::ExclusiveScan(d_temp_storage_scan, temp_storage_bytes_scan, d_flags.data_ptr<int>(), d_write_indices.data_ptr<int>(), scan_op, initial_value, n);
++  cub::DeviceScan::ExclusiveSum(d_temp_storage_scan, temp_storage_bytes_scan, d_flags.data_ptr<int>(), d_write_indices.data_ptr<int>(), n);
+   CHECK_CUDA_KERNEL_LAUNCH();
+ 
+   // --- out elements ---
+diff --git a/magi_attention/env/general.py b/magi_attention/env/general.py
+index a45e594..d3b95de 100644
+--- a/magi_attention/env/general.py
++++ b/magi_attention/env/general.py
+@@ -139,7 +139,12 @@ def kernel_backend() -> "MagiAttentionKernelBackend":
+     if has_legacy_fa4:
+         return MagiAttentionKernelBackend.FA4
+ 
+-    raw = os.environ.get("MAGI_ATTENTION_KERNEL_BACKEND", "ffa").lower()
++    # FFA is implemented with NVIDIA CUTLASS kernels.  ROCm builds use the
++    # portable PyTorch SDPA backend unless the user explicitly selects one.
++    import torch
++
++    default_backend = "sdpa" if torch.version.hip is not None else "ffa"
++    raw = os.environ.get("MAGI_ATTENTION_KERNEL_BACKEND", default_backend).lower()
+     return MagiAttentionKernelBackend(raw)
+ 
+ 
+diff --git a/magi_attention/functional/_flex_flash_attn_jit.py b/magi_attention/functional/_flex_flash_attn_jit.py
+index a17a24b..21b2559 100644
+--- a/magi_attention/functional/_flex_flash_attn_jit.py
++++ b/magi_attention/functional/_flex_flash_attn_jit.py
+@@ -24,6 +24,7 @@ import torch
+ from magi_attention.common.jit import env as jit_env
+ from magi_attention.common.jit.core import JitSpec, gen_jit_spec
+ from magi_attention.common.jit.utils import write_if_different
++from magi_attention.env.build import is_no_build_cache
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -34,7 +35,10 @@ _DTYPE_TO_CUTLASS = {
+     torch.float32: "float",
+ }
+ 
+-from magi_attention.env.build import is_no_build_cache  # noqa: E402
++try:
++    from magi_attention import magi_attn_ext  # type: ignore[attr-defined]  # noqa: E402
++except ImportError:
++    magi_attn_ext = None
+ 
+ no_build_cache = is_no_build_cache()
+ 
+@@ -754,7 +758,10 @@ def get_ffa_jit_spec(
+         common_objects = common_spec.build_and_get_objects()
+ 
+         if profile_mode:
+-            from magi_attention import magi_attn_ext  # type: ignore[attr-defined]
++            if magi_attn_ext is None:
++                raise RuntimeError(
++                    "Profiling FFA requires the magi_attn_ext extension module."
++                )
+ 
+             utils_so_path = Path(magi_attn_ext.__file__)
+ 
+diff --git a/magi_attention/functional/sdpa.py b/magi_attention/functional/sdpa.py
+index 73a8e2c..92466c6 100644
+--- a/magi_attention/functional/sdpa.py
++++ b/magi_attention/functional/sdpa.py
+@@ -72,7 +72,9 @@ def sdpa_fwd_preprocess(
+ 
+     if is_causal:
+         assert attn_mask is None
+-        temp_mask = torch.ones(sq, sk, dtype=torch.bool).tril(diagonal=0)
++        temp_mask = torch.ones(
++                    sq, sk, dtype=torch.bool, device=q.device
++                ).tril(diagonal=0)
+         attn_bias.masked_fill_(temp_mask.logical_not(), float("-inf"))
+         attn_bias.to(q.dtype)
+ 
+diff --git a/setup.py b/setup.py
+index 65a87d9..cd2ac96 100644
+--- a/setup.py
++++ b/setup.py
+@@ -29,7 +29,13 @@ from typing import Any
+ import torch
+ from packaging.version import Version, parse
+ from setuptools import Extension, find_namespace_packages, setup
+-from torch.utils.cpp_extension import CUDA_HOME, BuildExtension, CUDAExtension
++from torch.utils.cpp_extension import (
++    CUDA_HOME,
++    IS_HIP_EXTENSION,
++    ROCM_HOME,
++    BuildExtension,
++    CUDAExtension,
++)
+ from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
+ 
+ with open("./README.md", "r", encoding="utf-8") as fh:
+@@ -91,6 +97,14 @@ SKIP_MAGI_ATTN_COMM_BUILD = (
+ 
+ BUILD_COMPUTE_CAPABILITY = os.getenv("MAGI_ATTENTION_BUILD_COMPUTE_CAPABILITY", "")
+ 
++# DTK C-3000 build containers may expose the compiler without mounting /dev/kfd,
++# which prevents PyTorch from auto-detecting the ROCm target.  Allow an explicit
++# override and otherwise use the native C-3000 target.
++if IS_HIP_EXTENSION and not os.getenv("PYTORCH_ROCM_ARCH"):
++    os.environ["PYTORCH_ROCM_ARCH"] = os.getenv(
++        "MAGI_ATTENTION_AMD_ARCH", "gfx926;gfx928;gfx936"
++    )
++
+ # Defaults to enable verbose building magi_attention
+ os.environ["MAGI_ATTENTION_BUILD_VERBOSE"] = "1"
+ 
+@@ -297,7 +311,8 @@ def init_ext_modules() -> None:
+     if is_in_info_stage():
+         print(f"\n{torch.__version__=}\n")
+ 
+-    check_if_cuda_home_none(PACKAGE_NAME)
++    if not IS_HIP_EXTENSION:
++        check_if_cuda_home_none(PACKAGE_NAME)
+ 
+     # HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
+     # torch._C._GLIBCXX_USE_CXX11_ABI
+@@ -308,7 +323,7 @@ def init_ext_modules() -> None:
+ 
+ def build_magi_attn_ext_module(
+     csrc_dir: Path,
+-) -> None:
++) -> Extension | None:
+     """
+     Manually triggers the CMake build process for the 'magi_attn_ext' shared library.
+ 
+@@ -334,6 +349,30 @@ def build_magi_attn_ext_module(
+     # We use an "out-of-source" build strategy (creating a separate 'build' folder)
+     # to keep the source tree clean.
+     magi_attn_ext_dir_abs = csrc_dir / "extensions"
++
++    # PyTorch's CUDAExtension transparently hipifies CUDA sources when it was
++    # built for ROCm.  Using it here avoids requiring CMake's CUDA language and
++    # nvcc in AMD environments while keeping the CUDA CMake build unchanged.
++    if IS_HIP_EXTENSION:
++        sources = [
++            str(path.relative_to(Path(project_root)))
++            for pattern in ("*.cpp", "*.cu")
++            for path in sorted(magi_attn_ext_dir_abs.glob(pattern))
++        ]
++        print(f"path: {sources}")
++        return CUDAExtension(
++            name=f"{PACKAGE_NAME}.magi_attn_ext",
++            sources=sources,
++            include_dirs=[
++                str(magi_attn_ext_dir_abs),
++                str(csrc_dir / "common"),
++            ],
++            extra_compile_args={
++                "cxx": ["-O3", "-std=c++17", "-Wno-unused-variable"],
++                "nvcc": ["-O3", "-std=c++17", "-DNDEBUG"],
++            },
++        )
++
+     build_dir = magi_attn_ext_dir_abs / "build"
+     build_dir.mkdir(parents=True, exist_ok=True)
+ 
+@@ -894,24 +933,29 @@ if not SKIP_CUDA_BUILD:
+     cutlass_dir = csrc_dir / "cutlass" / "include"
+ 
+     # build magi attn ext module
+-    build_magi_attn_ext_module(
++    magi_attn_ext_module = build_magi_attn_ext_module(
+         csrc_dir=csrc_dir,
+     )
++    if magi_attn_ext_module is not None:
++        ext_modules.append(magi_attn_ext_module)
+ 
+     # optionally prebuild FFA JIT kernels (ref_block_size=None)
+-    prebuild_ffa_kernels()
++    if not IS_HIP_EXTENSION:
++        prebuild_ffa_kernels()
+ 
+     # init before building any ext module
+     init_ext_modules()
+ 
+     # build magi attn comm module
+-    magi_attn_comm_module = build_magi_attn_comm_module(
+-        repo_dir=repo_dir,
+-        csrc_dir=csrc_dir,
+-        common_dir=common_dir,
+-        extensions_dir=extensions_dir,
+-        cutlass_dir=cutlass_dir,
+-    )
++    magi_attn_comm_module = None
++    if not IS_HIP_EXTENSION:
++        magi_attn_comm_module = build_magi_attn_comm_module(
++            repo_dir=repo_dir,
++            csrc_dir=csrc_dir,
++            common_dir=common_dir,
++            extensions_dir=extensions_dir,
++            cutlass_dir=cutlass_dir,
++        )
+     if magi_attn_comm_module is not None:
+         ext_modules.append(magi_attn_comm_module)
+ else:
