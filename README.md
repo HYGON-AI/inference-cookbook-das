@@ -216,6 +216,15 @@
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/glm-5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/glm-5.md">✅</a></td>
     </tr>
     <tr>
+      <td rowspan="2">GLM-5.3-Flash</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/glm-5.3.md#glm-53-flash-channel-int8-w8a8-1p1d-bw1000-24x-sglang-0518">🚧</a></td><td align="center">-</td>
+    </tr>
+    <tr>
       <td rowspan="2">GLM-4.7</td>
       <td>vLLM</td>
       <td align="center"><a href="docs/model-deployment/vllm/glm4.7.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm4.7.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm4.7.md">✅</a></td>
