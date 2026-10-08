@@ -32,7 +32,7 @@
   </tr>
   <tbody>
     <tr>
-      <td rowspan="22" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
+      <td rowspan="24" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
       <td rowspan="2">Qwen3.8</td>
       <td>vLLM</td>
       <td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td>
@@ -130,6 +130,15 @@
     <tr>
       <td>SGLang</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Qwen-Image-Edit-2511</td>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen-image-edit.md#qwen-image-edit-2511-online-1x-vllm-omni-0210">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen-image-edit.md#qwen-image-edit-2511-online-1x-vllm-omni-0210">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang Diffusion</td>
+      <td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
       <td rowspan="2" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/662e1f9da266499277937d33/fyKuazRifqiaIO34xrhhm.jpeg" height="40"/><br/>InclusionAI</td>
@@ -407,6 +416,20 @@
     <tr>
       <td>Wan-DAS</td>
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/wan-das/wan2.2-ti2v.md">✅</a></td><td align="center"><a href="docs/model-deployment/wan-das/wan2.2-ti2v.md">✅</a></td>
+    </tr>
+    <tr>
+      <td rowspan="3" align="center"><img src="https://avatars.githubusercontent.com/u/30233788?v=4" height="40"/><br/>Stability AI</td>
+      <td rowspan="3">Stable Diffusion v2.1</td>
+      <td>Diffusers</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/diffusion/stable-diffusion-v2-1.md">✅</a></td><td align="center"><a href="docs/model-deployment/diffusion/stable-diffusion-v2-1.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
+    </tr>
+    <tr>
+      <td>SGLang Diffusion</td>
+      <td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
       <td rowspan="2" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/1664511063789-632c234f42c386ebd2710434.png" height="40"/><br/>BAAI</td>
