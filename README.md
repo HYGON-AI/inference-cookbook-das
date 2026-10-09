@@ -422,7 +422,7 @@
       <td rowspan="1" align="center"><img src="assets/sand.ai.png" height="40"/><br/>Sand.ai</td>
       <td rowspan="1">MAGI-2-preview</td>
       <td>PyTorch</td>
-      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/diffusion/magi-2-preview/MAGI-2-preview.md">✅</a></td><td align="center">🚧</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/diffusion/magi-2-preview/MAGI-2-preview.md">✅</a></td><td align="center">-</td>
     </tr>
   </tbody>
 </table>
