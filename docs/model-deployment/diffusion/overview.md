@@ -24,6 +24,7 @@
 |------|------|
 | Wan2.1 | [wan2.1.md](wan2.1.md) |
 | CogVideoX | [cogvideox.md](cogvideox.md) |
+| MAGI-2-preview | [MAGI-2-preview.md](magi-2-preview/MAGI-2-preview.md) |
 
 ### 可视化部署
 
@@ -36,6 +37,7 @@
 ```bash
 pip install diffusers transformers accelerate imageio[ffmpeg]
 ```
+备注：MAGI-2-preview 使用专用镜像和源码补丁，请按其部署文档安装。
 
 ## 显存参考
 
@@ -47,3 +49,4 @@ pip install diffusers transformers accelerate imageio[ffmpeg]
 | Wan2.1-1.3B | 832x480 | 8GB | 16GB+ |
 | Wan2.1-14B | 832x480 | 32GB | 48GB+ |
 | CogVideoX-5B | 720x480 | 32GB | 48GB+ |
+| MAGI-2-preview | 1920x1088 | 64GB*8 | 64GB*8+ |

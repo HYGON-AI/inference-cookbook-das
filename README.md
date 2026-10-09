@@ -244,7 +244,16 @@
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/hy3.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/hy3.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="6" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/641c1e77c3983aa9490f8121/X1yT2rsaIbR9cdYGEVu0X.jpeg" height="40"/><br/>Moonshot AI</td>
+      <td rowspan="8" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/641c1e77c3983aa9490f8121/X1yT2rsaIbR9cdYGEVu0X.jpeg" height="40"/><br/>Moonshot AI</td>
+      <td rowspan="2">Kimi-K3</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/kimi-k3.md">✅</a></td>
+    </tr>
+    <tr>
       <td rowspan="2">Kimi-K2.6</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
@@ -272,7 +281,16 @@
       <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/kimi-k2.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="8" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/676e38ad04af5bec20bc9faf/dUd-LsZEX0H_d4qefO_g6.jpeg" height="40"/><br/>MiniMax</td>
+      <td rowspan="10" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/676e38ad04af5bec20bc9faf/dUd-LsZEX0H_d4qefO_g6.jpeg" height="40"/><br/>MiniMax</td>
+      <td rowspan="2">MiniMax-M3</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/minimax-m3.md">✅</a></td>
+    </tr>
+    <tr>
       <td rowspan="2">MiniMax-M2.7</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
@@ -288,7 +306,7 @@
     </tr>
     <tr>
       <td>SGLang</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/minimax-m2.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/minimax-m2.5.md">✅</a></td>
+      <td align="center"><a href="docs/model-deployment/sglang/minimax-m2.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/minimax-m2.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/minimax-m2.5.md">✅</a></td>
     </tr>
     <tr>
       <td rowspan="2">MiniMax-M2</td>
@@ -402,9 +420,9 @@
     </tr>
     <tr>
       <td rowspan="1" align="center"><img src="assets/sand.ai.png" height="40"/><br/>Sand.ai</td>
-      <td rowspan="1">MAGI-2 preview</td>
-      <td>-</td>
-      <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
+      <td rowspan="1">MAGI-2-preview</td>
+      <td>PyTorch</td>
+      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/diffusion/magi-2-preview/MAGI-2-preview.md">✅</a></td><td align="center">🚧</td>
     </tr>
   </tbody>
 </table>
