@@ -225,7 +225,7 @@
       <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
-      <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
+      <td rowspan="5" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
       <td rowspan="2">Hy4</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy4.md">✅</a></td>
@@ -242,6 +242,11 @@
     <tr>
       <td>SGLang</td>
       <td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/hy3.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/hy3.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>HunyuanImage-3.0</td>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hunyuanimage-3.0.md">✅</a></td>
     </tr>
     <tr>
       <td rowspan="8" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/641c1e77c3983aa9490f8121/X1yT2rsaIbR9cdYGEVu0X.jpeg" height="40"/><br/>Moonshot AI</td>
