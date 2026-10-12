@@ -30,7 +30,6 @@ vllm serve Qwen/Qwen3-ForcedAligner-0.6B \
   --max-num-batched-tokens 8192
 ```
 
-`--hf-overrides` 指定时间戳分类架构。使用本地权重时，应选择 `Qwen3-ForcedAligner-0.6B` 的权重目录。
 
 ## API 调用
 
@@ -50,5 +49,3 @@ curl --fail http://localhost:8000/v1/models
 #### 对齐验证状态
 
 音频与已知文本的请求格式、时间 bin 到时间戳的后处理，以及时间戳误差评测尚待验证，可参考 [Qwen 官方 ForcedAligner 示例](https://github.com/QwenLM/Qwen3-ASR/blob/main/examples/example_qwen3_forced_aligner.py) 了解对齐任务的输入输出。
-
-EvalScope 的 `wenet_speech` ASR 文本转写评测不能直接用于此模型的时间戳精度验证。完成对齐验证后，应补充对应客户端命令、评测数据和时间戳误差。
