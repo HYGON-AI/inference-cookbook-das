@@ -14,14 +14,6 @@
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3-ForcedAligner-0.6B](https://huggingface.co/Qwen/Qwen3-ForcedAligner-0.6B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-021) |
 
-使用与 [Qwen3-ASR 验证环境](qwen3-asr.md#验证环境) 相同的镜像：
-
-```bash
-docker pull harbor.sourcefind.cn:5443/hcu/admin/base/vllm:0.21.0-ubuntu22.04-dtk2604-py3.10
-```
-
----
-
 ## 启动命令
 
 ### Qwen3-ForcedAligner-0.6B IFB BW1100 1x vLLM 0.21

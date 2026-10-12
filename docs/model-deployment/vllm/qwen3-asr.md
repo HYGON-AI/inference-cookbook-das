@@ -17,23 +17,7 @@
 | [Qwen/Qwen3-ASR-0.6B](https://huggingface.co/Qwen/Qwen3-ASR-0.6B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1100-1x-vllm-021) |
 | [Qwen/Qwen3-ASR-1.7B](https://huggingface.co/Qwen/Qwen3-ASR-1.7B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1100-1x-vllm-021) |
 
-### 验证环境
-
-硬件：BW1100（gfx938），验证服务器配备 8 张 HCU，每张显存 147,440 MiB。下列每条启动命令使用 TP1，单个服务使用 1 张卡。
-
-发版镜像：[vLLM 0.21](../docker_images.md)。拉取命令与镜像列表一致：
-
-```bash
-docker pull harbor.sourcefind.cn:5443/hcu/admin/base/vllm:0.21.0-ubuntu22.04-dtk2604-py3.10
-```
-
-HCU 适配插件源码：[OpenDAS/vllm-hcu（0.21.1）](https://developer.sourcefind.cn/codes/OpenDAS/vllm-hcu)。以上命令面向此 HCU 环境。
-
----
-
 ## 启动命令
-
-以下命令在容器内执行，每次选择一个模型启动。服务使用 vLLM 默认端口 `8000`。
 
 ### Qwen3-ASR-0.6B-hf IFB BW1100 1x vLLM 0.21
 
@@ -97,20 +81,9 @@ vllm serve Qwen/Qwen3-ASR-1.7B \
 
 ## API 调用
 
-### IFB
+### 音频转写
 
-#### 服务就绪检查
-
-服务启动完成后，先检查健康状态和已加载模型：
-
-```bash
-curl --fail http://localhost:8000/health
-curl --fail http://localhost:8000/v1/models
-```
-
-以下以 `Qwen/Qwen3-ASR-0.6B-hf` 为例。启动其他模型时，将请求中的 `model` 替换为对应的官方模型名称；若使用本地权重路径启动，则使用 `/v1/models` 返回的模型 ID。
-
-#### 在线音频转写（OpenAI SDK）
+以下以 `Qwen/Qwen3-ASR-0.6B-hf` 为例，使用其他模型时替换请求中的 `model`。
 
 ```python
 from openai import OpenAI
@@ -138,8 +111,6 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-#### 在线音频转写（curl）
-
 ```bash
 curl --fail http://localhost:8000/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -157,7 +128,7 @@ curl --fail http://localhost:8000/v1/chat/completions \
 
 示例使用 Qwen 官方公开测试音频，服务端需要能够访问该 URL。Chat Completions 返回内容可能包含语言标记及 `<asr_text>`，转写文本位于该标记之后。
 
-#### 本地音频转写
+### 本地音频转写
 
 也可通过转写接口提交本地音频文件。以下命令下载同一份公开测试音频，再提交至 `/v1/audio/transcriptions`：
 
@@ -171,5 +142,3 @@ curl --fail http://localhost:8000/v1/audio/transcriptions \
   -F 'file=@asr_en.wav' \
   -F 'response_format=json'
 ```
-
-这些示例用于验证转写接口；数据集精度评测需另外记录基准、样本数、语言和 WER/CER。
