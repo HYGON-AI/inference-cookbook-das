@@ -25,22 +25,6 @@
 docker pull harbor.sourcefind.cn:5443/hcu/admin/base/vllm:0.21.0-ubuntu22.04-dtk2604-py3.10
 ```
 
-以下为验证容器中实际安装的版本，作为环境复现依据。
-
-| 组件 | 版本 |
-| ---- | ---- |
-| 操作系统 | Ubuntu 22.04.5 LTS |
-| Python | 3.10.12 |
-| DTK | 2604（镜像标识） |
-| HCU 驱动 | 6.4.0-V1.7.1 |
-| vLLM | `0.21.0+das.dtk2604.torch2100.2606111143.g8c979d` |
-| vllm-hcu | `0.21.0+das.dtk2604.torch2100.2609171905.g26a0f8` |
-| PyTorch | `2.10.0+das.opt1.dtk2604.2608141812.g28498c` |
-| Transformers | `5.5.0` |
-| AITER | `0.1.5+dtk2604.torch2100.2608261152.gac6d0e` |
-| LightOp | `0.6.0+das.dtk2604.torch2100.2608121706.g09a4f3` |
-| flash-attn | `2.8.3+das185.dtk2604.torch2100.2608142153.ge8ddf7` |
-| EvalScope | `1.12.0` |
 
 HCU 适配插件源码：[HYGON-AI/vllm-plugin-das](https://github.com/HYGON-AI/vllm-plugin-das)。以上命令面向此 HCU 环境。
 
