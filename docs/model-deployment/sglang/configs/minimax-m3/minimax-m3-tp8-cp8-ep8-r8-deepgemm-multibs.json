@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "topology": "TP8/CP8/EP8/DeepEP-normal/E128+R8",
+  "coverage": {
+    "actual_batch_sizes": [2, 4, 8],
+    "observed_M_min": 7409,
+    "observed_M_max": 112236,
+    "representative_quantiles": [0.1, 0.5, 0.9]
+  },
+  "rules": [
+    {
+      "E": 17,
+      "N": 6144,
+      "K": 6144,
+      "min_M": 7409,
+      "max_M": 112236,
+      "config": {"BLOCK_M": 128, "BLOCK_N": 256, "N_LOOP_NUM": 4}
+    },
+    {
+      "E": 17,
+      "N": 6144,
+      "K": 3072,
+      "min_M": 7409,
+      "max_M": 112236,
+      "config": {"BLOCK_M": 128, "BLOCK_N": 256, "N_LOOP_NUM": 4}
+    }
+  ]
+}

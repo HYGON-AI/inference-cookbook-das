@@ -10,9 +10,9 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
-| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
-|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
-|  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
+| [hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
+| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | ScaleX40 | 16 | PD | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-pd-scalex40-16x-sglang-0512) |
@@ -199,11 +199,12 @@ sglang serve \
   --cuda-graph-max-bs 64
 ```
 
-### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
+### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME=xxx
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
 export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
 export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
@@ -233,8 +234,15 @@ export SGLANG_USE_LIGHTOP_EP_MOE_ALIGN=1
 export SGLANG_USE_LIGHTOP_EP_SCATTER=1
 export SGLANG_USE_LIGHTOP_EP_GATHER=1
 export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
+export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
+export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_FP8_WO_A_GEMM=0
-export SGLANG_RAGGED_VERIFY_MODE=compact
+export SGLANG_RAGGED_VERIFY_MODE=static
 export SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS=2
 export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
 export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
@@ -247,23 +255,35 @@ sglang serve \
   --tp-size 8 \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
   --disable-flashinfer-autotune \
   --skip-server-warmup \
-  --cuda-graph-max-bs-decode 256 \
-  --mem-fraction-static 0.8 \
+  --cuda-graph-max-bs 32 \
+  --mem-fraction-static 0.90 \
   --speculative-algorithm DSPARK \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
-  --max-running-requests 64 \
-  --context-length 81920 \
-  --enable-metrics
+  --max-running-requests 32 \
+  --context-length 32768 \
+  --dp 8 \
+  --enable-dp-attention \
+  --enable-dp-lm-head \
+  --ep 8 \
+  --moe-a2a-backend deepep \
+  --deepep-mode auto \
+  --deepep-config /xxx/deepep-config.json \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
+  --moe-runner-backend deep_gemm \
+  --enable-metrics \
+  --disable-radix-cache
 ```
 
-### DeepSeek-V4-Flash-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18
+### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 1P1D BW1100 24x SGLang 0.5.18
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
@@ -324,8 +344,8 @@ sglang serve \
   --watchdog-timeout 3600 \
   --port 30000 \
   --host <P_node_ip> \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --served-model-name hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
@@ -335,14 +355,15 @@ sglang serve \
   --cuda-graph-max-bs 32 \
   --mem-fraction-static 0.8 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
   --max-running-requests 32 \
   --context-length 32768 \
   --disable-cuda-graph \
   --max-total-tokens 131072 \
-  --speculative-moe-a2a-backend none \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
   --enable-metrics \
   --enable-prefill-cp \
   --cp-strategy interleave \
@@ -416,8 +437,8 @@ sglang serve \
   --watchdog-timeout 3600 \
   --port 30000 \
   --host <D_node0_ip> \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --served-model-name hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
@@ -427,7 +448,7 @@ sglang serve \
   --cuda-graph-max-bs 32 \
   --mem-fraction-static 0.8 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
   --max-running-requests 32 \
@@ -511,8 +532,8 @@ sglang serve \
   --watchdog-timeout 3600 \
   --port 30000 \
   --host <D_node1_ip> \
-  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
-  --served-model-name hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
+  --served-model-name hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --disable-radix-cache \
   --model-loader-extra-config='{"enable_multithread_load": true, "num_threads": 64}' \
   --trust-remote-code \
@@ -522,7 +543,7 @@ sglang serve \
   --cuda-graph-max-bs 32 \
   --mem-fraction-static 0.8 \
   --speculative-algorithm DSPARK \
-  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
+  --speculative-draft-model-path hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --speculative-num-steps 1 \
   --speculative-eagle-topk 1 \
   --max-running-requests 32 \
@@ -1403,7 +1424,6 @@ sglang serve \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
   --model-path hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
-  --disable-radix-cache \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -1417,12 +1437,14 @@ sglang serve \
   --max-running-requests 128 \
   --enable-metrics \
   --swa-full-tokens-ratio 0.9 \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --quantization slimquant_marlin \
   --dp 8 \
   --enable-dp-attention \
   --enable-dp-lm-head \
-  --moe-a2a-backend none \
+  --moe-a2a-backend deepep \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
   --tokenizer-worker-num 8
 ```
 
@@ -1431,15 +1453,14 @@ sglang serve \
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
 以下示例为 PD 分离部署：P 节点使用 8 张卡（CP8EP8），D 节点使用 2 个节点共 16 张卡（EP16DP16）。节点 IP、网卡等请按实际环境填写，`--dist-init-addr` 填写对应分组 node0 的 IP。
-
 #### P node 0
 
 ```bash
 export PYTORCH_ALLOC_CONF=expandable_segments:True
+unset SGLANG_PD_HIDDEN_POOL_TOKENS
+unset SGLANG_PD_HIDDEN_RECV_POOL_TOKENS
 export SGLANG_SET_CPU_AFFINITY=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export SGLANG_PD_HIDDEN_POOL_TOKENS=140000
-export SGLANG_LIGHTOP_TOPK=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_ROCM_USE_AITER_MOE=1
 export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
@@ -1453,7 +1474,7 @@ export SGLANG_USE_LIGHTOP_TOPK_IDS_POSTPROCESS=1
 export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=0
 export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
 export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
-export SGLANG_TOPK_TRANSFORM_512_TORCH=true
+export SGLANG_TOPK_TRANSFORM_512_TORCH=false
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
 export SGLANG_JIT_DEEPGEMM_PRECOMPILE=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
@@ -1465,13 +1486,9 @@ export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
 export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
 export SGLANG_USE_FUSED_DPSKV4_QNORM_ROPE_KV_ROPE_QUANT=1
 export SGLANG_USE_FUSED_DPSKV4_SILU_MUL_FP8_QUANT=0
-export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
-export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=0
 export SGLANG_APPLY_CONFIG_BACKUP=none
 export SGLANG_USE_AITER_AG=0
 export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
-export SGLANG_DSV4_HCU_USE_BF16_FLASH_MLA=1
-export SGLANG_DSV4_HCU_USE_LIGHTOP_BF16_GATHER=1
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
@@ -1489,6 +1506,8 @@ export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
 export SGLANG_DSPARK_FAST_KERNEL=1
 export SGLANG_DSPARK_FAST_SAMPLING=1
 export LD_LIBRARY_PATH=/usr/lib64:/usr/local/lib/python3.10/dist-packages/mooncake:/usr/local/lib/python3.10/dist-packages/mooncake_transfer_engine_shca.libs:$LD_LIBRARY_PATH
+export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
+export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
 
 sglang serve \
   --reasoning-parser deepseek-v4 \
@@ -1506,7 +1525,7 @@ sglang serve \
   --ep 8 \
   --moe-dense-tp-size 1 \
   --moe-a2a-backend deepep \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --deepep-mode normal \
   --deepep-config /xxx/deepep-config.json \
   --dist-init-addr <P_node0_ip>:5123 \
@@ -1585,7 +1604,8 @@ export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
 export SGLANG_LIGHTOP_TOPK=1
 export HSA_USE_SVM=0
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
-export SGLANG_PD_HIDDEN_RECV_POOL_TOKENS=8192
+unset SGLANG_PD_HIDDEN_POOL_TOKENS
+unset SGLANG_PD_HIDDEN_RECV_POOL_TOKENS
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 export SGLANG_ENABLE_UNIFIED_RADIX_TREE=1
 export SGLANG_EXPERIMENTAL_DSV4_DECODE_RADIX_CACHE=1
@@ -1687,7 +1707,8 @@ export SGLANG_DSV4_HCU_INT8_INDEX_K_CACHE=1
 export SGLANG_LIGHTOP_TOPK=1
 export HSA_USE_SVM=0
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
-export SGLANG_PD_HIDDEN_RECV_POOL_TOKENS=8192
+unset SGLANG_PD_HIDDEN_POOL_TOKENS
+unset SGLANG_PD_HIDDEN_RECV_POOL_TOKENS
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 export SGLANG_ENABLE_UNIFIED_RADIX_TREE=1
 export SGLANG_EXPERIMENTAL_DSV4_DECODE_RADIX_CACHE=1
@@ -1792,8 +1813,9 @@ export SGLANG_DSPARK_OPT_MARKOV_W2_TP_SHARD=1
 export SGLANG_DSPARK_ENABLE_MULTI_STREAM=1
 export SGLANG_DSPARK_FAST_KERNEL=1
 export SGLANG_DSPARK_FAST_SAMPLING=1
-export SGLANG_W4A8_TPMOE_BACKEND=aiter
-
+export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=false
+export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1
+export SGLANG_USE_W4A8_MASKED_HIPC=1
 sglang serve \
   --reasoning-parser deepseek-v4 \
   --tool-call-parser deepseekv4 \
@@ -1801,7 +1823,6 @@ sglang serve \
   --dist-timeout 10000 \
   --watchdog-timeout 3600 \
   --model-path hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
-  --disable-radix-cache \
   --model-loader-extra-config '{"enable_multithread_load": "true","num_threads": 64}' \
   --trust-remote-code \
   --chunked-prefill-size 32768 \
@@ -1815,12 +1836,14 @@ sglang serve \
   --max-running-requests 128 \
   --enable-metrics \
   --swa-full-tokens-ratio 0.9 \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --quantization slimquant_marlin \
   --dp 8 \
   --enable-dp-attention \
   --enable-dp-lm-head \
-  --moe-a2a-backend none \
+  --moe-a2a-backend deepep \
+  --speculative-moe-a2a-backend deepep \
+  --speculative-moe-runner-backend deep_gemm \
   --tokenizer-worker-num 8
 ```
 
@@ -1829,7 +1852,6 @@ sglang serve \
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
 以下示例为 PD 分离部署：P 节点使用 8 张卡（CP8EP8），D 节点使用 2 个节点共 16 张卡（EP16DP16）。节点 IP、网卡等请按实际环境填写，`--dist-init-addr` 填写对应分组 node0 的 IP。
-
 #### P node 0
 
 ```bash
@@ -1906,7 +1928,7 @@ sglang serve \
   --ep 8 \
   --moe-dense-tp-size 1 \
   --moe-a2a-backend deepep \
-  --moe-runner-backend aiter \
+  --moe-runner-backend deep_gemm \
   --deepep-mode normal \
   --deepep-config /xxx/deepep_config.json \
   --dist-init-addr <P_node0_ip>:5125 \
@@ -2041,7 +2063,7 @@ sglang serve \
 
 #### D node 1
 
-说明：`--dist-init-addr` 填写 D node 0 的 IP，其余参数同 D node 0，仅 `--node-rank` 改为 `1`。
+说明：`--dist-init-addr` 填写 D node 0 的 IP；D node 1 的 `--host` 使用自身 IP，`--node-rank` 为 `1`。
 
 ```bash
 unset SGLANG_PD_HIDDEN_POOL_TOKENS
