@@ -25,7 +25,6 @@
 docker pull harbor.sourcefind.cn:5443/hcu/admin/base/vllm:0.21.0-ubuntu22.04-dtk2604-py3.10
 ```
 
-
 HCU 适配插件源码：[HYGON-AI/vllm-plugin-das](https://github.com/HYGON-AI/vllm-plugin-das)。以上命令面向此 HCU 环境。
 
 ## 启动命令
