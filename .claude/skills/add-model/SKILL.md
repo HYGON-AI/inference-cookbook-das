@@ -3,6 +3,47 @@ name: add-model
 description: Guide for adding a new model deployment doc to inference-cookbook-das. Use this when asked to add a new model or create a new model deployment page.
 ---
 
+## Docker 镜像与硬件规则
+
+本节规则优先于后文示例。生成或更新 `## 模型列表` 表格时，必须检查 `docs/model-deployment/docker_images.md`。
+
+- 检查对象：用户输入的框架名称、框架版本和硬件平台。
+- 匹配方式：只有 `docker_images.md` 中存在框架、版本和适用硬件均匹配的行，`框架镜像` 列才生成指向该文件的 Markdown 链接。
+- 链接目标：从 `docs/model-deployment/vllm/*.md` 或 `docs/model-deployment/sglang/*.md` 指向镜像表时，使用 `../docker_images.md`。
+- 链接格式：`[<版本号>](../docker_images.md)`。
+- 版本号匹配原则：
+  - 必须同时匹配框架名称、版本号和适用硬件；`适用硬件` 单元格用 `/` 分隔时，逐个平台匹配。
+  - vLLM `0.15` 只匹配 vLLM `0.15`
+  - vLLM `0.18` 只匹配 vLLM `0.18`，不匹配 `0.18-hotfix`
+  - vLLM `0.21` 只匹配 vLLM `0.21`
+  - SGLang `0.5.10` 只匹配 SGLang `0.5.10`
+  - SGLang `0.5.12` 只匹配 SGLang `0.5.12`
+  - SGLang `0.5.18` 只匹配 SGLang `0.5.18`
+  - 硬件名称以平台简称匹配：`BW1000 64GB` 对应 `BW1000`，`BW1100 144GB` 对应 `BW1100`。
+  - 不得把 `015`、`018`、`021`、`0510`、`0512`、`0518` 等简写当作等价版本号匹配。
+- 如果没有匹配到对应框架、版本和适用硬件，则保持原来的纯文本版本号，不要生成链接。
+
+- SGLang `0.5.12` 按硬件使用镜像，完整 tag 不得互换或缩写：
+  - `scaleX40-3G`：`docker pull harbor.sourcefind.cn:5443/hcu/admin/base/sglang:0.5.12-ubuntu22.04-dtk26041-py3.10-scalex40-sf_b020`
+  - `K100_AI` / `BW1000` / `BW1100`：`docker pull harbor.sourcefind.cn:5443/hcu/admin/base/sglang:0.5.12-ubuntu22.04-dtk2604-py3.10`
+
+示例：
+
+```markdown
+| 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| [hygon/xxx](https://www.modelscope.cn/models/hygon/xxx) | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#xxx-ifb-bw1100-8x-vllm-018) |
+```
+
+
+超节点示例：
+
+```markdown
+| 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
+| [hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
+```
+
 # 新增模型部署文档规范
 
 ## 信息收集
@@ -16,10 +57,10 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
 2. **框架**：`vLLM` 还是 `SGLang`（二选一）
 
 3. **框架版本**：
-   - 选择 vLLM 时只接受：`0.15` 或 `0.18`（其他版本需要用户重新输入）
-   - 选择 SGLang 时只接受：`0.5.10`（其他版本需要用户重新输入）
+   - 选择 vLLM 时只接受：`0.15`、`0.18` 或 `0.21`（其他版本需要用户重新输入）
+   - 选择 SGLang 时只接受：`0.5.10`、`0.5.12` 或 `0.5.18`（其他版本需要用户重新输入）
 
-4. **硬件平台**：从 `K100_AI`、`BW1000`、`BW1100` 中选择，可多选（其他值需要用户重新输入）
+4. **硬件平台**：从 `K100_AI`、`BW1000`、`BW1100`、`scaleX40-3G` 中选择，可多选（其他值需要用户重新输入）
 
 5. **启动命令**：
    - 必须向用户展示以下固定询问话术，不能只作为内部规则；展示时必须原样输出 fenced `text` 代码块（即灰底、左上角显示 `text`、右上角带复制按钮的样式），不要使用 HTML `<div>`、普通段落或引用块。固定话术如下：
@@ -31,11 +72,11 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
      - 没有,替我生成
 
      可选：
-     硬件：如果你选择了多个硬件平台，请按硬件分别提供或标注命令；不标注则把同一份命令复制到所选全部硬件
+     硬件：如果你选择了多个硬件平台，请按硬件分别提供或标注命令；未标注的命令只可在 K100_AI、BW1000、BW1100 之间复用，scaleX40-3G 必须单独提供并标注命令
      部署方式：不写则按 IFB 处理；如果需要同时新增 IFB 和 PD，需要你分别指定
      ```
    - 若用户提供了完整命令，按照上述话术和“启动命令规范化要求（提供命令时）”处理。
-   - 若用户提供了完整命令，且选择多个硬件平台但命令没有逐段明确区分硬件，按上述话术把同一份命令复制到用户选择的所有硬件下面。
+   - 若用户选择多个硬件，只提供一份未标注硬件的完整命令，该命令只能在所选的 K100_AI、BW1000、BW1100 上复用，不能用于 scaleX40-3G；scaleX40-3G 需单独提供命令。
    - 若用户未提供命令，根据模型信息、硬件平台和参考模型名（如有）查找参考或生成模板命令；具体规则见“启动命令模板生成规则（未提供命令时）”。
 
 收集完以上全部信息后，再按照下方规范生成文档。
@@ -44,14 +85,14 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
 
 模型部署文档的 `## 模型列表` 章节必须包含以下列，且顺序固定：
 
-| 模型权重 | 量化方式 | 框架版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | 框架镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | -------- | -------- | ---- | -------- | -------- |
 
-> 列名 `框架版本` 对应 vLLM 文档写 `vLLM 版本`，SGLang 文档写 `SGLang 版本`。
+> 列名 `框架镜像` 对应 vLLM 文档写 `vLLM 镜像`，SGLang 文档写 `SGLang 镜像`。
 
 ### 各列说明
 
-- **框架版本**：使用信息收集阶段用户指定的框架版本（如 `0.18`、`0.5.10`）。
+- **框架镜像**：使用信息收集阶段用户指定的框架版本（如 `0.21`、`0.5.12`、`0.5.18`）。
 
 - **模型权重**：严格使用信息收集步骤 1 中用户指定的模型 ID，带 ModelScope 链接。不得推断、替换或猜测为其他模型 ID。
   - `[<MODEL-ID>](https://www.modelscope.cn/models/<MODEL-ID>)`
@@ -65,14 +106,16 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
   - `K100_AI`
   - `BW1000 64GB`（简写 `BW1000`）
   - `BW1100 144GB`（简写 `BW1100`）
+  - `scaleX40-3G`
 
-  **表格行排序**：同一模型的多条行先按框架版本从新到旧排序（如 vLLM `0.18` 在 `0.15` 前），同一框架版本内再按硬件平台排序，顺序固定为 **BW1100 → BW1000 → K100_AI**；同一硬件下 `IFB` 在前，后面紧跟该硬件对应的 PD 分离记录（如 `1P1D`、`2P2D`）。
+  **表格行排序**：同一模型的多条行先按框架版本从新到旧排序（如 vLLM `0.18` 在 `0.15` 前），同一框架版本内再按硬件平台排序，顺序固定为 **scaleX40-3G → BW1100 → BW1000 → K100_AI**；同一硬件下 `IFB` 在前，后面紧跟该硬件对应的 PD 分离记录。
 
 - **卡数**：整数，表示所需 HCU 数量。
 
 - **部署方式**：
   - `IFB`：单机批量推理
-  - `xPyD`：PD 分离，例如 `2P2D`（2 个 prefill 节点 + 2 个 decode 节点）、`1P2D`
+  - `PD`：PD 分离，P/D 节点数以启动命令为准
+
 
 - **启动命令**：加粗的 `` >_ `` 图标作为锚点链接，跳转到文档内对应的启动命令章节。格式：
   `[**\`>_\`**](#<anchor>)`
@@ -111,10 +154,10 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
 3. 找到参考命令后，可直接作为模板来源生成启动命令；最终回复中说明参考了哪个已有模型/文件，以及做了哪些必要替换或估算。
 4. 仍无合适参考时，生成基础模板命令，只使用用户指定模型 ID、按规则估算的 TP/卡数、框架通用必要参数和量化必要参数，并在最终回复说明未套用其他模型的优化参数。
 
-生成模板命令时必须遵守以下规则：
+生成模板命令时必须遵守以下规则；`scaleX40-3G` 不适用下文的单卡显存表、
 
 - 参考已有 md 命令时，必须把来源命令中的模型 ID 替换为信息收集第 1 步用户指定的模型 ID；不得把参考模型名或已有 md 命令中的其他模型 ID 写入本次文档。
-- 不得跨框架、跨版本或跨硬件平台套用启动参数、环境变量或运行时开关，尤其不得在 vLLM `0.18` 与 `0.15` 之间互相参考，也不得用 `BW1000`、`BW1100`、`K100_AI` 之间任一硬件的命令去生成另一硬件的命令。
+- 不得跨框架、跨版本或跨硬件平台套用启动参数、环境变量或运行时开关，尤其不得在 vLLM `0.21`、`0.18`、`0.15` 之间或 SGLang `0.5.18`、`0.5.12`、`0.5.10` 之间互相参考，也不得用 `scaleX40-3G`、`BW1000`、`BW1100`、`K100_AI` 之间任一硬件的命令去生成另一硬件的命令。
 - `tensor-parallel-size` / `--tp-size` / `-tp` 必须按下方显存规则重新估算，不能直接沿用参考命令里的卡数：
   - 必须按下方固定表格读取所选硬件的单卡显存。
 
@@ -126,8 +169,8 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
 
   - 根据模型权重和单卡显存计算所需 TP：`required_tp = model_weight_GB / gpu_mem_GB`，并预留 20%~30% 显存余量。
   - TP 取值必须满足硬件拓扑约束：当估算结果 `<= 8` 时，向上取最近的 2 的幂（`1`、`2`、`4`、`8`）；当估算结果 `> 8` 时，只能取 `8 * 2^n`（`16`、`32`、`64`、`128` ...），不得取 `12`、`24`、`40` 等非 `8 * 2^n` 值。
-  - 当参考命令的卡数 `<= 8`、重新估算后的总卡数 `> 8`，且框架为 vLLM `0.18` 时，不要把总卡数直接写成单节点 `-tp <总卡数>` / `--tensor-parallel-size <总卡数>`；应按 `节点数 = 总卡数 / 8` 生成多节点命令，且此时每个节点的 TP 固定为 `8`。只新增多节点参数，不改写参考命令已有的其它并行参数。
-    例如：参考命令单节点 8 卡，本次估算总卡数为 16，则生成 2 个节点；两个节点都保留参考命令原有的每节点卡数参数（`-tp 8` 或 `--tensor-parallel-size 8`），并分别增加 `--nnodes 2`、`--node-rank 0/1`、`--master-addr <node1_ip>`，最后一个节点追加 `--headless`。
+  - 当参考命令的卡数 `<= 8`、重新估算后的总卡数 `> 8`，且框架为 vLLM `0.18` 或 `0.21` 时，不要把总卡数直接写成单节点 `-tp <总卡数>` / `--tensor-parallel-size <总卡数>`；应按 `节点数 = 总卡数 / 8` 生成多节点命令，且此时每个节点的 TP 固定为 `8`。只新增多节点参数，不改写参考命令已有的其它并行参数。
+    例如：参考命令单节点 8 卡，本次估算总卡数为 16，则生成 2 个节点；两个节点都保留参考命令原有的每节点卡数参数（`-tp 8` 或 `--tensor-parallel-size 8`），并分别增加 `--nnodes 2`、`--node-rank 0/1`、`--master-addr <node0_ip>`，最后一个节点追加 `--headless`。
   - 若用户提供的现成启动命令中 TP 不满足上述取值约束，必须先提示用户确认是否按规则调整 TP；获得确认后再修改命令和表格卡数，不得静默改写。
 
 模型权重可按以下方式估算：
@@ -154,18 +197,18 @@ description: Guide for adding a new model deployment doc to inference-cookbook-d
   ```
 
 - `<MODEL>`：模型权重名（不含 `hygon/` 前缀，因为 `/` 会破坏锚点生成）
-- `<MODE>`：`IFB` 或 `xPyD`（如 `2P2D`、`1P2D`）
-- `<HW>`：推荐硬件简写（如 `BW1000`、`BW1100`）
+- `<MODE>`：`IFB` 或 `PD`
+- `<HW>`：推荐硬件简写（如 `BW1000`、`BW1100`、`scaleX40-3G`）
 - `<Nx>`：总卡数加 `x`（如 `8x`、`32x`、`24x`）
 - `<VERSION>`：vLLM 版本（如 `0.18`、`0.15`）
 
 例如（SGLang）：
 - `### GLM-5-Channel-INT4-w4a8 IFB BW1000 8x SGLang 0.5.10` → anchor `#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0510`
-- `### GLM-5-Channel-INT4-w4a8 2P2D BW1000 32x SGLang 0.5.10` → anchor `#glm-5-channel-int4-w4a8-2p2d-bw1000-32x-sglang-0510`
+- `### GLM-5-Channel-INT4-w4a8 PD BW1000 32x SGLang 0.5.10` → anchor `#glm-5-channel-int4-w4a8-pd-bw1000-32x-sglang-0510`
 
 例如（vLLM）：
 - `### GLM-5-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.18` → anchor `#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-018`
-- `### GLM-5-Channel-INT8-w8a8 1P2D BW1100 24x vLLM 0.18` → anchor `#glm-5-channel-int8-w8a8-1p2d-bw1100-24x-vllm-018`
+- `### GLM-5-Channel-INT8-w8a8 PD BW1100 24x vLLM 0.18` → anchor `#glm-5-channel-int8-w8a8-pd-bw1100-24x-vllm-018`
 
 ### SGLang IFB 章节结构
 
@@ -190,7 +233,7 @@ sglang serve \
 SGLang PD 分离章节开头加一行 IB 网卡配置说明，然后用 `####` 划分各节点。**缩进规范同 IFB**：`sglang serve \` 首行，后续参数缩进 2 个空格。P/D 节点服务端口使用 `30000`，Router 使用 `30001`，除非用户明确要求保留具体自定义端口。
 
 ````markdown
-### GLM-5-Channel-INT4-w4a8 2P2D BW1000 32x SGLang 0.5.10
+### GLM-5-Channel-INT4-w4a8 PD BW1000 32x SGLang 0.5.10
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
@@ -202,9 +245,9 @@ export ...
 sglang serve \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --trust-remote-code \
-  --host "$(ip route get 1.1.1.1 | awk '/src/{print $7}')" \
+  --host "<P_node0_ip>" \
   --port 30000 \
-  --dist-init-addr "$(ip route get 1.1.1.1 | awk '/src/{print $7}'):5000" \
+  --dist-init-addr "<P_node0_ip>:5000" \
   --nnodes <P节点数> \
   --node-rank 0 \
   --tp-size <tp> \
@@ -214,24 +257,56 @@ sglang serve \
 
 #### P node 1
 
-说明：`--dist-init-addr` 填写当前分组 node0 的 IP，下面示例使用 `10.x.x.x`。
-
 ```bash
-...（同 P node 0，node-rank 改为 1，dist-init-addr 改为固定 IP）
+export ...
+
+sglang serve \
+  --model-path hygon/GLM-5-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --host "<P_node1_ip>" \
+  --port 30000 \
+  --dist-init-addr "<P_node0_ip>:5000" \
+  --nnodes <P节点数> \
+  --node-rank 1 \
+  --tp-size <tp> \
+  --disaggregation-mode prefill \
+  ...
 ```
 
 #### D node 0
 
 ```bash
-...（decode 节点，disaggregation-mode decode）
+export ...
+
+sglang serve \
+  --model-path hygon/GLM-5-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --host "<D_node0_ip>" \
+  --port 30000 \
+  --dist-init-addr "<D_node0_ip>:5000" \
+  --nnodes <D节点数> \
+  --node-rank 0 \
+  --tp-size <tp> \
+  --disaggregation-mode decode \
+  ...
 ```
 
 #### D node 1
 
-说明：`--dist-init-addr` 填写当前分组 D node0 的 IP，下面示例使用 `10.x.x.x`。
-
 ```bash
-...（同 D node 0，node-rank 改为 1，dist-init-addr 改为固定 IP）
+export ...
+
+sglang serve \
+  --model-path hygon/GLM-5-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --host "<D_node1_ip>" \
+  --port 30000 \
+  --dist-init-addr "<D_node0_ip>:5000" \
+  --nnodes <D节点数> \
+  --node-rank 1 \
+  --tp-size <tp> \
+  --disaggregation-mode decode \
+  ...
 ```
 
 #### Router
@@ -273,9 +348,7 @@ vllm serve hygon/GLM-5-Channel-INT4-w4a8 \
 vLLM PD 分离的代理（proxy）内置于 P 节点进程中，通过 `--kv-transfer-config` 的 `proxy_port` 对外暴露，无需独立 Router 进程。**缩进规范同 IFB**：`vllm serve <model-id> \` 首行，后续参数缩进 2 个空格。章节开头加一行说明 P 节点和 D node 0 的示例 IP，然后用 `####` 划分各节点：
 
 ````markdown
-### GLM-5-Channel-INT8-w8a8 1P2D BW1100 24x vLLM 0.18
-
-以下示例中 `10.16.1.36` 为 P 节点（也是代理节点），`10.16.1.42` 是 D node 0 的主节点，实际部署时请根据实际情况修改。
+### GLM-5-Channel-INT8-w8a8 PD BW1100 24x vLLM 0.18
 
 #### P node
 
@@ -326,7 +399,7 @@ vllm serve hygon/GLM-5-Channel-INT8-w8a8 \
 - **模型 ID**：使用 ModelScope 上的完整路径，例如 `hygon/GLM-5-Channel-INT4-w4a8`
 - **启动命令**：使用 `sglang serve`（不用 `python -m sglang.launch_server`）
 - **必须加**：`--trust-remote-code`
-- **`--host`**：PD 分离模式必须指定，绑定节点对外的 IP；IFB 不需要。推荐用 `$(ip route get 1.1.1.1 | awk '/src/{print $7}')` 自动获取
+- **`--host`**：PD 分离模式必须指定，填写当前节点对外可达的 IP；IFB 不需要。多节点部署按示例使用各节点 IP 占位符，实际部署时替换为真实地址
 - **`--dist-init-addr`**：多节点必须指定。格式 `<IP>:5000`。node 0 用自身 IP，其余节点填 node 0 的 IP
 - **`--served-model-name`**：PD 分离时所有 P/D 节点必须设置相同的值；API 调用的 `model` 字段须与此一致
 - **端口**：SGLang 默认 `30000`。Router 与 P node 0 同机时需换端口（推荐 `30001`）；不在文档中显式指定端口除非有特殊原因
@@ -335,7 +408,6 @@ vllm serve hygon/GLM-5-Channel-INT8-w8a8 \
 
 - **模型 ID**：使用 ModelScope 上的完整路径，例如 `hygon/GLM-5-Channel-INT8-w8a8`
 - **启动命令**：使用 `vllm serve`
-- **必须加**：`--trust-remote-code`、`-q <quantization>`
 - **`--served-model-name`**：PD 分离时所有 P/D 节点必须设置相同的值；API 调用的 `model` 字段须与此一致
 - **端口**：vLLM 默认 `8000`（HTTP）；不在文档中显式指定 `--port` 除非有特殊原因
 - **`--kv-transfer-config`**：PD 分离必须指定，P 节点为 `kv_producer`，D 节点为 `kv_consumer`
@@ -414,7 +486,7 @@ curl http://localhost:8000/v1/chat/completions \
 
 ### PD 分离
 
-vLLM PD 分离模式下，客户端请求直接发送到 P 节点的代理端口（`proxy_port`，示例中为 `10.16.1.36:30001`）。
+vLLM PD 分离模式下，客户端请求直接发送到 P 节点的代理端口（`proxy_port`，示例中为 `<P_node_ip>:30001`）。
 
 ```python
 client = OpenAI(base_url="http://<P_node_ip>:30001/v1", api_key="not-needed")
@@ -430,14 +502,14 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
 ````markdown
 ## 模型列表
 
-| 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8)   |  FP8 W8A8 | 0.5.10 | BW1100 |  8 | IFB  | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510)    |
-|                                                                                                 |  FP8 W8A8 | 0.5.10 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-fp8-w8a8-1p2d-bw1100-24x-sglang-0510)  |
+|                                                                                                 |  FP8 W8A8 | 0.5.10 | BW1100 | 24 | PD | [**`>_`**](#glm-5-channel-fp8-w8a8-pd-bw1100-24x-sglang-0510)  |
 | [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.10 | BW1100 |  8 | IFB  | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0510)   |
-|                                                                                                 | INT8 W8A8 | 0.5.10 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-int8-w8a8-1p2d-bw1100-24x-sglang-0510) |
+|                                                                                                 | INT8 W8A8 | 0.5.10 | BW1100 | 24 | PD | [**`>_`**](#glm-5-channel-int8-w8a8-pd-bw1100-24x-sglang-0510) |
 | [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.5.10 | BW1000 |  8 | IFB  | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0510)   |
-|                                                                                                 | INT4 W4A8 | 0.5.10 | BW1000 | 32 | 2P2D | [**`>_`**](#glm-5-channel-int4-w4a8-2p2d-bw1000-32x-sglang-0510) |
+|                                                                                                 | INT4 W4A8 | 0.5.10 | BW1000 | 32 | PD | [**`>_`**](#glm-5-channel-int4-w4a8-pd-bw1000-32x-sglang-0510) |
 ````
 
 ## 示例（vLLM GLM-5）
@@ -445,12 +517,12 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
 ````markdown
 ## 模型列表
 
-| 模型权重 | 量化方式 | vLLM 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | 0.18 | BW1100 |  8 | IFB  | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-vllm-018)   |
-|                                                                                                 | INT8 W8A8 | 0.18 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-int8-w8a8-1p2d-bw1100-24x-vllm-018) |
+|                                                                                                 | INT8 W8A8 | 0.18 | BW1100 | 24 | PD | [**`>_`**](#glm-5-channel-int8-w8a8-pd-bw1100-24x-vllm-018) |
 |                                                                                                 | INT8 W8A8 | 0.15 | BW1100 |  8 | IFB  | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-vllm-015)   |
-|                                                                                                 | INT8 W8A8 | 0.15 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-int8-w8a8-1p2d-bw1100-24x-vllm-015) |
+|                                                                                                 | INT8 W8A8 | 0.15 | BW1100 | 24 | PD | [**`>_`**](#glm-5-channel-int8-w8a8-pd-bw1100-24x-vllm-015) |
 | [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.18 | BW1100 |  8 | IFB  | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-018)   |
 |                                                                                                 | INT4 W4A8 | 0.15 | BW1100 |  8 | IFB  | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-015)   |
 ```` 
@@ -465,7 +537,8 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
 **判断规则**：
 - 文件归属：优先使用 `docs/model-deployment/{vllm|sglang}/` 下已有的同系列文件（如 `qwen3.md`、`kimi-k2.md`），不存在时才新建以系列命名的文件（如 `deepseek-v3.md`、`glm-5.md`）。带显式版本号的模型优先归入相同大/小版本文件；若仓库已按版本拆分（如已有 `deepseek-v3.md` 与 `deepseek-v3.2.md`），新增 `DeepSeek-V3.1` 应使用或新建 `deepseek-v3.1.md`，不要合并到 `deepseek-v3.md`。显式大/小版本后的后缀（如 `DeepSeek-V3.1-Terminus`、`Qwen3.5-Instruct`）不单独建文件，仍归入对应大/小版本系列文件（如 `deepseek-v3.1.md`、`qwen3.5.md`）。
 - 原有内容保护与记录修正：补充新模型时，已有记录和已有启动命令的内容必须保持原样；只有用户再次提供相同模型、框架、版本和硬件时，才视为修正对应已有记录，可按本次输入更新该记录的量化方式、卡数、部署方式和启动命令。框架版本不同必须保留旧记录并新增新版本记录；用户只选择部分硬件时，只匹配或新增这些硬件，不得自动扩展到其他硬件平台。除此之外，不得改写、补齐、规范化、合并或拆分已有表格行、`###` 标题、命令参数、环境变量和说明文字。为插入本次新增内容，可以最小范围移动已有行/章节，但必须保持表格行与对应启动命令章节成对同步。默认排序和章节同步规则只用于判断本次新增内容的位置和相对顺序。
-- 默认排序：插入位置先按模型规模从小到大排列（如 4B、9B、27B、35B、122B、397B）；同一规模下按基础模型名称主体的自然字典序排列，并将同一基础模型及其量化/后缀变体归为同一组（如 `Qwen3.5-27B`、`Qwen3.5-27B-W8A8`连续排列）。同一基础模型组内，基础模型优先，其后按 `BF16` → `FP8` → `INT8/W8A8` → `INT4/W4A8` → `AWQ` 排列量化变体，再按自然字典序排列指令/聊天/推理等后缀变体（如 `Chat` → `Instruct` → `Reasoning` → `Thinking`）；同一后缀变体的量化版本仍按上述量化优先级排序，未列出的变体按模型 ID 自然字典序排列。
+- 默认排序：插入位置先按模型规模从小到大排列（如 4B、9B、27B、35B、122B、397B）；同一规模下按基础模型名称主体的自然字典序排列，并将同一基础模型及其量化/后缀变体归为同一组（如 `Qwen3.5-27B`、`Qwen3.5-27B-W8A8`连续排列）。同一基础模型组内，基础模型优先，其后按 `BF16`  → `INT8/W8A8`→ `FP8` → `INT4/W4A8` → `AWQ` 排列量化变体，再按自然字典序排列指令/聊天/推理等后缀变体（如 `Chat` → `Instruct` → `Reasoning` → `Thinking`）；同一后缀变体的量化版本仍按上述量化优先级排序，未列出的变体按模型 ID 自然字典序排列。
+- 同一模型记录同步检查:新增或修正模型记录时，同一条记录中的以下内容必须使用同一个用户指定模型 ID 派生出的名称，并同步更新：模型列表链接文本、启动命令锚点、对应 `###` 标题、启动命令代码块中的模型路径。修改后必须搜索旧模型名/旧锚点，确认本次记录范围内无残留。
 - 章节同步：先确定本次新增记录在 `## 模型列表` 表格中的位置，再把对应 `###` 启动命令章节放到 `## 启动命令` 中相同的相对位置；模型列表行与启动命令章节必须一一对应、位置一致。不得为了减少 diff 或避免打断已有块而把新增命令追加到末尾。只有无法判断新增章节的合理位置时，才追加到章节末尾并在最终说明中提示原因。
 
 ## 最终步骤：更新 README 支持矩阵
@@ -474,7 +547,7 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
 
 ### 矩阵结构
 
-矩阵为 HTML 表格，列顺序固定：**厂商 → 模型 → 框架 → K100_AI → BW1000 → BW1100**。
+矩阵为 HTML 表格，列顺序固定：**厂商 → 模型 → 框架 → K100_AI → BW1000 → BW1100 → scaleX40-3G**。
 
 每个模型在矩阵中占两行（vLLM 行 + SGLang 行），模型名称列使用 `rowspan="2"`：
 
@@ -485,9 +558,11 @@ curl http://<P_node_ip>:30001/v1/chat/completions ...
   <td align="center">-</td>
   <td align="center"><a href="docs/model-deployment/vllm/filename.md">✅</a></td>
   <td align="center">-</td>
+  <td align="center">-</td>
 </tr>
 <tr>
   <td>SGLang</td>
+  <td align="center">-</td>
   <td align="center">-</td>
   <td align="center">-</td>
   <td align="center">-</td>
