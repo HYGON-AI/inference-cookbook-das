@@ -8,14 +8,44 @@ DeepSeek V3.2 是深度求索公司于 2025 年底发布的大语言模型，基
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
-| [hygon/DeepSeek-V3.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-INT8-w8a8) | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
+| [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
+| [hygon/DeepSeek-V3.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1000-16x-vllm-0281) |
+|  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
 |  | INT8 W8A8 | 0.18.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-vllm-0181) |
 |  | INT8 W8A8 | 0.15.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-vllm-0151) |
 | [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 
+
+### 0.28.1 平台支持说明
+
+BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/DeepSeek-V3.2-Channel-FP8-w8a8`。
+
 ## 启动命令
+
+### DeepSeek-V3.2-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### DeepSeek-V3.2-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.21
 
@@ -40,6 +70,95 @@ vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v32 \
   --reasoning-parser deepseek_v3
+```
+
+### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。数据并行地址和端口占位符如有使用，也应在各节点保持一致。
+
+#### rank 0
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.21

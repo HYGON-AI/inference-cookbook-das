@@ -81,7 +81,7 @@
     <tr>
       <td rowspan="2">Qwen3-VL</td>
       <td>vLLM</td>
-      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">✅</a></td><td align="center">🚧</td>
+      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">文档</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -135,7 +135,7 @@
     <tr>
       <td rowspan="2">Qwen2-72B</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td><td align="center">-</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">文档</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -198,7 +198,7 @@
       <td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="8" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
+      <td rowspan="10" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
       <td rowspan="2">GLM-5.2</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td>
@@ -235,6 +235,15 @@
       <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
     </tr>
     <tr>
+      <td rowspan="2">GLM-5.3</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.3.md">文档</a></td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
       <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
       <td rowspan="2">Hy4</td>
       <td>vLLM</td>
@@ -247,7 +256,7 @@
     <tr>
       <td rowspan="2">Hy3</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">✅</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -266,7 +275,7 @@
     <tr>
       <td rowspan="2">Kimi-K2.6</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.6.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.6.md">文档</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -275,7 +284,7 @@
     <tr>
       <td rowspan="2">Kimi-K2.5</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">✅</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -337,7 +346,7 @@
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/sglang/minimax-h3.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/minimax-h3.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="2" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/644f7e6233ac8f46fa0b9e26/CmF2ocXhkr2UtHXgmwq7-.png" height="40"/><br/>StepFun</td>
+      <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/644f7e6233ac8f46fa0b9e26/CmF2ocXhkr2UtHXgmwq7-.png" height="40"/><br/>StepFun</td>
       <td rowspan="2">Step-3.5</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
@@ -345,6 +354,15 @@
     <tr>
       <td>SGLang</td>
       <td align="center">🚧</td><td align="center">🚧</td><td align="center">🚧</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Step-3.7-Flash</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/step-3.7-flash.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/step-3.7-flash.md">文档</a></td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
       <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/680cb7d1233834890a64acee/5w_4aLfF-7MAyaIPOV498.jpeg" height="40"/><br/>Xiaomi MiMo</td>
@@ -359,7 +377,7 @@
     <tr>
       <td rowspan="2">MiMo-V2-Flash</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/mimo-v2-flash.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/mimo-v2-flash.md">文档</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
