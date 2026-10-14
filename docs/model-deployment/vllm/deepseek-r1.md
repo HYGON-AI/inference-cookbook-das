@@ -828,7 +828,6 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64

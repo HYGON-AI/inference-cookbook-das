@@ -115,7 +115,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1000-2x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen3-32b-ifb-k100_ai-2x-vllm-018-hotfix) |
-|  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen3-32bw8a8-ifb-k100_ai-4x-vllm-021) |
+| Qwen3-32B.w8a8 | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen3-32bw8a8-ifb-k100_ai-4x-vllm-021) |
 |  | INT8 W8A8 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-32bw8a8-ifb-bw1100-1x-vllm-018) |
 |  | INT8 W8A8 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-32bw8a8-ifb-bw1000-1x-vllm-018) |
 |  | INT8 W8A8 | 0.18 | K100_AI | 4 | IFB | [**`>_`**](#qwen3-32bw8a8-ifb-k100_ai-4x-vllm-018) |
@@ -344,6 +344,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-0.6B-Channel-FP8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype auto \
   --enable-prefix-caching \
@@ -360,6 +361,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-0.6B-Channel-FP8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -664,6 +666,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-4B-Channel-FP8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -757,6 +760,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -902,6 +906,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-4B-Thinking-2507-Channel-FP8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -922,6 +927,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3-8B \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -1074,6 +1080,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-8B-Channel-FP8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -1185,6 +1192,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-8B-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -1447,6 +1455,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3-14B-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
