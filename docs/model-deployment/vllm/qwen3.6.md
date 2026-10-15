@@ -42,12 +42,17 @@ Qwen3.6 模型相较于 Qwen3.5 模型，**在智能体编程能力、推理速�
 |  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-021) |
 | [hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-0281) |
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-021) |
+| [hygon/Qwen3.6-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1100-1x-vllm-0281) |
+| [hygon/Qwen3.6-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-0281) |
+| [hygon/Qwen3.6-27B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen36-27b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-0281) |
 
 
 
 ### 0.28.1 平台支持说明
 
 BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8`。
+
+第二批平台支持：BW1000 不支持以下 FP8 权重模型，仅提供 BW1100 命令：`hygon/Qwen3.6-27B-Channel-FP8-w8a8`。
 
 ## 启动命令
 
@@ -671,6 +676,87 @@ vllm serve hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
+```
+
+### Qwen3.6-27B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.28.1
+
+模型地址和 TP1 参考同权重 BW1100 配置，其余执行参数沿用 v0.28.1 模板；待实机验证。
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.6-27B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.6-27B-Channel-INT8-w8a8 IFB BW1000 1x vLLM 0.28.1
+
+模型地址和 TP1 参考同权重 BW1000 配置，普通 FP8 KV 按平台约定使用 E5M2；该 v0.28.1 组合待实机验证。
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.6-27B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.6-27B-Channel-FP8-w8a8 IFB BW1100 1x vLLM 0.28.1
+
+模型地址和 TP1 参考同权重 BW1100 配置，其余执行参数沿用 v0.28.1 模板；待实机验证。
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.6-27B-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ## API 调用

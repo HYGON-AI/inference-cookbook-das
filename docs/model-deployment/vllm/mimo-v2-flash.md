@@ -10,6 +10,9 @@
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/MiMo-V2-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
+| [hygon/MiMo-V2-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#mimo-v2-flash-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281) |
+
+第二批平台支持：BW1000 不支持以下 FP8 权重模型，仅提供 BW1100 命令：`hygon/MiMo-V2-Flash-Channel-FP8-w8a8`。
 
 ## 启动命令
 
@@ -59,6 +62,27 @@ vllm serve hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
   --tool-call-parser mimo \
   --reasoning-parser qwen3 \
   --generation-config vllm \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
+
+MiMo 使用 DiffKV 后端自动布局，仅使用 auto/BF16 KV，不预设 HND/BHSD。
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve hygon/MiMo-V2-Flash-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --tool-call-parser mimo \
+  --reasoning-parser qwen3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64

@@ -132,11 +132,14 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1100-8x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1000-16x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-k100_ai-16x-vllm-018-hotfix) |
+| [hygon/Qwen3-VL-4B-Thinking-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3-VL-4B-Thinking-Channel-FP8) | FP8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-vl-4b-thinking-channel-fp8-ifb-bw1100-1x-vllm-0281) |
 ---
 
 ### 0.28.1 平台支持说明
 
 BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/Qwen3-VL-235B-A22B-Instruct-Channel-FP8`、`hygon/Qwen3-VL-2B-Instruct-Channel-FP8`、`hygon/Qwen3-VL-2B-Thinking-Channel-FP8`、`hygon/Qwen3-VL-4B-Instruct-Channel-FP8`、`hygon/Qwen3-VL-8B-Instruct-Channel-FP8`、`hygon/Qwen3-VL-8B-Thinking-Channel-FP8`。
+
+第二批平台支持：BW1000 不支持以下 FP8 权重模型，仅提供 BW1100 命令：`hygon/Qwen3-VL-4B-Thinking-Channel-FP8`。
 
 ## 启动命令
 
@@ -1458,6 +1461,28 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
   -tp 8 \
   -pp 2 \
   --trust-remote-code 
+```
+
+### Qwen3-VL-4B-Thinking-Channel-FP8 IFB BW1100 1x vLLM 0.28.1
+
+诊断配置：该 4B Thinking 配置未通过精度验收，保留用于问题复现。
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3-VL-4B-Thinking-Channel-FP8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --reasoning-parser qwen3 \
+  --default-chat-template-kwargs '{"enable_thinking":true}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ## API 调用
