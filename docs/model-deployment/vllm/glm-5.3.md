@@ -18,6 +18,7 @@ GLM-5.3-Flash 是 Z.ai 推出的 GLM 系列大语言模型。本文档提供 Hyg
 
 ```bash
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
+export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
@@ -29,6 +30,7 @@ vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_ds_mla \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":true}' \
+  --reasoning-parser glm45 \
   --enable-prefix-caching \
   --max-model-len 65536 \
   --max-num-batched-tokens 8192 \
@@ -41,8 +43,8 @@ vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
 ### GLM-5.3-Flash-Channel-FP8-w8a8 PCP8+EP8 BW1100 8x vLLM 0.28.1rc1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
+export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
@@ -69,6 +71,7 @@ vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
 
 ```bash
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
+export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
@@ -80,6 +83,7 @@ vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --kv-cache-dtype fp8_ds_mla \
   --moe-backend deep_gemm \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":true}' \
+  --reasoning-parser glm45 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 128 \
