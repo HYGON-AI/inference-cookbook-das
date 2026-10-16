@@ -128,7 +128,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 ### Qwen3.5-0.8B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-0.8B \
@@ -146,7 +145,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
 ### Qwen3.5-0.8B IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-0.8B \
@@ -164,7 +162,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
 ### Qwen3.5-4B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-4B \
@@ -188,7 +185,6 @@ vllm serve Qwen/Qwen3.5-4B \
 ### Qwen3.5-4B IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-4B \
@@ -349,7 +345,6 @@ vllm serve Qwen/Qwen3.5-4B \
 ### Qwen3.5-9B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-9B \
@@ -373,7 +368,6 @@ vllm serve Qwen/Qwen3.5-9B \
 ### Qwen3.5-9B IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-9B \
@@ -535,7 +529,6 @@ vllm serve Qwen/Qwen3.5-9B \
 ### Qwen3.5-27B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-27B \
@@ -556,7 +549,6 @@ vllm serve Qwen/Qwen3.5-27B \
 ### Qwen3.5-27B IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-27B \
@@ -714,7 +706,6 @@ vllm serve Qwen/Qwen3.5-27B \
 ### Qwen3.5-27B-Channel-FP8 IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-27B-Channel-FP8 \
@@ -738,7 +729,6 @@ vllm serve hygon/Qwen3.5-27B-Channel-FP8 \
 ### Qwen3.5-35B-A3B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-35B-A3B \
@@ -763,7 +753,6 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
 ### Qwen3.5-35B-A3B IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-35B-A3B \
@@ -940,7 +929,6 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
 ### Qwen3.5-35B-A3B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
@@ -965,7 +953,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
 ### Qwen3.5-35B-A3B-Channel-INT8-w8a8 IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
@@ -1140,7 +1127,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
 ### Qwen3.5-35B-A3B-Channel-FP8-w8a8 IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8 \
@@ -1215,7 +1201,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8 \
 ### Qwen3.5-122B-A10B IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-122B-A10B \
@@ -1238,7 +1223,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
 ### Qwen3.5-122B-A10B IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-122B-A10B \
@@ -1409,7 +1393,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
 ### Qwen3.5-122B-A10B-w8a8 IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
@@ -1429,7 +1412,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
 ### Qwen3.5-122B-A10B-w8a8 IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
@@ -1598,7 +1580,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 ### Qwen3.5-122B-A10B-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8 \
@@ -1673,7 +1654,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8 \
 ### Qwen3.5-397B-A17B IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-397B-A17B \
@@ -1702,7 +1682,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
 #### rank 0
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-397B-A17B \
@@ -1732,7 +1711,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
 #### rank 1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-397B-A17B \
@@ -1825,7 +1803,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
 ### Qwen3.5-397B-A17B-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
@@ -1848,7 +1825,6 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
 ### Qwen3.5-397B-A17B-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
@@ -2022,7 +1998,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B-W8A8-INT8 \
 ### Qwen3.5-397B-A17B-Channel-FP8 IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.5-397B-A17B-Channel-FP8 \

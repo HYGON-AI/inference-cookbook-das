@@ -22,7 +22,6 @@ GLM-4-32B-0414 是智谱 AI 推出的 32B 参数稠密大语言模型，支持�
 ### GLM-4-32B-0414 IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve ZhipuAI/GLM-4-32B-0414 \
@@ -38,7 +37,6 @@ vllm serve ZhipuAI/GLM-4-32B-0414 \
 ### GLM-4-32B-0414 IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve ZhipuAI/GLM-4-32B-0414 \

@@ -28,7 +28,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 ### DeepSeek-V3.2-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -75,7 +74,6 @@ vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
 ### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -101,7 +99,6 @@ vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
 #### rank 0
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
@@ -132,7 +129,6 @@ vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \

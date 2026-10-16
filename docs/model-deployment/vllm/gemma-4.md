@@ -17,7 +17,6 @@ Gemma-4-31B-it 是 Gemma 系列指令模型，本文档提供其在 vLLM 上的�
 ### gemma-4-31B-it IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/gemma-4-31B-it \
   --trust-remote-code \

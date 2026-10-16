@@ -25,7 +25,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 ### GLM-5.3-Flash-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -45,8 +44,6 @@ vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
 ### GLM-5.3-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -67,8 +64,6 @@ vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
 ### GLM-5.3-Channel-INT4-w4a16 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
@@ -101,8 +96,6 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
 #### rank 0
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
@@ -140,8 +133,6 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
 #### rank 1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \

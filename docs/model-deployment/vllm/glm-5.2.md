@@ -35,7 +35,6 @@ GLM-5.2 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 ### GLM-5.2-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
@@ -64,7 +63,6 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
 ### GLM-5.2-Channel-INT4-w4a8 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
@@ -305,7 +303,6 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
 ### GLM-5.2-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
 
 vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
@@ -508,7 +505,6 @@ vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
 ### GLM-5.2-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -533,7 +529,6 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
 #### rank 0
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
@@ -566,7 +561,6 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \

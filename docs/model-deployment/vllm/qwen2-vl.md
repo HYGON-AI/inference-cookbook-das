@@ -25,7 +25,6 @@ Qwen2-VL 是阿里通义千问视觉语言模型系列，支持图像、视频�
 ### Qwen2-VL-2B-Instruct IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-VL-2B-Instruct \
@@ -45,7 +44,6 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
 ### Qwen2-VL-2B-Instruct IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-VL-2B-Instruct \

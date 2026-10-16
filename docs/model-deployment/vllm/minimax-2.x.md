@@ -37,7 +37,6 @@ MiniMax-2.x 是 MiniMax 推出的大规模 MoE（混合专家）语言模型系�
 ### MiniMax-M2.5-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
@@ -59,7 +58,6 @@ vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
 Eagle3 草稿权重需提前准备到命令指定的本地路径；两平台使用相同的草稿模型。
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
@@ -393,7 +391,6 @@ vllm serve hygon/MiniMax-M2.5-W8A8 \
 ### MiniMax-M2.5-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
@@ -507,7 +504,6 @@ vllm serve hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
 Eagle3 草稿权重需提前准备到命令指定的本地路径；两平台使用相同的草稿模型。
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/MiniMax-M2.5-bf16 \
@@ -536,7 +532,6 @@ vllm serve hygon/MiniMax-M2.5-bf16 \
 Eagle3 草稿权重需提前准备到命令指定的本地路径；两平台使用相同的草稿模型。
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/MiniMax-M2.5-bf16 \
