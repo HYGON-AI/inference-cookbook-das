@@ -9,6 +9,8 @@ GLM-5.3 是智谱（Z.ai）推出的开放权重大语言模型，属于 GLM-5 �
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | scaleX40-3G | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
 |                                                                                                 | FP8 W8A8 | 0.5.18 | scaleX40-3G | 24 | 1P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
 
+| GLM-5.3-Flash（公开模型 ID TODO） | INT8 W8A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#glm-53-flash-channel-int8-w8a8-1p1d-bw1000-24x-sglang-0518) |
+
 ## 启动命令
 
 ### GLM-5.3-Channel-FP8-w8a8 IFB scaleX40-3G 8x SGLang 0.5.18
@@ -701,6 +703,451 @@ python3 -m sglang_router.launch_router \
   --decode "http://<d_node0_ip>:30000" \
   --policy round_robin \
   --port 30001
+```
+
+### GLM-5.3-Flash-Channel-INT8-w8a8 1P1D BW1000 24x SGLang 0.5.18
+
+本节整理 GLM-5.3-Flash 的 PD 分离启动配置：P 使用单机 8 卡，D 使用两机共 16 卡（一个分布式 Decode 实例），合计 24 张 BW1000。Router 与 P 同机运行。
+
+#### 部署前准备
+
+当前为待完善配置，尚未完成硬件运行验证。完成以下 TODO 后再执行启动命令：
+
+- TODO：确认量化权重版本。来源正文标记 v3，原配置默认 v1；所有 P/D 节点必须使用同一版本。
+- TODO：补充 Hygon 官方 channelwise 量化模型的公开 ModelScope ID，并替换所有 `<TODO_MODEL_ID>`。
+- TODO：补充可公开拉取的 SGLang 0.5.18 / DTK 26.04 镜像。来源使用专项测试镜像；通用 0.5.18 镜像的参数兼容性尚待验证。
+- TODO：提供适配 BW1000 节点的 `topo.config`，并将 `<topo_config_path>` 替换为各节点容器内的实际路径。
+
+将 `<P_node_ip>`、`<D_node0_ip>`、`<D_node1_ip>` 替换为对应节点互通的 IP。三台服务器各使用 8 张卡，容器工作目录应为非根目录。以下配置使用 `ib0` 与 `shca_0,shca_1,shca_2,shca_3`；执行前确认与实际 RDMA 网络一致。确保节点之间的服务端口 `30000`、分布式通信端口 `5000` 和 bootstrap 端口 `8998` 可达，客户端可访问 Router 的 `30001`。
+
+将下面的配置保存为 `ep_config.json`，并替换 P 命令中的 `<deepep_config_path>`：
+
+```json
+{
+  "normal_dispatch": {
+    "num_sms": 48,
+    "num_max_nvl_chunked_send_tokens": 6,
+    "num_max_nvl_chunked_recv_tokens": 256,
+    "num_max_rdma_chunked_send_tokens": 6,
+    "num_max_rdma_chunked_recv_tokens": 128
+  },
+  "normal_combine": {
+    "num_sms": 48,
+    "num_max_nvl_chunked_send_tokens": 4,
+    "num_max_nvl_chunked_recv_tokens": 256,
+    "num_max_rdma_chunked_send_tokens": 6,
+    "num_max_rdma_chunked_recv_tokens": 128
+  }
+}
+```
+
+#### P node
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATED_EXPERT_BALANCE
+export SGLANG_HCU_SPEC_ASYNC_SCHEDULING=1
+ulimit -s 67108864
+export ROCSHMEM_TOPO_FILE_FORCE="<topo_config_path>"
+export HSA_ENABLE_COREDUMP=1
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_USE_AITER_AR=0
+export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_OPT_USE_TILELANG_MHC_PRE=1
+export SGLANG_OPT_USE_TILELANG_MHC_POST=1
+export SGLANG_OPT_DEEPGEMM_HC_PRENORM=0
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=0
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_MAX_NUM_CONTEXTS=60
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_INT8_DEEPGEMM_ASM=1
+export SGLANG_ENABLE_HEALTH_ENDPOINT_GENERATION=1
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
+export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=0
+export SGLANG_DSA_HCU_MQA_LOGITS_WORKSPACE_GB=1
+export SGLANG_ENABLE_LOGITS_PROCESSER_CHUNK=1
+export SGLANG_LOGITS_PROCESSER_CHUNK_SIZE=1024
+export SGLANG_USE_AITER_CHUNK_GATED_DELTA_H_HIP=1
+export SGLANG_USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
+export SGLANG_DSA_KPOOL_AITER_TOPK=1
+export SGLANG_KERNEL_KPOOL_TOPK_SORT_WRITEBACK=1
+export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export SGLANG_SCHEDULER_MAX_RECV_PER_POLL=8
+export SGLANG_UVICORN_WORKER_STARTUP_TIMEOUT=1800
+export SGLANG_UVICORN_WORKER_HEALTHCHECK_TIMEOUT=600
+export SGLANG_PYSPY_DUMP_BEFORE_CRASH=0
+unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATED_EXPERT_BALANCE
+unset PYTHONPATH
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
+sglang serve \
+    --model-path "<TODO_MODEL_ID>" \
+    --served-model-name GLM-5.3-Flash \
+    --trust-remote-code \
+    --host "<P_node_ip>" \
+    --random-seed 42 \
+    --context-length 1048576 \
+    --chunked-prefill-size 32768 \
+    --max-prefill-tokens 32768 \
+    --disable-shared-experts-fusion \
+    --cuda-graph-backend-prefill disabled \
+    --disable-chunked-prefix-cache \
+    --disaggregation-bootstrap-port 8998 \
+    --disaggregation-mode prefill \
+    --disaggregation-transfer-backend mooncake \
+    --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+    --mem-fraction-static 0.85 \
+    --mamba-full-memory-ratio 0.9 \
+    --max-running-requests 16 \
+    --max-mamba-cache-size 96 \
+    --mamba-radix-cache-strategy extra_buffer \
+    --page-size 64 \
+    --cuda-graph-backend-decode disabled \
+    --tp-size 8 \
+    --ep-size 8 \
+    --attn-cp-size 8 \
+    --enable-prefill-cp \
+    --cp-strategy interleave \
+    --moe-a2a-backend deepep \
+    --deepep-mode normal \
+    --attention-backend dsa \
+    --dsa-prefill-backend flashmla_sparse \
+    --dsa-decode-backend flashmla_kv \
+    --kv-cache-dtype fp8_e4m3 \
+    --quantization w8a8_int8 \
+    --enable-dsa-cache-layer-split \
+    --mla-kv-prefetch-ring-size 1 \
+    --numa-node 0 3 2 1 4 7 6 5 \
+    --enable-hierarchical-cache \
+    --hicache-size 50 \
+    --hicache-write-policy write_through \
+    --hicache-io-backend kernel \
+    --hicache-mem-layout layer_first \
+    --reasoning-parser glm5 \
+    --tool-call-parser glm5stream \
+    --glm-decoding-constraint-module=sglang.srt.constrained.glm \
+    --glm-ignore-decoding-constraint-exception \
+    --grammar-backend xgrammar \
+    --glm-special-token-escape-seed=42 \
+    --glm-adaptive-max-tokens \
+    --speculative-algorithm EAGLE \
+    --speculative-num-steps 5 \
+    --speculative-eagle-topk 1 \
+    --speculative-num-draft-tokens 6 \
+    --enable-cache-report \
+    --enable-metrics \
+    --tokenizer-worker-num=8 \
+    --json-model-override-args '{"index_share_for_mtp_iteration": true}' \
+    --deepep-config "<deepep_config_path>"
+```
+
+#### D node 0
+
+```bash
+export PYTHONPYCACHEPREFIX=/tmp/glm53-pycache-fixed4
+export SGLANG_HCU_SPEC_ASYNC_SCHEDULING=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_NSA_FUSE_TOPK=1
+export ROCSHMEM_TOPO_FILE_FORCE="<topo_config_path>"
+export SGLANG_DSA_FUSE_TOPK=1
+unset SGLANG_KERNEL_API_LOGLEVEL
+unset SGLANG_KERNEL_API_LOGDEST
+export HSA_ENABLE_COREDUMP=1
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_USE_AITER_AR=0
+export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=0
+export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_OPT_USE_TILELANG_MHC_PRE=1
+export SGLANG_OPT_USE_TILELANG_MHC_POST=1
+export SGLANG_OPT_DEEPGEMM_HC_PRENORM=0
+unset PRINT_MOE_ARGS
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=0
+unset ROCSHMEM_DISABLE_HDP_FLUSH
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_MAX_NUM_CONTEXTS=96
+export ROCSHMEM_HEAP_SIZE=1073741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=96
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
+export ROCSHMEM_IB_GID_INDEX=0
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_INT8_DEEPGEMM_ASM=1
+export SGLANG_NCCL_ALL_GATHER_IN_OVERLAP_SCHEDULER_SYNC_BATCH=1
+export SGLANG_SCHEDULER_SKIP_ALL_GATHER=1
+export SGLANG_DSA_ENABLE_MTP_PRECOMPUTE_METADATA=0
+export SGLANG_USE_LEGACY_FUSED_RMS_QUANT=0
+export SGLANG_USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+export SGLANG_DSA_KPOOL_LIGHTOP_TOPK=1
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
+export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=65536
+export SGLANG_DSA_HCU_USE_LIGHTOP_DECODE_GATHER=1
+export SGLANG_USE_AITER_CHUNK_GATED_DELTA_H_HIP=1
+export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export TOKENIZERS_PARALLELISM=false
+export RAYON_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+export SGLANG_PYSPY_DUMP_BEFORE_CRASH=0
+export HSA_USE_SVM=0
+unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATED_EXPERT_BALANCE
+unset PYTHONPATH
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
+sglang serve \
+    --model-path "<TODO_MODEL_ID>" \
+    --served-model-name GLM-5.3-Flash \
+    --trust-remote-code \
+    --random-seed 648620208 \
+    --nnodes 2 \
+    --node-rank 0 \
+    --host "<D_node0_ip>" \
+    --dist-init-addr "<D_node0_ip>":5000 \
+    --max-running-requests 128 \
+    --disable-shared-experts-fusion \
+    --disable-piecewise-cuda-graph \
+    --disable-chunked-prefix-cache \
+    --disable-radix-cache \
+    --cuda-graph-bs 1 2 3 4 5 6 7 8 \
+    --mem-fraction-static 0.80 \
+    --context-length 1048576 \
+    --page-size 64 \
+    --dtype bfloat16 \
+    --max-mamba-cache-size 320 \
+    --mamba-scheduler-strategy no_buffer \
+    --tp-size 16 \
+    --dp-size 16 \
+    --ep-size 16 \
+    --moe-dense-tp-size 1 \
+    --enable-dp-attention \
+    --enable-dp-lm-head \
+    --moe-a2a-backend deepep \
+    --deepep-mode low_latency \
+    --attention-backend nsa \
+    --nsa-prefill-backend flashmla_auto \
+    --nsa-decode-backend flashmla_kv \
+    --linear-attn-backend triton \
+    --kv-cache-dtype fp8_e4m3 \
+    --quantization w8a8_int8 \
+    --disaggregation-transfer-backend mooncake \
+    --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+    --disaggregation-mode decode \
+    --speculative-algorithm EAGLE \
+    --speculative-num-steps 5 \
+    --speculative-eagle-topk 1 \
+    --speculative-num-draft-tokens 6 \
+    --reasoning-parser glm45 \
+    --tool-call-parser glm47 \
+    --grammar-backend xgrammar \
+    --glm-adaptive-max-tokens \
+    --enable-cache-report \
+    --enable-metrics \
+    --tokenizer-worker-num=16 \
+    --json-model-override-args '{"index_share_for_mtp_iteration": true}' \
+    --numa-node 0 3 2 1 4 7 6 5 \
+    --enable-kda-replayssm-spec
+```
+
+#### D node 1
+
+```bash
+export PYTHONPYCACHEPREFIX=/tmp/glm53-pycache-fixed4
+export SGLANG_HCU_SPEC_ASYNC_SCHEDULING=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_NSA_FUSE_TOPK=1
+export ROCSHMEM_TOPO_FILE_FORCE="<topo_config_path>"
+export SGLANG_DSA_FUSE_TOPK=1
+unset SGLANG_KERNEL_API_LOGLEVEL
+unset SGLANG_KERNEL_API_LOGDEST
+export HSA_ENABLE_COREDUMP=1
+export USE_DCU_CUSTOM_ALLREDUCE=0
+export SGLANG_USE_AITER_AR=0
+export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=0
+export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_ROCM_USE_AITER_TILELANG_MHC=1
+export SGLANG_OPT_USE_TILELANG_MHC_PRE=1
+export SGLANG_OPT_USE_TILELANG_MHC_POST=1
+export SGLANG_OPT_DEEPGEMM_HC_PRENORM=0
+unset PRINT_MOE_ARGS
+export SGLANG_OPT_SWIGLU_CLAMP_FUSION=0
+unset ROCSHMEM_DISABLE_HDP_FLUSH
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_MAX_NUM_CONTEXTS=96
+export ROCSHMEM_HEAP_SIZE=1073741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=96
+export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export ROCSHMEM_IB_GID_INDEX=0
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_INT8_DEEPGEMM_ASM=1
+export SGLANG_NCCL_ALL_GATHER_IN_OVERLAP_SCHEDULER_SYNC_BATCH=1
+export SGLANG_SCHEDULER_SKIP_ALL_GATHER=1
+export SGLANG_DSA_ENABLE_MTP_PRECOMPUTE_METADATA=0
+export SGLANG_USE_LEGACY_FUSED_RMS_QUANT=0
+export SGLANG_USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+export SGLANG_DSA_KPOOL_LIGHTOP_TOPK=1
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
+export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=65536
+export SGLANG_DSA_HCU_USE_LIGHTOP_DECODE_GATHER=1
+export SGLANG_USE_AITER_CHUNK_GATED_DELTA_H_HIP=1
+export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export TOKENIZERS_PARALLELISM=false
+export RAYON_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+export SGLANG_PYSPY_DUMP_BEFORE_CRASH=0
+export HSA_USE_SVM=0
+unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATED_EXPERT_BALANCE
+unset PYTHONPATH
+export NCCL_SOCKET_IFNAME=ib0
+export GLOO_SOCKET_IFNAME=ib0
+export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
+sglang serve \
+    --model-path "<TODO_MODEL_ID>" \
+    --served-model-name GLM-5.3-Flash \
+    --trust-remote-code \
+    --random-seed 648620208 \
+    --nnodes 2 \
+    --node-rank 1 \
+    --host "<D_node1_ip>" \
+    --dist-init-addr "<D_node0_ip>":5000 \
+    --max-running-requests 128 \
+    --disable-shared-experts-fusion \
+    --disable-piecewise-cuda-graph \
+    --disable-chunked-prefix-cache \
+    --disable-radix-cache \
+    --cuda-graph-bs 1 2 3 4 5 6 7 8 \
+    --mem-fraction-static 0.80 \
+    --context-length 1048576 \
+    --page-size 64 \
+    --dtype bfloat16 \
+    --max-mamba-cache-size 320 \
+    --mamba-scheduler-strategy no_buffer \
+    --tp-size 16 \
+    --dp-size 16 \
+    --ep-size 16 \
+    --moe-dense-tp-size 1 \
+    --enable-dp-attention \
+    --enable-dp-lm-head \
+    --moe-a2a-backend deepep \
+    --deepep-mode low_latency \
+    --attention-backend nsa \
+    --nsa-prefill-backend flashmla_auto \
+    --nsa-decode-backend flashmla_kv \
+    --linear-attn-backend triton \
+    --kv-cache-dtype fp8_e4m3 \
+    --quantization w8a8_int8 \
+    --disaggregation-transfer-backend mooncake \
+    --disaggregation-ib-device shca_0,shca_1,shca_2,shca_3 \
+    --disaggregation-mode decode \
+    --speculative-algorithm EAGLE \
+    --speculative-num-steps 5 \
+    --speculative-eagle-topk 1 \
+    --speculative-num-draft-tokens 6 \
+    --reasoning-parser glm45 \
+    --tool-call-parser glm47 \
+    --grammar-backend xgrammar \
+    --glm-adaptive-max-tokens \
+    --enable-cache-report \
+    --enable-metrics \
+    --tokenizer-worker-num=16 \
+    --json-model-override-args '{"index_share_for_mtp_iteration": true}' \
+    --numa-node 0 3 2 1 4 7 6 5 \
+    --enable-kda-replayssm-spec
+```
+
+#### Router
+
+P/D 就绪后，在 P 节点的另一个终端启动 Router。两个 D 节点组成一个 Decode 实例，因此只注册 D node 0。
+
+```bash
+python3 -m sglang_router.launch_router --pd-disaggregation \
+    --prefill "http://<P_node_ip>:30000" 8998 \
+    --decode "http://<D_node0_ip>:30000" \
+    --host "<P_node_ip>" \
+    --port 30001 \
+    --policy round_robin \
+    --pool-idle-timeout-secs 4
+```
+
+#### 验证请求
+
+在 P 节点执行：
+
+```bash
+curl http://localhost:30001/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{"model":"GLM-5.3-Flash","messages":[{"role":"user","content":"Hello"}],"max_tokens":128}'
 ```
 
 ## API 调用
