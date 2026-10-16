@@ -12,9 +12,31 @@
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3-ForcedAligner-0.6B](https://huggingface.co/Qwen/Qwen3-ForcedAligner-0.6B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-021) |
+| [Qwen/Qwen3-ForcedAligner-0.6B](https://www.modelscope.cn/models/Qwen/Qwen3-ForcedAligner-0.6B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-021) |
 
 ## 启动命令
+
+### Qwen3-ForcedAligner-0.6B IFB BW1100 1x vLLM 0.28.1
+
+pooling token classification 对齐任务，保留模型架构覆盖；原配置仅完成服务启动验证，对齐推理与精度仍需验证。
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve Qwen/Qwen3-ForcedAligner-0.6B \
+  --trust-remote-code \
+  --runner pooling \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --hf-overrides '{"architectures":["Qwen3ASRForcedAlignerForTokenClassification"]}' \
+  --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-model-len 8192 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### Qwen3-ForcedAligner-0.6B IFB BW1100 1x vLLM 0.21
 

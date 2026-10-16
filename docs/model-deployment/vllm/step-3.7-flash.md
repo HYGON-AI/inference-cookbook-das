@@ -10,7 +10,8 @@ Step-3.7-Flash 是 Step 系列大语言模型，本文档提供其在 vLLM 上�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [stepfun-ai/Step-3.7-Flash](https://www.modelscope.cn/models/stepfun-ai/Step-3.7-Flash) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#step-37-flash-ifb-bw1000-8x-vllm-0281) |
-| [hygon/Step-3.7-Flash-FP8-Channel](https://www.modelscope.cn/models/hygon/Step-3.7-Flash-FP8-Channel) | FP8 Channel | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-fp8-channel-ifb-bw1100-8x-vllm-021) |
+| [hygon/Step-3.7-Flash-FP8-Channel](https://www.modelscope.cn/models/hygon/Step-3.7-Flash-FP8-Channel) | FP8 Channel | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-fp8-channel-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 Channel | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-fp8-channel-ifb-bw1100-8x-vllm-021) |
 
 ## 启动命令
 
@@ -59,6 +60,31 @@ vllm serve stepfun-ai/Step-3.7-Flash \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
+
+### Step-3.7-Flash-FP8-Channel IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+export GPU_MAX_HW_QUEUES=4
+
+vllm serve hygon/Step-3.7-Flash-FP8-Channel \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --quantization slimquant_marlin \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_e4m3 \
+  --no-enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"enable_multi_layers_mtp":true,"quantization":"slimquant_marlin"}' \
+  --enable-chunked-prefill \
+  --reasoning-parser step3p5 \
+  --limit-mm-per-prompt '{"image": 0}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### Step-3.7-Flash-FP8-Channel IFB BW1100 8x vLLM 0.21
 

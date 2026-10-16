@@ -12,12 +12,32 @@
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3-ASR-0.6B-hf](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-bw1100-1x-vllm-021) |
-| [Qwen/Qwen3-ASR-1.7B-hf](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-bw1100-1x-vllm-021) |
-| [Qwen/Qwen3-ASR-0.6B](https://huggingface.co/Qwen/Qwen3-ASR-0.6B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1100-1x-vllm-021) |
-| [Qwen/Qwen3-ASR-1.7B](https://huggingface.co/Qwen/Qwen3-ASR-1.7B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1100-1x-vllm-021) |
+| [Qwen/Qwen3-ASR-0.6B-hf](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-0.6B-hf) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-bw1100-1x-vllm-021) |
+| [Qwen/Qwen3-ASR-1.7B-hf](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-1.7B-hf) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-bw1100-1x-vllm-021) |
+| [Qwen/Qwen3-ASR-0.6B](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-0.6B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1100-1x-vllm-021) |
+| [Qwen/Qwen3-ASR-1.7B](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-1.7B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1100-1x-vllm-021) |
 
 ## 启动命令
+
+### Qwen3-ASR-0.6B-hf IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve Qwen/Qwen3-ASR-0.6B-hf \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### Qwen3-ASR-0.6B-hf IFB BW1100 1x vLLM 0.21
 
@@ -34,6 +54,23 @@ vllm serve Qwen/Qwen3-ASR-0.6B-hf \
   --max-num-batched-tokens 8192
 ```
 
+### Qwen3-ASR-1.7B-hf IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve Qwen/Qwen3-ASR-1.7B-hf \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+
 ### Qwen3-ASR-1.7B-hf IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -49,6 +86,22 @@ vllm serve Qwen/Qwen3-ASR-1.7B-hf \
   --max-num-batched-tokens 8192
 ```
 
+### Qwen3-ASR-0.6B IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve Qwen/Qwen3-ASR-0.6B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3-ASR-0.6B IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -62,6 +115,22 @@ vllm serve Qwen/Qwen3-ASR-0.6B \
   --trust-remote-code \
   --no-enable-prefix-caching \
   --max-num-batched-tokens 8192
+```
+
+### Qwen3-ASR-1.7B IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve Qwen/Qwen3-ASR-1.7B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### Qwen3-ASR-1.7B IFB BW1100 1x vLLM 0.21
