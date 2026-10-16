@@ -8,12 +8,43 @@ Hy3 是由腾讯混元团队开发的一款拥有 2950 亿参数的混合专家�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/Hy3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-FP8-w8a8) | FP8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
+| [hygon/Hy3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(风冷) | 24 | 1P1D | [**`>_`**](#hy3-channel-fp8-w8a8-1p1d-bw1100-24x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(超节点) | 16 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-16x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(超节点) | 32 | 2P1D | [**`>_`**](#hy3-channel-fp8-w8a8-2p1d-bw1100-32x-vllm-021) |
+| [hygon/Hy3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
+
+
+### 0.28.1 平台支持说明
+
+BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/Hy3-Channel-FP8-w8a8`。
 
 ## 启动命令
+
+### Hy3-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Hy3-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --linear-backend auto \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v3 \
+  --reasoning-parser hy_v3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### Hy3-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.21
 
@@ -284,6 +315,54 @@ vllm serve hygon/Hy3-Channel-FP8-w8a8 \
 #replay阶段 参数加:
 --enable-eplb \
   --eplb-config '{"expert_map_path":"/path/to/eplb.json", "num_redundant_experts":16, "step_interval":100000000000, "log_balancedness":true, "log_balancedness_interval":100, "use_async":false}'
+```
+
+### Hy3-Channel-INT8-w8a8 IFB BW1100 4x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Hy3-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v3 \
+  --reasoning-parser hy_v3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Hy3-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Hy3-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v3 \
+  --reasoning-parser hy_v3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ## API 调用
