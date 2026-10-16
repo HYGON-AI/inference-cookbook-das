@@ -8,6 +8,7 @@ GLM-5.2 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| [hygon/GLM-5.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 | [hygon/GLM-5.2-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-021) |
@@ -30,6 +31,32 @@ GLM-5.2 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 |  | INT8 W8A8 | [0.15](../docker_images.md) | BW1100 | 24 | 1P1D | [**`>_`**](#glm-52-channel-int8-w8a8-1p1d-bw1100-24x-vllm-015) |
 
 ## 启动命令
+
+### GLM-5.2-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+
+vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype bfloat16 \
+  --quantization slimquant_marlin \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### GLM-5.2-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.28.1
 

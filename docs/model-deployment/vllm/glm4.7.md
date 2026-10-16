@@ -8,6 +8,7 @@ GLM-4.7 是智谱 AI 推出的大语言模型，支持长上下文和高效推�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| [ZhipuAI/GLM-4.7](https://www.modelscope.cn/models/ZhipuAI/GLM-4.7) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-47-ifb-bw1100-8x-vllm-0281) |
 | [ZhipuAI/GLM-4.7](https://www.modelscope.cn/models/ZhipuAI/GLM-4.7) | BF16 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-47-ifb-bw1100-8x-vllm-021) |
 | [hygon/GLM-4.7-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-4.7-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
@@ -21,6 +22,28 @@ GLM-4.7 是智谱 AI 推出的大语言模型，支持长上下文和高效推�
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#glm-47-flash-ifb-bw1000-2x-vllm-0281) |
 
 ## 启动命令
+
+### GLM-4.7 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
+
+vllm serve ZhipuAI/GLM-4.7 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### GLM-4.7 IFB BW1100 8x vLLM 0.21
 

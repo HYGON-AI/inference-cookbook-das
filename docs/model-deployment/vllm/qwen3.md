@@ -8,6 +8,12 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| [hygon/Qwen3-235B-A22B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-235B-A22B-Channel-FP8-w8a8) | FP8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281) |
+| [Qwen/Qwen3-30B-A3B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B-Instruct-2507) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-ifb-bw1100-1x-vllm-0281) |
+| [Qwen/Qwen3-30B-A3B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B-Instruct-2507) | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-ifb-bw1000-2x-vllm-0281) |
+| [Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic](https://www.modelscope.cn/models/Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic) | FP8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-fp8-dynamic-ifb-bw1100-8x-vllm-0281) |
+| [Qwen/Qwen3-Next-80B-A3B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-Next-80B-A3B-Instruct) | FP16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-next-80b-a3b-instruct-ifb-bw1100-4x-vllm-0281) |
+| [Qwen/Qwen3-Next-80B-A3B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-Next-80B-A3B-Instruct) | FP16 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen3-next-80b-a3b-instruct-ifb-bw1000-4x-vllm-0281) |
 | [Qwen/Qwen3-0.6B](https://www.modelscope.cn/models/Qwen/Qwen3-0.6B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-06b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-06b-ifb-bw1000-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-06b-ifb-bw1100-1x-vllm-021) |
@@ -184,6 +190,123 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 本次发版仅提供以下模型的 BW1100 命令，不提供 BW1000 启动命令：`hygon/Qwen3-30B-A3B-Channel-INT8-w8a8`。
 
 ## 启动命令
+
+### Qwen3-235B-A22B-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3-235B-A22B-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-30B-A3B-Instruct-2507 IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-30B-A3B-Instruct-2507 IFB BW1000 2x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --no-enable-prefix-caching \
+  --enable-chunked-prefill \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-Next-80B-A3B-Instruct IFB BW1100 4x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --distributed-executor-backend mp \
+  --dtype float16 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --no-enable-prefix-caching \
+  --disable-cascade-attn \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-Next-80B-A3B-Instruct IFB BW1000 4x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --distributed-executor-backend mp \
+  --dtype float16 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype auto \
+  --no-enable-prefix-caching \
+  --disable-cascade-attn \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### Qwen3-0.6B IFB BW1100 1x vLLM 0.28.1
 

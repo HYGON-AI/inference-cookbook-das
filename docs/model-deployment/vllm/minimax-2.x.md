@@ -9,6 +9,7 @@ MiniMax-2.x 是 MiniMax 推出的大规模 MoE（混合专家）语言模型系�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| [hygon/MiniMax-M2.5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 | [hygon/MiniMax-M2.5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8x | IFB | [**``>_``**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
@@ -32,6 +33,30 @@ MiniMax-2.x 是 MiniMax 推出的大规模 MoE（混合专家）语言模型系�
 |  | BF16 | 0.15.1 | BW1000 | 8x | IFB | [**``>_``**](#minimax-m25-bf16-ifb-bw1000-8x-vllm-0151) |
 
 ## 启动命令
+
+### MiniMax-M2.5-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --quantization slimquant_marlin \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser minimax_m2 \
+  --reasoning-parser minimax_m2 \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false},"cudagraph_mode":"FULL","custom_ops":["all"]}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### MiniMax-M2.5-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
