@@ -16,7 +16,8 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 |  | BF16 |  [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100_ai-2x-vllm-021) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-018-hotfix) |
-| [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1100/BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-bw1000-1x-vllm-0281) |
+| [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-1x-vllm-0281) |
+|  | W8A8 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-0281) |
 |  | W8A8 |  [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
 |  | W8A8 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
 |  | W8A8 | 0.21 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-vllm-021) |
@@ -39,8 +40,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --kv-cache-dtype fp8_e4m3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 8192 \
-  --max-num-seqs 32 \
-  --default-chat-template-kwargs '{"reasoning_effort":"low"}'
+  --max-num-seqs 32
 ```
 
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x vLLM 0.28.1
@@ -50,8 +50,9 @@ docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04
 github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 
 ```bash
-export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0 
+export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
+
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   -tp 4 \
   --moe-backend aiter \
@@ -71,6 +72,7 @@ github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 
 ```bash
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
+
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   -tp 4 \
   --moe-backend aiter \
@@ -92,10 +94,11 @@ TP2DP2EP4+MTP3（推荐）
 docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
 github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 
-```bash 
+```bash
 export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
 export VLLM_USE_V2_MODEL_RUNNER=1
+
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   -tp 2 \
   -dp 2 \
@@ -107,18 +110,18 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   --kv-cache-dtype fp8_e5m2 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-num-batched-tokens   8192 
-
+  --max-num-batched-tokens 8192
 ```
 
 TP1DP4EP4+MTP3  
 docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
 github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 
-```bash   
+```bash
 export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
 export VLLM_USE_V2_MODEL_RUNNER=1
+
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   -tp 1 \
   --enable-expert-parallel \
@@ -130,8 +133,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   --kv-cache-dtype fp8_e5m2 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-num-batched-tokens   8192 
-
+  --max-num-batched-tokens 8192
 ```
 
 TP4EP4+MTP3  
@@ -235,7 +237,26 @@ vllm serve Qwen/Qwen3.8-27B \
   --speculative-config.num_speculative_tokens 3
 ```
 
-### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 BW1000 1x vLLM 0.28.1
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --attention-backend FLASH_ATTN \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 32
+```
+
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1000 1x vLLM 0.28.1
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
