@@ -11,7 +11,7 @@
 | [hygon/GLM-5.3-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-INT4-w4a16](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a16) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1100-8x-vllm-0281) |
-| [hygon/GLM-5.3-Channel-INT4-w4a16](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a16) | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1000-16x-vllm-0281) |
+|  | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1000-16x-vllm-0281) |
 
 
 ### 0.28.1 平台支持说明
@@ -65,8 +65,6 @@ vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
 ```
 
 ### GLM-5.3-Channel-INT4-w4a16 IFB BW1100 8x vLLM 0.28.1
-
-根据同权重 BW1000 rank 0 命令补写，待实机验证。本配置为单节点 TP8、8 卡，不使用 BW1000 配置的 DP2 或双节点通信参数，保留 BF16 KV。
 
 ```bash
 export VLLM_USE_MODELSCOPE=1

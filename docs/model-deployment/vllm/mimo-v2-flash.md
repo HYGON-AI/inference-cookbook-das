@@ -69,8 +69,6 @@ vllm serve hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
 
 ### MiMo-V2-Flash-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
 
-MiMo 使用 DiffKV 后端自动布局，仅使用 auto/BF16 KV，不预设 HND/BHSD。
-
 ```bash
 export VLLM_USE_MODELSCOPE=1
 export VLLM_USE_V2_MODEL_RUNNER=1

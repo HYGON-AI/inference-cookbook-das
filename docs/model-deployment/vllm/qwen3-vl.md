@@ -1465,10 +1465,7 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
 
 ### Qwen3-VL-4B-Thinking-Channel-FP8 IFB BW1100 1x vLLM 0.28.1
 
-诊断配置：该 4B Thinking 配置未通过精度验收，保留用于问题复现。
-
 ```bash
-export VLLM_USE_MODELSCOPE=1
 export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 

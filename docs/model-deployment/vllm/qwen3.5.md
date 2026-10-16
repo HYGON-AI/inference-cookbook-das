@@ -1877,10 +1877,7 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-FP8 \
 ```
 ### Qwen3.5-122B-A10B-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
 
-按同系列部署模板整理。
-
 ```bash
-export VLLM_USE_MODELSCOPE=1
 export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
