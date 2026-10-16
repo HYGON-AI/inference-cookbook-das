@@ -8,9 +8,9 @@ GLM-5.3-Flash 是 Z.ai 推出的 GLM 系列大语言模型。本文档提供 Hyg
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Flash-Channel-FP8-w8a8) | FP8 W8A8 | [0.28.1rc1](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281rc1) |
-|  | FP8 W8A8 | [0.28.1rc1](../docker_images.md) | BW1100 | 8 | PCP8+EP8 | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-pcp8ep8-bw1100-8x-vllm-0281rc1) |
-|  | FP8 W8A8 | [0.28.1rc1](../docker_images.md) | BW1100 | 8 | DP8+EP8 | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-dp8ep8-bw1100-8x-vllm-0281rc1) |
+| [hygon/GLM-5.3-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1rc1 | BW1100 | 4 | IFB | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281rc1) |
+|  | FP8 W8A8 | 0.28.1rc1 | BW1100 | 8 | PCP8+EP8 | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-pcp8ep8-bw1100-8x-vllm-0281rc1) |
+|  | FP8 W8A8 | 0.28.1rc1 | BW1100 | 8 | DP8+EP8 | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-dp8ep8-bw1100-8x-vllm-0281rc1) |
 
 ## 启动命令
 
@@ -20,7 +20,7 @@ GLM-5.3-Flash 是 Z.ai 推出的 GLM 系列大语言模型。本文档提供 Hyg
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
 export VLLM_USE_V2_MODEL_RUNNER=1
 
-vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
+vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
   --data-parallel-size 4 \
   --data-parallel-size-local 4 \
@@ -46,7 +46,7 @@ vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
 export VLLM_USE_V2_MODEL_RUNNER=1
 
-vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
+vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
   --prefill-context-parallel-size 8 \
   --decode-context-parallel-size 1 \
@@ -73,7 +73,7 @@ vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
 export VLLM_USE_V2_MODEL_RUNNER=1
 
-vllm serve /hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
+vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
   --data-parallel-size 8 \
   --data-parallel-size-local 8 \
