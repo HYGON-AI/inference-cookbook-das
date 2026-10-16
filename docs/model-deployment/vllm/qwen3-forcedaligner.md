@@ -13,7 +13,7 @@
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3-ForcedAligner-0.6B](https://www.modelscope.cn/models/Qwen/Qwen3-ForcedAligner-0.6B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-0281) |
-| [Qwen/Qwen3-ForcedAligner-0.6B](https://huggingface.co/Qwen/Qwen3-ForcedAligner-0.6B) | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-forcedaligner-06b-ifb-bw1100-1x-vllm-021) |
 
 ## 启动命令
 

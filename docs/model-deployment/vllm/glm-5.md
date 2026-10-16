@@ -9,7 +9,7 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [ZhipuAI/GLM-5](https://www.modelscope.cn/models/ZhipuAI/GLM-5) | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-0281) |
-| [ZhipuAI/GLM-5](https://www.modelscope.cn/models/ZhipuAI/GLM-5) | BF16 | [0.21](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-021) |
+|  | BF16 | [0.21](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-021) |
 | [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-021) |
@@ -17,7 +17,8 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 |  | INT4 W4A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-018) |
 |  | INT4 W4A8 | 0.18 | BW1000 | 16 | PP2+TP8 | [**`>_`**](#glm-5-channel-int4-w4a8-pp2tp8-bw1000-16x-vllm-018) |
 |  | INT4 W4A8 | 0.15 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-015) |
-| [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8) | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
+| [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |  | FP8 W8A8 | 0.15 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
@@ -28,7 +29,6 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 |  | INT8 W8A8 | 0.18 | BW1000 | 16 | IFB | [**``>_``**](#glm-5-channel-int8-w8a8-ifb-bw1000-16x-vllm-018) |
 |  | INT8 W8A8 | 0.15 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-vllm-015) |
 |  | INT8 W8A8 | 0.15 | BW1100 | 24 | 1P1D | [**``>_``**](#glm-5-channel-int8-w8a8-1p1d-bw1100-24x-vllm-015) |
-| [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 
 第二批平台支持：BW1000 不支持以下 FP8 权重模型，仅提供 BW1100 命令：`hygon/GLM-5-Channel-FP8-w8a8`。
 
@@ -549,6 +549,27 @@ vllm serve hygon/GLM-5-Channel-INT4-w4a8 \
   --kv-cache-dtype fp8_ds_mla \
   -cc '{"pass_config": {"fuse_act_quant": false}}' \
   --speculative_config '{"method": "mtp", "num_speculative_tokens": 2, "quantization": "slimquant_w4a8_marlin"}'
+```
+
+### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+
+vllm serve hygon/GLM-5-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.21
@@ -1174,27 +1195,6 @@ vllm serve hygon/GLM-5-Channel-INT8-w8a8 \
   --data-parallel-start-rank 8 \
   --disable-custom-all-reduce \
   --headless
-```
-
-### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
-
-```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
-
-vllm serve hygon/GLM-5-Channel-FP8-w8a8 \
-  --trust-remote-code \
-  --tensor-parallel-size 8 \
-  --attention-backend FLASHMLA_SPARSE \
-  --moe-backend aiter \
-  --enable-prefix-caching \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --enable-auto-tool-choice \
-  --tool-call-parser glm47 \
-  --reasoning-parser glm47 \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
 ```
 
 ## API 调用
