@@ -71,7 +71,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 ### DeepSeek-R1-Distill-Qwen-32B IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
@@ -89,7 +88,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
 ### DeepSeek-R1-Distill-Qwen-32B IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
@@ -193,7 +191,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
 ### DeepSeek-R1-Distill-Llama-70B IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
@@ -215,7 +212,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
 ### DeepSeek-R1-Distill-Llama-70B IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
@@ -324,7 +320,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
 ### DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
@@ -342,7 +337,6 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
 ### DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
@@ -450,7 +444,6 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
 ### DeepSeek-R1-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
@@ -482,7 +475,6 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
 #### rank 0
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
@@ -514,7 +506,6 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
@@ -790,7 +781,6 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
 ### DeepSeek-R1-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-R1-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -892,7 +882,6 @@ vllm serve hygon/DeepSeek-R1-Channel-FP8-w8a8 \
 ### DeepSeek-R1-W4A8-V2_6 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
   --trust-remote-code \
@@ -914,7 +903,6 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
 ### DeepSeek-R1-W4A8-V2_6 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
@@ -1049,8 +1037,6 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
 ### DeepSeek-R1-0528-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -1070,8 +1056,6 @@ vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
 ### DeepSeek-R1-0528-W4A8-V2 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
 export VLLM_HCU_USE_CAT_MLA=0
 
@@ -1092,8 +1076,6 @@ vllm serve hygon/DeepSeek-R1-0528-W4A8-V2 \
 ### DeepSeek-R1-0528-W4A8-V2 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_USE_MODELSCOPE=1
 export LMSLIM_USE_GLOBAL_MOE_CACHE=1
 export VLLM_HCU_USE_CAT_MLA=0
 

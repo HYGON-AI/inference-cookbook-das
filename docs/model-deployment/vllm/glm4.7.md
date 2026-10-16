@@ -26,7 +26,6 @@ GLM-4.7 是智谱 AI 推出的大语言模型，支持长上下文和高效推�
 ### GLM-4.7 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
 
 vllm serve ZhipuAI/GLM-4.7 \
@@ -68,8 +67,6 @@ vllm serve ZhipuAI/GLM-4.7 \
 ### GLM-4.7-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
@@ -91,8 +88,6 @@ vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
 ### GLM-4.7-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
@@ -232,7 +227,6 @@ vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
 ### GLM-4.7-Flash IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve ZhipuAI/GLM-4.7-Flash \
   --trust-remote-code \
@@ -257,7 +251,6 @@ vllm serve ZhipuAI/GLM-4.7-Flash \
 ### GLM-4.7-Flash IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve ZhipuAI/GLM-4.7-Flash \
   --trust-remote-code \

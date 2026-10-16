@@ -22,7 +22,6 @@
 pooling token classification 对齐任务，保留模型架构覆盖；原配置仅完成服务启动验证，对齐推理与精度仍需验证。
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve Qwen/Qwen3-ForcedAligner-0.6B \
   --trust-remote-code \

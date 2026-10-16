@@ -16,7 +16,6 @@
 ### Kimi-K2.6 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve moonshotai/Kimi-K2.6 \
   --trust-remote-code \
@@ -35,7 +34,6 @@ vllm serve moonshotai/Kimi-K2.6 \
 ### Kimi-K2.6 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 export VLLM_WEIGHT_OFFLOADING_DISABLE_PIN_MEMORY=1

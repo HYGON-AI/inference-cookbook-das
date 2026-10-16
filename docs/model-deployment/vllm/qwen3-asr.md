@@ -26,7 +26,6 @@
 ### Qwen3-ASR-0.6B-hf IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve Qwen/Qwen3-ASR-0.6B-hf \
   --trust-remote-code \
@@ -57,7 +56,6 @@ vllm serve Qwen/Qwen3-ASR-0.6B-hf \
 ### Qwen3-ASR-1.7B-hf IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve Qwen/Qwen3-ASR-1.7B-hf \
   --trust-remote-code \
@@ -89,7 +87,6 @@ vllm serve Qwen/Qwen3-ASR-1.7B-hf \
 ### Qwen3-ASR-0.6B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve Qwen/Qwen3-ASR-0.6B \
   --trust-remote-code \
@@ -120,7 +117,6 @@ vllm serve Qwen/Qwen3-ASR-0.6B \
 ### Qwen3-ASR-1.7B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve Qwen/Qwen3-ASR-1.7B \
   --trust-remote-code \

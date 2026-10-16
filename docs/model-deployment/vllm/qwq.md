@@ -22,7 +22,6 @@ QwQ 是 Qwen 系列的推理模型。本页提供 QwQ-32B 在 HCU 平台上的 v
 ### QwQ-32B IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/QwQ-32B \
@@ -42,7 +41,6 @@ vllm serve Qwen/QwQ-32B \
 ### QwQ-32B IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/QwQ-32B \

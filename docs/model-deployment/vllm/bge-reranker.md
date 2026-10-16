@@ -19,7 +19,6 @@ bge-reranker-v2-m3 是 BAAI 发布的 reranker 模型，基于 M3 架构，用�
 重排序 pooling 任务；模型有效输入长度上限按 8192 配置。
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve BAAI/bge-reranker-v2-m3 \
   --trust-remote-code \

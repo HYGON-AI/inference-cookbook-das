@@ -33,7 +33,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 ### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -57,7 +56,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -85,7 +83,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 #### rank 0
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
@@ -126,7 +123,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
@@ -185,7 +181,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 ### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -226,7 +221,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
 ### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
@@ -251,7 +245,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
 ### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
@@ -286,7 +279,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
 ### DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
@@ -310,7 +302,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 ### DeepSeek-V4-Pro-0813-INT4-Channel IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
   --trust-remote-code \
@@ -334,8 +325,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
 ### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
@@ -365,8 +354,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
 ### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 

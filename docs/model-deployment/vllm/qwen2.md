@@ -71,7 +71,6 @@ Qwen2 是阿里通义千问开源大语言模型系列，支持多种参数规�
 ### Qwen2-0.5B-Instruct IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-0.5B-Instruct \
@@ -88,7 +87,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
 ### Qwen2-0.5B-Instruct IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-0.5B-Instruct \
@@ -213,7 +211,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
 ### Qwen2-1.5B-Instruct IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-1.5B-Instruct \
@@ -230,7 +227,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
 ### Qwen2-1.5B-Instruct IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-1.5B-Instruct \
@@ -355,7 +351,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
 ### Qwen2-7B-Instruct IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-7B-Instruct \
@@ -372,7 +367,6 @@ vllm serve Qwen/Qwen2-7B-Instruct \
 ### Qwen2-7B-Instruct IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-7B-Instruct \
@@ -497,7 +491,6 @@ vllm serve Qwen/Qwen2-7B-Instruct \
 ### Qwen2-57B-A14B-Instruct IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-57B-A14B-Instruct \
@@ -515,7 +508,6 @@ vllm serve Qwen/Qwen2-57B-A14B-Instruct \
 ### Qwen2-57B-A14B-Instruct IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-57B-A14B-Instruct \
@@ -671,7 +663,6 @@ vllm serve Qwen/Qwen2-57B-A14B-Instruct \
 ### Qwen2-72B-Instruct IFB BW1100 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-72B-Instruct \
@@ -688,7 +679,6 @@ vllm serve Qwen/Qwen2-72B-Instruct \
 ### Qwen2-72B-Instruct IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2-72B-Instruct \

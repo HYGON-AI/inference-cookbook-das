@@ -39,7 +39,6 @@ Qwen2.5-VL 是阿里通义千问视觉语言模型系列，支持图像、视频
 ### Qwen2.5-VL-32B-Instruct IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
@@ -59,7 +58,6 @@ vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
 ### Qwen2.5-VL-32B-Instruct IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
@@ -186,7 +184,6 @@ vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
 ### Qwen2.5-VL-72B-Instruct IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
@@ -206,7 +203,6 @@ vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
 ### Qwen2.5-VL-72B-Instruct IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
@@ -313,7 +309,6 @@ vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
 ### Qwen2.5-VL-72B-Instruct-quantized.w8a8 IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8 \
@@ -334,7 +329,6 @@ vllm serve hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8 \
 ### Qwen2.5-VL-72B-Instruct-quantized.w8a8 IFB BW1000 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8 \

@@ -22,7 +22,6 @@ DeepSeek-V3 是由深度求索推出的基于MoE架构的高性能开源大语�
 ### DeepSeek-V3-0324-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V3-0324-Channel-FP8-w8a8 \
   --trust-remote-code \
@@ -126,7 +125,6 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8  \
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -150,7 +148,6 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
 #### rank 0
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -174,7 +171,6 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --trust-remote-code \

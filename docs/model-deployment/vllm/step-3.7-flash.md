@@ -18,7 +18,6 @@ Step-3.7-Flash 是 Step 系列大语言模型，本文档提供其在 vLLM 上�
 ### Step-3.7-Flash IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve stepfun-ai/Step-3.7-Flash \
@@ -41,7 +40,6 @@ vllm serve stepfun-ai/Step-3.7-Flash \
 ### Step-3.7-Flash IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve stepfun-ai/Step-3.7-Flash \
@@ -64,7 +62,6 @@ vllm serve stepfun-ai/Step-3.7-Flash \
 ### Step-3.7-Flash-FP8-Channel IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 export GPU_MAX_HW_QUEUES=4
 
