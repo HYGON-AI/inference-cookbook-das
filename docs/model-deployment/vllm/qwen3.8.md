@@ -9,12 +9,16 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-vllm-0281) |
-| [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.25 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-025) |
+| [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.25 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-025) |
 |  | BF16 |  [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 |  [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100_ai-2x-vllm-021) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-018-hotfix) |
-| [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1100/BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-bw1000-1x-vllm-0281) |
+| [hygon/Qwen3.8-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-27b-channel-fp8-ifb-bw1100-4x-vllm-0281) |
+| [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-1x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-0281) |
 |  | W8A8 |  [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
 |  | W8A8 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
 |  | W8A8 | 0.21 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-vllm-021) |
@@ -22,22 +26,84 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 |  | W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-vllm-018-hotfix) |
 
+
+
+### 0.28.1 平台支持说明
+
+BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/Qwen3.8-27B-Channel-FP8`、`hygon/Qwen3.8-Flash-Next-Channel-FP8`。
+
 ## 启动命令
 
 ### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x vLLM 0.28.1
 
+启动环境不要预设 `VLLM_KV_CACHE_LAYOUT=HND`，由后端选择支持的布局。
+
 ```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 32 \
-  --default-chat-template-kwargs '{"reasoning_effort":"low"}'
+  --max-num-seqs 64
+```
+
+### Qwen3.8-27B IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3.8-27B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.8-27B IFB BW1000 2x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3.8-27B \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### Qwen3.8-27B IFB BW1000 2x vLLM 0.25
@@ -120,7 +186,31 @@ vllm serve Qwen/Qwen3.8-27B \
   --speculative-config.num_speculative_tokens 3
 ```
 
-### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 BW1000 1x vLLM 0.28.1
+### Qwen3.8-27B-Channel-FP8 IFB BW1100 4x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.8-27B-Channel-FP8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.28.1
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
@@ -128,15 +218,44 @@ export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 32
+  --max-num-seqs 64
+```
+
+### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1000 1x vLLM 0.28.1
+
+```bash
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.21
