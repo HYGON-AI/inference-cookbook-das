@@ -1159,7 +1159,6 @@ export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
 export SGLANG_USE_MODELSCOPE=1
-export SGLANG_ROCM_USE_AITER_MOE=1
 
 sglang serve \
   --model-path hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8 \
@@ -1178,6 +1177,8 @@ sglang serve \
   --mamba-radix-cache-strategy extra_buffer \
   --chunked-prefill-size -1 \
   --kv-cache-dtype fp8_e4m3 \
+  --moe-runner-backend aiter \
+  --quantization w8a8_fp8 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
