@@ -22,6 +22,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
+| Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8 | INT4 W4A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-w4a8-slimquant-ngram-int8-ifb-bw1000-4x-sglang-0518) |
 
 ## 启动命令
 
@@ -459,6 +460,50 @@ sglang serve \
 ```
 
 建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
+
+### Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8 IFB BW1000 4x SGLang 0.5.18
+
+建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
+
+> 注：该 INT4 W4A8 量化权重暂未发布到 ModelScope，以下 `--model-path` 使用本地路径，模型发布后请替换为官方模型名称。
+
+```bash
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_AITER_AR=1
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_W4A8_TPMOE_BACKEND=aiter
+export SGLANG_FORCE_AITER_MOE_C=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+
+sglang serve \
+  --model-path /public4/opendas/DL_DATA/llm-models-qua/Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8 \
+  --trust-remote-code \
+  --quantization slimquant_w4a8_marlin \
+  --tp-size 4 \
+  --ep-size 4 \
+  --moe-runner-backend triton \
+  --speculative-moe-runner-backend triton \
+  --dtype bfloat16 \
+  --language-model-only \
+  --mem-fraction-static 0.85 \
+  --chunked-prefill-size 4096 \
+  --context-length 32768 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e5m2 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --watchdog-timeout 1200 \
+  --disable-radix-cache \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --ple-offload-embedding \
+  --numa-node 0 1 2 3
+```
 
 ## API 调用
 
