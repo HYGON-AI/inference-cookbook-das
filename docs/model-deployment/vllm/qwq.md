@@ -8,7 +8,9 @@ QwQ 是 Qwen 系列的推理模型。本页提供 QwQ-32B 在 HCU 平台上的 v
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [Qwen/QwQ-32B](https://www.modelscope.cn/models/Qwen/QwQ-32B) | BF16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwq-32b-ifb-bw1100-2x-vllm-021) |
+| [Qwen/QwQ-32B](https://www.modelscope.cn/models/Qwen/QwQ-32B) | FP16 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwq-32b-ifb-bw1100-2x-vllm-0281) |
+|  | FP16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwq-32b-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwq-32b-ifb-bw1100-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwq-32b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwq-32b-ifb-k100_ai-2x-vllm-021) |
 |  | BF16 | [0.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwq-32b-ifb-bw1100-4x-vllm-018) |
@@ -16,6 +18,45 @@ QwQ 是 Qwen 系列的推理模型。本页提供 QwQ-32B 在 HCU 平台上的 v
 |  | BF16 | [0.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwq-32b-ifb-k100_ai-4x-vllm-018) |
 
 ## 启动命令
+
+### QwQ-32B IFB BW1100 2x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/QwQ-32B \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --distributed-executor-backend mp \
+  --dtype float16 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e4m3 \
+  --no-enable-prefix-caching \
+  --disable-cascade-attn \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### QwQ-32B IFB BW1000 2x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/QwQ-32B \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --distributed-executor-backend mp \
+  --dtype float16 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype auto \
+  --no-enable-prefix-caching \
+  --disable-cascade-attn \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 
 ### QwQ-32B IFB BW1100 2x vLLM 0.21
 

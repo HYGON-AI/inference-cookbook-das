@@ -41,7 +41,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 启动环境不要预设 `VLLM_KV_CACHE_LAYOUT=HND`，由后端选择支持的布局。
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --trust-remote-code \
@@ -114,7 +113,6 @@ github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 ```bash
 export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   -tp 2 \
@@ -137,7 +135,6 @@ github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 ```bash
 export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   -tp 1 \
@@ -160,7 +157,6 @@ github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
 ```bash
 export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   --tensor-parallel-size 4 \
@@ -178,7 +174,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
 ### Qwen3.8-27B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.8-27B \
@@ -202,7 +197,6 @@ vllm serve Qwen/Qwen3.8-27B \
 ### Qwen3.8-27B IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.8-27B \
@@ -306,7 +300,6 @@ vllm serve Qwen/Qwen3.8-27B \
 ### Qwen3.8-27B-Channel-FP8 IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.8-27B-Channel-FP8 \
@@ -330,7 +323,6 @@ vllm serve hygon/Qwen3.8-27B-Channel-FP8 \
 ### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
@@ -354,7 +346,6 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
 ### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1000 1x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \

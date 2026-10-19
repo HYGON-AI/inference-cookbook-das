@@ -26,7 +26,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 ### Hy3-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Hy3-Channel-FP8-w8a8 \
@@ -320,7 +319,6 @@ vllm serve hygon/Hy3-Channel-FP8-w8a8 \
 ### Hy3-Channel-INT8-w8a8 IFB BW1100 4x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Hy3-Channel-INT8-w8a8 \
@@ -342,7 +340,6 @@ vllm serve hygon/Hy3-Channel-INT8-w8a8 \
 ### Hy3-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
 
 ```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve hygon/Hy3-Channel-INT8-w8a8 \

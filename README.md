@@ -303,7 +303,7 @@
       <td rowspan="10" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/676e38ad04af5bec20bc9faf/dUd-LsZEX0H_d4qefO_g6.jpeg" height="40"/><br/>MiniMax</td>
       <td rowspan="2">MiniMax-M3</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/minimax-m3.md">文档</a></td><td align="center">-</td>
     </tr>
     <tr>
       <td>SGLang</td>
