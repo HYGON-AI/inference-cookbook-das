@@ -61,10 +61,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
 
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x vLLM 0.28.1
 
-TP4+MTP3  
-docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
-github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
-
 ```bash
 export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
@@ -82,56 +78,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --max-num-batched-tokens 8192
 ```
 
-TP4EP4+MTP3  
-docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
-github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
-
-```bash
-export VLLM_HCU_PLE_PREFETCH_STREAM=1
-
-vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
-  -tp 4 \
-  --moe-backend aiter \
-  --enable-expert-parallel \
-  --enable-ep-weight-filter \
-  --skip-mm-profiling \
-  --trust-remote-code \
-  --kv-cache-dtype fp8_e5m2 \
-  --engram-config.cpu_offload=true \
-  --speculative-config.method mtp \
-  --speculative-config.num_speculative_tokens 3 \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 8192
-```
-
 ### Qwen3.8-Flash-Next-Channel-INT4-w4a8 IFB BW1000 4x vLLM 0.28.1
-
-TP2DP2EP4+MTP3（推荐）  
-docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
-github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
-
-```bash
-export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
-export VLLM_HCU_PLE_PREFETCH_STREAM=1
-
-vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
-  -tp 2 \
-  -dp 2 \
-  --enable-expert-parallel \
-  --moe-backend aiter \
-  --trust-remote-code \
-  --engram-config.cpu_offload=true \
-  --max-model-len 32768 \
-  --kv-cache-dtype fp8_e5m2 \
-  --speculative-config.method mtp \
-  --speculative-config.num_speculative_tokens 3 \
-  --max-num-batched-tokens 8192
-```
-
-TP1DP4EP4+MTP3  
-docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
-github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
-
 ```bash
 export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
@@ -148,27 +95,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --max-num-batched-tokens 8192
-```
-
-TP4EP4+MTP3  
-docker image: 10.16.1.152:5000/jenkins/model_test_env/vllm:0.28.1rc1-ubuntu22.04-dtk26041-py3.10-20261012-0306  
-github: https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.28.1-dev
-
-```bash
-export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
-export VLLM_HCU_PLE_PREFETCH_STREAM=1
-
-vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT4-w4a8 \
-  --tensor-parallel-size 4 \
-  --enable-expert-parallel \
-  --moe-backend aiter \
-  --trust-remote-code \
-  --engram-config.cpu_offload=true \
-  --speculative-config.method mtp \
-  --speculative-config.num_speculative_tokens 3 \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 8192 \
-  --kv-cache-dtype fp8_e5m2
 ```
 
 ### Qwen3.8-27B IFB BW1100 1x vLLM 0.28.1
