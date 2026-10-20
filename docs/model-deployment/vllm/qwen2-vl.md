@@ -10,9 +10,11 @@ Qwen2-VL 是阿里通义千问视觉语言模型系列，支持图像、视频�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen2-VL-2B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-VL-2B-Instruct) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-k100_ai-1x-vllm-021) |
+| [Qwen/Qwen2-VL-2B](https://www.modelscope.cn/models/Qwen/Qwen2-VL-2B) | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-k100_ai-1x-vllm-0281) |
 | [Qwen/Qwen2-VL-2B](https://www.modelscope.cn/models/Qwen/Qwen2-VL-2B) | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-k100_ai-1x-vllm-018) |
@@ -82,6 +84,24 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
     --chat-template-content-format openai \
     --attention-backend FLASH_ATTN_CUSTOM
 ```
+### Qwen2-VL-2B-Instruct IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+
+vllm serve Qwen/Qwen2-VL-2B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --chat-template-content-format openai \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen2-VL-2B-Instruct IFB K100_AI 1x vLLM 0.21
 
 ```bash
@@ -126,6 +146,25 @@ vllm serve Qwen/Qwen2-VL-2B \
     --chat-template qwen2_vl_openai_chat_template.jinja \
     --allowed-local-media-path /path-to/VL_data/
 ```
+### Qwen2-VL-2B IFB K100_AI 1x vLLM 0.28.1
+
+此项为未经过指令微调的 Base 权重，用原始 prompt 调用 `/v1/completions`。如需聊天或多模态对话，请另行提供与该权重匹配的输入模板。
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+
+vllm serve Qwen/Qwen2-VL-2B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen2-VL-2B IFB K100_AI 1x vLLM 0.18
 
 ```bash
