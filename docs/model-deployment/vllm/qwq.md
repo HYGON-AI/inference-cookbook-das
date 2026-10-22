@@ -31,7 +31,6 @@ vllm serve Qwen/QwQ-32B \
   --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
-  --no-enable-prefix-caching \
   --disable-cascade-attn \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \

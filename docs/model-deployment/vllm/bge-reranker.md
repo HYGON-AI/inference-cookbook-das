@@ -22,11 +22,9 @@ bge-reranker-v2-m3 是 BAAI 发布的 reranker 模型，基于 M3 架构，用�
 
 vllm serve BAAI/bge-reranker-v2-m3 \
   --trust-remote-code \
-  --runner pooling \
   --tensor-parallel-size 1 \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
-  --no-enable-prefix-caching \
   --max-model-len 8192 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64

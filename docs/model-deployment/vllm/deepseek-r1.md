@@ -8,7 +8,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-0281) |
+| [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-1x-vllm-0281) |
 |  | FP16 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-0281) |
 |  | FP16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-021) |
 |                                                                                                                   | FP16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-021) |
@@ -68,14 +68,14 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 ## 启动命令
 
-### DeepSeek-R1-Distill-Qwen-32B IFB BW1100 2x vLLM 0.28.1
+### DeepSeek-R1-Distill-Qwen-32B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
-  --tensor-parallel-size 2 \
+  --tensor-parallel-size 1 \
   --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
@@ -918,7 +918,7 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
   --kv-cache-dtype fp8_e5m2 \
   --block-size 64 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":1,"use_local_argmax_reduction":false}' \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":false}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \

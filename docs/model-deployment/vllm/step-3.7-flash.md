@@ -25,7 +25,7 @@ vllm serve stepfun-ai/Step-3.7-Flash \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
@@ -47,7 +47,7 @@ vllm serve stepfun-ai/Step-3.7-Flash \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
@@ -70,7 +70,7 @@ vllm serve hygon/Step-3.7-Flash-FP8-Channel \
   --tensor-parallel-size 8 \
   --quantization slimquant_marlin \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --no-enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"enable_multi_layers_mtp":true,"quantization":"slimquant_marlin"}' \

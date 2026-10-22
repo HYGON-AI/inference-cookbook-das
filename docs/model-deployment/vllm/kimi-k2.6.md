@@ -21,7 +21,7 @@ vllm serve moonshotai/Kimi-K2.6 \
   --trust-remote-code \
   --tensor-parallel-size 8 \
   --attention-backend FLASHMLA \
-  --moe-backend triton \
+  --moe-backend aiter \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k2 \
@@ -53,7 +53,6 @@ vllm serve moonshotai/Kimi-K2.6 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
-  --cpu-offload-gb 16 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
