@@ -41,7 +41,7 @@ vllm serve hygon/Kimi-K3-Channel-INT4-w4a8-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k3 \
   --reasoning-parser kimi_k3 \
-  --speculative-config "{\"model\":\"${DSPARK_MODEL}\",\"num_speculative_tokens\":7,\"method\":\"dspark\",\"draft_sample_method\":\"probabilistic\",\"rejection_sample_method\":\"block\"}" \
+  --speculative-config "{"model":"${DSPARK_MODEL}","num_speculative_tokens":7,"method":"dspark","draft_sample_method":"probabilistic","rejection_sample_method":"block"}" \
   --language-model-only \
   --no-async-scheduling \
   --max-model-len 32768 \
@@ -73,7 +73,7 @@ vllm serve hygon/Kimi-K3-Channel-INT4-w4a8-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k3 \
   --reasoning-parser kimi_k3 \
-  --speculative-config "{\"model\":\"${DSPARK_MODEL}\",\"num_speculative_tokens\":7,\"method\":\"dspark\",\"draft_sample_method\":\"probabilistic\",\"rejection_sample_method\":\"block\"}" \
+  --speculative-config "{"model":"${DSPARK_MODEL}","num_speculative_tokens":7,"method":"dspark","draft_sample_method":"probabilistic","rejection_sample_method":"block"}" \
   --language-model-only \
   --no-async-scheduling \
   --max-model-len 32768 \
