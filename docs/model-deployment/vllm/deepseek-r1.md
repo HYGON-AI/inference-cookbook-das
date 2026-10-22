@@ -10,6 +10,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-0281) |
 |  | FP16 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-0281) |
+|  | FP16 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100_ai-4x-vllm-0281) |
 |  | FP16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-vllm-021) |
 |                                                                                                                   | FP16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-021) |
 |                                                                                                                   | FP16 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100_ai-4x-vllm-021) |
@@ -18,6 +19,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 |                                                                                                                   | FP16 | [0.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-k100ai-4x-vllm-018) |
 | [deepseek-ai/DeepSeek-R1-Distill-Llama-70B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) | BF16 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-2x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-4x-vllm-0281) |
+|  | FP16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100_ai-8x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-2x-vllm-021) |
 |                                                                                                                     | BF16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-4x-vllm-021) |
 |                                                                                                                     | BF16 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100_ai-8x-vllm-021) |
@@ -26,6 +28,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 |                                                                                                                     | BF16 | [0.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100ai-8x-vllm-018) |
 | [hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1100-2x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1000-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-k100_ai-8x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1100-2x-vllm-021) |
 |                                                                                                                                             | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-bw1000-4x-vllm-021) |
 |                                                                                                                                             | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-quantizedw8a8-ifb-k100_ai-8x-vllm-021) |
@@ -46,6 +49,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 |                                                                                                             | FP8 W8A8 | [0.15](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/DeepSeek-R1-W4A8-V2_6](https://www.modelscope.cn/models/hygon/DeepSeek-R1-W4A8-V2_6) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1000-8x-vllm-0281) |
+|  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-k100_ai-8x-vllm-0281) |
 |  | INT4 W4A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-021) |
 |                                                                                              | INT4 W4A8 | [0.21](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1000-8x-vllm-021) |
 |                                                                                              | INT4 W4A8 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-k100_ai-8x-vllm-021) |
@@ -124,6 +128,25 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --max-num-seqs 1024 \
   --attention-backend FLASH_ATTN_CUSTOM
+```
+
+### DeepSeek-R1-Distill-Qwen-32B IFB K100_AI 4x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+
+vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --dtype float16 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### DeepSeek-R1-Distill-Qwen-32B IFB K100_AI 4x vLLM 0.21
@@ -255,6 +278,25 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --attention-backend FLASH_ATTN_CUSTOM
 ```
 
+### DeepSeek-R1-Distill-Llama-70B IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+
+vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype float16 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### DeepSeek-R1-Distill-Llama-70B IFB K100_AI 8x vLLM 0.21
 
 ```bash
@@ -374,6 +416,25 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --trust-remote-code \
   --max-num-seqs 1024 \
   --attention-backend FLASH_ATTN_CUSTOM
+```
+
+### DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+
+vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype float16 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 IFB K100_AI 8x vLLM 0.21
@@ -967,6 +1028,29 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
   --speculative_config '{"method":"deepseek_mtp","num_speculative_tokens":2}' \
   --attention-backend FLASHMLA \
   --moe-backend aiter
+```
+
+### DeepSeek-R1-W4A8-V2_6 IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+export VLLM_ROCM_USE_AITER=0
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_CAT_MLA=0
+
+vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_MLA \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_MLA"}' \
+  --reasoning-parser deepseek_r1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### DeepSeek-R1-W4A8-V2_6 IFB K100_AI 8x vLLM 0.21
