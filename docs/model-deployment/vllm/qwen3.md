@@ -20,8 +20,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-06b-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen3-06b-ifb-k100_ai-1x-vllm-018-hotfix) |
 |  | BF16 | 0.15 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-06b-ifb-bw1000-1x-vllm-015) |
-| [hygon/Qwen3-0.6B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3-0.6B-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-06b-channel-fp8-kv-auto-tp1-pp1-ifb-bw1100-1x-vllm-0281) |
-|  | FP8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-06b-channel-fp8-kv-fp8_e4m3-tp1-pp1-ifb-bw1100-1x-vllm-0281) |
+| [hygon/Qwen3-0.6B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3-0.6B-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-06b-channel-fp8-kv-fp8_e4m3-tp1-pp1-ifb-bw1100-1x-vllm-0281) |
 | [Qwen/Qwen3-1.7B](https://www.modelscope.cn/models/Qwen/Qwen3-1.7B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-17b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-17b-ifb-bw1000-1x-vllm-0281) |
 |  | BF16 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-17b-ifb-bw1100-1x-vllm-021) |
@@ -104,6 +103,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 | [Qwen/Qwen3-30B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B) | BF16 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1100-2x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1000-2x-vllm-0281) |
 | [hygon/Qwen3-30B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-30B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-channel-int8-w8a8-ifb-bw1100-2x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-channel-int8-w8a8-ifb-bw1000-2x-vllm-0281) |
 | [Qwen/Qwen3-32B](https://www.modelscope.cn/models/Qwen/Qwen3-32B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1000-2x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1100-1x-vllm-021) |
@@ -131,6 +131,8 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-ifb-bw1000-2x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-ifb-k100_ai-2x-vllm-018-hotfix) |
 |  | BF16 | 0.15 | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-ifb-bw1000-2x-vllm-015) |
+| [Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8) | INT8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1100-1x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1000-1x-vllm-0281) |
 | [Qwen/Qwen3-30B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-30B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1100-1x-vllm-021) |
 |  | INT8 W8A8 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1000-1x-vllm-021) |
 |  | INT8 W8A8 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1100-1x-vllm-018) |
@@ -138,8 +140,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1000-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3-235B-A22B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B-Instruct-2507) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-4x-vllm-0281) |
-|  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-kv-fp8_e5m2-tp8-pp1-cpu-offload-60-ifb-bw1000-8x-vllm-0281) |
-|  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-kv-fp8_e5m2-tp8-pp1-ifb-bw1000-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-kv-fp8_e5m2-tp8-pp2-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-4x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1000-8x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-k100_ai-8x-vllm-021) |
@@ -186,8 +187,6 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 ### 0.28.1 平台支持说明
 
 BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/Qwen3-0.6B-Channel-FP8`、`hygon/Qwen3-4B-Channel-FP8`、`hygon/Qwen3-4B-Thinking-2507-Channel-FP8`、`hygon/Qwen3-8B-Channel-FP8`。
-
-本次发版仅提供以下模型的 BW1100 命令，不提供 BW1000 启动命令：`hygon/Qwen3-30B-A3B-Channel-INT8-w8a8`。
 
 ## 启动命令
 
@@ -338,22 +337,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --dtype bfloat16 \
   --disable-cascade-attn \
   -cc '{"pass_config": {"fuse_act_quant": false}, "custom_ops": ["all"]}'
-```
-
-### Qwen3-0.6B-Channel-FP8 (KV auto TP1 PP1) IFB BW1100 1x vLLM 0.28.1
-
-```bash
-export VLLM_KV_CACHE_LAYOUT=HND
-
-vllm serve hygon/Qwen3-0.6B-Channel-FP8 \
-  --trust-remote-code \
-  --tensor-parallel-size 1 \
-  --attention-backend FLASH_ATTN \
-  --kv-cache-dtype auto \
-  --enable-prefix-caching \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
 ```
 
 ### Qwen3-0.6B-Channel-FP8 (KV fp8_e4m3 TP1 PP1) IFB BW1100 1x vLLM 0.28.1
@@ -1530,6 +1513,26 @@ vllm serve hygon/Qwen3-30B-A3B-Channel-INT8-w8a8 \
   --max-num-seqs 64
 ```
 
+### Qwen3-30B-A3B-Channel-INT8-w8a8 IFB BW1000 2x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3-30B-A3B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3-32B IFB BW1100 1x vLLM 0.28.1
 
 ```bash
@@ -1901,6 +1904,48 @@ vllm serve Qwen/Qwen3-30B-A3B \
   -cc '{"pass_config": {"fuse_act_quant": false}, "custom_ops": ["all"]}'
 ```
 
+### Qwen3-30B-A3B-Instruct-2507-W8A8-INT8 IFB BW1100 1x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --quantization slimquant_marlin \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-30B-A3B-Instruct-2507-W8A8-INT8 IFB BW1000 1x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --quantization slimquant_marlin \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3-30B-A3B-Instruct-2507-W8A8-INT8 IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -1998,15 +2043,24 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --max-num-seqs 64
 ```
 
-### Qwen3-235B-A22B-Instruct-2507 (KV fp8_e5m2 TP8 PP1 CPU offload 60) IFB BW1000 8x vLLM 0.28.1
+### Qwen3-235B-A22B-Instruct-2507 (KV fp8_e5m2 TP8 PP2) IFB BW1000 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点，每个节点 8 卡；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+
+#### rank 0
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
-export VLLM_WEIGHT_OFFLOADING_DISABLE_PIN_MEMORY=1
 
 vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --trust-remote-code \
   --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
   --enable-expert-parallel \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
@@ -2015,13 +2069,12 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --cpu-offload-gb 60 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
 
-### Qwen3-235B-A22B-Instruct-2507 (KV fp8_e5m2 TP8 PP1) IFB BW1000 8x vLLM 0.28.1
+#### rank 1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
@@ -2029,6 +2082,12 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --trust-remote-code \
   --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
   --enable-expert-parallel \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
@@ -2039,7 +2098,8 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --tool-call-parser hermes \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### Qwen3-235B-A22B-Instruct-2507 IFB BW1100 4x vLLM 0.21
@@ -2195,7 +2255,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
-  --no-enable-prefix-caching \
   --disable-cascade-attn \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -2213,8 +2272,7 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --distributed-executor-backend mp \
   --dtype float16 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype auto \
-  --no-enable-prefix-caching \
+  --kv-cache-dtype fp8_e5m2 \
   --disable-cascade-attn \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -2445,7 +2503,7 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 2 \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
@@ -2595,7 +2653,7 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \

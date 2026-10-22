@@ -71,9 +71,6 @@ vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --speculative-config.method eagle3 \
-  --speculative-config.model /model/MiniMax-M2.5-Eagle3 \
-  --speculative-config.num_speculative_tokens 3 \
   --enable-auto-tool-choice \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
@@ -516,9 +513,6 @@ vllm serve hygon/MiniMax-M2.5-bf16 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --speculative-config.method eagle3 \
-  --speculative-config.model /model/MiniMax-M2.5-Eagle3 \
-  --speculative-config.num_speculative_tokens 3 \
   --enable-auto-tool-choice \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
@@ -544,9 +538,6 @@ vllm serve hygon/MiniMax-M2.5-bf16 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --speculative-config.method eagle3 \
-  --speculative-config.model /model/MiniMax-M2.5-Eagle3 \
-  --speculative-config.num_speculative_tokens 3 \
   --enable-auto-tool-choice \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \

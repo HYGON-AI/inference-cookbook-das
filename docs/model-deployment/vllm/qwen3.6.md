@@ -67,6 +67,9 @@ vllm serve Qwen/Qwen3.6-27B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
@@ -87,6 +90,9 @@ vllm serve Qwen/Qwen3.6-27B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
@@ -343,6 +349,9 @@ vllm serve Qwen/Qwen3.6-35B-A3B \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 64 \
   --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
@@ -366,6 +375,9 @@ vllm serve Qwen/Qwen3.6-35B-A3B \
   --kv-cache-dtype fp8_e5m2 \
   --block-size 64 \
   --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \

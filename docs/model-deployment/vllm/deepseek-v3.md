@@ -33,6 +33,9 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-FP8-w8a8 \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v3 \
+  --reasoning-parser deepseek_v3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -134,8 +137,10 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
-  --no-enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v3 \
+  --reasoning-parser deepseek_v3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -160,8 +165,11 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --quantization slimquant_marlin \
   --attention-backend FLASHMLA \
   --moe-backend aiter \
-  --no-enable-prefix-caching \
+  --kv-cache-dtype fp8_e5m2 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v3 \
+  --reasoning-parser deepseek_v3 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -183,8 +191,11 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --quantization slimquant_marlin \
   --attention-backend FLASHMLA \
   --moe-backend aiter \
-  --no-enable-prefix-caching \
+  --kv-cache-dtype fp8_e5m2 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v3 \
+  --reasoning-parser deepseek_v3 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \

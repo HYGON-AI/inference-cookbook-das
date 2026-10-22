@@ -8,7 +8,8 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [ZhipuAI/GLM-5](https://www.modelscope.cn/models/ZhipuAI/GLM-5) | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-0281) |
+| [ZhipuAI/GLM-5](https://www.modelscope.cn/models/ZhipuAI/GLM-5) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#glm-5-ifb-bw1100-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-021) |
 | [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
@@ -33,6 +34,67 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 第二批平台支持：BW1000 不支持以下 FP8 权重模型，仅提供 BW1100 命令：`hygon/GLM-5-Channel-FP8-w8a8`。
 
 ## 启动命令
+
+### GLM-5 IFB BW1100 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点，每个节点 8 卡；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+
+#### rank 0
+
+```bash
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
+
+vllm serve ZhipuAI/GLM-5 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
+
+vllm serve ZhipuAI/GLM-5 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
 
 ### GLM-5 IFB BW1000 32x vLLM 0.28.1
 

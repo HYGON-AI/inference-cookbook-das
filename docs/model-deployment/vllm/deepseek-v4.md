@@ -84,13 +84,14 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --data-parallel-size 2 \
-  --data-parallel-size-local 1 \
+  --data-parallel-size-local 2 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --nnodes 2 \
@@ -99,12 +100,11 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --master-port "${MASTER_PORT}" \
   --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
   --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
-  --quantization compressed-tensors \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
-  --moe-backend aiter \
-  --all2all-backend allgather_reducescatter \
-  --kv-cache-dtype fp8_ds_mla \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
@@ -112,9 +112,8 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --enforce-eager \
   --no-async-scheduling \
-  --api-server-count 1 \
+  --api-server-count 2 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -124,13 +123,14 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --data-parallel-size 2 \
-  --data-parallel-size-local 1 \
+  --data-parallel-size-local 2 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --nnodes 2 \
@@ -140,12 +140,11 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
   --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
   --headless \
-  --quantization compressed-tensors \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
-  --moe-backend aiter \
-  --all2all-backend allgather_reducescatter \
-  --kv-cache-dtype fp8_ds_mla \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
@@ -153,7 +152,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --enforce-eager \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -247,22 +245,21 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
+export VLLM_USE_V2_MODEL_RUNNER=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --enable-expert-parallel \
   --data-parallel-size 2 \
-  --data-parallel-size-local 2 \
-  --data-parallel-backend mp \
   --distributed-executor-backend mp \
-  --quantization slimquant_w4a8 \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
-  --moe-backend auto \
+  --moe-backend deep_gemm \
   --all2all-backend deepep_auto \
-  --kv-cache-dtype bfloat16 \
-  --block-size 64 \
+  --dtype bfloat16 \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
@@ -270,7 +267,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --api-server-count 1 \
+  --api-server-count 2 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64

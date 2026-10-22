@@ -38,7 +38,6 @@ vllm serve moonshotai/Kimi-K2.5 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
-  --cpu-offload-gb 16 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -67,7 +66,6 @@ vllm serve moonshotai/Kimi-K2.5 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
-  --cpu-offload-gb 16 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
