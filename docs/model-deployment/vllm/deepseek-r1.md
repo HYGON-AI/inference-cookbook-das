@@ -57,6 +57,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 |                                                                                              | INT4 W4A8 | 0.18 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1100-8x-vllm-018) |
 |                                                                                              | INT4 W4A8 | 0.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-w4a8-v2_6-ifb-bw1000-8x-vllm-018) |
 | [hygon/DeepSeek-R1-0528-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-0528-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-0528-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-r1-0528-channel-int8-w8a8-ifb-bw1000-16x-vllm-0281) |
 | [hygon/DeepSeek-R1-0528-W4A8-V2](https://www.modelscope.cn/models/hygon/DeepSeek-R1-0528-W4A8-V2) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-0528-w4a8-v2-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-0528-w4a8-v2-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-0528-w4a8-v2-ifb-k100_ai-8x-vllm-0281) |
@@ -1063,10 +1064,10 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend TRITON_MLA \
-  --moe-backend aiter \
+  --moe-backend triton \
   --all2all-backend allgather_reducescatter \
   --enable-prefix-caching \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":1,"use_local_argmax_reduction":false}' \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":false}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \
@@ -1192,6 +1193,65 @@ vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v3 \
+  --reasoning-parser deepseek_r1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### DeepSeek-R1-0528-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v3 \
+  --reasoning-parser deepseek_r1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --block-size 64 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \

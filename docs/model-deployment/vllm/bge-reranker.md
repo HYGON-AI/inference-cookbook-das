@@ -35,6 +35,8 @@ vllm serve BAAI/bge-reranker-v2-m3 \
 ### bge-reranker-v2-m3 IFB K100_AI 1x vLLM 0.28.1
 
 ```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
 vllm serve BAAI/bge-reranker-v2-m3 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
