@@ -63,6 +63,8 @@ vllm serve stepfun-ai/Step-3.7-Flash \
 ### Step-3.7-Flash IFB K100_AI 8x vLLM 0.28.1
 
 ```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
 vllm serve stepfun-ai/Step-3.7-Flash \
   --trust-remote-code \
   --tensor-parallel-size 8 \

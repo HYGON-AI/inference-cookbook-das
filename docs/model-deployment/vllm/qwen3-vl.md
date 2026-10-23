@@ -1632,7 +1632,7 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --safetensors-load-strategy prefetch \
   --hf-overrides '{"architectures": ["Qwen3VLMoeForConditionalGeneration"], "text_config": {"architectures": ["Qwen3VLMoeForConditionalGeneration"]}}' \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
@@ -1657,7 +1657,7 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --safetensors-load-strategy prefetch \
   --hf-overrides '{"architectures": ["Qwen3VLMoeForConditionalGeneration"], "text_config": {"architectures": ["Qwen3VLMoeForConditionalGeneration"]}}' \
   --attention-backend FLASH_ATTN \
-  --moe-backend triton \
+  --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
