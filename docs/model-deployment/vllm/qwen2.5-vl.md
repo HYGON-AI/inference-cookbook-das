@@ -10,6 +10,7 @@ Qwen2.5-VL 是阿里通义千问视觉语言模型系列，支持图像、视频
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen2.5-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-k100_ai-4x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-k100_ai-4x-vllm-021) |
@@ -21,6 +22,7 @@ Qwen2.5-VL 是阿里通义千问视觉语言模型系列，支持图像、视频
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-k100_ai-4x-vllm-018-hotfix) |
 | [Qwen/Qwen2.5-VL-72B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-4x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-k100_ai-8x-vllm-0281) |
 |  | BF16 | 0.21 | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-4x-vllm-021) |
 |  | BF16 | 0.21 | K100_AI | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-k100_ai-8x-vllm-021) |
@@ -29,6 +31,7 @@ Qwen2.5-VL 是阿里通义千问视觉语言模型系列，支持图像、视频
 |  | BF16 | [0.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-k100_ai-8x-vllm-018) |
 | [hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8](https://www.modelscope.cn/models/hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-quantizedw8a8-ifb-bw1100-1x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-quantizedw8a8-ifb-bw1000-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-quantizedw8a8-ifb-k100_ai-4x-vllm-0281) |
 |  | INT8 W8A8 | 0.21 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-quantizedw8a8-ifb-bw1100-1x-vllm-021) |
 |  | INT8 W8A8 | 0.21 | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-quantizedw8a8-ifb-bw1000-4x-vllm-021) |
 |  | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-quantizedw8a8-ifb-bw1100-4x-vllm-018) |
@@ -67,6 +70,21 @@ vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen2.5-VL-32B-Instruct IFB K100_AI 4x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -220,6 +238,22 @@ vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
 ```
 
 
+### Qwen2.5-VL-72B-Instruct IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen2.5-VL-72B-Instruct IFB BW1100 4x vLLM 0.21
 
 ```bash
@@ -339,6 +373,25 @@ vllm serve hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8 \
   --quantization slimquant_marlin \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen2.5-VL-72B-Instruct-quantized.w8a8 IFB K100_AI 4x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/Qwen2.5-VL-72B-Instruct-quantized.w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --quantization slimquant_marlin \
+  --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --max-model-len 32768 \

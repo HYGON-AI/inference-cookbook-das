@@ -10,6 +10,7 @@ GLM-4-32B-0414 是智谱 AI 推出的 32B 参数稠密大语言模型，支持�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [ZhipuAI/GLM-4-32B-0414](https://www.modelscope.cn/models/ZhipuAI/GLM-4-32B-0414) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#glm-4-32b-0414-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#glm-4-32b-0414-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#glm-4-32b-0414-ifb-k100_ai-2x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#glm-4-32b-0414-ifb-bw1100-1x-vllm-021) |
 |                                                                               | BF16 | [0.21](../docker_images.md) | BW1000 | 2x | IFB | [**`>_`**](#glm-4-32b-0414-ifb-bw1000-2x-vllm-021) |
 |                                                                               | BF16 | [0.21](../docker_images.md) | K100_AI | 2x | IFB | [**`>_`**](#glm-4-32b-0414-ifb-k100_ai-2x-vllm-021) |
@@ -49,6 +50,21 @@ vllm serve ZhipuAI/GLM-4-32B-0414 \
   --max-num-seqs 64
 ```
 
+
+### GLM-4-32B-0414 IFB K100_AI 2x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve ZhipuAI/GLM-4-32B-0414 \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### GLM-4-32B-0414 IFB BW1100 1x vLLM 0.21
 
