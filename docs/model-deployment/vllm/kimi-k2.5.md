@@ -10,6 +10,7 @@ Kimi-K2.5 是月之暗面（Moonshot AI）推出的新一代大语言模型，�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [moonshotai/Kimi-K2.5](https://www.modelscope.cn/models/moonshotai/Kimi-K2.5) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1000-8x-vllm-0281) |
+|  | INT4 W4A16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#kimi-k25-ifb-k100_ai-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1100-8x-vllm-021) |
 |  | INT4 W4A16 | 0.18 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1100-8x-vllm-015) |
 |  | INT4 W4A16 | 0.15 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1100-8x-vllm-015) |
@@ -66,6 +67,34 @@ vllm serve moonshotai/Kimi-K2.5 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Kimi-K2.5 IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_USE_BREAKABLE_CUDAGRAPH=1
+export VLLM_WEIGHT_OFFLOADING_DISABLE_PIN_MEMORY=1
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve moonshotai/Kimi-K2.5 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --attention-backend TRITON_MLA \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser kimi_k2 \
+  --reasoning-parser kimi_k2 \
+  --cpu-offload-gb 16 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \

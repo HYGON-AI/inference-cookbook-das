@@ -2,7 +2,7 @@
 
 ## 模型简介
 
-本文提供 GLM-5.3 系列模型在 BW1100、BW1000 上的 vLLM 0.28.1 部署命令，具体权重规格和支持平台见模型列表。
+本文提供 GLM-5.3 系列模型在 BW1100、BW1000、K100_AI 上的 vLLM 0.28.1 部署命令，具体权重规格和支持平台见模型列表。
 
 ## 模型列表
 
@@ -13,6 +13,7 @@
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-INT4-w4a16](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a16) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1000-16x-vllm-0281) |
+|  | INT4 W4A16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-k100_ai-16x-vllm-0281) |
 
 
 ### 0.28.1 平台支持说明
@@ -217,6 +218,82 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --all2all-backend allgather_reducescatter \
   --kv-cache-dtype bfloat16 \
   --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-5.3-Channel-INT4-w4a16 IFB K100_AI 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。数据并行地址和端口占位符如有使用，也应在各节点保持一致。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --data-parallel-size 2 \
+  --data-parallel-size-local 1 \
+  --data-parallel-backend mp \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
+  --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --no-async-scheduling \
+  --api-server-count 1 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --data-parallel-size 2 \
+  --data-parallel-size-local 1 \
+  --data-parallel-backend mp \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
+  --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
+  --headless \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
