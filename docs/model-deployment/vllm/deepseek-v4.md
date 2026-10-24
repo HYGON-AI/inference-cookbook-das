@@ -409,11 +409,11 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
+  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 32768 \
+  --max-model-len 16384 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
