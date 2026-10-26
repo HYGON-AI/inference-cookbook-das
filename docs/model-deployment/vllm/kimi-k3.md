@@ -10,8 +10,8 @@ Kimi-K3 是 Moonshot AI 推出的 Kimi 系列模型，面向长上下文、工�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Kimi-K3-Channel-INT4-w4a8-INT8-w8a8](https://www.modelscope.cn/models/hygon/Kimi-K3-Channel-INT4-w4a8-INT8-w8a8) | INT4 W4A8 / INT8 W8A8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-channel-int4-w4a8-int8-w8a8-ifb-bw1100-16x-vllm-0281) |
 | [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-int4-ifb-bw1100-16x-vllm-0281) |
+|  | INT4 W4A8 | 0.26 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-int4-ifb-bw1100-16x-vllm-026) |
 | [moonshotai/Kimi-K3](https://www.modelscope.cn/models/moonshotai/Kimi-K3) | BF16 | 0.26 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-ifb-bw1100-16x-vllm-026) |
-| [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.26 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-int4-ifb-bw1100-16x-vllm-026) |
 
 ## 启动命令
 
