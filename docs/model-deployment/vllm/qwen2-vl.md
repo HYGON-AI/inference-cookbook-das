@@ -10,10 +10,12 @@ Qwen2-VL 是阿里通义千问视觉语言模型系列，支持图像、视频�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen2-VL-2B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2-VL-2B-Instruct) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-instruct-ifb-k100_ai-1x-vllm-021) |
-| [Qwen/Qwen2-VL-2B](https://www.modelscope.cn/models/Qwen/Qwen2-VL-2B) | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-bw1100-1x-vllm-018) |
+| [Qwen/Qwen2-VL-2B](https://www.modelscope.cn/models/Qwen/Qwen2-VL-2B) | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-k100_ai-1x-vllm-0281) |
+|  | BF16 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-bw1100-1x-vllm-018) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-bw1000-1x-vllm-018) |
 |  | BF16 | 0.18 | K100_AI | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-k100_ai-1x-vllm-018) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen2-vl-2b-ifb-bw1100-1x-vllm-018-hotfix) |
@@ -33,7 +35,6 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --chat-template-content-format openai \
   --max-model-len 32768 \
@@ -52,7 +53,6 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --chat-template-content-format openai \
   --max-model-len 32768 \
@@ -60,6 +60,22 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
   --max-num-seqs 64
 ```
 
+
+### Qwen2-VL-2B-Instruct IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen2-VL-2B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --chat-template-content-format openai \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### Qwen2-VL-2B-Instruct IFB BW1100 1x vLLM 0.21
 
@@ -98,6 +114,21 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
     --chat-template-content-format openai \
     --attention-backend TRITON_ATTN
 ```
+### Qwen2-VL-2B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen2-VL-2B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen2-VL-2B IFB BW1100 1x vLLM 0.18
 
 ```bash

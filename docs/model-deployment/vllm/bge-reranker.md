@@ -9,6 +9,7 @@ bge-reranker-v2-m3 是 BAAI 发布的 reranker 模型，基于 M3 架构，用�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [BAAI/bge-reranker-v2-m3](https://www.modelscope.cn/models/BAAI/bge-reranker-v2-m3) | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#bge-reranker-v2-m3-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#bge-reranker-v2-m3-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | 0.21 | BW1000 | 1 | IFB | [**`>_`**](#bge-reranker-v2-m3-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | 0.18 | BW1000 | 1 | IFB | [**`>_`**](#bge-reranker-v2-m3-ifb-bw1000-1x-vllm-018) |
 
@@ -30,6 +31,21 @@ vllm serve BAAI/bge-reranker-v2-m3 \
   --max-num-seqs 64
 ```
 
+
+### bge-reranker-v2-m3 IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve BAAI/bge-reranker-v2-m3 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --max-model-len 8192 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### bge-reranker-v2-m3 IFB BW1000 1x vLLM 0.21
 

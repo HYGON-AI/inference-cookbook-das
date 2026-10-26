@@ -10,8 +10,10 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3.5-0.8B](https://www.modelscope.cn/models/Qwen/Qwen3.5-0.8B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-08b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-08b-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-08b-ifb-k100_ai-1x-vllm-0281) |
 | [Qwen/Qwen3.5-4B](https://www.modelscope.cn/models/Qwen/Qwen3.5-4B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-021) |
@@ -23,6 +25,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-4b-ifb-k100_ai-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3.5-9B](https://www.modelscope.cn/models/Qwen/Qwen3.5-9B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-k100_ai-1x-vllm-021) |
@@ -34,6 +37,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-9b-ifb-k100_ai-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3.5-27B](https://www.modelscope.cn/models/Qwen/Qwen3.5-27B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-vllm-021) |
@@ -46,6 +50,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 | [hygon/Qwen3.5-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-FP8) | FP8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-fp8-ifb-bw1100-2x-vllm-0281) |
 | [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-021) |
@@ -57,6 +62,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-018-hotfix) |
 | [hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-1x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-1x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-021) |
@@ -72,6 +78,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3.5-122B-A10B](https://www.modelscope.cn/models/Qwen/Qwen3.5-122B-A10B) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-vllm-021) |
@@ -83,6 +90,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-vllm-018-hotfix) |
 | [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1100-2x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-bw1100-2x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-bw1000-4x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-k100_ai-4x-vllm-021) |
@@ -98,10 +106,12 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-018-hotfix) |
 | [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-k100_ai-16x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-vllm-021) |
 | [hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-int8-ifb-bw1100-8x-vllm-021) |
 |  | INT8 W8A8 | 0.21 | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-int8-ifb-bw1000-8x-vllm-021) |
 |  | INT8 W8A8 | 0.21 | K100_AI | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-int8-ifb-k100_ai-8x-vllm-021) |
@@ -134,7 +144,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -154,7 +163,25 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-0.8B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-0.8B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -174,7 +201,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -197,7 +223,28 @@ vllm serve Qwen/Qwen3.5-4B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-4B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-4B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -395,6 +442,28 @@ vllm serve Qwen/Qwen3.5-9B \
 ```
 
 
+### Qwen3.5-9B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-9B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3.5-9B IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -565,6 +634,28 @@ vllm serve Qwen/Qwen3.5-27B \
   --tensor-parallel-size 2 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-27B IFB K100_AI 2x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-27B \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -790,6 +881,33 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
   --max-num-seqs 64
 ```
 
+### Qwen3.5-35B-A3B IFB K100_AI 2x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-35B-A3B \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3.5-35B-A3B IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -973,6 +1091,29 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-35B-A3B-Channel-INT8-w8a8 IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -1260,6 +1401,30 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
   --max-num-seqs 64
 ```
 
+### Qwen3.5-122B-A10B IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-122B-A10B \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3.5-122B-A10B IFB BW1100 4x vLLM 0.21
 
 ```bash
@@ -1445,6 +1610,30 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-122B-A10B-w8a8 IFB K100_AI 4x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --enable-expert-parallel \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -1768,6 +1957,67 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --headless
 ```
 
+### Qwen3.5-397B-A17B IFB K100_AI 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。数据并行地址和端口占位符如有使用，也应在各节点保持一致。
+
+#### rank 0
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-397B-A17B \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3.5-397B-A17B \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
 ### Qwen3.5-397B-A17B IFB BW1100 8x vLLM 0.21
 
 ```bash
@@ -1867,6 +2117,30 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-397B-A17B-Channel-INT8-w8a8 IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \

@@ -10,6 +10,7 @@ Step-3.7-Flash 是 Step 系列大语言模型，本文档提供其在 vLLM 上�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [stepfun-ai/Step-3.7-Flash](https://www.modelscope.cn/models/stepfun-ai/Step-3.7-Flash) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#step-37-flash-ifb-bw1000-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#step-37-flash-ifb-k100_ai-8x-vllm-0281) |
 | [hygon/Step-3.7-Flash-FP8-Channel](https://www.modelscope.cn/models/hygon/Step-3.7-Flash-FP8-Channel) | FP8 Channel | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-fp8-channel-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 Channel | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#step-37-flash-fp8-channel-ifb-bw1100-8x-vllm-021) |
 
@@ -49,6 +50,27 @@ vllm serve stepfun-ai/Step-3.7-Flash \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser step3p5 \
+  --reasoning-parser step3p5 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Step-3.7-Flash IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve stepfun-ai/Step-3.7-Flash \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
