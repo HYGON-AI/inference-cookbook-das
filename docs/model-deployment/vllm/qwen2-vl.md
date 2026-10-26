@@ -35,7 +35,6 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --chat-template-content-format openai \
   --max-model-len 32768 \
@@ -54,7 +53,6 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --chat-template-content-format openai \
   --max-model-len 32768 \

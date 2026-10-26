@@ -181,7 +181,6 @@ vllm serve Qwen/Qwen3-VL-2B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -199,7 +198,6 @@ vllm serve Qwen/Qwen3-VL-2B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -321,7 +319,6 @@ vllm serve hygon/Qwen3-VL-2B-Instruct-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -339,7 +336,6 @@ vllm serve Qwen/Qwen3-VL-2B-Thinking \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --max-model-len 32768 \
@@ -358,7 +354,6 @@ vllm serve Qwen/Qwen3-VL-2B-Thinking \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --max-model-len 32768 \
@@ -484,7 +479,6 @@ vllm serve hygon/Qwen3-VL-2B-Thinking-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
@@ -504,7 +498,6 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -522,7 +515,6 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -646,7 +638,6 @@ vllm serve hygon/Qwen3-VL-4B-Instruct-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -664,7 +655,6 @@ vllm serve Qwen/Qwen3-VL-4B-Thinking \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --max-model-len 32768 \
@@ -683,7 +673,6 @@ vllm serve Qwen/Qwen3-VL-4B-Thinking \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --max-model-len 32768 \
@@ -2055,7 +2044,6 @@ vllm serve hygon/Qwen3-VL-4B-Thinking-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
