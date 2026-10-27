@@ -82,7 +82,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -98,7 +97,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -237,7 +235,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -253,7 +250,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
