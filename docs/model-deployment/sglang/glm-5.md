@@ -289,7 +289,7 @@ sglang serve \
   --watchdog-timeout 3600 \
   --page-size 64 \
   --kv-cache-dtype fp8_e4m3 \
-  --mem-fraction-static 0.9 \
+  --mem-fraction-static 0.8 \
   --chunked-prefill-size 8192 \
   --cuda-graph-max-bs 64 \
   --reasoning-parser glm45 \
@@ -1156,7 +1156,7 @@ sglang serve \
   --watchdog-timeout 3600 \
   --page-size 64 \
   --kv-cache-dtype fp8_e4m3 \
-  --mem-fraction-static 0.8 \
+  --mem-fraction-static 0.9 \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --attn-cp-size 8 \
