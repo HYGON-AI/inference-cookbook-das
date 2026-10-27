@@ -39,6 +39,7 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
+  --gpu-memory-utilization 0.8 \
   --data-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
