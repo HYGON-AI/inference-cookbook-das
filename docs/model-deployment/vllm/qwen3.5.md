@@ -144,7 +144,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -164,7 +163,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -203,7 +201,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
@@ -226,7 +223,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \

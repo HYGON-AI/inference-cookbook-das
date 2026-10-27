@@ -11,6 +11,7 @@
 | [hygon/GLM-5.3-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281) |
 | | FP8 W8A8 | 0.28.1 | BW1100 | 16 | 1P1D | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-1p1d-bw1100-16x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+| [hygon/GLM-5.3-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-INT4-w4a16](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a16) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1000-16x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-k100_ai-16x-vllm-0281) |
@@ -117,6 +118,34 @@ vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-5.3-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --kv-cache-dtype fp8_ds_mla \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":false}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
