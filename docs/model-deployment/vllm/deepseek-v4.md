@@ -39,10 +39,13 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --gpu-memory-utilization 0.8 \
+  --data-parallel-size 8 \
+  --enable-expert-parallel \
   --distributed-executor-backend mp \
   --tokenizer-mode deepseek_v4 \
-  --moe-backend aiter \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
@@ -62,10 +65,13 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --gpu-memory-utilization 0.8 \
+  --data-parallel-size 8 \
+  --enable-expert-parallel \
   --distributed-executor-backend mp \
   --tokenizer-mode deepseek_v4 \
-  --moe-backend aiter \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
@@ -87,15 +93,19 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --gpu-memory-utilization 0.9 \
+  --tensor-parallel-size 2 \
   --enable-expert-parallel \
-  --data-parallel-size 2 \
-  --data-parallel-size-local 2 \
+  --data-parallel-size 8 \
+  --data-parallel-size-local 4 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
+  --load-format fastsafetensors \
+  --api-server-count 2 \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${MASTER_ADDR}" \
@@ -104,36 +114,38 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
-  --all2all-backend deepep_auto \
-  --moe-backend deep_gemm \
+  --moe-backend triton \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
+  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --api-server-count 2 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --disable-custom-all-reduce
 ```
 
 #### rank 1
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --gpu-memory-utilization 0.9 \
+  --tensor-parallel-size 2 \
   --enable-expert-parallel \
-  --data-parallel-size 2 \
-  --data-parallel-size-local 2 \
+  --data-parallel-size 8 \
+  --data-parallel-size-local 4 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
+  --load-format fastsafetensors \
   --nnodes 2 \
   --node-rank 1 \
   --master-addr "${MASTER_ADDR}" \
@@ -143,12 +155,11 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --headless \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
-  --all2all-backend deepep_auto \
-  --moe-backend deep_gemm \
+  --moe-backend triton \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
+  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
@@ -156,7 +167,8 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --disable-custom-all-reduce
 ```
 
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB K100_AI 16x vLLM 0.28.1
@@ -265,10 +277,13 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --gpu-memory-utilization 0.8 \
+  --data-parallel-size 8 \
+  --enable-expert-parallel \
   --distributed-executor-backend mp \
   --tokenizer-mode deepseek_v4 \
-  --moe-backend aiter \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
   --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
@@ -307,12 +322,13 @@ export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --gpu-memory-utilization 0.8 \
+  --data-parallel-size 8 \
   --enable-expert-parallel \
-  --data-parallel-size 1 \
   --distributed-executor-backend mp \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
+  --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
   --dtype bfloat16 \
   --kv-cache-dtype fp8_e4m3 \
@@ -413,7 +429,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 32768 \
+  --max-model-len 16384 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -499,7 +515,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 32768 \
+  --max-model-len 16384 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
