@@ -217,7 +217,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -233,7 +232,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -381,7 +379,6 @@ vllm serve hygon/Qwen3-0.6B-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -397,7 +394,6 @@ vllm serve Qwen/Qwen3-1.7B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -413,7 +409,6 @@ vllm serve Qwen/Qwen3-1.7B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -547,7 +542,6 @@ vllm serve Qwen/Qwen3-4B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -566,7 +560,6 @@ vllm serve Qwen/Qwen3-4B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -714,7 +707,6 @@ vllm serve hygon/Qwen3-4B-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -733,7 +725,6 @@ vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -752,7 +743,6 @@ vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -863,7 +853,6 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -882,7 +871,6 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
@@ -985,7 +973,6 @@ vllm serve hygon/Qwen3-4B-Thinking-2507-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
