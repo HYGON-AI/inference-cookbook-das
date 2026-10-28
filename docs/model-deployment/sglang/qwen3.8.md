@@ -477,25 +477,34 @@ export W8A8_SUPPORT_METHODS=3
 export SGLANG_W4A8_TPMOE_BACKEND=aiter
 export SGLANG_FORCE_AITER_MOE_C=1
 export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_DP_USE_GATHERV=1
+export SGLANG_ENABLE_DP_GATHER_INT8=1
+export SGLANG_PLE_ETP_REDUCE_SCATTER=1
+export SGLANG_QWEN4_EXP_HIP_DRAFT_GRAPHS=1
 
 sglang serve \
-  --model-path /public4/opendas/DL_DATA/llm-models-qua/Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8 \
+  --model-path /public4/opendas/DL_DATA/llm-models-qua/Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8-mtp \
   --trust-remote-code \
   --quantization slimquant_w4a8_marlin \
+  --enable-dp-attention \
   --tp-size 4 \
+  --dp-size 4 \
   --ep-size 4 \
   --moe-runner-backend triton \
   --speculative-moe-runner-backend triton \
   --dtype bfloat16 \
   --language-model-only \
   --mem-fraction-static 0.85 \
-  --chunked-prefill-size 4096 \
-  --context-length 32768 \
+  --chunked-prefill-size 8192 \
+  --context-length 135168 \
+  --max-running-requests 48 \
   --page-size 64 \
   --kv-cache-dtype fp8_e5m2 \
+  --attention-backend fa3 \
+  --cuda-graph-backend-prefill disabled \
   --reasoning-parser qwen3 \
   --tool-call-parser qwen3_coder \
-  --watchdog-timeout 1200 \
+  --watchdog-timeout 6000 \
   --disable-radix-cache \
   --speculative-algorithm EAGLE \
   --speculative-num-steps 3 \
