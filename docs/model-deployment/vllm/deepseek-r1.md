@@ -85,7 +85,8 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
+  --kv-cache-dtype auto \
+  --dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -101,6 +102,8 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --attention-backend FLASH_ATTN \
+  --kv-cache-dtype auto \
+  --dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -357,9 +360,9 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 2 \
-  --dtype float16 \
+  --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
-  --kv-cache-dtype fp8_e4m3 \
+  --kv-cache-dtype auto \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -374,8 +377,9 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
-  --dtype float16 \
+  --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
+  --kv-cache-dtype auto \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
