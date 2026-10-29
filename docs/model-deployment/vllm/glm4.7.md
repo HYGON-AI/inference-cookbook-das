@@ -8,15 +8,153 @@ GLM-4.7 是智谱 AI 推出的大语言模型，支持长上下文和高效推�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [ZhipuAI/GLM-4.7](https://www.modelscope.cn/models/ZhipuAI/GLM-4.7) | BF16 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-47-ifb-bw1100-8x-vllm-021) |
-| [GLM-4.7-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-4.7-Channel-INT8-w8a8) | INT8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
-|                                                                               | INT8 W8A8 | 0.21 | BW1000 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-021) |
-|                                                                               | INT8 W8A8 | 0.21 | K100_AI | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-k100_ai-8x-vllm-021) |
-|                                                                               | INT8 W8A8 | 0.18 | BW1100 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-018) |
-|                                                                               | INT8 W8A8 | 0.18 | BW1000 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-018) |
-|                                                                               | INT8 W8A8 | 0.18 | K100_AI | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-k100_ai-8x-vllm-018) |
+| [ZhipuAI/GLM-4.7](https://www.modelscope.cn/models/ZhipuAI/GLM-4.7) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-47-ifb-bw1100-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-47-ifb-bw1000-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#glm-47-ifb-k100_ai-16x-vllm-0281) |
+|  | BF16 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-47-ifb-bw1100-8x-vllm-021) |
+| [hygon/GLM-4.7-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-4.7-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#glm-47-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
+|  | INT8 W8A8 | 0.21 | BW1000 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-021) |
+|  | INT8 W8A8 | 0.21 | K100_AI | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-k100_ai-8x-vllm-021) |
+|  | INT8 W8A8 | 0.18 | BW1100 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1100-8x-vllm-018) |
+|  | INT8 W8A8 | 0.18 | BW1000 | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-bw1000-8x-vllm-018) |
+|  | INT8 W8A8 | 0.18 | K100_AI | 8 | IFB | [**``>_``**](#glm-47-channel-int8-w8a8-ifb-k100_ai-8x-vllm-018) |
+| [ZhipuAI/GLM-4.7-Flash](https://www.modelscope.cn/models/ZhipuAI/GLM-4.7-Flash) | BF16 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#glm-47-flash-ifb-bw1100-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#glm-47-flash-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#glm-47-flash-ifb-k100_ai-2x-vllm-0281) |
 
 ## 启动命令
+
+### GLM-4.7 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
+
+vllm serve ZhipuAI/GLM-4.7 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+
+### GLM-4.7 IFB BW1000 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点，每个节点 8 卡；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+
+#### rank 0
+
+```bash
+export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
+
+vllm serve ZhipuAI/GLM-4.7 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
+
+vllm serve ZhipuAI/GLM-4.7 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+### GLM-4.7 IFB K100_AI 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve ZhipuAI/GLM-4.7 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve ZhipuAI/GLM-4.7 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
 
 ### GLM-4.7 IFB BW1100 8x vLLM 0.21
 
@@ -36,6 +174,68 @@ vllm serve ZhipuAI/GLM-4.7 \
   --compilation-config.cudagraph_mode PIECEWISE \
   --attention-backend TRITON_ATTN \
   --moe-backend triton
+```
+
+### GLM-4.7-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-4.7-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-4.7-Channel-INT8-w8a8 IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
+  --disable-cascade-attn \
+  --compilation-config '{"cudagraph_mode":"PIECEWISE"}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### GLM-4.7-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.21
@@ -154,6 +354,78 @@ vllm serve hygon/GLM-4.7-Channel-INT8-w8a8 \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 2 \
   --compilation-config.cudagraph_mode PIECEWISE
+```
+
+### GLM-4.7-Flash IFB BW1100 2x vLLM 0.28.1
+
+```bash
+
+vllm serve ZhipuAI/GLM-4.7-Flash \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-4.7-Flash IFB BW1000 2x vLLM 0.28.1
+
+```bash
+
+vllm serve ZhipuAI/GLM-4.7-Flash \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-4.7-Flash IFB K100_AI 2x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve ZhipuAI/GLM-4.7-Flash \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend TRITON_MLA \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ## API 调用

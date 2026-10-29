@@ -8,9 +8,34 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
+| [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
+
+
+### 0.28.1 平台支持说明
+
+BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/Hy4-preview-Channel-FP8-w8a8`。
 
 ## 启动命令
+
+### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v4 \
+  --reasoning-parser hy_v4 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.25.1
 
@@ -59,4 +84,14 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --tool-call-parser hy_v4 \
   --compilation-config '{"cudagraph_capture_sizes":[1,16]}' \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}'
+```
+
+## API 调用
+
+### IFB
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model": "hygon/Hy4-preview-Channel-FP8-w8a8", "messages": [{"role": "user", "content": "中国的首都是哪里？"}], "max_tokens": 128}'
 ```
