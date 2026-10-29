@@ -22,7 +22,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
-| Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8 | INT4 W4A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-w4a8-slimquant-ngram-int8-ifb-bw1000-4x-sglang-0518) |
+| [hygon/Qwen3.8-Flash-Next-Mixed-w4a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Mixed-w4a8) | INT4 W4A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1000-4x-sglang-0518) |
 
 ## 启动命令
 
@@ -461,13 +461,12 @@ sglang serve \
 
 建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
-### Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8 IFB BW1000 4x SGLang 0.5.18
+### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1000 4x SGLang 0.5.18
 
 建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
-> 注：该 INT4 W4A8 量化权重暂未发布到 ModelScope，以下 `--model-path` 使用本地路径，模型发布后请替换为官方模型名称。
-
 ```bash
+export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_CAUSAL_CONV1D=1
@@ -483,7 +482,7 @@ export SGLANG_PLE_ETP_REDUCE_SCATTER=1
 export SGLANG_QWEN4_EXP_HIP_DRAFT_GRAPHS=1
 
 sglang serve \
-  --model-path /public4/opendas/DL_DATA/llm-models-qua/Qwen3.8-Flash-Next-w4a8-slimquant-ngram-int8-mtp \
+  --model-path hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   --trust-remote-code \
   --quantization slimquant_w4a8_marlin \
   --enable-dp-attention \
