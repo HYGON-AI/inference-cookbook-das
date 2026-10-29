@@ -102,6 +102,8 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --attention-backend FLASH_ATTN \
+  --kv-cache-dtype auto \
+  --dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -377,6 +379,7 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --tensor-parallel-size 4 \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
+  --kv-cache-dtype auto \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
