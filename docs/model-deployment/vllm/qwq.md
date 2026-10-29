@@ -77,7 +77,6 @@ vllm serve Qwen/QwQ-32B \
 
 ```bash
 vllm serve Qwen/QwQ-32B \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --kv-cache-dtype fp8_e4m3 \
