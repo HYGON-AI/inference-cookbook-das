@@ -223,9 +223,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser deepseek_v3 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -244,9 +241,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser deepseek_v3 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -263,8 +257,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --dtype float16 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --tool-call-parser deepseek_v3 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
