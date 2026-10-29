@@ -48,7 +48,7 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --trust-remote-code \
-  --tensor-parallel-size 4 \
+  --tensor-parallel-size 2 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
