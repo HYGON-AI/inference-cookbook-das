@@ -84,7 +84,6 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -101,7 +100,6 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 4 \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --max-model-len 32768 \
