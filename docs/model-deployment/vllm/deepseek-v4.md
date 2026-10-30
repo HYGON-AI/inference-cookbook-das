@@ -582,6 +582,7 @@ export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
 vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --gpu-memory-utilization 0.94 \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
