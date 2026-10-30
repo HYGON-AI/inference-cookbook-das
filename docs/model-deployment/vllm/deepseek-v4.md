@@ -429,8 +429,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 25000 \
-  --max-num-batched-tokens 12138 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -462,8 +462,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 25000 \
-  --max-num-batched-tokens 12138 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -492,8 +492,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 25000 \
-  --max-num-batched-tokens 12138 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -515,8 +515,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 25000 \
-  --max-num-batched-tokens 12138 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -540,8 +540,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 25000 \
-  --max-num-batched-tokens 12138 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
