@@ -84,9 +84,9 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
+  --dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -101,8 +101,9 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
   --tensor-parallel-size 4 \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e5m2 \
+  --dtype bfloat16 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -130,7 +131,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
 ```bash
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --kv-cache-dtype fp8_e4m3 \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -173,7 +173,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
 ```bash
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --kv-cache-dtype fp8_e4m3 \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -188,7 +187,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
 ```bash
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --kv-cache-dtype fp8_e5m2 \
-  --dtype float16 \
   --tensor-parallel-size 4 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -225,9 +223,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser deepseek_v3 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -246,9 +241,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser deepseek_v3 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -265,8 +257,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --dtype float16 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --tool-call-parser deepseek_v3 \
-  --reasoning-parser deepseek_r1 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -277,7 +267,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
 ```bash
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --kv-cache-dtype fp8_e4m3 \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -320,7 +309,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
 ```bash
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --kv-cache-dtype fp8_e4m3 \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -335,7 +323,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
 ```bash
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --kv-cache-dtype fp8_e5m2 \
-  --dtype float16 \
   --tensor-parallel-size 4 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -367,7 +354,7 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 2 \
-  --dtype float16 \
+  --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
@@ -384,8 +371,9 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
-  --dtype float16 \
+  --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
+  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
@@ -414,7 +402,6 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --kv-cache-dtype fp8_e4m3 \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -457,7 +444,6 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --kv-cache-dtype fp8_e4m3 \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \
@@ -472,7 +458,6 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --kv-cache-dtype fp8_e5m2 \
-  --dtype float16 \
   --tensor-parallel-size 4 \
   --gpu-memory-utilization 0.9 \
   --trust-remote-code \

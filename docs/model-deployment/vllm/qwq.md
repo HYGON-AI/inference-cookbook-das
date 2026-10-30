@@ -29,7 +29,6 @@ vllm serve Qwen/QwQ-32B \
   --trust-remote-code \
   --tensor-parallel-size 2 \
   --distributed-executor-backend mp \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --disable-cascade-attn \
@@ -47,7 +46,6 @@ vllm serve Qwen/QwQ-32B \
   --trust-remote-code \
   --tensor-parallel-size 2 \
   --distributed-executor-backend mp \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype auto \
   --no-enable-prefix-caching \
@@ -67,7 +65,6 @@ vllm serve Qwen/QwQ-32B \
   --trust-remote-code \
   --tensor-parallel-size 2 \
   --distributed-executor-backend mp \
-  --dtype float16 \
   --attention-backend TRITON_ATTN \
   --no-enable-prefix-caching \
   --disable-cascade-attn \
@@ -80,7 +77,6 @@ vllm serve Qwen/QwQ-32B \
 
 ```bash
 vllm serve Qwen/QwQ-32B \
-  --dtype float16 \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --kv-cache-dtype fp8_e4m3 \
