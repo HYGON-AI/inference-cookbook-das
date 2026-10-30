@@ -10,10 +10,10 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | FP8 W4A8 | [0.25.1](../docker_images.md) | BW1100(超节点)| 16 | pcp16ep16 | [**`>_`**](#hy4-preview-channel-int4-w4a8-pcp16ep16-bw1100-16x-vllm-0251) |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | FP8 W4A8 | [0.25.1](../docker_images.md) | BW1100(超节点) | 16 | dp16ep16 | [**`>_`**](#hy4-preview-channel-int4-w4a8-dp16ep16-bw1100-16x-vllm-0251) |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | [0.25.1](../docker_images.md) | BW1100(超节点)| 16 | pcp16ep16 | [**`>_`**](#hy4-preview-channel-fp8-w8a8-pcp16ep16-bw1100-16x-vllm-0251) |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | [0.25.1](../docker_images.md) | BW1100(超节点) | 32 | dp32ep32 | [**`>_`**](#hy4-preview-channel-fp8-w8a8-dp32ep32-bw1100-32x-vllm-0251) |
-| [Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | FP8 W4A8 | [0.25.1](../docker_images.md) | BW1100(超节点)| 16 | pcp16ep16 | [**`>_`**](#hy4-preview-channel-int4-w4a8-pcp16ep16-bw1100-16x-vllm-0251) |
-| [Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | FP8 W4A8 | [0.25.1](../docker_images.md) | BW1100(超节点) | 16 | dp16ep16 | [**`>_`**](#hy4-preview-channel-int4-w4a8-dp16ep16-bw1100-16x-vllm-0251) |
 
 ### 0.28.1 平台支持说明
 
@@ -90,15 +90,115 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}'
 ```
 
+### Hy4-preview-Channel-Int4-w4a8 pcp16ep16 BW1100 16x vLLM 0.25.1
+
+```bash
+#!/bin/bash
+set -eu
+unset VLLM_HCU_USE_TILED_KV_GATHER
+export PYTHONUNBUFFERED=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_MOONCAKE_BOOTSTRAP_PORT=18998
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export VLLM_LOGGING_LEVEL=INFO
+export HY4_BENCH_CASE=hy4-pd-pr264-flashopt1-r2p45-n2920-20261030-P
+export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
+export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
+export NCCL_IB_GID_INDEX=3
+export ROCSHMEM_GDR_DISABLE_XDP=1
+export DEEP_EP_NORMAL_MNVL=1
+export VLLM_DEEPEP_BUFFER_SIZE_MB=4096
+export GPU_MAX_HW_QUEUES=4
+export LIGHTOP_MQA_LOGITS_BETA=1
+export VLLM_HCU_HYV4_MOE_CHUNK_SIZE=1024
+export MC_GID_INDEX=3
+export VLLM_HCU_USE_CUSTOM_OPS=1
+exec /usr/bin/python -m vllm.entrypoints.cli.main serve hygon/Hy4-preview-Channel-INT4-w4a8 \
+    --host 0.0.0.0 \
+    --port 8000 \
+    --tensor-parallel-size 1 \
+    --enable-expert-parallel \
+    --moe-backend deep_gemm \
+    --enable-prefix-caching \
+    --kv-cache-dtype fp8_e4m3 \
+    --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' \
+    --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
+    --reasoning-parser hy_v4 \
+    --enable-auto-tool-choice \
+    --tool-call-parser hy_v4 \
+    --kv-transfer-config '{"kv_connector": "MooncakeConnector", "kv_role": "kv_producer", "kv_connector_extra_config": {"mooncake_protocol": "rdma", "num_workers": 80}}' \
+    --prefill-context-parallel-size 16 \
+    --all2all-backend deepep_high_throughput \
+    --hf-overrides '{"head_dtype":"float32"}' \
+    --max-model-len 88000 \
+    --gpu-memory-utilization 0.90 \
+    --max-num-batched-tokens 65536 \
+    --enforce-eager \
+    --max-num-seqs 12 \
+    --attention-config '{"sparse_mla_prefill_workspace_factor":32}'
+
+```
+
+### Hy4-preview-Channel-Int4-w4a8 dp16ep16 BW1100 16x vLLM 0.25.1
+
+```bash
+#!/bin/bash
+set -eu
+unset VLLM_HCU_USE_TILED_KV_GATHER
+export PYTHONUNBUFFERED=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_MOONCAKE_BOOTSTRAP_PORT=18999
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export VLLM_LOGGING_LEVEL=INFO
+export HY4_BENCH_CASE=hy4-pd-pr264-flashopt1-r2p45-n2920-20261030-D
+export ROCSHMEM_IPC_MNVL=1
+export VLLM_DEEPEP_BUFFER_SIZE_MB=0
+export GPU_MAX_HW_QUEUES=3
+export VLLM_HCU_USE_CUSTOM_OPS=1
+export VLLM_HCU_USE_FUSED_RMS_QUANT=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=1
+export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
+export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
+export VLLM_HCU_ENABLE_HYV4_ATTN_INPUT_OVERLAP=1
+export MC_GID_INDEX=3
+export NCCL_IB_GID_INDEX=3
+exec /usr/bin/python -m vllm.entrypoints.cli.main serve hygon/Hy4-preview-Channel-INT4-w4a8 \
+    --host 0.0.0.0 \
+    --port 8000 \
+    --tensor-parallel-size 1 \
+    --enable-expert-parallel \
+    --moe-backend deep_gemm \
+    --enable-prefix-caching \
+    --kv-cache-dtype fp8_e4m3 \
+    --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' \
+    --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
+    --reasoning-parser hy_v4 \
+    --enable-auto-tool-choice \
+    --tool-call-parser hy_v4 \
+    --kv-transfer-config '{"kv_connector": "MooncakeConnector", "kv_role": "kv_consumer", "kv_connector_extra_config": {"mooncake_protocol": "rdma"}}' \
+    --data-parallel-size 16 \
+    --data-parallel-size-local 16 \
+    --data-parallel-start-rank 0 \
+    --data-parallel-address 127.0.0.1 \
+    --data-parallel-rpc-port 28927 \
+    --data-parallel-hybrid-lb \
+    --api-server-count 1 \
+    --all2all-backend deepep_low_latency \
+    --gpu-memory-utilization 0.9 \
+    --max-model-len 89088 \
+    --max-num-seqs 8 \
+    --max-num-batched-tokens 32
+```
+
+
 
 ### Hy4-preview-Channel-FP8-w8a8 pcp16ep16 BW1100 16x vLLM 0.25.1
 
 
 ```bash
-export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
 export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
-export NCCL_IB_HCA=mlx5_0:1,mlx5_1:1,mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1,mlx5_10:1,mlx5_11:1,mlx5_12:1,mlx5_13:1,mlx5_14:1,mlx5_15:1
+
 export NCCL_IB_GID_INDEX=3
 
 export ROCSHMEM_GDR_DISABLE_XDP=1
@@ -109,7 +209,7 @@ export GPU_MAX_HW_QUEUES=4
 
 export LIGHTOP_MQA_LOGITS_BETA_FP8=1
 
-VLLM_USE_V2_MODEL_RUNNER=1  vllm serve /model_copy/Hy4-preview-Channel-FP8-w8a8 \
+VLLM_USE_V2_MODEL_RUNNER=1  vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
   --prefill-context-parallel-size 16 \
   --enable-expert-parallel \
@@ -133,7 +233,6 @@ VLLM_USE_V2_MODEL_RUNNER=1  vllm serve /model_copy/Hy4-preview-Channel-FP8-w8a8 
 #### D node 1
 
 ```bash
-export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 export ROCSHMEM_IPC_MNVL=1
 export VLLM_DEEPEP_BUFFER_SIZE_MB=0
 
@@ -145,7 +244,7 @@ export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
 export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
 export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
 
-MODEL_PATH="/model_copy/Hy4-preview-Channel-FP8-w8a8"
+MODEL_PATH="hygon/Hy4-preview-Channel-FP8-w8a8"
 
 VLLM_USE_V2_MODEL_RUNNER=1 \
 vllm serve $MODEL_PATH \
@@ -175,7 +274,6 @@ vllm serve $MODEL_PATH \
 #### D node 2
 
 ```bash
-export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 export ROCSHMEM_IPC_MNVL=1
 export VLLM_DEEPEP_BUFFER_SIZE_MB=0
 
@@ -187,7 +285,7 @@ export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
 export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
 export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
 
-MODEL_PATH="/model_copy/Hy4-preview-Channel-FP8-w8a8"
+MODEL_PATH="hygon/Hy4-preview-Channel-FP8-w8a8"
 
 VLLM_USE_V2_MODEL_RUNNER=1 \
 vllm serve $MODEL_PATH \
@@ -205,77 +303,13 @@ vllm serve $MODEL_PATH \
     --max-model-len 89088 \
     --max-num-seqs 16 \
     --max-num-batched-tokens 64 \
-    --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \w
+    --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
     --reasoning-parser hy_v4 \
     --enable-auto-tool-choice \
     --tool-call-parser hy_v4 \
     --kv-cache-dtype fp8_e4m3 \
     --data-parallel-hybrid-lb \
     --data-parallel-start-rank 16
-```
-
-### Hy4-preview-Channel-Int4-w4a8 pcp16ep16 BW1100 16x vLLM 0.25.1
-
-```bash
-#!/bin/bash
-set -eu
-unset VLLM_HCU_USE_TILED_KV_GATHER
-export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-export PYTHONPATH=/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/core:/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/repo:/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/flashmla:/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/deps
-export PYTHONUNBUFFERED=1
-export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_HOST_IP=10.41.101.127
-export VLLM_MOONCAKE_BOOTSTRAP_PORT=18998
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export VLLM_LOGGING_LEVEL=INFO
-export NO_PROXY='*'
-export no_proxy='*'
-export HY4_BENCH_CASE=hy4-pd-pr264-flashopt1-r2p45-n2920-20261030-P
-export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
-export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
-export NCCL_IB_GID_INDEX=3
-export ROCSHMEM_GDR_DISABLE_XDP=1
-export DEEP_EP_NORMAL_MNVL=1
-export VLLM_DEEPEP_BUFFER_SIZE_MB=4096
-export GPU_MAX_HW_QUEUES=4
-export LIGHTOP_MQA_LOGITS_BETA=1
-export VLLM_HCU_HYV4_MOE_CHUNK_SIZE=1024
-export MC_GID_INDEX=3
-export VLLM_HCU_USE_CUSTOM_OPS=1
-exec /usr/bin/python -m vllm.entrypoints.cli.main serve /data_hy4_w4a8/Hy4-preview-Channel-INT4-w4a8 --host 0.0.0.0 --port 8000 --tensor-parallel-size 1 --enable-expert-parallel --moe-backend deep_gemm --enable-prefix-caching --kv-cache-dtype fp8_e4m3 --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' --reasoning-parser hy_v4 --enable-auto-tool-choice --tool-call-parser hy_v4 --kv-transfer-config '{"kv_connector": "MooncakeConnector", "kv_role": "kv_producer", "kv_connector_extra_config": {"mooncake_protocol": "rdma", "num_workers": 80}}' --prefill-context-parallel-size 16 --all2all-backend deepep_high_throughput --hf-overrides '{"head_dtype":"float32"}' --max-model-len 88000 --gpu-memory-utilization 0.90 --max-num-batched-tokens 65536 --enforce-eager --max-num-seqs 12 --attention-config '{"sparse_mla_prefill_workspace_factor":32}'
-
-```
-
-### Hy4-preview-Channel-Int4-w4a8 dp16ep16 BW1100 16x vLLM 0.25.1
-
-```bash
-#!/bin/bash
-set -eu
-unset VLLM_HCU_USE_TILED_KV_GATHER
-export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-export PYTHONPATH=/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/core:/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/repo:/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/flashmla:/workspace/hy4_pd_pr264_flashopt1_r2p45_n2920_20261030/deps
-export PYTHONUNBUFFERED=1
-export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_HOST_IP=10.41.101.126
-export VLLM_MOONCAKE_BOOTSTRAP_PORT=18999
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export VLLM_LOGGING_LEVEL=INFO
-export NO_PROXY='*'
-export no_proxy='*'
-export HY4_BENCH_CASE=hy4-pd-pr264-flashopt1-r2p45-n2920-20261030-D
-export ROCSHMEM_IPC_MNVL=1
-export VLLM_DEEPEP_BUFFER_SIZE_MB=0
-export GPU_MAX_HW_QUEUES=3
-export VLLM_HCU_USE_CUSTOM_OPS=1
-export VLLM_HCU_USE_FUSED_RMS_QUANT=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=1
-export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
-export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
-export VLLM_HCU_ENABLE_HYV4_ATTN_INPUT_OVERLAP=1
-export MC_GID_INDEX=3
-export NCCL_IB_GID_INDEX=3
-exec /usr/bin/python -m vllm.entrypoints.cli.main serve /data_hy4_w4a8/Hy4-preview-Channel-INT4-w4a8 --host 0.0.0.0 --port 8000 --tensor-parallel-size 1 --enable-expert-parallel --moe-backend deep_gemm --enable-prefix-caching --kv-cache-dtype fp8_e4m3 --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' --reasoning-parser hy_v4 --enable-auto-tool-choice --tool-call-parser hy_v4 --kv-transfer-config '{"kv_connector": "MooncakeConnector", "kv_role": "kv_consumer", "kv_connector_extra_config": {"mooncake_protocol": "rdma"}}' --data-parallel-size 16 --data-parallel-size-local 16 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 28927 --data-parallel-hybrid-lb --api-server-count 1 --all2all-backend deepep_low_latency --gpu-memory-utilization 0.9 --max-model-len 89088 --max-num-seqs 8 --max-num-batched-tokens 32
-
 ```
 
 ## API 调用
