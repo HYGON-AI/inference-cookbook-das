@@ -13,9 +13,10 @@
 
 | 模型 | 文档 |
 |------|------|
+| Stable Diffusion 1.5 | [sd1.5.md](sd1.5.md) |
 | Stable Diffusion 3 | [sd3-flux.md](sd3-flux.md) |
 | FLUX.1 | [sd3-flux.md](sd3-flux.md) |
-| SDXL | [sd3-flux.md](sd3-flux.md) |
+| SDXL | [sdxl.md](sdxl.md) |
 | ControlNet | [sd3-flux.md](sd3-flux.md) |
 
 ### 视频生成
