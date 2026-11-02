@@ -11,7 +11,7 @@ MiMo-V2-Flash 是小米推出的大规模 MoE（混合专家）语言模型，�
 | [XiaomiMiMo/MiMo-V2-Flash](https://www.modelscope.cn/models/XiaomiMiMo/MiMo-V2-Flash) | BLOCK FP8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#mimo-v2-flash-ifb-bw1100-8x-sglang-0518) |
 |  | BLOCK FP8 | [0.5.10](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#mimo-v2-flash-ifb-bw1100-8x-sglang-0510) |
 | [hygon/MiMo-V2-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiMo-V2-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | K100_AI | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.10](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#mimo-v2-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0510) |
@@ -139,7 +139,7 @@ sglang serve \
   --tp-size 8 \
   --page-size 128 \
   --trust-remote-code \
-  --mem-fraction-static 0.84 \
+  --mem-fraction-static 0.82 \
   --quantization w8a8_int8 \
   --moe-runner-backend triton \
   --max-running-requests 128 \
