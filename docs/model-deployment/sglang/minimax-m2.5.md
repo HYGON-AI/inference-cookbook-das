@@ -26,7 +26,7 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-int8-w8a8-ifb-bw1000-8x) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1000 | 16 | 1P1D| [**`>_`**](#minimax-m2-5-channel-int8-w8a8-1p1d-bw1000-16x) |
 | [hygon/MiniMax-M2.5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
-|  | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.18 | BW1100 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0518) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 8 | 1P1D | [**`>_`**](#minimax-m25-channel-fp8-w8a8-1p1d-scalex40-3g-8x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-fp8-w8a8-ifb-bw1100-8x) |
