@@ -8,6 +8,9 @@ DeepSeek-V3.2 是 DeepSeek V3 系列的 MoE 大模型版本，面向高吞吐对
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
+| [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+| [hygon/DeepSeek-V3.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1000-16x-sglang-0518) |
 | [hygon/DeepSeek-V3.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**\`>_\`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |                                                                                                                     | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**\`>_\`**](#deepseek-v32-channel-int8-w8a8-ifb-bw1000-16x-sglang-0512) |
 |                                                                                                                     | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 16 | IFB | [**\`>_\`**](#deepseek-v32-channel-int8-w8a8-ifb-k100_ai-16x-sglang-0512) |
@@ -15,6 +18,268 @@ DeepSeek-V3.2 是 DeepSeek V3 系列的 MoE 大模型版本，面向高吞吐对
 |                                                                                                                   | FP8 W8A8 | 0.5.10 | BW1100 | 8x | IFB | [**\`>_\`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
 
 ## 启动命令
+
+### DeepSeek-V3.2-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT_PATH=1
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=4
+sysctl -w kernel.numa_balancing=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=0
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export USE_SPE_MQP=1
+
+sglang serve \
+  --model-path hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --context-length 40960 \
+  --dtype bfloat16 \
+  --mem-fraction-static 0.85 \
+  --trust-remote-code \
+  --quantization w8a8_fp8 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e4m3 \
+  --attention-backend nsa \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv \
+  --cuda-graph-max-bs 128 \
+  --disable-radix-cache \
+  --disable-cuda-graph \
+  --numa-node 3 1 1 0 7 5 5 4
+```
+
+### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT_PATH=1
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=4
+sysctl -w kernel.numa_balancing=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=0
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export USE_SPE_MQP=1
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=1
+export SGLANG_USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+
+sglang serve \
+  --model-path hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --context-length 40960 \
+  --dtype bfloat16 \
+  --mem-fraction-static 0.9 \
+  --trust-remote-code \
+  --page-size 64 \
+  --quantization slimquant_marlin \
+  --kv-cache-dtype fp8_e4m3 \
+  --attention-backend nsa \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv
+```
+
+### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1000 16x SGLang 0.5.18
+
+#### Node 0
+
+```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT_PATH=1
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=4
+sysctl -w kernel.numa_balancing=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=0
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export NCCL_SOCKET_IFNAME=ens61f0np0
+export GLOO_SOCKET_IFNAME=ens61f0np0
+export NCCL_IB_HCA=mlx5_0:1,mlx5_1:1,mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_8:1,mlx5_9:1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export USE_SPE_MQP=1
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=1
+export SGLANG_USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+
+sglang serve \
+  --model-path hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tp-size 16 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --context-length 40960 \
+  --dtype bfloat16 \
+  --mem-fraction-static 0.9 \
+  --trust-remote-code \
+  --page-size 64 \
+  --quantization slimquant_marlin \
+  --kv-cache-dtype fp8_e4m3 \
+  --attention-backend nsa \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv \
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node0_ip>'
+```
+
+#### Node 1
+
+```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_OPT_CAT=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_USE_RMS_QUANT_PATH=1
+export USE_FUSED_RMS_QUANT_PATH=1
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_MAX_HW_QUEUES=4
+sysctl -w kernel.numa_balancing=0
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=0
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export NCCL_SOCKET_IFNAME=ens61f0np0
+export GLOO_SOCKET_IFNAME=ens61f0np0
+export NCCL_IB_HCA=mlx5_0:1,mlx5_1:1,mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_8:1,mlx5_9:1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export USE_SPE_MQP=1
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=1
+export SGLANG_USE_FUSED_RMS_QUANT=1
+export SGLANG_USE_FUSED_SILU_MUL_QUANT=1
+
+sglang serve \
+  --model-path hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tp-size 16 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --context-length 40960 \
+  --dtype bfloat16 \
+  --mem-fraction-static 0.9 \
+  --trust-remote-code \
+  --page-size 64 \
+  --quantization slimquant_marlin \
+  --kv-cache-dtype fp8_e4m3 \
+  --attention-backend nsa \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node1_ip>'
+```
 
 ### DeepSeek-V3.2-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12
 
