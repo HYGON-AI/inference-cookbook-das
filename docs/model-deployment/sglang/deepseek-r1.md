@@ -12,6 +12,8 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型系列，面向复杂推理�
 |  | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-2x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-sglang-0512) |
+| [unsloth/DeepSeek-R1-BF16](https://www.modelscope.cn/models/unsloth/DeepSeek-R1-BF16) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw1100-16x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw1000-32x-sglang-0518) |
 | [hygon/DeepSeek-R1-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
 | | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8x | IFB | [**\`>_\`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 | [deepseek-ai/DeepSeek-R1-Distill-Llama-70B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-8x-sglang-0512) |
@@ -21,8 +23,6 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型系列，面向复杂推理�
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-bw1000-4x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.10 | BW1100 | 8x | IFB | [**\`>_\`**](#deepseek-r1-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
-| [unsloth/DeepSeek-R1-BF16](https://www.modelscope.cn/models/unsloth/DeepSeek-R1-BF16) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw1100-16x-sglang-0518) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw1000-32x-sglang-0518) |
 
 ## 启动命令
 
@@ -153,6 +153,305 @@ sglang serve \
   --mem-fraction-static 0.9 \
   --attention-backend fa3
 ```
+
+### DeepSeek-R1-BF16 IFB BW1100 16x SGLang 0.5.18
+
+#### Node 0
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path unsloth/DeepSeek-R1-BF16 \
+  --kv-cache-dtype fp8_e4m3 \
+  --context-length 40960 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 16 \
+  --pp-size 1 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --mem-fraction-static 0.85 \
+  --attention-backend hcu_mla \
+  --max-running-requests 512 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 128 \
+  --numa-node 0 0 1 1 2 2 3 3 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node0_ip>'
+```
+
+#### Node 1
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path unsloth/DeepSeek-R1-BF16 \
+  --kv-cache-dtype fp8_e4m3 \
+  --context-length 40960 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 16 \
+  --pp-size 1 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --mem-fraction-static 0.85 \
+  --attention-backend hcu_mla \
+  --max-running-requests 512 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 128 \
+  --numa-node 0 0 1 1 2 2 3 3 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node1_ip>'
+```
+
+### DeepSeek-R1-BF16 IFB BW1000 32x SGLang 0.5.18
+
+#### Node 0
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path unsloth/DeepSeek-R1-BF16 \
+  --kv-cache-dtype fp8_e5m2 \
+  --context-length 40960 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 32 \
+  --pp-size 1 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --mem-fraction-static 0.85 \
+  --attention-backend hcu_mla \
+  --max-running-requests 512 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 128 \
+  --numa-node 0 0 1 1 2 2 3 3 \
+  --nnodes 4 \
+  --node-rank 0 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node0_ip>'
+```
+
+#### Node 1
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path unsloth/DeepSeek-R1-BF16 \
+  --kv-cache-dtype fp8_e5m2 \
+  --context-length 40960 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 32 \
+  --pp-size 1 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --mem-fraction-static 0.85 \
+  --attention-backend hcu_mla \
+  --max-running-requests 512 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 128 \
+  --numa-node 0 0 1 1 2 2 3 3 \
+  --nnodes 4 \
+  --node-rank 1 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node1_ip>'
+```
+
+#### Node 2
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path unsloth/DeepSeek-R1-BF16 \
+  --kv-cache-dtype fp8_e5m2 \
+  --context-length 40960 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 32 \
+  --pp-size 1 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --mem-fraction-static 0.85 \
+  --attention-backend hcu_mla \
+  --max-running-requests 512 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 128 \
+  --numa-node 0 0 1 1 2 2 3 3 \
+  --nnodes 4 \
+  --node-rank 2 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node2_ip>'
+```
+
+#### Node 3
+
+```bash
+export USE_HCU_CUSTOM_ALLREDUCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
+export SGLANG_USE_OPT_CAT=0
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_RMSNORM_ROPE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+
+sglang serve \
+  --model-path unsloth/DeepSeek-R1-BF16 \
+  --kv-cache-dtype fp8_e5m2 \
+  --context-length 40960 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tp-size 32 \
+  --pp-size 1 \
+  --reasoning-parser deepseek-r1 \
+  --tool-call-parser deepseekv31 \
+  --mem-fraction-static 0.85 \
+  --attention-backend hcu_mla \
+  --max-running-requests 512 \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 128 \
+  --numa-node 0 0 1 1 2 2 3 3 \
+  --nnodes 4 \
+  --node-rank 3 \
+  --dist-init-addr '<node0_ip>:5000' \
+  --host '<node3_ip>'
+```
+
 
 ### DeepSeek-R1-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
@@ -598,305 +897,6 @@ python3 -m sglang.launch_server \
     --attention-backend dcu_mla
 
 ```
-
-### DeepSeek-R1-BF16 IFB BW1100 16x SGLang 0.5.18
-
-#### Node 0
-
-```bash
-export USE_HCU_CUSTOM_ALLREDUCE=1
-export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
-export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
-export SGLANG_USE_LIGHTOP=0
-export SGLANG_USE_FUSED_RMS_QUANT=0
-export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
-export SGLANG_USE_OPT_CAT=0
-export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
-export SGLANG_KVALLOC_KERNEL=1
-export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
-export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
-export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
-export SGLANG_GET_LAST_LOC=1
-export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
-export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
-export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-sglang serve \
-  --model-path unsloth/DeepSeek-R1-BF16 \
-  --kv-cache-dtype fp8_e4m3 \
-  --context-length 40960 \
-  --trust-remote-code \
-  --dtype bfloat16 \
-  --tp-size 16 \
-  --pp-size 1 \
-  --reasoning-parser deepseek-r1 \
-  --tool-call-parser deepseekv31 \
-  --mem-fraction-static 0.85 \
-  --attention-backend hcu_mla \
-  --max-running-requests 512 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --cuda-graph-max-bs 128 \
-  --numa-node 0 0 1 1 2 2 3 3 \
-  --nnodes 2 \
-  --node-rank 0 \
-  --dist-init-addr '<node0_ip>:5000' \
-  --host '<node0_ip>'
-```
-
-#### Node 1
-
-```bash
-export USE_HCU_CUSTOM_ALLREDUCE=1
-export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
-export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
-export SGLANG_USE_LIGHTOP=0
-export SGLANG_USE_FUSED_RMS_QUANT=0
-export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
-export SGLANG_USE_OPT_CAT=0
-export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
-export SGLANG_KVALLOC_KERNEL=1
-export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
-export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
-export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
-export SGLANG_GET_LAST_LOC=1
-export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
-export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
-export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-sglang serve \
-  --model-path unsloth/DeepSeek-R1-BF16 \
-  --kv-cache-dtype fp8_e4m3 \
-  --context-length 40960 \
-  --trust-remote-code \
-  --dtype bfloat16 \
-  --tp-size 16 \
-  --pp-size 1 \
-  --reasoning-parser deepseek-r1 \
-  --tool-call-parser deepseekv31 \
-  --mem-fraction-static 0.85 \
-  --attention-backend hcu_mla \
-  --max-running-requests 512 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --cuda-graph-max-bs 128 \
-  --numa-node 0 0 1 1 2 2 3 3 \
-  --nnodes 2 \
-  --node-rank 1 \
-  --dist-init-addr '<node0_ip>:5000' \
-  --host '<node1_ip>'
-```
-
-### DeepSeek-R1-BF16 IFB BW1000 32x SGLang 0.5.18
-
-#### Node 0
-
-```bash
-export USE_HCU_CUSTOM_ALLREDUCE=1
-export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
-export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
-export SGLANG_USE_LIGHTOP=0
-export SGLANG_USE_FUSED_RMS_QUANT=0
-export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
-export SGLANG_USE_OPT_CAT=0
-export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
-export SGLANG_KVALLOC_KERNEL=1
-export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
-export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
-export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
-export SGLANG_GET_LAST_LOC=1
-export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
-export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
-export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-sglang serve \
-  --model-path unsloth/DeepSeek-R1-BF16 \
-  --kv-cache-dtype fp8_e5m2 \
-  --context-length 40960 \
-  --trust-remote-code \
-  --dtype bfloat16 \
-  --tp-size 32 \
-  --pp-size 1 \
-  --reasoning-parser deepseek-r1 \
-  --tool-call-parser deepseekv31 \
-  --mem-fraction-static 0.85 \
-  --attention-backend hcu_mla \
-  --max-running-requests 512 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --cuda-graph-max-bs 128 \
-  --numa-node 0 0 1 1 2 2 3 3 \
-  --nnodes 4 \
-  --node-rank 0 \
-  --dist-init-addr '<node0_ip>:5000' \
-  --host '<node0_ip>'
-```
-
-#### Node 1
-
-```bash
-export USE_HCU_CUSTOM_ALLREDUCE=1
-export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
-export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
-export SGLANG_USE_LIGHTOP=0
-export SGLANG_USE_FUSED_RMS_QUANT=0
-export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
-export SGLANG_USE_OPT_CAT=0
-export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
-export SGLANG_KVALLOC_KERNEL=1
-export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
-export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
-export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
-export SGLANG_GET_LAST_LOC=1
-export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
-export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
-export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-sglang serve \
-  --model-path unsloth/DeepSeek-R1-BF16 \
-  --kv-cache-dtype fp8_e5m2 \
-  --context-length 40960 \
-  --trust-remote-code \
-  --dtype bfloat16 \
-  --tp-size 32 \
-  --pp-size 1 \
-  --reasoning-parser deepseek-r1 \
-  --tool-call-parser deepseekv31 \
-  --mem-fraction-static 0.85 \
-  --attention-backend hcu_mla \
-  --max-running-requests 512 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --cuda-graph-max-bs 128 \
-  --numa-node 0 0 1 1 2 2 3 3 \
-  --nnodes 4 \
-  --node-rank 1 \
-  --dist-init-addr '<node0_ip>:5000' \
-  --host '<node1_ip>'
-```
-
-#### Node 2
-
-```bash
-export USE_HCU_CUSTOM_ALLREDUCE=1
-export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
-export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
-export SGLANG_USE_LIGHTOP=0
-export SGLANG_USE_FUSED_RMS_QUANT=0
-export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
-export SGLANG_USE_OPT_CAT=0
-export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
-export SGLANG_KVALLOC_KERNEL=1
-export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
-export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
-export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
-export SGLANG_GET_LAST_LOC=1
-export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
-export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
-export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-sglang serve \
-  --model-path unsloth/DeepSeek-R1-BF16 \
-  --kv-cache-dtype fp8_e5m2 \
-  --context-length 40960 \
-  --trust-remote-code \
-  --dtype bfloat16 \
-  --tp-size 32 \
-  --pp-size 1 \
-  --reasoning-parser deepseek-r1 \
-  --tool-call-parser deepseekv31 \
-  --mem-fraction-static 0.85 \
-  --attention-backend hcu_mla \
-  --max-running-requests 512 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --cuda-graph-max-bs 128 \
-  --numa-node 0 0 1 1 2 2 3 3 \
-  --nnodes 4 \
-  --node-rank 2 \
-  --dist-init-addr '<node0_ip>:5000' \
-  --host '<node2_ip>'
-```
-
-#### Node 3
-
-```bash
-export USE_HCU_CUSTOM_ALLREDUCE=1
-export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
-export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
-export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
-export SGLANG_USE_LIGHTOP=0
-export SGLANG_USE_FUSED_RMS_QUANT=0
-export SGLANG_USE_LIGHTOP_MOE_SUM_MUL_ADD=0
-export SGLANG_USE_OPT_CAT=0
-export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
-export SGLANG_KVALLOC_KERNEL=1
-export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
-export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
-export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
-export SGLANG_GET_LAST_LOC=1
-export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
-export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_RMSNORM_ROPE=1
-export ALLREDUCE_STREAM_WITH_COMPUTE=1
-
-sglang serve \
-  --model-path unsloth/DeepSeek-R1-BF16 \
-  --kv-cache-dtype fp8_e5m2 \
-  --context-length 40960 \
-  --trust-remote-code \
-  --dtype bfloat16 \
-  --tp-size 32 \
-  --pp-size 1 \
-  --reasoning-parser deepseek-r1 \
-  --tool-call-parser deepseekv31 \
-  --mem-fraction-static 0.85 \
-  --attention-backend hcu_mla \
-  --max-running-requests 512 \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --cuda-graph-max-bs 128 \
-  --numa-node 0 0 1 1 2 2 3 3 \
-  --nnodes 4 \
-  --node-rank 3 \
-  --dist-init-addr '<node0_ip>:5000' \
-  --host '<node3_ip>'
-```
-
 
 ## API 调用
 
