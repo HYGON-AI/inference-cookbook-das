@@ -10,15 +10,15 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3.5-27B](https://www.modelscope.cn/models/Qwen/Qwen3.5-27B) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0518) |
-|                                                                       | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-sglang-0518) |
+| [Qwen/Qwen3.5-27B](https://www.modelscope.cn/models/Qwen/Qwen3.5-27B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0518) |
+|                                                                       | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-sglang-0518) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-4x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0510) |
 |                                                                       | BF16 | 0.5.10 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-sglang-0510) |
-| [hygon/Qwen3.5-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+| [hygon/Qwen3.5-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
 | [hygon/Qwen3.5-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-FP8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-fp8-ifb-bw1100-2x-sglang-0518) |
 | [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0518) |
 |                                                                       | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-sglang-0518) |
