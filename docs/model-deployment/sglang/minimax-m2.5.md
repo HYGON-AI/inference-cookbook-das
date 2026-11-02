@@ -18,7 +18,7 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1100-16x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1000-16x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 16 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-k100_ai-16x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m2-5-channel-int8-w8a8-ifb-bw1100-8x) |
@@ -571,7 +571,9 @@ python3 -m sglang_router.launch_router \
   --port 30001
 ```
 
-### MiniMax-M2.5-Channel-INT8-w8a8 IFB K100_AI 8x SGLang 0.5.18
+### MiniMax-M2.5-Channel-INT8-w8a8 IFB K100_AI 16x SGLang 0.5.18
+
+#### Node 0
 
 ```bash
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
@@ -602,7 +604,7 @@ sglang serve \
   --page-size 64 \
   --dtype bfloat16 \
   --kv-cache-dtype bfloat16 \
-  --tp-size 8 \
+  --tp-size 16 \
   --pp-size 1 \
   --data-parallel-size 1 \
   --tool-call-parser minimax-m2 \
@@ -612,7 +614,55 @@ sglang serve \
   --attention-backend triton \
   --chunked-prefill-size 16384 \
   --max-running-requests 512 \
-  --context-length 131072
+  --nnodes 2 \
+  --node-rank 0 \
+  --dist-init-addr "<node0_ip>:5000"
+```
+
+#### Node 1
+
+```bash
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HSA_FORCE_FINE_GRAIN_PCIE=1
+unset NCCL_TOPO_FILE
+export SGLANG_USE_LIGHTOP=0
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=0
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export LMSLIM_USE_LIGHTOP=0
+export VLLM_USE_LIGHTOP_MOE_ALIGN=0
+export SGLANG_KV_LAYOUT_HCU_FA=1
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_FP32GEMM_GATE_CUSTOM=1
+
+sglang serve \
+  --model-path hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
+  --quantization compressed-tensors \
+  --trust-remote-code \
+  --page-size 64 \
+  --dtype bfloat16 \
+  --kv-cache-dtype bfloat16 \
+  --tp-size 16 \
+  --pp-size 1 \
+  --data-parallel-size 1 \
+  --tool-call-parser minimax-m2 \
+  --reasoning-parser minimax-append-think \
+  --mem-fraction-static 0.9 \
+  --moe-runner-backend triton \
+  --attention-backend triton \
+  --chunked-prefill-size 16384 \
+  --max-running-requests 512 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --dist-init-addr "<node0_ip>:5000"
 ```
 
 ### MiniMax-M2.5-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12
