@@ -16,8 +16,8 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-bf16-ifb-bw1100-8x-sglang-0512) |
 | [hygon/MiniMax-M2.5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1100-16x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1000-16x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1000-16x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 16 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-k100_ai-16x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
@@ -111,6 +111,8 @@ sglang serve \
 ```
 
 #### Node 1
+
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ```bash
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
@@ -620,6 +622,8 @@ sglang serve \
 ```
 
 #### Node 1
+
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ```bash
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
