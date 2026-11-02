@@ -88,9 +88,9 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-vllm-018-hotfix) |
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-vllm-018-hotfix) |
-| [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1100-2x-vllm-0281) |
-|  | INT8 W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-vllm-0281) |
-|  | INT8 W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-vllm-0281) |
+| [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-bw1100-2x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-bw1000-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-k100_ai-4x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-bw1100-2x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-bw1000-4x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-int8-ifb-k100_ai-4x-vllm-021) |
@@ -1573,7 +1573,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
   --speculative-config.num_speculative_tokens 3
 ```
 
-### Qwen3.5-122B-A10B-w8a8 IFB BW1100 2x vLLM 0.28.1
+### Qwen3.5-122B-A10B-W8A8-INT8 IFB BW1100 2x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
@@ -1598,7 +1598,7 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --max-num-seqs 64
 ```
 
-### Qwen3.5-122B-A10B-w8a8 IFB BW1000 4x vLLM 0.28.1
+### Qwen3.5-122B-A10B-W8A8-INT8 IFB BW1000 4x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
@@ -1623,7 +1623,7 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --max-num-seqs 64
 ```
 
-### Qwen3.5-122B-A10B-w8a8 IFB K100_AI 4x vLLM 0.28.1
+### Qwen3.5-122B-A10B-W8A8-INT8 IFB K100_AI 4x vLLM 0.28.1
 
 ```bash
 export VLLM_HCU_USE_CUSTOM_OPS=0
@@ -1650,7 +1650,7 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
 ### Qwen3.5-122B-A10B-W8A8-INT8 IFB BW1100 2x vLLM 0.21
 
 ```bash
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 2 \
   --trust-remote-code \
   --max-num-batched-tokens 16384 \
@@ -1668,7 +1668,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 ### Qwen3.5-122B-A10B-W8A8-INT8 IFB BW1000 4x vLLM 0.21
 
 ```bash
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 4 \
   --trust-remote-code \
   --max-num-batched-tokens 16384 \
@@ -1692,7 +1692,7 @@ export VLLM_HCU_USE_CUSTOM_OPS=0
 export VLLM_ROCM_USE_AITER=0
 export VLLM_ROCM_USE_AITER_MOE=0
 
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 4 \
   --trust-remote-code \
   --max-num-batched-tokens 16384 \
@@ -1713,7 +1713,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 export VLLM_HCU_USE_FLASH_ATTN=1
 export VLLM_HCU_USE_CUSTOM_TOPK_TOPP_SAMPLER=1
 
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 2 \
   --trust-remote-code \
   --max-num-batched-tokens 10240 \
@@ -1729,7 +1729,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 export VLLM_HCU_USE_FLASH_ATTN=1
 export VLLM_HCU_USE_CUSTOM_TOPK_TOPP_SAMPLER=1
 
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 4 \
   --trust-remote-code \
   --max-num-batched-tokens 10240 \
@@ -1745,7 +1745,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
 export VLLM_HCU_USE_CUSTOM_OPS=0
 
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 4 \
   --trust-remote-code \
   --max-num-batched-tokens 10240 \
@@ -1756,7 +1756,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 ### Qwen3.5-122B-A10B-W8A8-INT8 IFB BW1100 2x vLLM 0.18-hotfix
 
 ```bash
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 2 \
   --trust-remote-code \
   --max-num-batched-tokens 10240 \
@@ -1771,7 +1771,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 ### Qwen3.5-122B-A10B-W8A8-INT8 IFB BW1000 4x vLLM 0.18-hotfix
 
 ```bash
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 4 \
   --trust-remote-code \
   --max-num-batched-tokens 10240 \
@@ -1788,7 +1788,7 @@ vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
 export VLLM_HCU_USE_CUSTOM_QUANTIZATION_GEMM=0
 export VLLM_HCU_USE_CUSTOM_OPS=0
 
-vllm serve Qwen/Qwen3.5-122B-A10B-W8A8-INT8 \
+vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   -tp 4 \
   --trust-remote-code \
   --max-num-batched-tokens 10240 \

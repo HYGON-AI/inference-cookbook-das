@@ -2562,7 +2562,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --distributed-executor-backend mp \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --disable-cascade-attn \
@@ -2580,7 +2579,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --distributed-executor-backend mp \
-  --dtype float16 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --disable-cascade-attn \
@@ -2611,7 +2609,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
 
 ```bash
 vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
-  --dtype float16 \
   --tensor-parallel-size 4 \
   --gpu-memory-utilization 0.9 \
   --max-num-seqs 1024 \

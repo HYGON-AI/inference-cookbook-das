@@ -95,7 +95,6 @@ vllm serve hygon/Step-3.7-Flash-FP8-Channel \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --no-enable-prefix-caching \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"enable_multi_layers_mtp":true,"quantization":"slimquant_marlin"}' \
   --enable-chunked-prefill \
   --reasoning-parser step3p5 \
   --limit-mm-per-prompt '{"image": 0}' \

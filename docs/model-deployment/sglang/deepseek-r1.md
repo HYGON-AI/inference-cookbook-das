@@ -26,6 +26,9 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型系列，面向复杂推理�
 ### DeepSeek-R1-Distill-Qwen-32B IFB BW1100 2x SGLang 0.5.18
 
 ```bash
+export SGLANG_USE_TRITON_VLLM_FA=1
+export SGLANG_USE_HND_KVCACHE=1
+
 sglang serve \
   --model-path deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \
@@ -40,6 +43,9 @@ sglang serve \
 ### DeepSeek-R1-Distill-Qwen-32B IFB BW1000 2x SGLang 0.5.18
 
 ```bash
+export SGLANG_USE_TRITON_VLLM_FA=1
+export SGLANG_USE_HND_KVCACHE=1
+
 sglang serve \
   --model-path deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --trust-remote-code \

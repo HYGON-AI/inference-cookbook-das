@@ -97,7 +97,7 @@ vllm serve hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
 vllm serve hygon/MiMo-V2-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
-  --moe-backend aiter \
+  --moe-backend triton \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --tool-call-parser mimo \
