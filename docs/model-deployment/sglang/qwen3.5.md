@@ -10,54 +10,54 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3.5-27B](https://www.modelscope.cn/models/Qwen/Qwen3.5-27B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0518) |
-|                                                                       | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-sglang-0518) |
+| [Qwen/Qwen3.5-27B](https://www.modelscope.cn/models/Qwen/Qwen3.5-27B) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0518) |
+|                                                                       | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-sglang-0518) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-4x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0510) |
 |                                                                       | BF16 | 0.5.10 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-sglang-0510) |
-| [hygon/Qwen3.5-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
-| [hygon/Qwen3.5-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-fp8-ifb-bw1100-2x-sglang-0518) |
-| [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0518) |
-|                                                                       | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-sglang-0518) |
+| [hygon/Qwen3.5-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+| [hygon/Qwen3.5-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-FP8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-fp8-ifb-bw1100-2x-sglang-0518) |
+| [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0518) |
+|                                                                       | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-sglang-0518) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-2x-sglang-0510) |
-| [hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
-|                                                                                                                   | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+| [hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
+|                                                                                                                   | INT8 W8A8 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
 |                                                                                                                   | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |                                                                                                                   | INT8 W8A8 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
 |                                                                                                                   | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0512) |
-| [hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0518) |
+| [hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0518) |
 |                                                                                                                  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |                                                                                                                  | FP8 W8A8 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0510) |
-| [Qwen/Qwen3.5-122B-A10B](https://www.modelscope.cn/models/Qwen/Qwen3.5-122B-A10B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-sglang-0518) |
-|                                                                                       | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-sglang-0518) |
-|                                                                                       | BF16 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-sglang-0518) |
+| [Qwen/Qwen3.5-122B-A10B](https://www.modelscope.cn/models/Qwen/Qwen3.5-122B-A10B) | BF16 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-sglang-0518) |
+|                                                                                       | BF16 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-sglang-0518) |
+|                                                                                       | BF16 | 0.5.18 | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-sglang-0512) |
 |                                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-sglang-0512) |
 |                                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-sglang-0512) |
-| [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1100-4x-sglang-0518) |
-|                                                                                                  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-sglang-0518) |
+| [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1100-4x-sglang-0518) |
+|                                                                                                  | INT8 W8A8 | 0.5.18 | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-sglang-0512) |
 |                                                                                                  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-sglang-0512) |
-| [hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0518) |
+| [hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0518) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0512) |
-| [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-sglang-0518) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-sglang-0518) |
+| [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-sglang-0518) |
+|  | BF16 | 0.5.18 | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-sglang-0512) |
-| [hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0518) |
+| [hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0518) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
-| [hygon/Qwen3.5-397B-A17B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0518) |
+| [hygon/Qwen3.5-397B-A17B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8) | FP8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0518) |
 |                                                                                                            | FP8 W8A8 | [0.5.10](../docker_images.md) | BW1100 |  4 | IFB  | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0510)   |
 |                                                                                                            | FP8 W8A8 | 0.5.10 | BW1100 | 12 | 1P1D | [**`>_`**](#qwen35-397b-a17b-channel-fp8-1p1d-bw1100-12x-sglang-0510) |
-| [hygon/Qwen3.5-397B-A17B-W8A8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-W8A8)              | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1000-8x-sglang-0518) |
+| [hygon/Qwen3.5-397B-A17B-W8A8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-W8A8)              | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1000-8x-sglang-0518) |
 |                                                                                                            | INT8 W8A8 | [0.5.10](../docker_images.md) | BW1000 |  8 | IFB  | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1000-8x-sglang-0510)          |
 
 ## 启动命令
@@ -771,14 +771,14 @@ sglang serve --model-path hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8 \
 ### Qwen3.5-122B-A10B IFB BW1100 4x SGLang 0.5.18
 
 ```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_MODELSCOPE=1
 export SGLANG_ROCM_USE_AITER_MOE=1
-export HIP_VISIBLE_DEVICES=4,5,6,7
+export SGLANG_USE_MODELSCOPE=1
 
 sglang serve \
   --model-path Qwen/Qwen3.5-122B-A10B \
@@ -978,7 +978,7 @@ sglang serve \
 ### Qwen3.5-122B-A10B-w8a8 IFB BW1000 4x SGLang 0.5.18
 
 ```bash
-export HIP_VISIBLE_DEVICES=2,3,4,5
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
@@ -1002,11 +1002,11 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
+  --kv-cache-dtype fp8_e5m2 \
   --quantization w8a8_int8 \
   --moe-runner-backend lightop \
   --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3 \
-  --kv-cache-dtype fp8_e5m2
+  --reasoning-parser qwen3
 ```
 
 ### Qwen3.5-122B-A10B-w8a8 IFB BW1100 4x SGLang 0.5.18
@@ -1150,10 +1150,9 @@ sglang serve \
   --reasoning-parser qwen3
 ```
 
-### Qwen3.5-122B-A10B-Channel-FP8-w8a8 IFB BW1100 4x SGLang 0.5.18
+### Qwen3.5-122B-A10B-Channel-FP8-w8a8 IFB BW1100 2x SGLang 0.5.18
 
 ```bash
-export HIP_VISIBLE_DEVICES=4,5,6,7
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
@@ -1168,7 +1167,7 @@ sglang serve \
   --mm-attention-backend fa3 \
   --mem-fraction-static 0.85 \
   --page-size 64 \
-  --tp-size 4 \
+  --tp-size 2 \
   --pp-size 1 \
   --trust-remote-code \
   --speculative-algorithm EAGLE \
@@ -1178,10 +1177,10 @@ sglang serve \
   --mamba-radix-cache-strategy extra_buffer \
   --chunked-prefill-size -1 \
   --kv-cache-dtype fp8_e4m3 \
-  --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3 \
   --moe-runner-backend aiter \
-  --quantization w8a8_fp8
+  --quantization w8a8_fp8 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
 ```
 
 ### Qwen3.5-122B-A10B-Channel-FP8-w8a8 IFB BW1100 4x SGLang 0.5.12
