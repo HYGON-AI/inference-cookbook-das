@@ -28,6 +28,8 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 
 ## 启动命令
 
+`--numa-node` 必须按本机 GPU 与 NUMA node 的亲和性设置。以下命令中的值仅为示例，部署时请按实际 GPU rank 顺序调整；开启 `--ple-offload-embedding` 时，应结合本机亲和性将各 rank 分散到不同 NUMA node。
+
 ### Qwen3.8-27B IFB BW1100 1x SGLang 0.5.12
 
 ```bash
