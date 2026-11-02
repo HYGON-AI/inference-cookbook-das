@@ -230,7 +230,66 @@ VLLM_USE_V2_MODEL_RUNNER=1  vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
 
 ### Hy4-preview-Channel-FP8-w8a8 dp32ep32 BW1100 32x vLLM 0.25.1
 
-#### D node 1
+#### 单脚本部署（推荐）
+
+```bash
+
+export ROCSHMEM_IPC_MNVL=1
+export VLLM_DEEPEP_BUFFER_SIZE_MB=0
+export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
+export GPU_MAX_HW_QUEUES=3
+export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
+
+export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
+export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+NODE_RANK="$1"
+HEADLESS_ARG=""
+master_ip=$主节点ip
+
+if [ "$NODE_RANK" = "0" ]; then
+    dp_size=0
+    HEADLESS_ARG=""
+    START_RANK_ARG=""
+    api_ARG="--api-server-count 1"
+elif [ "$NODE_RANK" = "1" ]; then
+    dp_size=16
+    HEADLESS_ARG="--headless"
+    START_RANK_ARG="--data-parallel-start-rank 16"
+    api_ARG=""
+fi
+echo "dp_size:$dp_size"
+
+VLLM_USE_V2_MODEL_RUNNER=1 \
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
+    --tensor-parallel-size 1 \
+    --data-parallel-size 32 \
+    --enable-expert-parallel \
+    --all2all-backend deepep_low_latency \
+    --moe-backend deep_gemm \
+    --no-enable-prefix-caching \
+    --data-parallel-size-local 16 \
+    --data-parallel-address $master_ip \
+    --data-parallel-rpc-port 1127 \
+    --speculative-config '{"method":"mtp","num_speculative_tokens":3, "use_local_argmax_reduction":true}' \
+    --gpu-memory-utilization 0.85 \
+    --max-model-len 89088 \
+    --max-num-seqs 8 \
+    --max-num-batched-tokens 32 \
+    --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
+    --api-server-count 1 \
+    --reasoning-parser hy_v4 \
+    --enable-auto-tool-choice \
+    --tool-call-parser hy_v4 \
+    --kv-cache-dtype fp8_e4m3 \
+    --data-parallel-hybrid-lb \
+    $START_RANK_ARG \
+    $HEADLESS_ARG
+```
+
+
+#### 双脚本部署
+##### D node 1
 
 ```bash
 export ROCSHMEM_IPC_MNVL=1
@@ -240,14 +299,11 @@ export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
 export GPU_MAX_HW_QUEUES=3
 export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
 
-# xiaowei
 export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
 export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
 
-MODEL_PATH="hygon/Hy4-preview-Channel-FP8-w8a8"
-
 VLLM_USE_V2_MODEL_RUNNER=1 \
-vllm serve $MODEL_PATH \
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
     --tensor-parallel-size 1 \
     --data-parallel-size 32 \
     --enable-expert-parallel \
@@ -271,7 +327,7 @@ vllm serve $MODEL_PATH \
     --data-parallel-hybrid-lb
 ```
 
-#### D node 2
+##### D node 2
 
 ```bash
 export ROCSHMEM_IPC_MNVL=1
@@ -281,14 +337,11 @@ export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
 export GPU_MAX_HW_QUEUES=3
 export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
 
-# xiaowei
 export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
 export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
 
-MODEL_PATH="hygon/Hy4-preview-Channel-FP8-w8a8"
-
 VLLM_USE_V2_MODEL_RUNNER=1 \
-vllm serve $MODEL_PATH \
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
     --tensor-parallel-size 1 \
     --data-parallel-size 32 \
     --enable-expert-parallel \
