@@ -198,7 +198,7 @@
       <td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-r1.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="10" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
+      <td rowspan="12" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dc173789b4cf157d36ebee/i_pxzM2ZDo3Ub-BEgIkE9.png" height="40"/><br/>Z.ai</td>
       <td rowspan="2">GLM-5.2</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm-5.2.md">✅</a></td>
@@ -242,6 +242,15 @@
     <tr>
       <td>SGLang</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td rowspan="2">GLM-4-32B-0414</td>
+      <td>vLLM</td>
+      <td align="center"><a href="docs/model-deployment/vllm/glm-4.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm-4.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/glm-4.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center"><a href="docs/model-deployment/sglang/glm-4.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/glm-4.md">✅</a></td><td align="center">-</td>
     </tr>
     <tr>
       <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
