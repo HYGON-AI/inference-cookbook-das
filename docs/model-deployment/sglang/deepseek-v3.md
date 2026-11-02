@@ -16,6 +16,8 @@ DeepSeek-V3-0324 是 DeepSeek V3 系列的 MoE 大模型版本，适用于对话
 
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1000 16x SGLang 0.5.18
 
+须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`。
+
 #### Node 0
 
 ```bash
