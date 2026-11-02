@@ -81,7 +81,7 @@
     <tr>
       <td rowspan="2">Qwen3-VL</td>
       <td>vLLM</td>
-      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">文档</a></td>
+      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-vl.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -135,7 +135,7 @@
     <tr>
       <td rowspan="2">Qwen2-72B</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">文档</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -237,7 +237,7 @@
     <tr>
       <td rowspan="2">GLM-5.3</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.3.md">文档</a></td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/glm-5.3.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -256,7 +256,7 @@
     <tr>
       <td rowspan="2">Hy3</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">✅</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/hy3.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -275,7 +275,7 @@
     <tr>
       <td rowspan="2">Kimi-K2.6</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.6.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.6.md">文档</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.6.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.6.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -284,7 +284,7 @@
     <tr>
       <td rowspan="2">Kimi-K2.5</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">✅</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/kimi-k2.5.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -303,7 +303,7 @@
       <td rowspan="10" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/676e38ad04af5bec20bc9faf/dUd-LsZEX0H_d4qefO_g6.jpeg" height="40"/><br/>MiniMax</td>
       <td rowspan="2">MiniMax-M3</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/minimax-m3.md">文档</a></td><td align="center">-</td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/minimax-m3.md">✅</a></td><td align="center">-</td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -358,7 +358,7 @@
     <tr>
       <td rowspan="2">Step-3.7-Flash</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/step-3.7-flash.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/step-3.7-flash.md">文档</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/step-3.7-flash.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/step-3.7-flash.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -377,7 +377,7 @@
     <tr>
       <td rowspan="2">MiMo-V2-Flash</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/mimo-v2-flash.md">文档</a></td><td align="center"><a href="docs/model-deployment/vllm/mimo-v2-flash.md">文档</a></td>
+      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/mimo-v2-flash.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/mimo-v2-flash.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
