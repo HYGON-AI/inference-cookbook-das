@@ -16,7 +16,7 @@ MiniMax-M2.5-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-bf16-ifb-bw1100-8x-sglang-0512) |
 | [hygon/MiniMax-M2.5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1100-16x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 16 | 1P1D | [**`>_`**](#minimax-m25-channel-int8-w8a8-1p1d-bw1000-16x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
@@ -436,7 +436,8 @@ sglang serve \
   --mem-fraction-static 0.9 \
   --attention-backend fa3 \
   --chunked-prefill-size 16384 \
-  --max-running-requests 512
+  --max-running-requests 512 \
+  --context-length 131072
 ```
 
 ### MiniMax-M2.5-Channel-INT8-w8a8 1P1D BW1000 16x SGLang 0.5.18
