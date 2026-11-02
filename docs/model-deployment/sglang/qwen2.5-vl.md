@@ -8,13 +8,13 @@ Qwen2.5-VL 是通义千问视觉语言模型系列，覆盖多种参数规模和
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen2.5-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-2x-sglang-0518) |
+| [Qwen/Qwen2.5-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-2x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-2x-sglang-0512) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-4x-sglang-0518) |
+|  | BF16 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-4x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-4x-sglang-0512) |
-| [Qwen/Qwen2.5-VL-72B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-sglang-0518) |
+| [Qwen/Qwen2.5-VL-72B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct) | BF16 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-sglang-0512) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-8x-sglang-0518) |
+|  | BF16 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-8x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-8x-sglang-0512) |
 
 ## 启动命令
@@ -378,7 +378,6 @@ export HSA_KERNARG_POOL_SIZE=8388608
 export ROC_AQL_QUEUE_SIZE=131072
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export SGLANG_USE_MARLIN_W16A16_MOE=1
-export HIP_VISIBLE_DEVICES=4,5,6,7
 
 sglang serve \
   --model-path Qwen/Qwen2.5-VL-72B-Instruct \
@@ -473,7 +472,7 @@ sglang serve \
   --dtype bfloat16 \
   --tensor-parallel-size 8 \
   --page-size 64 \
-  --mem-fraction-static 0.8 \
+  --mem-fraction-static 0.9 \
   --attention-backend fa3 \
   --mm-attention-backend fa3
 ```
