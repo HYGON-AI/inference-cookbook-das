@@ -263,7 +263,6 @@ sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
 ### Qwen3.8-Flash-Next IFB BW1100 8x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
@@ -303,7 +302,6 @@ sglang serve \
 ### Qwen3.8-Flash-Next IFB BW1000 8x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
@@ -343,7 +341,6 @@ sglang serve \
 ### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
@@ -380,7 +377,6 @@ sglang serve \
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1100 4x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
@@ -457,7 +453,6 @@ sglang serve \
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
@@ -497,7 +492,6 @@ sglang serve \
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1100 4x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_CAUSAL_CONV1D=1
@@ -538,7 +532,6 @@ sglang serve \
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1000 4x SGLang 0.5.18
 
 ```bash
-set -euo pipefail
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_CAUSAL_CONV1D=1
