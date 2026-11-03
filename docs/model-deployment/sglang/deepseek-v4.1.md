@@ -8,7 +8,7 @@ DeepSeek-V4.1 是 DeepSeek 系列的混合专家（MoE）大语言模型。
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | PD | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-wo_a-markov_head-lm_head-pd-bw1100-16x-sglang-0518) |
+| hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head | FP8 W8A8 | 0.5.18-dpskv4 | BW1100 | 16 | PD | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-wo_a-markov_head-lm_head-pd-bw1100-16x-sglang-0518) |
 
 ## DeepEP 配置
 
@@ -88,7 +88,7 @@ sglang serve \
   --reasoning-parser auto \
   --tool-call-parser auto \
   --chunked-prefill-size 32768 \
-  --dist-init-addr "<P_node0_ip>:6144" \
+  --dist-init-addr "<P_node0_ip>:5000" \
   --speculative-algorithm DSPARK \
   --speculative-dspark-block-size 5 \
   --enable-prefill-cp \
@@ -159,7 +159,7 @@ sglang serve \
   --reasoning-parser auto \
   --tool-call-parser auto \
   --chunked-prefill-size 32768 \
-  --dist-init-addr "<D_node0_ip>:6244" \
+  --dist-init-addr "<D_node0_ip>:5000" \
   --dp 8 \
   --enable-dp-attention \
   --enable-dp-attention-local-control-broadcast \
