@@ -10,7 +10,7 @@ MiniMax-M2.7-Channel-FP8-w8a8 是 MiniMax 推出的大规模 MoE（混合专家�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/MiniMax-M2.7-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.7-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m27-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+| [hygon/MiniMax-M2.7-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.7-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m27-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | FP8 W8A8 | 0.5.18 | BW1100 | 16 | 1P1D | [**`>_`**](#minimax-m27-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0518) |
 |  | FP8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m2-7-channel-fp8-w8a8-ifb-bw1100-8x) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 16 | 1P1D| [**`>_`**](#minimax-m2-7-channel-fp8-w8a8-1p1d-bw1100-16x) |
@@ -51,10 +51,8 @@ sglang serve \
   --reasoning-parser minimax-append-think \
   --mem-fraction-static 0.92 \
   --attention-backend fa3 \
-  --numa-node 0 0 0 0 1 1 1 1 \
   --chunked-prefill-size 16384 \
-  --max-running-requests 512 \
-  --context-length 131072
+  --max-running-requests 512
 ```
 
 ### MiniMax-M2.7-Channel-FP8-w8a8 1P1D BW1100 16x SGLang 0.5.18
