@@ -11,18 +11,18 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.5.12 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-sglang-0512) |
-|  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100ai-2x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100_ai-2x-sglang-0512) |
 |  | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-2x-sglang-0518) |
 |  | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-sglang-0518) |
-|  | BF16 | 0.5.18 | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100ai-2x-sglang-0518) |
+|  | BF16 | 0.5.18 | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100_ai-2x-sglang-0518) |
 | [hygon/Qwen3.8-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |  | W8A8 | 0.5.12 | BW1000 | 1 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-1x-sglang-0512) |
 |  | W8A8 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512-262k) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
-|  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-k100ai-2x-sglang-0512) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-k100ai-2x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.18 | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0518) |
 | [hygon/Qwen3.8-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-FP8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-fp8-ifb-bw1100-2x-sglang-0518) |
 | [Qwen/Qwen3.8-Flash-Next](https://www.modelscope.cn/models/Qwen/Qwen3.8-Flash-Next) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1100-8x-sglang-0518) |
 | | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-sglang-0518) |
