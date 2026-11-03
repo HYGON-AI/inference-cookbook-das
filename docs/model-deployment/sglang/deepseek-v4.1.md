@@ -12,7 +12,7 @@ DeepSeek-V4.1 是 DeepSeek 系列的混合专家（MoE）大语言模型。
 
 ## DeepEP 配置
 
-在 D 节点的启动目录保存以下内容为 `deepep_IntraConfig.json`，对应命令中的 `--deepep-config ./deepep_IntraConfig.json`。
+以下 `deepep_IntraConfig.json` 仅作为参考配置。使用时请将其保存为 `deepep_IntraConfig.json`，并根据实际保存路径设置启动命令中的 `--deepep-config` 参数。
 
 ```json
 {
@@ -170,7 +170,7 @@ sglang serve \
   --enable-dp-lm-head \
   --ep 8 \
   --moe-a2a-backend deepep \
-  --deepep-config ./deepep_IntraConfig.json \
+  --deepep-config /xxxxx/deepep_IntraConfig.json \
   --deepep-mode auto \
   --moe-runner-backend deep_gemm \
   --enable-single-batch-overlap \
