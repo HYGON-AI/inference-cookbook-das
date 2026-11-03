@@ -9,7 +9,7 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
-|  | FP8 W8A8 | 0.25.1 | bwxxx | 16 | IFB-P | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-p-bwxxx-16x-vllm-0251) |
+|  | FP8 W8A8 | 0.25.1 | BW1301_LC | 16 | IFB-P | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-p-bw1301_lc-16x-vllm-0251) |
 |  | FP8 W8A8 | 0.25.1 | BW1301_LC | 32 | IFB-D | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-d-bw1301_lc-32x-vllm-0251) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
 
@@ -39,7 +39,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --max-num-seqs 64
 ```
 
-### Hy4-preview-Channel-FP8-w8a8 IFB-P bwxxx 16x vLLM 0.25.1
+### Hy4-preview-Channel-FP8-w8a8 IFB-P BW1301_LC 16x vLLM 0.25.1
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
