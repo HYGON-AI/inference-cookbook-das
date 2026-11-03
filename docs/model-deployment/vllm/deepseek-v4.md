@@ -351,6 +351,10 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 export VLLM_USE_V2_MODEL_RUNNER=1
+export NCCL_P2P_DISABLE=1
+export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
+
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
@@ -360,8 +364,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
   --distributed-executor-backend mp \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
-  --moe-backend deep_gemm \
-  --all2all-backend deepep_auto \
+  --moe-backend aiter \
   --dtype bfloat16 \
   --kv-cache-dtype fp8_ds_mla \
   --block-size 256 \
@@ -600,7 +603,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
