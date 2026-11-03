@@ -113,6 +113,7 @@ export LIGHTOP_MQA_LOGITS_BETA=1
 export VLLM_HCU_HYV4_MOE_CHUNK_SIZE=1024
 export MC_GID_INDEX=3
 export VLLM_HCU_USE_CUSTOM_OPS=1
+export VLLM_HCU_SPARSE_MLA_PREFILL_WORKSPACE_DEDUP=1
 exec /usr/bin/python -m vllm.entrypoints.cli.main serve hygon/Hy4-preview-Channel-INT4-w4a8 \
     --host 0.0.0.0 \
     --port 8000 \
