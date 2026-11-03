@@ -17,14 +17,18 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 |  | W8A8 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512-262k) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-channel-int8-w8a8-ifb-k100ai-2x-sglang-0512) |
-| [Qwen3.8-Flash-Next](https://www.modelscope.cn/collections/Qwen/Qwen38-Flash-Next) | BF16 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-sglang-0518) |
-| [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
-| [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
+| [Qwen/Qwen3.8-Flash-Next](https://www.modelscope.cn/models/Qwen/Qwen3.8-Flash-Next) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1100-8x-sglang-0518) |
+| | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-sglang-0518) |
+| [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
+| [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
+| | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-sglang-0518) |
 | [hygon/Qwen3.8-Flash-Next-Mixed-w4a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Mixed-w4a8) | INT4 W4A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1000-4x-sglang-0518) |
 
+
+
 ## 启动命令
+
+须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`。
 
 ### Qwen3.8-27B IFB BW1100 1x SGLang 0.5.12
 
@@ -256,11 +260,7 @@ sglang serve --model-path hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --disable-custom-all-reduce
 ```
 
-### Qwen3.8-Flash-Next IFB BW1000 8x SGLang 0.5.18
-
-权重：[Qwen3.8-Flash-Next](https://www.modelscope.cn/collections/Qwen/Qwen38-Flash-Next)（`export SGLANG_USE_MODELSCOPE=1` 后使用 `--model-path Qwen/Qwen3.8-Flash-Next`）。
-
-建议开启 `--ple-offload-embedding` 以节约显存；PLE 权重会 pin 到 CPU，须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`，把各 rank 分散到不同 NUMA node；全部绑在同一 node（如 `0 0 0 0 0 0 0 0`）易打满该 node 内存。
+### Qwen3.8-Flash-Next IFB BW1100 8x SGLang 0.5.18
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
@@ -270,6 +270,7 @@ export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
 export SGLANG_USE_AITER_AR=1
 export W8A8_SUPPORT_METHODS=3
+export SGLANG_ROCM_USE_AITER_MOE=1
 
 sglang serve \
   --model-path Qwen/Qwen3.8-Flash-Next \
@@ -281,14 +282,12 @@ sglang serve \
   --moe-runner-backend aiter \
   --speculative-moe-runner-backend aiter \
   --dtype bfloat16 \
-  --context-length 32768 \
-  --max-running-requests 32 \
-  --language-model-only \
+  --context-length 40960 \
   --mem-fraction-static 0.85 \
   --chunked-prefill-size 4096 \
   --page-size 64 \
   --mamba-radix-cache-strategy extra_buffer \
-  --kv-cache-dtype fp8_e5m2 \
+  --kv-cache-dtype fp8_e4m3 \
   --reasoning-parser qwen3 \
   --tool-call-parser qwen3_coder \
   --watchdog-timeout 1200 \
@@ -297,10 +296,10 @@ sglang serve \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
   --ple-offload-embedding \
-  --numa-node 0 0 0 0 0 0 0 0
+  --numa-node 3 1 1 0 7 5 5 4
 ```
 
-### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
+### Qwen3.8-Flash-Next IFB BW1000 8x SGLang 0.5.18
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
@@ -310,9 +309,10 @@ export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
 export SGLANG_USE_AITER_AR=1
 export W8A8_SUPPORT_METHODS=3
+export SGLANG_ROCM_USE_AITER_MOE=1
 
 sglang serve \
-  --model-path hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
+  --model-path Qwen/Qwen3.8-Flash-Next \
   --trust-remote-code \
   --tp-size 8 \
   --pp-size 1 \
@@ -321,51 +321,8 @@ sglang serve \
   --moe-runner-backend aiter \
   --speculative-moe-runner-backend aiter \
   --dtype bfloat16 \
-  --context-length 32768 \
-  --max-running-requests 32 \
-  --language-model-only \
-  --mem-fraction-static 0.85 \
-  --chunked-prefill-size 4096 \
-  --page-size 64 \
-  --mamba-radix-cache-strategy extra_buffer \
-  --kv-cache-dtype fp8_e5m2 \
-  --reasoning-parser qwen3 \
-  --tool-call-parser qwen3_coder \
-  --watchdog-timeout 1200 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --numa-node 0 0 0 0 0 0 0 0
-```
-
-### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x SGLang 0.5.18
-
-建议开启 `--ple-offload-embedding` 以节约显存，4 卡即可部署。PLE 权重会 pin 到 CPU，`--numa-node` 必须按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node；全部绑到同一 node（如 `0 0 0 0`）容易把该 node 内存打满。
-
-```bash
-export SGLANG_USE_MODELSCOPE=1
-export SGLANG_USE_LIGHTOP=1
-export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
-export SGLANG_USE_CAUSAL_CONV1D=1
-export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_AITER_AR=1
-export W8A8_SUPPORT_METHODS=3
-
-sglang serve \
-  --model-path hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
-  --trust-remote-code \
-  --tp-size 4 \
-  --pp-size 1 \
-  --dp-size 1 \
-  --ep-size 1 \
-  --moe-runner-backend aiter \
-  --speculative-moe-runner-backend aiter \
-  --dtype bfloat16 \
-  --context-length 32768 \
-  --max-running-requests 32 \
-  --language-model-only \
-  --mem-fraction-static 0.85 \
+  --context-length 40960 \
+  --mem-fraction-static 0.9 \
   --chunked-prefill-size 4096 \
   --page-size 64 \
   --mamba-radix-cache-strategy extra_buffer \
@@ -378,6 +335,42 @@ sglang serve \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
   --ple-offload-embedding \
+  --numa-node 3 1 1 0 7 5 5 4
+```
+
+### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x SGLang 0.5.18
+
+```bash
+export SGLANG_USE_MODELSCOPE=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_AITER_AR=1
+
+sglang serve \
+  --model-path hygon/Qwen3.8-Flash-Next-Channel-FP8 \
+  --trust-remote-code \
+  --tp-size 4 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --moe-runner-backend aiter \
+  --speculative-moe-runner-backend aiter \
+  --dtype bfloat16 \
+  --mem-fraction-static 0.85 \
+  --chunked-prefill-size 4096 \
+  --context-length 40960 \
+  --page-size 64 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --kv-cache-dtype fp8_e4m3 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --watchdog-timeout 1200 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
   --numa-node 0 0 0 0
 ```
 
@@ -402,9 +395,7 @@ sglang serve \
   --moe-runner-backend aiter \
   --speculative-moe-runner-backend aiter \
   --dtype bfloat16 \
-  --context-length 32768 \
-  --max-running-requests 32 \
-  --language-model-only \
+  --context-length 40960 \
   --mem-fraction-static 0.85 \
   --chunked-prefill-size 4096 \
   --page-size 64 \
@@ -420,9 +411,7 @@ sglang serve \
   --numa-node 0 0 0 0
 ```
 
-建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
-
-### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x SGLang 0.5.18
+### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x SGLang 0.5.18
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
@@ -431,9 +420,10 @@ export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
 export SGLANG_USE_AITER_AR=1
+export W8A8_SUPPORT_METHODS=3
 
 sglang serve \
-  --model-path hygon/Qwen3.8-Flash-Next-Channel-FP8 \
+  --model-path hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tp-size 4 \
   --pp-size 1 \
@@ -442,13 +432,13 @@ sglang serve \
   --moe-runner-backend aiter \
   --speculative-moe-runner-backend aiter \
   --dtype bfloat16 \
+  --context-length 40960 \
   --language-model-only \
   --mem-fraction-static 0.85 \
   --chunked-prefill-size 4096 \
-  --context-length 32768 \
   --page-size 64 \
   --mamba-radix-cache-strategy extra_buffer \
-  --kv-cache-dtype fp8_e4m3 \
+  --kv-cache-dtype fp8_e5m2 \
   --reasoning-parser qwen3 \
   --tool-call-parser qwen3_coder \
   --watchdog-timeout 1200 \
@@ -456,10 +446,9 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
+  --ple-offload-embedding \
   --numa-node 0 0 0 0
 ```
-
-建议开启 `--ple-offload-embedding` 以节约显存。开启后 `--numa-node` 需按本机 GPU 亲和性设置，把各 rank 分散到不同 NUMA node。
 
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1000 4x SGLang 0.5.18
 
@@ -512,6 +501,7 @@ sglang serve \
   --ple-offload-embedding \
   --numa-node 0 1 2 3
 ```
+
 
 ## API 调用
 
