@@ -74,7 +74,6 @@ export SGLANG_OPT_DEEPGEMM_MEGA_MOE_NUM_MAX_TOKENS_PER_RANK=4096
 
 sglang serve \
   --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
-  --served-model-name DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
   --tp-size 8 \
   --host "<P_node0_ip>" \
   --port 30000 \
@@ -144,7 +143,6 @@ export SGLANG_SIMULATE_ACC_METHOD=match-expected
 
 sglang serve \
   --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
-  --served-model-name DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
   --tp-size 8 \
   --host "<D_node0_ip>" \
   --port 30000 \
@@ -196,14 +194,14 @@ python3 -m sglang_router.launch_router \
 
 ### PD 分离
 
-请求发送至 Router 的 `30001` 端口，`model` 与 P、D 两端的 `--served-model-name` 一致。
+请求发送至 Router 的 `30001` 端口，`model` 与 P、D 两端的 `--model-path` 一致。
 
 ```python
 from openai import OpenAI
 
 client = OpenAI(base_url="http://<router_ip>:30001/v1", api_key="not-needed")
 response = client.chat.completions.create(
-    model="DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head",
+    model="hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head",
     messages=[{"role": "user", "content": "你好，请介绍一下你自己。"}],
     max_tokens=2048,
 )
@@ -213,5 +211,5 @@ print(response.choices[0].message.content)
 ```bash
 curl "http://<router_ip>:30001/v1/chat/completions" \
   -H "Content-Type: application/json" \
-  -d '{"model": "DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head", "messages": [{"role": "user", "content": "你好"}], "max_tokens": 128}'
+  -d '{"model": "hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head", "messages": [{"role": "user", "content": "你好"}], "max_tokens": 128}'
 ```
