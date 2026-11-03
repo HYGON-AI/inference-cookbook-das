@@ -9,8 +9,8 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
-|  | FP8 W8A8 | 0.25.1 | BW1301_LC | 16 | IFB-P | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-p-bw1301_lc-16x-vllm-0251) |
-|  | FP8 W8A8 | 0.25.1 | BW1301_LC | 32 | IFB-D | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-d-bw1301_lc-32x-vllm-0251) |
+|  | FP8 W8A8 | [0.25.1](../docker_images.md) | BW1301_LC | 16 | IFB-P | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-p-bw1301_lc-16x-vllm-0251) |
+|  | FP8 W8A8 | [0.25.1](../docker_images.md) | BW1301_LC | 32 | IFB-D | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-d-bw1301_lc-32x-vllm-0251) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
 
 
