@@ -33,9 +33,7 @@ DeepSeek-V4.1 是 DeepSeek 系列的混合专家（MoE）大语言模型。
 }
 ```
 
-## EPLB 配置
-
-配置方法参考：[EPLB](../../optimization/static-eplb-sglang.md)。P 节点的 `--init-expert-location` 需指向与当前模型及部署配置匹配的专家排布文件；将 `/xxx/eplb_fp8_runB64_r32.pt` 替换为实际路径。本方案保留 32 个冗余专家和 `lp` 分发配置。
+## EPLB配置参考：[EPLB](../../optimization/static-eplb-sglang.md)。
 
 ## 启动命令
 
