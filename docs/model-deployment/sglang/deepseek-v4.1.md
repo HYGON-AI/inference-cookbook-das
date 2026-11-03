@@ -103,7 +103,7 @@ sglang serve \
   --disaggregation-mode prefill \
   --disaggregation-transfer-backend mooncake \
   --disaggregation-bootstrap-port 8998 \
-  --init-expert-location /xxx/eplb_fp8_runB64_r32.pt \
+  --init-expert-location /xxx/expert_distribution.pt \
   --ep-num-redundant-experts 32 \
   --ep-dispatch-algorithm lp
 ```
