@@ -10,7 +10,7 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.25.1 | bwxxx | 16 | IFB-P | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-p-bwxxx-16x-vllm-0251) |
-|  | FP8 W8A8 | 0.25.1 | bwxxx | 32 | IFB-D | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-d-bwxxx-32x-vllm-0251) |
+|  | FP8 W8A8 | 0.25.1 | BW1301_LC | 32 | IFB-D | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-d-bw1301_lc-32x-vllm-0251) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
 
 
@@ -73,7 +73,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --enforce-eager
 ```
 
-### Hy4-preview-Channel-FP8-w8a8 IFB-D bwxxx 32x vLLM 0.25.1
+### Hy4-preview-Channel-FP8-w8a8 IFB-D BW1301_LC 32x vLLM 0.25.1
 
 #### Node 0
 
