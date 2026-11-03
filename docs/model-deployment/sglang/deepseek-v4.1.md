@@ -8,7 +8,7 @@ DeepSeek-V4.1 是 DeepSeek 系列的混合专家（MoE）大语言模型。
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | PD | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-wo_a-markov_head-lm_head-pd-bw1100-16x-sglang-0518) |
+| hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | PD | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-wo_a-markov_head-lm_head-pd-bw1100-16x-sglang-0518) |
 
 ## DeepEP 配置
 
@@ -73,7 +73,7 @@ export SGLANG_HCU_MEGA_MOE_RUNTIME=deep_gemm
 export SGLANG_OPT_DEEPGEMM_MEGA_MOE_NUM_MAX_TOKENS_PER_RANK=4096
 
 sglang serve \
-  --model-path /public/opendas/DL_DATA/llm-models/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head/ \
+  --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
   --served-model-name DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
   --tp-size 8 \
   --host "<P_node0_ip>" \
@@ -143,7 +143,7 @@ export SGLANG_SIMULATE_ACC_LEN=4
 export SGLANG_SIMULATE_ACC_METHOD=match-expected
 
 sglang serve \
-  --model-path /public/opendas/DL_DATA/llm-models/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head/ \
+  --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
   --served-model-name DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
   --tp-size 8 \
   --host "<D_node0_ip>" \
