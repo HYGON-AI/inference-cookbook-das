@@ -358,7 +358,7 @@ export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
-vllm serve /llm-models/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
+vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
