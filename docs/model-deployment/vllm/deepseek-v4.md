@@ -26,6 +26,7 @@ DeepSeek-V4 是 DeepSeek 系列大语言模型，本文档提供其在 vLLM 上�
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-FP8-Channel-v2](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-FP8-Channel-v2) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-fp8-channel-v2-ifb-bw1100-16x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-INT8-Channel) | INT8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-int8-channel-ifb-bw1100-16x-vllm-0281) |
 
@@ -785,6 +786,101 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 1024 \
+  --max-num-seqs 16 \
+  --gpu-memory-utilization 0.9
+```
+
+### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1000 32x vLLM 0.28.1
+
+在四个节点分别执行对应命令；`master_node_ip` 为 rank 0 节点地址，各节点保持一致。
+
+#### rank 0
+
+```bash
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${master_node_ip}" \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 1024 \
+  --max-num-seqs 16 \
+  --gpu-memory-utilization 0.9
+```
+
+#### rank 1
+
+```bash
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 1 \
+  --headless \
+  --master-addr "${master_node_ip}" \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 1024 \
+  --max-num-seqs 16 \
+  --gpu-memory-utilization 0.9
+```
+
+#### rank 2
+
+```bash
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 2 \
+  --headless \
+  --master-addr "${master_node_ip}" \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 1024 \
+  --max-num-seqs 16 \
+  --gpu-memory-utilization 0.9
+```
+
+#### rank 3
+
+```bash
+export VLLM_ENGINE_READY_TIMEOUT_S=7200
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 3 \
+  --headless \
+  --master-addr "${master_node_ip}" \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
