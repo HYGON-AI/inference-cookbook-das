@@ -60,8 +60,7 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 | [hygon/Qwen3.5-397B-A17B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0518) |
 |                                                                                                            | FP8 W8A8 | [0.5.10](../docker_images.md) | BW1100 |  4 | IFB  | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0510)   |
 |                                                                                                            | FP8 W8A8 | 0.5.10 | BW1100 | 12 | 1P1D | [**`>_`**](#qwen35-397b-a17b-channel-fp8-1p1d-bw1100-12x-sglang-0510) |
-| [hygon/Qwen3.5-397B-A17B-W8A8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-W8A8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1100-8x-sglang-0518) |
+| [hygon/Qwen3.5-397B-A17B-W8A8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-W8A8)              | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1000-8x-sglang-0518) |
 |                                                                                                            | INT8 W8A8 | [0.5.10](../docker_images.md) | BW1000 |  8 | IFB  | [**`>_`**](#qwen35-397b-a17b-w8a8-ifb-bw1000-8x-sglang-0510)          |
 
 ## 启动命令
@@ -2344,39 +2343,6 @@ sglang serve \
   --quantization w8a8_int8 \
   --moe-runner-backend lightop \
   --speculative-moe-runner-backend lightop \
-  --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3
-```
-
-### Qwen3.5-397B-A17B-W8A8 IFB BW1100 8x SGLang 0.5.18
-
-```bash
-export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
-export SGLANG_USE_LIGHTOP=1
-export SGLANG_USE_CAUSAL_CONV1D=1
-export SGLANG_USE_AITER_LINEAR_ATTN=1
-
-sglang serve \
-  --model-path hygon/Qwen3.5-397B-A17B-W8A8 \
-  --dtype bfloat16 \
-  --attention-backend fa3 \
-  --mm-attention-backend fa3 \
-  --trust-remote-code \
-  --mem-fraction-static 0.85 \
-  --page-size 64 \
-  --tp-size 8 \
-  --pp-size 1 \
-  --mamba-radix-cache-strategy extra_buffer \
-  --chunked-prefill-size 16384 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --kv-cache-dtype fp8_e4m3 \
-  --quantization w8a8_int8 \
-  --moe-runner-backend lightop \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
