@@ -423,7 +423,7 @@ vllm serve hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
-  --compilation-config '{"pass_config":{"fuse_act_quant":false},"cudagraph_mode":"FULL","custom_ops":["all"]}' \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false},"cudagraph_mode":"FULL_AND_PIECEWISE","custom_ops":["all"]}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
