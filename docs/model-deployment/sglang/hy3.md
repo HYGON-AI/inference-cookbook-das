@@ -4,18 +4,18 @@
 
 |模型权重|量化方式|SGLang 镜像|推荐硬件|卡数|部署方式|启动命令|
 |---|---|---|---|---|---|---|
-| [hygon/Hy3\-Channel\-INT8\-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8) |
+| [hygon/Hy3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8dp8) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518-tp8) |
-||INT8 W8A8|0\.5\.12|BW1100|8|IFB\(tp8\)|**`>_`**|
-||INT8 W8A8|0\.5\.12|BW1100|8|IFB \(tp8dp8\)|**`>_`**|
-||INT8 W8A8|0\.5\.12|BW1000|8|IFB\(tp8\)|**`>_`**|
-||INT8 W8A8|0\.5\.12|BW1000|8|IFB\(tp8dp8\)|**`>_`**|
-||INT8 W8A8|0\.5\.12|BW1000|8|PD分离\(tp8\+tp8\)|**`>_`**|
-||INT8 W8A8|0\.5\.12|BW1000|8|PD分离\(pp8\+ep8\)|**`>_`**|
-| [hygon/Hy3\-Channel\-FP8\-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
+||INT8 W8A8|0.5.12|BW1100|8|IFB(tp8)|**`>_`**|
+||INT8 W8A8|0.5.12|BW1100|8|IFB (tp8dp8)|**`>_`**|
+||INT8 W8A8|0.5.12|BW1000|8|IFB(tp8)|**`>_`**|
+||INT8 W8A8|0.5.12|BW1000|8|IFB(tp8dp8)|**`>_`**|
+||INT8 W8A8|0.5.12|BW1000|8|PD分离(tp8+tp8)|**`>_`**|
+||INT8 W8A8|0.5.12|BW1000|8|PD分离(pp8+ep8)|**`>_`**|
+| [hygon/Hy3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
 | | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8) |
-||FP8 W8A8|0\.5\.12|BW1100|8|IFB|**`>_`**|
+||FP8 W8A8|0.5.12|BW1100|8|IFB|**`>_`**|
 
 ## 启动命令
 
@@ -130,7 +130,7 @@ sglang serve \
   --reasoning-parser hunyuan
 ~~~
 
-### Hy3\-Channel\-INT8\-w8a8 IFB BW1100 8x SGLang 0\.5\.12 \(tp8\)
+### Hy3-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8)
 
 ```Bash
 export SGLANG_ROCM_USE_AITER_MOE=false
@@ -153,7 +153,7 @@ sglang serve \
   --reasoning-parser hunyuan
 ```
 
-### Hy3\-Channel\-INT8\-w8a8 IFB BW1100 8x SGLang 0\.5\.12 \(tp8dp8\)
+### Hy3-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8dp8)
 
 ```Bash
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
@@ -214,7 +214,7 @@ sglang serve \
   --quantization slimquant_marlin
 ```
 
-### Hy3\-Channel\-INT8\-w8a8 IFB BW1000 8x SGLang 0\.5\.12 \(tp8\)
+### Hy3-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.12 (tp8)
 
 ```Bash
 export SGLANG_ROCM_USE_AITER_MOE=false
@@ -237,7 +237,7 @@ sglang serve \
   --reasoning-parser hunyuan
 ```
 
-### Hy3\-Channel\-INT8\-w8a8 IFB BW1000 8x SGLang 0\.5\.12 \(tp8dp8\)
+### Hy3-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.12 (tp8dp8)
 
 ```Bash
 set -Eeuo pipefail
@@ -300,7 +300,7 @@ sglang serve \
   --quantization slimquant_marlin
 ```
 
-### Hy3\-Channel\-INT8\-w8a8 PD分离 BW1000 8x SGLang 0\.5\.12 \(tp8\+tp8\)
+### Hy3-Channel-INT8-w8a8 PD分离 BW1000 8x SGLang 0.5.12 (tp8+tp8)
 
 #### P节点
 
@@ -741,7 +741,7 @@ python -m sglang_router.launch_router "${ROUTER_ARGS[@]}" \
 
 ```
 
-### Hy3\-Channel\-INT8\-w8a8 PD分离 BW1000 8x SGLang 0\.5\.12 \(pp8\+ep8\)
+### Hy3-Channel-INT8-w8a8 PD分离 BW1000 8x SGLang 0.5.12 (pp8+ep8)
 
 #### P节点
 
@@ -1295,7 +1295,7 @@ sglang serve \
   --reasoning-parser hunyuan
 ~~~
 
-### Hy3\-Channel\-FP8\-w8a8 IFB BW1100 8x SGLang 0\.5\.12 \(tp8\)
+### Hy3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8)
 
 ```Bash
 export USE_DCU_CUSTOM_ALLREDUCE=1
