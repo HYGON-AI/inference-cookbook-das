@@ -28,6 +28,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 1x | IFB | [**\`>_\`**](#qwen3-30b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-sglang-0512) |
 | [Qwen/Qwen3-32B](https://www.modelscope.cn/models/Qwen/Qwen3-32B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1100-2x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen3-32b-ifb-bw1000-4x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | BW100 | 4 | IFB | [**`>_`**](#qwen3-32b-ifb-bw100-4x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen3-32b-ifb-k100_ai-4x-sglang-0518) |
 | | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2x | IFB | [**\`>_\`**](#qwen3-32b-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4x | IFB | [**\`>_\`**](#qwen3-32b-ifb-bw1000-4x-sglang-0512) |
@@ -778,6 +779,48 @@ export SGLANG_USE_MARLIN_W16A16_MOE=1
 sglang serve \
   --numa-node 0 0 0 0 1 1 1 1 \
   --kv-cache-dtype fp8_e5m2 \
+  --trust-remote-code \
+  --tool-call-parser qwen3_coder \
+  --disable-custom-all-reduce \
+  --reasoning-parser qwen3 \
+  --model-path Qwen/Qwen3-32B \
+  --attention-backend fa3 \
+  --tp-size 4 \
+  --pp-size 1 \
+  --mem-fraction-static 0.9
+```
+
+### Qwen3-32B IFB BW100 4x SGLang 0.5.18
+
+须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`。
+
+```bash
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export SGLANG_TORCH_PROFILER_DIR=/workspace/prof
+export SGLANG_SET_CPU_AFFINITY=1
+export HIP_KERNEL_BATCH_CEILING=100
+export HIP_H2D_DISABLE_COPY_BUFFER=0
+export HIP_D2H_DISABLE_COPY_BUFFER=0
+export HIP_H2D_DIRECT_COPY_THRESHOLD=32768
+export HIP_H2D_HSAAPI_COPY_THRESHOLD=32768
+export HIP_D2H_DIRECT_COPY_THRESHOLD=512
+export HIP_D2H_HSAAPI_COPY_THRESHOLD=512
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_RMS_QUANT=0
+export SGLANG_USE_FUSED_BAILING_RMS_ROTARY=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_USE_MARLIN_W16A16_MOE=1
+
+sglang serve \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --page-size 64 \
   --trust-remote-code \
   --tool-call-parser qwen3_coder \
   --disable-custom-all-reduce \
