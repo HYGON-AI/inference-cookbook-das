@@ -12,7 +12,7 @@
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#glm-52-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
 | [hygon/GLM-5.2-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-4x-sglang-0518) |
 |  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1000-8x-sglang-0518) |
-| | INT4 W4A8 | 0.5.18 | BW1000 | 48 | 2P4D | [**`>_`**](#glm-52-channel-int4-w4a8-2p4d-bw1000-48x-sglang-0518) |
+| | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | 2P4D | [**`>_`**](#glm-52-channel-int4-w4a8-2p4d-bw1000-48x-sglang-0518) |
 |  | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-4x-sglang-0512) |
 |                                                                                                 | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1000-8x-sglang-0512) |
 
@@ -80,6 +80,8 @@ sglang serve \
 ```
 
 #### Node 1
+
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ```bash
 export GLOO_SOCKET_IFNAME=ens61f1np1
