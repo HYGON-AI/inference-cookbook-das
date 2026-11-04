@@ -2,26 +2,26 @@
 
 ## 模型列表
 
-|模型权重|量化方式|SGLang 镜像|推荐硬件|卡数|部署方式|启动命令|
-|---|---|---|---|---|---|---|
+| 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
+| --- | --- | --- | --- | --- | --- | --- |
 | [hygon/Hy3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8dp8) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518-tp8) |
-||INT8 W8A8|0.5.12|BW1100|8|IFB(tp8)|**`>_`**|
-||INT8 W8A8|0.5.12|BW1100|8|IFB (tp8dp8)|**`>_`**|
-||INT8 W8A8|0.5.12|BW1000|8|IFB(tp8)|**`>_`**|
-||INT8 W8A8|0.5.12|BW1000|8|IFB(tp8dp8)|**`>_`**|
-||INT8 W8A8|0.5.12|BW1000|8|PD分离(tp8+tp8)|**`>_`**|
-||INT8 W8A8|0.5.12|BW1000|8|PD分离(pp8+ep8)|**`>_`**|
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512-tp8) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB (tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512-tp8dp8) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512-tp8) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512-tp8dp8) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | PD分离(tp8+tp8) | [**`>_`**](#hy3-channel-int8-w8a8-pd分离-bw1000-8x-sglang-0512-tp8tp8) |
+|  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | PD分离(pp8+ep8) | [**`>_`**](#hy3-channel-int8-w8a8-pd分离-bw1000-8x-sglang-0512-pp8ep8) |
 | [hygon/Hy3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
 | | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8) |
-||FP8 W8A8|0.5.12|BW1100|8|IFB|**`>_`**|
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8) |
 
 ## 启动命令
 
 ### Hy3-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18 (tp8)
 
-~~~bash
+```bash
 export SGLANG_ROCM_USE_AITER_MOE=false
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_RMS_ROTARY=0
@@ -39,11 +39,11 @@ sglang serve \
   --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser hunyuan \
   --reasoning-parser hunyuan
-~~~
+```
 
 ### Hy3-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18 (tp8dp8)
 
-~~~bash
+```bash
 export PYTHONUNBUFFERED=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
@@ -101,11 +101,11 @@ sglang serve \
   --tool-call-parser hunyuan \
   --reasoning-parser hunyuan \
   --quantization slimquant_marlin
-~~~
+```
 
 ### Hy3-Channel-INT8-w8a8 IFB K100_AI 8x SGLang 0.5.18 (tp8)
 
-~~~bash
+```bash
 export SGLANG_ROCM_USE_AITER_MOE=0
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_RMS_ROTARY=1
@@ -128,11 +128,11 @@ sglang serve \
   --decode-log-interval 1 \
   --tool-call-parser hunyuan \
   --reasoning-parser hunyuan
-~~~
+```
 
 ### Hy3-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8)
 
-```Bash
+```bash
 export SGLANG_ROCM_USE_AITER_MOE=false
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_RMS_ROTARY=0
@@ -155,7 +155,7 @@ sglang serve \
 
 ### Hy3-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8dp8)
 
-```Bash
+```bash
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
@@ -216,7 +216,7 @@ sglang serve \
 
 ### Hy3-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.12 (tp8)
 
-```Bash
+```bash
 export SGLANG_ROCM_USE_AITER_MOE=false
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_FUSED_RMS_ROTARY=0
@@ -239,7 +239,7 @@ sglang serve \
 
 ### Hy3-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.12 (tp8dp8)
 
-```Bash
+```bash
 set -Eeuo pipefail
 export PYTHONUNBUFFERED=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
@@ -304,7 +304,7 @@ sglang serve \
 
 #### P节点
 
-```Bash
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 export MC_TCP_ENABLE_CONNECTION_POOL=1
@@ -464,7 +464,7 @@ python -m sglang.launch_server \
 
 #### D节点
 
-```Bash
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 export MC_TCP_ENABLE_CONNECTION_POOL=1
@@ -683,7 +683,7 @@ python -m sglang.launch_server \
 
 #### Router
 
-```Bash
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -745,7 +745,7 @@ python -m sglang_router.launch_router "${ROUTER_ARGS[@]}" \
 
 #### P节点
 
-```Bash
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 export MC_TCP_ENABLE_CONNECTION_POOL=1
@@ -900,7 +900,7 @@ python -m sglang.launch_server \
 
 #### D节点
 
-```Bash
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 export MC_TCP_ENABLE_CONNECTION_POOL=1
@@ -1129,7 +1129,7 @@ python -m sglang.launch_server \
 
 #### Router
 
-```Bash
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -1189,7 +1189,7 @@ python -m sglang_router.launch_router "${ROUTER_ARGS[@]}" \
 
 ### Hy3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (tp8)
 
-~~~bash
+```bash
 export USE_DCU_CUSTOM_ALLREDUCE=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
@@ -1234,11 +1234,11 @@ sglang serve \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser hunyuan \
   --reasoning-parser hunyuan
-~~~
+```
 
 ### Hy3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (tp8dp8)
 
-~~~bash
+```bash
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
@@ -1293,11 +1293,11 @@ sglang serve \
   --enforce-shared-experts-fusion \
   --tool-call-parser hunyuan \
   --reasoning-parser hunyuan
-~~~
+```
 
 ### Hy3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.12 (tp8)
 
-```Bash
+```bash
 export USE_DCU_CUSTOM_ALLREDUCE=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
@@ -1349,7 +1349,7 @@ sglang serve \
 
 ### IFB
 
-```Python
+```python
 from openai import OpenAI
 
 client = OpenAI(base_url="http://localhost:30000/v1", api_key="not-needed")
@@ -1361,7 +1361,7 @@ response = client.chat.completions.create(
 )
 ```
 
-```Bash
+```bash
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model": "hygon/Hy3-Channel-INT8-w8a8", "messages": [{"role": "user", "content": "中国的首都是哪里？"}], "max_tokens": 128}'
