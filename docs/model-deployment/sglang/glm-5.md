@@ -23,8 +23,8 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 |                                                                                                 | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8ep8cp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8ep8cp8) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 24 | 1P1D | [**`>_`**](#glm-5-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0510) |
-| [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0518) |
-|                                                                                                 | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0518) |
+| [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0518) |
+|  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0518) |
 |                                                                                                 | INT4 W4A8 | 0.5.18 | BW1000 | 32 | 2P2D | [**`>_`**](#glm-5-channel-int4-w4a8-2p2d-bw1000-32x-sglang-0518) |
 |                                                                                                 | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0512) |
 |                                                                                                 | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0512) |
@@ -1807,7 +1807,7 @@ export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
 export SGLANG_GET_LAST_LOC=1
 export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-
+export SGLANG_OPT_USE_TOPK_V2=0
 sysctl -w kernel.numa_balancing=0 || true
 
 sglang serve \
@@ -1821,7 +1821,7 @@ sglang serve \
   --nsa-prefill-backend flashmla_auto \
   --nsa-decode-backend flashmla_kv \
   --kv-cache-dtype fp8_e4m3 \
-  --mem-fraction-static 0.85 \
+  --mem-fraction-static 0.9 \
   --chunked-prefill-size 8192 \
   --quantization slimquant_w4a8_marlin \
   --reasoning-parser glm45 \
@@ -1883,10 +1883,10 @@ export SGLANG_W4A8_TPMOE_BACKEND=aiter
 export TORCH_CPP_LOG_LEVEL=ERROR
 unset TORCH_NCCL_DEBUG
 export W8A8_SUPPORT_METHODS=3
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
-  --context-length 32768 \
-  --cuda-graph-max-bs 16 \
+  --cuda-graph-max-bs 64 \
   --disable-radix-cache \
   --dist-timeout 10000 \
   --dp-size 1 \
@@ -1894,7 +1894,7 @@ sglang serve \
   --ep-size 1 \
   --kv-cache-dtype fp8_e4m3 \
   --max-running-requests 64 \
-  --mem-fraction-static 0.90 \
+  --mem-fraction-static 0.9 \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --moe-dense-tp-size 1 \
   --nsa-decode-backend flashmla_kv \
@@ -1909,7 +1909,8 @@ sglang serve \
   --tool-call-parser glm47 \
   --tp-size 8 \
   --trust-remote-code \
-  --watchdog-timeout 3600
+  --watchdog-timeout 3600 \
+  --custom-all-reduce-backend aiter
 ```
 
 ### GLM-5-Channel-INT4-w4a8 2P2D BW1000 32x SGLang 0.5.18
