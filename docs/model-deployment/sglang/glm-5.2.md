@@ -58,7 +58,7 @@ sglang serve \
   --pp-size 1 \
   --nnodes 2 \
   --node-rank 0 \
-  --dist-init-addr '<node0_ip>:5002' \
+  --dist-init-addr "<node0_ip>:5000" \
   --host '<node0_ip>' \
   --nsa-prefill-backend flashmla_auto \
   --nsa-decode-backend flashmla_kv \
@@ -117,7 +117,7 @@ sglang serve \
   --pp-size 1 \
   --nnodes 2 \
   --node-rank 1 \
-  --dist-init-addr '<node0_ip>:5002' \
+  --dist-init-addr "<node0_ip>:5000" \
   --host '<node1_ip>' \
   --nsa-prefill-backend flashmla_auto \
   --nsa-decode-backend flashmla_kv \
