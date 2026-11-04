@@ -763,7 +763,7 @@ sglang serve \
 
 ```bash
 export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_TORCH_PROFILER_DIR=/mnt/sglang-jingdu/0921-faban/GLM-5.3-FP8/profiling
+export SGLANG_TORCH_PROFILER_DIR=/mnt/profiling
 export HSA_ENABLE_COREDUMP=1
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export HIP_KERNEL_EVENT_SYSTENFENCE=1
