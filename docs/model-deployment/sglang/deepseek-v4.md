@@ -1636,6 +1636,10 @@ python3 -m sglang_router.launch_router \
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
+docker pull harbor.sourcefind.cn:5443/hcu/admin/base/sglang:0.5.18-ubuntu22.04-dtk26041-py3.10
+```
+
+```bash
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
 export SGLANG_OPT_USE_FUSED_STORE_CACHE=false
 export SGLANG_OPT_USE_FUSED_HASH_TOPK=true
@@ -2175,6 +2179,10 @@ sglang serve \
 ```
 
 ### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel IFB BW1100 8x SGLang 0.5.18
+
+```bash
+docker pull harbor.sourcefind.cn:5443/hcu/admin/base/sglang:0.5.18-ubuntu22.04-dtk26041-py3.10
+```
 
 ```bash
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
