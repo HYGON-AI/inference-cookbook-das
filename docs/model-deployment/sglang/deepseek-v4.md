@@ -8,10 +8,10 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| `/public4/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-INT8-Channel` | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw1100-8x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw100-8x-sglang-0518) |
-| [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
+| [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw100-8x-sglang-0518) |
+|  | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 | [hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
@@ -73,7 +73,7 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 
 ## 启动命令
 
-### DeepSeek-V4-Flash-INT8-Channel IFB BW1100 8x SGLang 0.5.18
+### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
 ulimit -l unlimited
@@ -117,7 +117,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 sglang serve \
   --trust-remote-code \
-  --model-path /public4/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-INT8-Channel \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tp 8 \
   --dp 8 \
   --enable-dp-attention \
@@ -133,7 +133,7 @@ sglang serve \
   --cuda-graph-max-bs 64
 ```
 
-### DeepSeek-V4-Flash-INT8-Channel IFB BW1000 8x SGLang 0.5.18
+### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW1000 8x SGLang 0.5.18
 
 ```bash
 ulimit -l unlimited
@@ -177,7 +177,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 sglang serve \
   --trust-remote-code \
-  --model-path /public4/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-INT8-Channel \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tp 8 \
   --dp 8 \
   --enable-dp-attention \
@@ -193,7 +193,7 @@ sglang serve \
   --cuda-graph-max-bs 64
 ```
 
-### DeepSeek-V4-Flash-INT8-Channel IFB BW100 8x SGLang 0.5.18
+### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW100 8x SGLang 0.5.18
 
 ```bash
 ulimit -l unlimited
@@ -237,7 +237,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 sglang serve \
   --trust-remote-code \
-  --model-path /public4/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-INT8-Channel \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tp 8 \
   --dp 8 \
   --enable-dp-attention \
