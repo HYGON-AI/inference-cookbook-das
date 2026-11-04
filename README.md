@@ -160,7 +160,7 @@
     </tr>
     <tr>
       <td>SGLang</td>
-      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.md#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw100-8x-sglang-0518">🚧</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.md">✅</a></td>
+      <td align="center">🚧</td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.md#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw100-8x-sglang-0518">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.md">✅</a></td>
     </tr>
     <tr>
       <td rowspan="2">DeepSeek-V3.2</td>
