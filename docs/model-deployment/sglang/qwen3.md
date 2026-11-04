@@ -778,6 +778,7 @@ export SGLANG_USE_MARLIN_W16A16_MOE=1
 
 sglang serve \
   --numa-node 0 0 0 0 1 1 1 1 \
+  --page-size 64 \
   --kv-cache-dtype fp8_e5m2 \
   --trust-remote-code \
   --tool-call-parser qwen3_coder \
@@ -843,6 +844,7 @@ export SGLANG_USE_MARLIN_W16A16_MOE=1
 
 sglang serve \
   --numa-node 0 0 0 0 1 1 1 1 \
+  --page-size 64 \
   --trust-remote-code \
   --tool-call-parser qwen3_coder \
   --disable-custom-all-reduce \
