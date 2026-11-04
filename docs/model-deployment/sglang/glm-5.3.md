@@ -8,6 +8,9 @@ GLM-5.3 是智谱（Z.ai）推出的开放权重大语言模型，属于 GLM-5 �
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | scaleX40-3G | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
 |                                                                                                 | FP8 W8A8 | 0.5.18 | scaleX40-3G | 24 | 1P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
+|  | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(TP8) | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
+|  | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-dp8ep8) |
+| [hygon/GLM-5.3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 
 ## 启动命令
 
@@ -701,6 +704,181 @@ python3 -m sglang_router.launch_router \
   --decode "http://<d_node0_ip>:30000" \
   --policy round_robin \
   --port 30001
+```
+
+### GLM-5.3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (TP8)
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export HSA_ENABLE_COREDUMP=1
+export SGLANG_USE_AITER_AR=0
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
+
+sglang serve \
+  --model-path hygon/GLM-5.3-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv \
+  --dtype bfloat16 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e4m3 \
+  --mem-fraction-static 0.8 \
+  --chunked-prefill-size 8192 \
+  --cuda-graph-max-bs 16 \
+  --max-running-requests 16 \
+  --reasoning-parser glm45 \
+  --tool-call-parser glm47 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4
+```
+
+### GLM-5.3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (DP8EP8)
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_TORCH_PROFILER_DIR=/mnt/profiling
+export HSA_ENABLE_COREDUMP=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=0
+export ROCSHMEM_DISABLE_HDP_FLUSH=1
+export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
+export ROCSHMEM_HEAP_SIZE=3173741824
+export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
+export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
+export AMDGCN_USE_BUFFER_OPS=0
+export ROCSHMEM_IB_GID_INDEX=0
+export MC_IB_GID_INDEX=0
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export SGLANG_HOST_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+export SGLANG_NCCL_ALL_GATHER_IN_OVERLAP_SCHEDULER_SYNC_BATCH=1
+export SGLANG_USE_AITER_AR=0
+export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_USE_FP8_W8A8_MOE=1
+export SGLANG_OPT_USE_TOPK_V2=false
+
+sglang serve \
+  --reasoning-parser glm45 \
+  --tool-call-parser glm47 \
+  --moe-a2a-backend deepep \
+  --moe-dense-tp-size 1 \
+  --enable-dp-lm-head \
+  --enable-dp-attention \
+  --deepep-mode auto \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --cuda-graph-max-bs 32 \
+  --max-running-requests 64 \
+  --model-path hygon/GLM-5.3-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --pp-size 1 \
+  --dp-size 8 \
+  --ep-size 8 \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv \
+  --dtype bfloat16 \
+  --dist-timeout 100000 \
+  --watchdog-timeout 3600 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e4m3 \
+  --mem-fraction-static 0.9 \
+  --chunked-prefill-size 16384
+```
+
+### GLM-5.3-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.18
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export HSA_ENABLE_COREDUMP=1
+export SGLANG_USE_AITER_AR=0
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FP8_W8A8_MOE=0
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_KVALLOC_KERNEL=1
+export SGLANG_CREATE_EXTEND_AFTER_DECODE_SPEC_INFO=1
+export SGLANG_ASSIGN_EXTEND_CACHE_LOCS=1
+export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
+export SGLANG_GET_LAST_LOC=1
+export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
+export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
+export HIP_GRAPH_ACCUMULATE_DISPATCH=1
+export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
+
+sglang serve \
+  --model-path hygon/GLM-5.3-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --nsa-prefill-backend flashmla_auto \
+  --nsa-decode-backend flashmla_kv \
+  --dtype bfloat16 \
+  --dist-timeout 10000 \
+  --watchdog-timeout 3600 \
+  --page-size 64 \
+  --kv-cache-dtype fp8_e4m3 \
+  --chunked-prefill-size 16384 \
+  --cuda-graph-max-bs 16 \
+  --max-running-requests 32 \
+  --reasoning-parser glm45 \
+  --tool-call-parser glm47 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --quantization slimquant_marlin \
+  --mem-fraction-static 0.9
 ```
 
 ## API 调用
