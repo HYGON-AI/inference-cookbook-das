@@ -72,7 +72,7 @@ vllm serve \
 ```bash
 export VLLM_HCU_USE_CUSTOM_OPS=0
 
-vllm serve hygon/gemma-4-31B-it \
+vllm serve google/gemma-4-31B-it \
     -tp 2 \
     --enable-auto-tool-choice \
     --tool-call-parser gemma4 \
@@ -89,7 +89,7 @@ vllm serve hygon/gemma-4-31B-it \
 curl http://localhost:8000/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d '{
-        "model": "hygon/gemma-4-31B-it",
+        "model": "google/gemma-4-31B-it",
         "messages": [{"role": "user", "content": "中国的首都是什么？"}],
         "temperature": 0,
         "max_tokens": 400
