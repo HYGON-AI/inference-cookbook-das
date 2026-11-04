@@ -91,7 +91,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
 
-在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。数据并行地址和端口占位符如有使用，也应在各节点保持一致。
+在各节点分别执行对应命令；`MASTER_ADDR` 和 `DATA_PARALLEL_ADDRESS` 均填写 rank 0 节点地址，`MASTER_PORT` 和 `DATA_PARALLEL_RPC_PORT` 分别使用两个不同的可用端口。每个变量的取值须在所有节点保持一致。
 
 #### rank 0
 
@@ -177,7 +177,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB K100_AI 16x vLLM 0.28.1
 
-在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。数据并行地址和端口占位符如有使用，也应在各节点保持一致。
+在各节点分别执行对应命令；`MASTER_ADDR` 和 `DATA_PARALLEL_ADDRESS` 均填写 rank 0 节点地址，`MASTER_PORT` 和 `DATA_PARALLEL_RPC_PORT` 分别使用两个不同的可用端口。每个变量的取值须在所有节点保持一致。
 
 #### rank 0
 
