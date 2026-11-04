@@ -15,18 +15,18 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 | [hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0518) |
-| `/public/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-FP8-Channel` | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-fp8-channel-ifb-bw1100-8x-sglang-0518) |
-| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
+| [hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(CP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | 1P1D | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0512) |
 |  | FP8 W8A8 | 0.5.12 | ScaleX40 | 16 | PD | [**`>_`**](#deepseek-v4-flash-channel-fp8-w8a8-pd-scalex40-16x-sglang-0512) |
 | [hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-1p1d-bw1000-24x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-1p1d-bw1000-24x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw100-8x-sglang-0518) |
 | [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1100-8x-sglang-0518) |
-|  | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
-|  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
+|  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
+|  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
 |  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw100-8x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
@@ -764,7 +764,7 @@ python3 -m sglang_router.launch_router \
   --port 30001
 ```
 
-### DeepSeek-V4-Flash-FP8-Channel IFB BW1100 8x SGLang 0.5.18
+### DeepSeek-V4-Flash-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
 export SGLANG_HEALTH_CHECK_TIMEOUT=180
@@ -821,7 +821,7 @@ export SGLANG_DISAGGREGATION_WAITING_TIMEOUT=1800
 
 sglang serve \
   --trust-remote-code \
-  --model-path /public/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-FP8-Channel \
+  --model-path hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --tp 8 \
   --dp 8 \
   --enable-dp-attention \
