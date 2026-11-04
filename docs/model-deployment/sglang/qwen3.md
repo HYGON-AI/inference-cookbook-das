@@ -903,8 +903,7 @@ sglang serve \
   --mem-fraction-static 0.85 \
   --attention-backend fa3 \
   --page-size 64 \
-  --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3
+  --tool-call-parser qwen3_coder
 ```
 
 ### Qwen3-235B-A22B-Instruct-2507 IFB BW1000 8x SGLang 0.5.18
@@ -918,7 +917,6 @@ sglang serve \
   --attention-backend fa3 \
   --page-size 64 \
   --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3 \
   --context-length 32768
 ```
 
@@ -933,7 +931,6 @@ sglang serve \
   --attention-backend fa3 \
   --page-size 64 \
   --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3 \
   --disable-custom-all-reduce
 ```
 
@@ -947,8 +944,7 @@ sglang serve \
   --mem-fraction-static 0.85 \
   --attention-backend fa3 \
   --page-size 64 \
-  --tool-call-parser qwen \
-  --reasoning-parser qwen3
+  --tool-call-parser qwen
 ```
 
 ### Qwen3-235B-A22B-Instruct-2507 IFB BW1000 8x SGLang 0.5.12
@@ -962,7 +958,6 @@ sglang serve \
   --attention-backend fa3 \
   --page-size 64 \
   --tool-call-parser qwen \
-  --reasoning-parser qwen3 \
   --context-length 32768
 ```
 
@@ -977,7 +972,6 @@ sglang serve \
   --attention-backend fa3 \
   --page-size 64 \
   --tool-call-parser qwen \
-  --reasoning-parser qwen3 \
   --disable-custom-all-reduce
 ```
 
