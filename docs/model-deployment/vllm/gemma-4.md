@@ -19,7 +19,7 @@ Gemma-4-31B-it 是 Gemma 系列指令模型，本文档提供其在 vLLM 上的�
 
 ```bash
 
-vllm serve hygon/gemma-4-31B-it \
+vllm serve google/gemma-4-31B-it \
   --trust-remote-code \
   --tensor-parallel-size 2 \
   --attention-backend TRITON_ATTN \
