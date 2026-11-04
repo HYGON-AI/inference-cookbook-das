@@ -9,7 +9,7 @@ GLM-5.3 是智谱（Z.ai）推出的开放权重大语言模型，属于 GLM-5 �
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | scaleX40-3G | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-scalex40-3g-8x-sglang-0518) |
 |                                                                                                 | FP8 W8A8 | 0.5.18 | scaleX40-3G | 24 | 1P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0518) |
 |  | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(TP8) | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
-|  | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(TP8DP8EP8) | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8ep8) |
+|  | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(DP8EP8) | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-dp8ep8) |
 | [hygon/GLM-5.3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int8-w8a8-ifb-bw1000-16x-sglang-0518) |
 
@@ -759,7 +759,7 @@ sglang serve \
   --speculative-num-draft-tokens 4
 ```
 
-### GLM-5.3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (TP8DP8EP8)
+### GLM-5.3-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18 (DP8EP8)
 
 ```bash
 export SGLANG_ENABLE_SPEC_V2=1
