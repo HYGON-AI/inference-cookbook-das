@@ -65,7 +65,6 @@ vllm serve ZhipuAI/GLM-4.7 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
   --dtype bfloat16 \
-  --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
@@ -89,7 +88,6 @@ vllm serve ZhipuAI/GLM-4.7 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
   --dtype bfloat16 \
-  --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"TRITON_ATTN"}' \
