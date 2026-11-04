@@ -10,7 +10,7 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | `/public4/opendas/DL_DATA/llm-models/DeepSeek-V4-Flash-INT8-Channel` | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw1100-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw1000-8x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw100-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-int8-channel-ifb-bw100-8x-sglang-0518) |
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |  | INT8 W8A8 | 0.5.12 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-sglang-0512) |
 | [hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
@@ -23,11 +23,11 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | [hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
 |  | INT8 W8A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-1p1d-bw1000-24x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw100-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw100-8x-sglang-0518) |
 | [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1100-8x-sglang-0518) |
 |  | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
 |  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
-|  | INT4 W4A8 | 0.5.18 | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw100-8x-sglang-0518) |
+|  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw100-8x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
