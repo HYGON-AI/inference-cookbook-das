@@ -886,8 +886,6 @@ sglang serve \
 
 ### GLM-5.3-Channel-INT8-w8a8 IFB BW1000 16x SGLang 0.5.18
 
-将 `<node0_ip>` 和 `<node1_ip>` 替换为两节点的实际 IP。
-
 #### Node 0
 
 ```bash
