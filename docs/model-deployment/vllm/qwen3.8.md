@@ -48,13 +48,13 @@ export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
 vllm serve Qwen/Qwen3.8-Flash-Next \
   --trust-remote-code \
-  --tensor-parallel-size 4 \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
+  --prefix-match-unit 80 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
