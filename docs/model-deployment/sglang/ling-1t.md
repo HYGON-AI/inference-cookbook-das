@@ -18,7 +18,6 @@ Ling-1T-FP8 是 inclusionAI 发布的 Ling 系列模型。
 须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`。
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
