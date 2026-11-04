@@ -6,8 +6,8 @@
 
 | 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 (P) + B300 (D) | 48 | 6P1D | [**`>_`**](#hygon-glm-53-channel-fp8-w8a8-6p1d-bw1100b300-56x-sglang-0518) |
-| [zai-org/GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) (FP8) | FP8 | 0.5.18 | B300 | 8 | 6P1D | [**`>_`**](#zai-org-glm-53-fp8-b300-8x-sglang-0518) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 (P) | 48 | 6P1D | [**`>_`**](#p-node-0) |
+| [zai-org/GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) (FP8) | FP8 | [0.5.18](https://hub.docker.com/r/lmsysorg/sglang/tags?name=v0.5.18-cu130) | B300 (D) | 8 | 6P1D | [**`>_`**](#d-node-0) |
 
 ## 启动命令
 
@@ -54,7 +54,6 @@
 #### P node 0
 
 ```bash
-export PYTHONPATH="<sglang_code_path>/python"
 export NCCL_SOCKET_IFNAME=ib6s200p0
 export GLOO_SOCKET_IFNAME=ib6s200p0
 export ROCSHMEM_ALLOWED_IBV_DEVICES="ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7"
@@ -130,7 +129,6 @@ sglang serve \
 #### P node 1
 
 ```bash
-export PYTHONPATH="<sglang_code_path>/python"
 export NCCL_SOCKET_IFNAME=ib6s200p0
 export GLOO_SOCKET_IFNAME=ib6s200p0
 export ROCSHMEM_ALLOWED_IBV_DEVICES="ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7"
@@ -206,7 +204,6 @@ sglang serve \
 #### P node 2
 
 ```bash
-export PYTHONPATH="<sglang_code_path>/python"
 export NCCL_SOCKET_IFNAME=ib6s200p0
 export GLOO_SOCKET_IFNAME=ib6s200p0
 export ROCSHMEM_ALLOWED_IBV_DEVICES="ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7"
@@ -282,7 +279,6 @@ sglang serve \
 #### P node 3
 
 ```bash
-export PYTHONPATH="<sglang_code_path>/python"
 export NCCL_SOCKET_IFNAME=ib6s200p0
 export GLOO_SOCKET_IFNAME=ib6s200p0
 export ROCSHMEM_ALLOWED_IBV_DEVICES="ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7"
@@ -358,7 +354,6 @@ sglang serve \
 #### P node 4
 
 ```bash
-export PYTHONPATH="<sglang_code_path>/python"
 export NCCL_SOCKET_IFNAME=ib6s200p0
 export GLOO_SOCKET_IFNAME=ib6s200p0
 export ROCSHMEM_ALLOWED_IBV_DEVICES="ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7"
@@ -434,7 +429,6 @@ sglang serve \
 #### P node 5
 
 ```bash
-export PYTHONPATH="<sglang_code_path>/python"
 export NCCL_SOCKET_IFNAME=ib6s200p0
 export GLOO_SOCKET_IFNAME=ib6s200p0
 export ROCSHMEM_ALLOWED_IBV_DEVICES="ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7"
