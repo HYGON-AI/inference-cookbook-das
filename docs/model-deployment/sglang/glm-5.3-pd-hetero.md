@@ -6,7 +6,7 @@
 
 | 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 (P) + B300 (D) | 56 | 6P1D | [**`>_`**](#hygon-glm-53-channel-fp8-w8a8-6p1d-bw1100b300-56x-sglang-0518) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 (P) + B300 (D) | 48 | 6P1D | [**`>_`**](#hygon-glm-53-channel-fp8-w8a8-6p1d-bw1100b300-56x-sglang-0518) |
 | [zai-org/GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) (FP8) | FP8 | 0.5.18 | B300 | 8 | 6P1D | [**`>_`**](#zai-org-glm-53-fp8-b300-8x-sglang-0518) |
 
 ## 启动命令
