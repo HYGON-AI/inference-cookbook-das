@@ -142,22 +142,23 @@ sglang serve --model-path Qwen/Qwen3.8-27B \
 ### Qwen3.8-27B IFB BW1100 2x SGLang 0.5.18
 
 ```bash
-export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_CAUSAL_CONV1D=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
 
-sglang serve --model-path Qwen/Qwen3.8-27B \
+sglang serve \
+  --model-path Qwen/Qwen3.8-27B \
   --attention-backend fa3 \
   --mm-attention-backend fa3 \
   --speculative-algorithm NEXTN \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --tp-size 2 --pp-size 1 \
+  --tp-size 2 \
+  --pp-size 1 \
   --page-size 64 \
-  --mamba-scheduler-strategy extra_buffer \
+  --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e4m3 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
