@@ -2789,7 +2789,7 @@ sglang serve \
   --dist-timeout 1800 \
   --watchdog-timeout 3600 \
   --chunked-prefill-size 16384 \
-  --mem-fraction-static 0.89 \
+  --mem-fraction-static 0.93 \
   --max-running-requests 128 \
   --disable-flashinfer-autotune \
   --max-total-tokens 1048576 \
@@ -2845,7 +2845,7 @@ sglang serve \
   --dist-timeout 1800 \
   --watchdog-timeout 3600 \
   --chunked-prefill-size 16384 \
-  --mem-fraction-static 0.89 \
+  --mem-fraction-static 0.93 \
   --max-running-requests 128 \
   --disable-flashinfer-autotune \
   --max-total-tokens 1048576 \
@@ -2892,7 +2892,7 @@ sglang serve \
   --pp-size 4 \
   --attention-backend flashmla \
   --kv-cache-dtype auto \
-  --mem-fraction-static 0.87 \
+  --mem-fraction-static 0.89 \
   --chunked-prefill-size 3072 \
   --quantization compressed-tensors \
   --moe-runner-backend triton \
@@ -2938,7 +2938,7 @@ sglang serve \
   --pp-size 4 \
   --attention-backend flashmla \
   --kv-cache-dtype auto \
-  --mem-fraction-static 0.87 \
+  --mem-fraction-static 0.89 \
   --chunked-prefill-size 3072 \
   --quantization compressed-tensors \
   --moe-runner-backend triton \
@@ -2984,7 +2984,7 @@ sglang serve \
   --pp-size 4 \
   --attention-backend flashmla \
   --kv-cache-dtype auto \
-  --mem-fraction-static 0.87 \
+  --mem-fraction-static 0.89 \
   --chunked-prefill-size 3072 \
   --quantization compressed-tensors \
   --moe-runner-backend triton \
@@ -3030,7 +3030,7 @@ sglang serve \
   --pp-size 4 \
   --attention-backend flashmla \
   --kv-cache-dtype auto \
-  --mem-fraction-static 0.87 \
+  --mem-fraction-static 0.89 \
   --chunked-prefill-size 3072 \
   --quantization compressed-tensors \
   --moe-runner-backend triton \
