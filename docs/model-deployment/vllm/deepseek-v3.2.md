@@ -42,7 +42,7 @@ vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v32 \
   --reasoning-parser deepseek_v3 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -88,7 +88,7 @@ vllm serve hygon/DeepSeek-V3.2-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v32 \
   --reasoning-parser deepseek_v3 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

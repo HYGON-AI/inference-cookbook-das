@@ -105,7 +105,7 @@ vllm serve unsloth/DeepSeek-R1-BF16 \
   --enable-prefix-caching \
   --reasoning-parser deepseek_r1 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -134,7 +134,7 @@ vllm serve unsloth/DeepSeek-R1-BF16 \
   --enable-prefix-caching \
   --reasoning-parser deepseek_r1 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -270,7 +270,7 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
   --kv-cache-dtype fp8_e4m3 \
   --dtype bfloat16 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -405,7 +405,7 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -540,7 +540,7 @@ vllm serve hygon/DeepSeek-R1-Distill-Llama-70B-quantized.w8a8 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -688,7 +688,7 @@ vllm serve hygon/DeepSeek-R1-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1082,7 +1082,7 @@ vllm serve hygon/DeepSeek-R1-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1185,7 +1185,7 @@ vllm serve hygon/DeepSeek-R1-W4A8-V2_6 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1365,7 +1365,7 @@ vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_r1 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1503,7 +1503,7 @@ vllm serve hygon/DeepSeek-R1-0528-W4A8-V2 \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

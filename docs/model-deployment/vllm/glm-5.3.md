@@ -43,7 +43,7 @@ vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --enable-prefix-caching \
   --reasoning-parser glm45 \
   --language-model-only \
-  --max-model-len 65536 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --compilation-config '{"cudagraph_mode":"FULL_AND_PIECEWISE"}'
@@ -72,7 +72,7 @@ vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --reasoning-parser glm45 \
   --enforce-eager \
   --language-model-only \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 32 \
   --kv-transfer-config '{"kv_connector":"MooncakeConnector","kv_role":"kv_producer"}'
@@ -96,7 +96,7 @@ vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --enable-prefix-caching \
   --reasoning-parser glm45 \
   --language-model-only \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 128 \
   --max-num-seqs 32 \
   --compilation-config '{"cudagraph_mode":"FULL_AND_PIECEWISE"}' \
@@ -118,7 +118,7 @@ vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -146,7 +146,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -174,7 +174,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --api-server-count 1 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
