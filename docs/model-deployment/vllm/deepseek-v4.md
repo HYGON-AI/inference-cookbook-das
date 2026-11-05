@@ -58,7 +58,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -85,7 +84,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -103,14 +101,14 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.9 \
-  --tensor-parallel-size 2 \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
-  --data-parallel-size 8 \
-  --data-parallel-size-local 4 \
+  --data-parallel-size 2 \
+  --data-parallel-size-local 1 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --load-format fastsafetensors \
-  --api-server-count 2 \
+  --api-server-count 1 \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${MASTER_ADDR}" \
@@ -129,7 +127,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --disable-custom-all-reduce
@@ -144,10 +142,10 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.9 \
-  --tensor-parallel-size 2 \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
-  --data-parallel-size 8 \
-  --data-parallel-size-local 4 \
+  --data-parallel-size 2 \
+  --data-parallel-size-local 1 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --load-format fastsafetensors \
@@ -170,7 +168,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --disable-custom-all-reduce
@@ -206,7 +204,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
   --enable-prefix-caching \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
+  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
@@ -214,7 +212,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --enforce-eager \
   --no-async-scheduling \
   --api-server-count 1 \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -253,7 +251,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --enforce-eager \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -265,8 +263,8 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --dtype bfloat16 \
   --kv-cache-dtype fp8 \
   --tensor-parallel-size 8 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
+  --max-model-len 65536 \
   --max-num-seqs 64 \
   --block-size 256 \
   --trust-remote-code \
@@ -298,7 +296,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -310,7 +307,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --dtype bfloat16 \
   --kv-cache-dtype fp8 \
   --tensor-parallel-size 8 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --block-size 256 \
@@ -346,7 +342,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -356,7 +351,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_USE_BREAKABLE_CUDAGRAPH=1
-export VLLM_USE_V2_MODEL_RUNNER=1
 export NCCL_P2P_DISABLE=1
 export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
@@ -381,7 +375,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -395,17 +389,15 @@ export VLLM_HCU_USE_CUSTOM_OPS=0
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
-  --tensor-parallel-size 4 \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
-  --data-parallel-size 2 \
-  --data-parallel-size-local 2 \
+  --data-parallel-size 1 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --quantization slimquant_w4a8 \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend triton \
-  --all2all-backend deepep_auto \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
@@ -413,8 +405,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
-  --api-server-count 1 \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -437,8 +428,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 8192 \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 1024 \
   --max-num-seqs 64
 ```
 
@@ -470,8 +461,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 8192 \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 4096 \
   --max-num-seqs 64
 ```
 
@@ -500,8 +491,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 8192 \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 4096 \
   --max-num-seqs 64
 ```
 
@@ -530,35 +521,9 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
 
 ### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x vLLM 0.28.1
 
-在各节点分别保存与本机拓扑匹配的 `topo.config`，并执行对应命令。将 `xxx` 替换为实际业务网卡名，`master_node_ip` 为 rank 0 节点地址；模型路径为各节点容器内的实际路径。
-
-#### topo.config
-
-```text
-0000:9f:00.0 mlx5_2 2
-0000:56:00.0 mlx5_3 3
-0000:5d:00.0 mlx5_4 4
-0000:05:00.0 mlx5_5 5
-0000:e8:00.0 mlx5_6 6
-0000:c1:00.0 mlx5_7 7
-0000:ca:00.0 mlx5_8 8
-0000:b1:00.0 mlx5_9 9
-```
-
 #### rank 0
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -587,17 +552,6 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
 #### rank 1
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -647,7 +601,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -677,8 +630,8 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 8192 \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 4096 \
   --max-num-seqs 64
 ```
 
@@ -705,29 +658,18 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 4096 \
   --max-num-seqs 64
 ```
 
 ### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1100 16x vLLM 0.28.1
 
-在各节点分别准备与本机拓扑匹配的 `topo.config`，将 `xxx` 替换为实际业务网卡名，`master_node_ip` 为 rank 0 节点地址，然后执行对应命令。
+`master_node_ip` 为 rank 0 节点地址。
 
 #### rank 0
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -756,17 +698,6 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -889,22 +820,11 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 
 ### DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 IFB BW1100 16x vLLM 0.28.1
 
-在各节点分别准备与本机拓扑匹配的 `topo.config`，将 `xxx` 替换为实际业务网卡名，`master_node_ip` 为 rank 0 节点地址，然后执行对应命令。
+`master_node_ip` 为 rank 0 节点地址。
 
 #### rank 0
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -933,17 +853,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
 #### rank 1
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -971,22 +880,11 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
 
 ### DeepSeek-V4-Pro-0813-INT8-Channel IFB BW1100 16x vLLM 0.28.1
 
-在各节点分别准备与本机拓扑匹配的 `topo.config`，将 `xxx` 替换为实际业务网卡名，`master_node_ip` 为 rank 0 节点地址，然后执行对应命令。
+`master_node_ip` 为 rank 0 节点地址。
 
 #### rank 0
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --trust-remote-code \
   --tensor-parallel-size 4 \
@@ -1015,17 +913,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
 #### rank 1
 
 ```bash
-export ROCSHMEM_IB_GID_INDEX=0
-export ROCSHMEM_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export ROCSHMEM_TOPO_FILE_FORCE=topo.config
-export MC_ALLOWED_IBV_DEVICES=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
-export MC_IB_GID_INDEX=0
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-export UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1
-export NCCL_SOCKET_IFNAME=xxx
-export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
-
 vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --trust-remote-code \
   --tensor-parallel-size 4 \
