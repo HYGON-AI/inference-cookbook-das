@@ -33,10 +33,10 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 | | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518) |
-| | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
+| | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
-|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16) |
-|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(EP16DP16-MTP314) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16-mtp314) |
+|  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16) |
+|  | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(EP16DP16-MTP314) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16-mtp314) |
 |  | FP8 W8A8 | 0.5.12 | BW1100 | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-bw1100-32x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 32 | PD | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-pd-scalex40-3g-32x-sglang-0512) |
 
