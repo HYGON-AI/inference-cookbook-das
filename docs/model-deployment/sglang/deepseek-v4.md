@@ -28,11 +28,11 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 |  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-sglang-0518) |
 |  | INT4 W4A8 | 0.5.18 | BW1000 | 24 | 1P1D | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-1p1d-bw1000-24x-sglang-0518) |
 |  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw100-8x-sglang-0518) |
-| [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0518-tp8pp2) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 32 | IFB(TP8PP4) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0518-tp8pp4) |
+| [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0518) |
 | | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
-| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518-cp8ep8pp2) |
+| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518) |
 | | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(EP16DP16) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-ep16dp16) |
@@ -2740,7 +2740,7 @@ sglang serve \
   --tokenizer-worker-num 8
 ```
 
-### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1100 16x SGLang 0.5.18 (TP8PP2)
+### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1100 16x SGLang 0.5.18
 
 #### Node 0
 
@@ -2854,7 +2854,7 @@ sglang serve \
   --reasoning-parser deepseek-v4
 ~~~
 
-### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1000 32x SGLang 0.5.18 (TP8PP4)
+### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1000 32x SGLang 0.5.18
 
 #### Node 0
 
@@ -3346,7 +3346,7 @@ sglang serve \
   --model-loader-extra-config '{"enable_multithread_load": true, "num_threads": 16}'
 ```
 
-### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.18 (CP8EP8PP2)
+### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x SGLang 0.5.18
 
 DeepEP 配置与专家排布文件须与当前模型及并行配置匹配。
 
