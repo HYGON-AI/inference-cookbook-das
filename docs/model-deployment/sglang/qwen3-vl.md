@@ -16,9 +16,9 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型，支持文�
 | [Qwen/Qwen3-VL-32B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-32B-Instruct) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen3-vl-32b-instruct-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen3-vl-32b-instruct-ifb-bw1000-4x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen3-vl-32b-instruct-ifb-k100_ai-4x-sglang-0512) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-4x-sglang-0518) |
+| [Qwen/Qwen3-VL-235B-A22B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Instruct) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-4x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1000-16x-sglang-0518) |
-| [Qwen/Qwen3-VL-235B-A22B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Instruct) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 4x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-4x-sglang-0512) |
+|   | BF16 | [0.5.12](../docker_images.md) | BW1100 | 4x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1100-4x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-bw1000-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-k100_ai-8x-sglang-0512) |
 

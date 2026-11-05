@@ -20,11 +20,11 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1100-1x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 1 | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0512) |
 |  | BF16 | 0.5.10 | BW1000 | 1x | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0510) |
-|  | BF16 | [0.5.18](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1100-1x-sglang-0518) |
+| [Qwen/Qwen3-30B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1100-1x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1000-2x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-k100_ai-2x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW100 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw100-2x-sglang-0518) |
-| [Qwen/Qwen3-30B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B) | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-bw1100-1x-sglang-0512) |
+|   | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-bw1100-1x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 2x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-bw1000-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-k100_ai-2x-sglang-0512) |
 | [hygon/Qwen3-30B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-30B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 1x | IFB | [**\`>_\`**](#qwen3-30b-a3b-channel-int8-w8a8-ifb-bw1100-1x-sglang-0512) |
