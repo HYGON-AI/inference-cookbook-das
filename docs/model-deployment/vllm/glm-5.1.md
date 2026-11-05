@@ -46,9 +46,6 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 #### rank 0
 
 ```bash
-export LMSLIM_USE_GLOBAL_MOE_CACHE=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
-
 vllm serve ZhipuAI/GLM-5.1 \
   --trust-remote-code \
   --tensor-parallel-size 16 \
@@ -74,9 +71,6 @@ vllm serve ZhipuAI/GLM-5.1 \
 #### rank 1
 
 ```bash
-export LMSLIM_USE_GLOBAL_MOE_CACHE=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
-
 vllm serve ZhipuAI/GLM-5.1 \
   --trust-remote-code \
   --tensor-parallel-size 16 \
@@ -107,9 +101,6 @@ vllm serve ZhipuAI/GLM-5.1 \
 #### rank 0
 
 ```bash
-export LMSLIM_USE_GLOBAL_MOE_CACHE=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
-
 vllm serve ZhipuAI/GLM-5.1 \
   --trust-remote-code \
   --tensor-parallel-size 32 \
@@ -135,9 +126,6 @@ vllm serve ZhipuAI/GLM-5.1 \
 #### rank 1
 
 ```bash
-export LMSLIM_USE_GLOBAL_MOE_CACHE=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
-
 vllm serve ZhipuAI/GLM-5.1 \
   --trust-remote-code \
   --tensor-parallel-size 32 \
@@ -164,9 +152,6 @@ vllm serve ZhipuAI/GLM-5.1 \
 #### rank 2
 
 ```bash
-export LMSLIM_USE_GLOBAL_MOE_CACHE=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
-
 vllm serve ZhipuAI/GLM-5.1 \
   --trust-remote-code \
   --tensor-parallel-size 32 \
@@ -193,9 +178,6 @@ vllm serve ZhipuAI/GLM-5.1 \
 #### rank 3
 
 ```bash
-export LMSLIM_USE_GLOBAL_MOE_CACHE=1
-export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
-
 vllm serve ZhipuAI/GLM-5.1 \
   --trust-remote-code \
   --tensor-parallel-size 32 \
