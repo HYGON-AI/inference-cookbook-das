@@ -292,7 +292,7 @@ export SGLANG_KDA_DISABLE_TRITON_CHUNK_H=1
 sglang serve \
   --trust-remote-code \
   --model-path hygon/Kimi-K3-Channel-W4A8-INT4-W8A8-INT8 \
-  --dist-init-addr 172.20.2.131:5001 \
+  --dist-init-addr <node0_ip>:5001 \
   --nnodes 8 \
   --node-rank 0 \
   --tp-size 4 \
@@ -364,7 +364,7 @@ sglang serve \
   --host 0.0.0.0 \
   --nnodes 8 \
   --node-rank 0 \
-  --dist-init-addr 11.16.100.200:12115 \
+  --dist-init-addr <node0_ip>:12115 \
   --tp-size 32 \
   --dp-size 16 \
   --pp-size 1 \
@@ -444,7 +444,7 @@ sglang serve \
   --host 0.0.0.0 \
   --nnodes 2 \
   --node-rank 0 \
-  --dist-init-addr 13.13.1.22:12115 \
+  --dist-init-addr <node0_ip>:12115 \
   --tp-size 16 \
   --dp-size 2 \
   --pp-size 1 \
