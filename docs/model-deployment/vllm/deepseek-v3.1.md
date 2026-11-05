@@ -17,9 +17,6 @@ DeepSeek-V3.1 是深度求索推出的混合推理 MoE 大模型（总参数约 
 ### DeepSeek-V3.1-Terminus IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-curl --fail --location https://raw.githubusercontent.com/vllm-project/vllm/v0.21.0/examples/tool_chat_template_deepseekv31.jinja \
-  --output tool_chat_template_deepseekv31.jinja
-
 vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
   --trust-remote-code \
   --tensor-parallel-size 8 \
@@ -32,7 +29,6 @@ vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v31 \
-  --chat-template ./tool_chat_template_deepseekv31.jinja \
   --reasoning-parser deepseek_v3 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \

@@ -17,7 +17,7 @@ DeepSeek-V3 是由深度求索推出的基于MoE架构的高性能开源大语�
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-k100_ai-16x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v3-0324-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
-| `hygon/DeepSeek-V3-W4A8-V2` | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-w4a8-v2-ifb-bw1100-8x-vllm-0281) |
+| [hygon/DeepSeek-V3-W4A8-V2](https://www.modelscope.cn/models/hygon/DeepSeek-V3-W4A8-V2) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v3-w4a8-v2-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v3-w4a8-v2-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-v3-w4a8-v2-ifb-k100_ai-8x-vllm-0281) |
 
