@@ -73,6 +73,8 @@ sglang serve \
 
 #### Node 1
 
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
+
 ~~~bash
 export SGLANG_ENABLE_SPEC_V2=1
 export HSA_ENABLE_COREDUMP=1
