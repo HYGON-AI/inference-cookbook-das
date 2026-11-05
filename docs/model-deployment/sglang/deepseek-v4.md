@@ -3416,7 +3416,7 @@ sglang serve \
   --deepep-mode auto \
   --max-total-tokens 1048576 \
   --kv-cache-dtype fp8_e4m3 \
-  --init-expert-location /xxx/expert_distribution.pt \
+  --init-expert-location "<path_to_eplb>" \
   --ep-dispatch-algorithm static \
   --ep-num-redundant-experts 8 \
   --eplb-algorithm deepseek \
@@ -3490,7 +3490,7 @@ sglang serve \
   --deepep-mode auto \
   --max-total-tokens 1048576 \
   --kv-cache-dtype fp8_e4m3 \
-  --init-expert-location /xxx/expert_distribution.pt \
+  --init-expert-location "<path_to_eplb>" \
   --ep-dispatch-algorithm static \
   --ep-num-redundant-experts 8 \
   --eplb-algorithm deepseek \
