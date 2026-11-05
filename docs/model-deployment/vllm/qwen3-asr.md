@@ -37,7 +37,6 @@ vllm serve Qwen/Qwen3-ASR-0.6B-hf \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
   --no-enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -82,7 +81,6 @@ vllm serve Qwen/Qwen3-ASR-1.7B-hf \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
   --no-enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -128,7 +126,6 @@ vllm serve Qwen/Qwen3-ASR-0.6B \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
   --no-enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -173,7 +170,6 @@ vllm serve Qwen/Qwen3-ASR-1.7B \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
   --no-enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

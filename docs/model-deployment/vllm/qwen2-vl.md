@@ -37,7 +37,6 @@ vllm serve Qwen/Qwen2-VL-2B-Instruct \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --chat-template-content-format openai \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

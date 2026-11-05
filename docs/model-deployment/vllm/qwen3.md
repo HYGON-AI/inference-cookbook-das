@@ -218,7 +218,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -380,7 +379,6 @@ vllm serve hygon/Qwen3-0.6B-Channel-FP8 \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -395,7 +393,6 @@ vllm serve Qwen/Qwen3-1.7B \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -546,7 +543,6 @@ vllm serve Qwen/Qwen3-4B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -711,7 +707,6 @@ vllm serve hygon/Qwen3-4B-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -729,7 +724,6 @@ vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -857,7 +851,7 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -978,7 +972,7 @@ vllm serve hygon/Qwen3-4B-Thinking-2507-Channel-FP8 \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -997,7 +991,6 @@ vllm serve Qwen/Qwen3-8B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1168,7 +1161,6 @@ vllm serve hygon/Qwen3-8B-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1187,7 +1179,6 @@ vllm serve hygon/Qwen3-8B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1334,7 +1325,6 @@ vllm serve Qwen/Qwen3-14B \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1498,7 +1488,6 @@ vllm serve hygon/Qwen3-14B-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1628,7 +1617,6 @@ vllm serve Qwen/Qwen3-30B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1689,7 +1677,6 @@ vllm serve hygon/Qwen3-30B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1746,7 +1733,6 @@ vllm serve Qwen/Qwen3-32B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1972,7 +1958,7 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2291,7 +2277,7 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2565,7 +2551,7 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --disable-cascade-attn \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2700,7 +2686,6 @@ vllm serve Qwen/Qwen3-235B-A22B \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2847,7 +2832,6 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -3016,7 +3000,6 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-FP8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

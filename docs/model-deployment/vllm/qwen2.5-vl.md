@@ -53,7 +53,6 @@ vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -213,7 +212,6 @@ vllm serve Qwen/Qwen2.5-VL-72B-Instruct \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
