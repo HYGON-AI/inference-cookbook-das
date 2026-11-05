@@ -3409,7 +3409,7 @@ sglang serve \
   --mem-fraction-static 0.85 \
   --max-running-requests 128 \
   --disable-flashinfer-autotune \
-  --deepep-config /xxx/deepep_config.json \
+  --deepep-config /xxx/ep_config.json \
   --enable-nsa-prefill-context-parallel \
   --nsa-prefill-cp-mode round-robin-split \
   --moe-a2a-backend deepep \
@@ -3483,7 +3483,7 @@ sglang serve \
   --mem-fraction-static 0.85 \
   --max-running-requests 128 \
   --disable-flashinfer-autotune \
-  --deepep-config /xxx/deepep_config.json \
+  --deepep-config /xxx/ep_config.json \
   --enable-nsa-prefill-context-parallel \
   --nsa-prefill-cp-mode round-robin-split \
   --moe-a2a-backend deepep \
