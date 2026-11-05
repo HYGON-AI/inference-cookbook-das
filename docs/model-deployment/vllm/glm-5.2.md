@@ -355,7 +355,7 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -646,7 +646,7 @@ vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -844,7 +844,7 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
