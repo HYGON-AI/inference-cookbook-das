@@ -48,6 +48,7 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 | [hygon/Qwen3-VL-2B-Thinking-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3-VL-2B-Thinking-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-vl-2b-thinking-channel-fp8-ifb-bw1100-1x-vllm-0281) |
 | [Qwen/Qwen3-VL-4B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-4B-Instruct) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW100 | 1 | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-4b-instruct-ifb-bw1000-1x-vllm-021) |
@@ -505,6 +506,23 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
 ```
 
 ### Qwen3-VL-4B-Instruct IFB BW1000 1x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-VL-4B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASH_ATTN \
+  --enable-prefix-caching \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-VL-4B-Instruct IFB BW100 1x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
