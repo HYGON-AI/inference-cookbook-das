@@ -30,7 +30,7 @@ DeepSeek-V4 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V4 
 |  | INT4 W4A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw100-8x-sglang-0518) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0518) |
-| | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB(TP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0512-tp8pp2) |
+| | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-sglang-0512) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0518) |
 | | FP8 W8A8 | 0.5.12 | BW1100 | 16 | IFB(CP8EP8PP2) | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-sglang-0512-cp8ep8pp2) |
@@ -3040,7 +3040,7 @@ sglang serve \
   --model-loader-extra-config '{"enable_multithread_load": true, "num_threads": 16}'
 ~~~
 
-### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1100 16x SGLang 0.5.12 (TP8PP2)
+### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1100 16x SGLang 0.5.12
 
 #### Node 0
 
