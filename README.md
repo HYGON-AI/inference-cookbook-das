@@ -174,7 +174,7 @@
     <tr>
       <td rowspan="2">DeepSeek-V3.1</td>
       <td>vLLM</td>
-      <td align="center">🚧</td><td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
+      <td align="center">🚧</td><td align="center">-</td><td align="center">🚧</td><td align="center"><a href="docs/model-deployment/vllm/deepseek-v3.1.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
@@ -183,7 +183,7 @@
     <tr>
       <td rowspan="2">DeepSeek-V3</td>
       <td>vLLM</td>
-      <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/deepseek-v3.md">✅</a></td>
+      <td align="center"><a href="docs/model-deployment/vllm/deepseek-v3.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/deepseek-v3.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/deepseek-v3.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang</td>
