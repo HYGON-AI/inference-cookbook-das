@@ -174,7 +174,7 @@ sglang serve \
   --tp-size 8 \
   --page-size 128 \
   --trust-remote-code \
-  --mem-fraction-static 0.84 \
+  --mem-fraction-static 0.82 \
   --quantization w8a8_int8 \
   --moe-runner-backend triton \
   --max-running-requests 128 \
