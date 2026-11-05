@@ -2789,7 +2789,7 @@ sglang serve \
   --dist-timeout 1800 \
   --watchdog-timeout 3600 \
   --chunked-prefill-size 16384 \
-  --mem-fraction-static 0.93 \
+  --mem-fraction-static 0.89 \
   --max-running-requests 128 \
   --disable-flashinfer-autotune \
   --max-total-tokens 1048576 \
@@ -2845,7 +2845,7 @@ sglang serve \
   --dist-timeout 1800 \
   --watchdog-timeout 3600 \
   --chunked-prefill-size 16384 \
-  --mem-fraction-static 0.93 \
+  --mem-fraction-static 0.89 \
   --max-running-requests 128 \
   --disable-flashinfer-autotune \
   --max-total-tokens 1048576 \
