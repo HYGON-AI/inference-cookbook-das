@@ -2904,6 +2904,8 @@ sglang serve \
 
 #### Node 1
 
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
+
 ~~~bash
 export GLOO_SOCKET_IFNAME=ens66f1np1
 export NCCL_SOCKET_IFNAME=ens66f1np1
@@ -3425,6 +3427,8 @@ sglang serve \
 ~~~
 
 #### Node 1
+
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ~~~bash
 export SGLANG_DSV4_REQUEST_SCOPED_C128_STATE=true
