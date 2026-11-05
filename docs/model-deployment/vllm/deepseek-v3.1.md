@@ -30,7 +30,7 @@ vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v31 \
   --reasoning-parser deepseek_v3 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
