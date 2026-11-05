@@ -21,13 +21,13 @@ DeepSeek-V4 是 DeepSeek 系列大语言模型，本文档提供其在 vLLM 上�
 | [hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-int4-w4a8-ifb-bw1000-16x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-INT4-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-INT4-Channel) | INT4 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-pro-0813-int4-channel-ifb-bw1100-8x-vllm-0281) |
-| [hygon/DeepSeek-V4-Pro-FP8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-FP8-Channel) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-fp8-channel-ifb-bw1100-16x-vllm-0281) |
+| [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-vllm-0281) |
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-vllm-0281) |
-| [hygon/DeepSeek-V4-Pro-0813-FP8-Channel-v2](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-FP8-Channel-v2) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-fp8-channel-v2-ifb-bw1100-16x-vllm-0281) |
+| [hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-fp8-w8a8-ifb-bw1100-16x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-INT8-Channel) | INT8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-int8-channel-ifb-bw1100-16x-vllm-0281) |
 
 
@@ -528,7 +528,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
   --max-num-seqs 64
 ```
 
-### DeepSeek-V4-Pro-FP8-Channel IFB BW1100 16x vLLM 0.28.1
+### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100 16x vLLM 0.28.1
 
 在各节点分别保存与本机拓扑匹配的 `topo.config`，并执行对应命令。将 `xxx` 替换为实际业务网卡名，`master_node_ip` 为 rank 0 节点地址；模型路径为各节点容器内的实际路径。
 
@@ -559,7 +559,7 @@ export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
 
-vllm serve /llm-models/DeepSeek-V4-Pro-FP8-Channel \
+vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
@@ -598,7 +598,7 @@ export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
 
-vllm serve /llm-models/DeepSeek-V4-Pro-FP8-Channel \
+vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
@@ -887,7 +887,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --gpu-memory-utilization 0.9
 ```
 
-### DeepSeek-V4-Pro-0813-FP8-Channel-v2 IFB BW1100 16x vLLM 0.28.1
+### DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 IFB BW1100 16x vLLM 0.28.1
 
 在各节点分别准备与本机拓扑匹配的 `topo.config`，将 `xxx` 替换为实际业务网卡名，`master_node_ip` 为 rank 0 节点地址，然后执行对应命令。
 
@@ -905,7 +905,7 @@ export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
 
-vllm serve hygon/DeepSeek-V4-Pro-0813-FP8-Channel-v2 \
+vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
@@ -944,7 +944,7 @@ export NCCL_IB_HCA=mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:
 export NCCL_SOCKET_IFNAME=xxx
 export GLOO_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME}"
 
-vllm serve hygon/DeepSeek-V4-Pro-0813-FP8-Channel-v2 \
+vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
