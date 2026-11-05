@@ -14,7 +14,7 @@ Kimi-K3 是 Moonshot AI 推出的 Kimi 系列模型，面向长上下文、工�
 | [hygon/kimi-k3-INT4](https://www.modelscope.cn/models/hygon/kimi-k3-INT4) | INT4 W4A8 | 0.5.18 | BW1100 | 32 | Decode | [**`>_`**](#kimi-k3-int4-decode-bw1100-32x-sglang-0518) |
 | [hygon/Kimi-K3-Channel-W4A8-INT4-W8A8-INT8](https://www.modelscope.cn/models/hygon/Kimi-K3-Channel-W4A8-INT4-W8A8-INT8) | INT4 W4A8 + INT8 W8A8 | 0.5.18 | ScaleX40-3G | 32 | Prefill | [**`>_`**](#kimi-k3-channel-w4a8-int4-w8a8-int8-prefill-scalex40-3g-32x-sglang-0518) |
 |  | INT4 W4A8 + INT8 W8A8 | 0.5.18 | ScaleX40-3G | 32 | Decode | [**`>_`**](#kimi-k3-channel-w4a8-int4-w8a8-int8-decode-scalex40-3g-32x-sglang-0518) |
-|  | INT4 W4A8 + INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-channel-w4a8-int4-w8a8-int8-ifb-bw1100-16x-sglang-0518) |
+|  | INT4 W4A8 + INT8 W8A8 | 0.5.18 | BW1100 | 16 | IFB | [**`>_`**](#kimi-k3-channel-w4a8-int4-w8a8-int8-ifb-bw1100-16x-sglang-0518) |
 
 ## 启动命令
 
