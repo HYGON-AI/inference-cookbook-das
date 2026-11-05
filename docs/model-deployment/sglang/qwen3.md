@@ -22,8 +22,8 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | 0.5.10 | BW1000 | 1x | IFB | [**\`>_\`**](#qwen3-8b-ifb-bw1000-1x-sglang-0510) |
 | [Qwen/Qwen3-30B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3-30B-A3B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1100-1x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw1000-2x-sglang-0518) |
-|  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-k100_ai-2x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW100 | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-bw100-2x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen3-30b-a3b-ifb-k100_ai-2x-sglang-0518) |
 |   | BF16 | [0.5.12](../docker_images.md) | BW1100 | 1x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-bw1100-1x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 2x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-bw1000-2x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2x | IFB | [**\`>_\`**](#qwen3-30b-a3b-ifb-k100_ai-2x-sglang-0512) |
@@ -449,18 +449,18 @@ export SGLANG_USE_LIGHTOP=1
 export SGLANG_ROCM_USE_AITER_MOE=0
 export HIP_VISIBLE_DEVICES=2,3
 
- \sglang serve
-  --model-path Qwen/Qwen3-30B-A3B
-  --trust-remote-code
-  --numa-node 0 0 0 0 1 1 1 1
-  --dtype float16
-  --moe-runner-backend triton
-  --tensor-parallel-size 2
-  --page-size 64
-  --tool-call-parser qwen
-  --disable-custom-all-reduce
-  --reasoning-parser qwen3
-  --mem-fraction-static 0.9
+sglang serve \
+  --model-path Qwen/Qwen3-30B-A3B \
+  --trust-remote-code \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype float16 \
+  --moe-runner-backend triton \
+  --tensor-parallel-size 2 \
+  --page-size 64 \
+  --tool-call-parser qwen \
+  --disable-custom-all-reduce \
+  --reasoning-parser qwen3 \
+  --mem-fraction-static 0.9 \
   --attention-backend fa3
 ```
 
@@ -496,18 +496,18 @@ export SGLANG_USE_LIGHTOP=1
 export SGLANG_ROCM_USE_AITER_MOE=0
 export HIP_VISIBLE_DEVICES=2,3
 
- \sglang serve
-  --model-path Qwen/Qwen3-30B-A3B
-  --trust-remote-code
-  --numa-node 0 0 0 0 1 1 1 1
-  --dtype float16
-  --moe-runner-backend triton
-  --tensor-parallel-size 2
-  --page-size 64
-  --tool-call-parser qwen
-  --disable-custom-all-reduce
-  --reasoning-parser qwen3
-  --mem-fraction-static 0.9
+sglang serve \
+  --model-path Qwen/Qwen3-30B-A3B \
+  --trust-remote-code \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype float16 \
+  --moe-runner-backend triton \
+  --tensor-parallel-size 2 \
+  --page-size 64 \
+  --tool-call-parser qwen \
+  --disable-custom-all-reduce \
+  --reasoning-parser qwen3 \
+  --mem-fraction-static 0.9 \
   --attention-backend fa3
 ```
 
@@ -542,17 +542,17 @@ export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_MARLIN_W16A16_MOE=1
 
- \sglang serve
-  --model-path Qwen/Qwen3-30B-A3B
-  --trust-remote-code
-  --numa-node 0 0 0 0 1 1 1 1
-  --dtype float16
-  --kv-cache-dtype fp8_e5m2
-  --tensor-parallel-size 2
-  --page-size 64
-  --tool-call-parser qwen
-  --reasoning-parser qwen3
-  --mem-fraction-static 0.9
+sglang serve \
+  --model-path Qwen/Qwen3-30B-A3B \
+  --trust-remote-code \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype float16 \
+  --kv-cache-dtype fp8_e5m2 \
+  --tensor-parallel-size 2 \
+  --page-size 64 \
+  --tool-call-parser qwen \
+  --reasoning-parser qwen3 \
+  --mem-fraction-static 0.9 \
   --attention-backend fa3
 ```
 
@@ -588,17 +588,17 @@ export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_MARLIN_W16A16_MOE=1
 
- \sglang serve
-  --model-path Qwen/Qwen3-30B-A3B
-  --trust-remote-code
-  --numa-node 0 0 0 0 1 1 1 1
-  --dtype float16
-  --kv-cache-dtype fp8_e4m3
-  --tensor-parallel-size 1
-  --page-size 64
-  --tool-call-parser qwen
-  --reasoning-parser qwen3
-  --mem-fraction-static 0.9
+sglang serve \
+  --model-path Qwen/Qwen3-30B-A3B \
+  --trust-remote-code \
+  --numa-node 0 0 0 0 1 1 1 1 \
+  --dtype float16 \
+  --kv-cache-dtype fp8_e4m3 \
+  --tensor-parallel-size 1 \
+  --page-size 64 \
+  --tool-call-parser qwen \
+  --reasoning-parser qwen3 \
+  --mem-fraction-static 0.9 \
   --attention-backend fa3
 ```
 
