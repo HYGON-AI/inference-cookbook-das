@@ -113,7 +113,7 @@ vllm serve hygon/kimi-k3-INT4 \
   --reasoning-parser kimi_k3 \
   --speculative-config '{"model":"${DSPARK_MODEL}", "num_speculative_tokens":7, "method": "dspark", "draft_sample_method": "probabilistic", "rejection_sample_method": "block"}' \
   --language-model-only \
-  --max-model-len auto \
+  --max-model-len 131072 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 128 \
   --gpu-memory-utilization 0.9
@@ -147,7 +147,7 @@ vllm serve hygon/kimi-k3-INT4 \
   --reasoning-parser kimi_k3 \
   --speculative-config '{"model":"${DSPARK_MODEL}", "num_speculative_tokens":7, "method": "dspark", "draft_sample_method": "probabilistic", "rejection_sample_method": "block"}' \
   --language-model-only \
-  --max-model-len auto \
+  --max-model-len 131072 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 128 \
   --gpu-memory-utilization 0.9

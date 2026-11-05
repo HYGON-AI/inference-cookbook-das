@@ -36,7 +36,7 @@ vllm serve hygon/MiMo-V2-Flash-Channel-INT8-w8a8 \
   --speculative-config.num_speculative_tokens 3 \
   --tool-call-parser mimo \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -102,7 +102,7 @@ vllm serve hygon/MiMo-V2-Flash-Channel-FP8-w8a8 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --tool-call-parser mimo \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

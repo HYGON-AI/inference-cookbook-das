@@ -32,7 +32,7 @@ vllm serve stepfun-ai/Step-3.7-Flash \
   --enable-auto-tool-choice \
   --tool-call-parser step3p5 \
   --reasoning-parser step3p5 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

@@ -40,7 +40,7 @@ vllm serve moonshotai/Kimi-K2.5 \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
