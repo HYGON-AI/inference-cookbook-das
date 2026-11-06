@@ -27,7 +27,6 @@ vllm serve moonshotai/Kimi-K2.6 \
   --enable-auto-tool-choice \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -55,7 +54,7 @@ vllm serve moonshotai/Kimi-K2.6 \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -82,7 +81,7 @@ vllm serve moonshotai/Kimi-K2.6 \
   --tool-call-parser kimi_k2 \
   --reasoning-parser kimi_k2 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
