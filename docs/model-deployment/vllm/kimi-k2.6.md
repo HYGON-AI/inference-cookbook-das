@@ -88,7 +88,7 @@ vllm serve moonshotai/Kimi-K2.6 \
   --reasoning-parser kimi_k2 \
   --cpu-offload-gb 0 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -157,7 +157,7 @@ vllm serve moonshotai/Kimi-K2.6 \
   --reasoning-parser kimi_k2 \
   --cpu-offload-gb 0 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
