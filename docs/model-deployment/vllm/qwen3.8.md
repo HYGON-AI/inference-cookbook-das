@@ -47,13 +47,11 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 ```bash
 export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
-export VLLM_HCU_PLE_PREFETCH_STREAM=1
+export VLLM_HCU_QSA_BACKEND=triton
 vllm serve Qwen/Qwen3.8-Flash-Next \
   --trust-remote-code \
   --tensor-parallel-size 8 \
-  --enable-expert-parallel \
   --moe-backend aiter \
-  --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 80 \
@@ -61,7 +59,6 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
-  --engram-config.cpu_offload=true \
   --reasoning-parser qwen3 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
