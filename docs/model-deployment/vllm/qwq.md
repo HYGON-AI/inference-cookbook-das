@@ -66,7 +66,6 @@ vllm serve Qwen/QwQ-32B \
   --attention-backend TRITON_ATTN \
   --no-enable-prefix-caching \
   --disable-cascade-attn \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
