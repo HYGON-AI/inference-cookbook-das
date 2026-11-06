@@ -24,7 +24,7 @@ Prefill 和 Decode 是分别侧重输入处理、输出生成的独立 API 服�
 
 ### Step-5-Preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
-单机使用 8 张 BW1100，配置 TP4 / DP2 / EP8，采用 Triton MoE、eager 执行和 MTP3，上下文上限为 131072 token。
+单机使用 8 张 BW1100，配置 TP4 / DP2 / EP8，采用 Triton MoE、eager 执行和 MTP3。
 
 ```bash
 set -euo pipefail
@@ -63,7 +63,6 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
   --moe-backend triton \
   --enable-expert-parallel \
   --max-num-batched-tokens 32768 \
-  --max-model-len 131072 \
   --max-num-seqs 64 \
   --no-enable-prefix-caching \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' \
