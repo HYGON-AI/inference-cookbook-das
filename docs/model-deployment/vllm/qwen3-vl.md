@@ -198,7 +198,6 @@ vllm serve Qwen/Qwen3-VL-2B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -353,7 +352,6 @@ vllm serve Qwen/Qwen3-VL-2B-Thinking \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -511,7 +509,6 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -668,7 +665,6 @@ vllm serve Qwen/Qwen3-VL-4B-Thinking \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -813,7 +809,6 @@ vllm serve Qwen/Qwen3-VL-8B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -988,7 +983,6 @@ vllm serve Qwen/Qwen3-VL-8B-Thinking \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1155,7 +1149,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1305,7 +1298,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Thinking \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1609,7 +1601,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1634,7 +1625,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -1869,7 +1859,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
