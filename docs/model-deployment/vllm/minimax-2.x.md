@@ -24,6 +24,7 @@ MiniMax-2.x 是 MiniMax 推出的大规模 MoE（混合专家）语言模型系�
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8x | IFB | [**``>_``**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | FP8 W8A8 | 0.18.1 | BW1100 | 8x | IFB | [**``>_``**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0181) |
 |  | FP8 W8A8 | 0.15.1 | BW1100 | 8x | IFB | [**``>_``**](#minimax-m25-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0151) |
+| [hygon/MiniMax-M2.7-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M2.7-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m27-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 | [hygon/MiniMax-M2.5-bf16](https://www.modelscope.cn/models/hygon/MiniMax-M2.5-bf16) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m25-bf16-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#minimax-m25-bf16-ifb-bw1000-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#minimax-m25-bf16-ifb-k100_ai-8x-vllm-0281) |
@@ -50,7 +51,7 @@ vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -76,7 +77,7 @@ vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -96,7 +97,7 @@ vllm serve hygon/MiniMax-M2.5-Channel-INT8-w8a8 \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
   --compilation-config '{"pass_config":{"fuse_act_quant":false},"cudagraph_mode":"FULL","custom_ops":["all"]}' \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -424,7 +425,7 @@ vllm serve hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
   --tool-call-parser minimax_m2 \
   --reasoning-parser minimax_m2 \
   --compilation-config '{"pass_config":{"fuse_act_quant":false},"cudagraph_mode":"FULL_AND_PIECEWISE","custom_ops":["all"]}' \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -516,6 +517,29 @@ vllm serve hygon/MiniMax-M2.5-Channel-FP8-w8a8 \
   --disable-cascade-attn \
   -q slimquant_marlin 
 
+```
+
+### MiniMax-M2.7-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/MiniMax-M2.7-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --quantization slimquant_marlin \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser minimax_m2 \
+  --reasoning-parser minimax_m2 \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false},"cudagraph_mode":"FULL_AND_PIECEWISE","custom_ops":["all"]}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
 ```
 
 ### MiniMax-M2.5-bf16 IFB BW1100 8x vLLM 0.28.1
@@ -835,4 +859,14 @@ curl -X POST http://localhost:8000/v1/chat/completions \
 
 ```
 
+### MiniMax-M2.7-Channel-FP8-w8a8（vLLM 0.28.1）
 
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "hygon/MiniMax-M2.7-Channel-FP8-w8a8",
+    "messages": [{"role": "user", "content": "中国的首都是什么？"}],
+    "max_tokens": 400
+  }'
+```

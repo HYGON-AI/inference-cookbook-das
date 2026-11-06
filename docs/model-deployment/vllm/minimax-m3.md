@@ -2,16 +2,45 @@
 
 ## 模型简介
 
-本文提供 MiniMax/MiniMax-M3 BF16 权重在 BW1000 和 K100_AI 上的 vLLM 双节点部署命令。
+本文提供 MiniMax/MiniMax-M3 BF16 权重在 BW1100 上的 vLLM 单节点部署命令，以及在 BW1000 和 K100_AI 上的双节点部署命令。
 
 ## 模型列表
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [MiniMax/MiniMax-M3](https://www.modelscope.cn/models/MiniMax/MiniMax-M3) | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#minimax-m3-ifb-bw1000-16x-vllm-0281) |
+| [MiniMax/MiniMax-M3](https://www.modelscope.cn/models/MiniMax/MiniMax-M3) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m3-ifb-bw1100-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#minimax-m3-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#minimax-m3-ifb-k100_ai-16x-vllm-0281) |
 
 ## 启动命令
+
+### MiniMax-M3 IFB BW1100 8x vLLM 0.28.1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_KV_CACHE_LAYOUT=HND
+export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+
+vllm serve MiniMax/MiniMax-M3 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype bfloat16 \
+  --block-size 128 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser minimax_m3 \
+  --reasoning-parser minimax_m3 \
+  --no-async-scheduling \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### MiniMax-M3 IFB BW1000 16x vLLM 0.28.1
 
@@ -23,6 +52,10 @@
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_KV_CACHE_LAYOUT=HND
 export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_MINIMAX_M3_BLAS_WARMUP=1
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
 
 vllm serve MiniMax/MiniMax-M3 \
   --trust-remote-code \
@@ -36,6 +69,7 @@ vllm serve MiniMax/MiniMax-M3 \
   --attention-backend FLASH_ATTN \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
@@ -54,6 +88,10 @@ vllm serve MiniMax/MiniMax-M3 \
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_KV_CACHE_LAYOUT=HND
 export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_MINIMAX_M3_BLAS_WARMUP=1
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
 
 vllm serve MiniMax/MiniMax-M3 \
   --trust-remote-code \
@@ -67,6 +105,7 @@ vllm serve MiniMax/MiniMax-M3 \
   --attention-backend FLASH_ATTN \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
