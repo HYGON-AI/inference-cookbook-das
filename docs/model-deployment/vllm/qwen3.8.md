@@ -87,7 +87,6 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
   --tool-call-parser qwen3_coder \
   --engram-config.cpu_offload=true \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -112,7 +111,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -136,7 +134,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --engram-config.cpu_offload=true \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -159,7 +156,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --engram-config.cpu_offload=true \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -205,7 +201,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -229,7 +224,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

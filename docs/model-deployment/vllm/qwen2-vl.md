@@ -121,7 +121,6 @@ vllm serve Qwen/Qwen2-VL-2B \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

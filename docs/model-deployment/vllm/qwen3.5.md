@@ -167,7 +167,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -186,7 +185,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1956,7 +1954,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1984,7 +1981,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
