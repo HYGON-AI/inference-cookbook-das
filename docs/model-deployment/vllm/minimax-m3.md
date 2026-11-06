@@ -23,6 +23,10 @@
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_KV_CACHE_LAYOUT=HND
 export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_MINIMAX_M3_BLAS_WARMUP=1
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
 
 vllm serve MiniMax/MiniMax-M3 \
   --trust-remote-code \
@@ -36,6 +40,7 @@ vllm serve MiniMax/MiniMax-M3 \
   --attention-backend FLASH_ATTN \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
@@ -54,6 +59,10 @@ vllm serve MiniMax/MiniMax-M3 \
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_KV_CACHE_LAYOUT=HND
 export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_MINIMAX_M3_BLAS_WARMUP=1
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
 
 vllm serve MiniMax/MiniMax-M3 \
   --trust-remote-code \
@@ -67,6 +76,7 @@ vllm serve MiniMax/MiniMax-M3 \
   --attention-backend FLASH_ATTN \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
