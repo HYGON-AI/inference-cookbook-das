@@ -45,7 +45,7 @@ vllm serve hygon/Kimi-K3-Channel-INT4-w4a8-INT8-w8a8 \
   --speculative-config "{"model":"${DSPARK_MODEL}","num_speculative_tokens":7,"method":"dspark","draft_sample_method":"probabilistic","rejection_sample_method":"block"}" \
   --language-model-only \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -77,7 +77,7 @@ vllm serve hygon/Kimi-K3-Channel-INT4-w4a8-INT8-w8a8 \
   --speculative-config "{"model":"${DSPARK_MODEL}","num_speculative_tokens":7,"method":"dspark","draft_sample_method":"probabilistic","rejection_sample_method":"block"}" \
   --language-model-only \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

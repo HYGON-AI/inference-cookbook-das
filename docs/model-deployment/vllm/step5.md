@@ -78,7 +78,7 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
 
 ### Step-5-Preview-Channel-FP8-w8a8 Prefill BW1100 8x vLLM 0.28.1
 
-单机使用 8 张 BW1100，配置 TP1 / DP8 / EP8，启用静态专家放置、MTP prefill tail、direct combine 和 DBO。调度 token 预算为 8192，上下文上限为 131072 token。
+单机使用 8 张 BW1100，配置 TP1 / DP8 / EP8，启用静态专家放置、MTP prefill tail、direct combine 和 DBO。调度 token 预算为 8192，上下文上限为 140000 token。
 
 ```bash
 set -euo pipefail
@@ -131,7 +131,7 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
   --data-parallel-size 8 \
   --enable-expert-parallel \
   --max-num-batched-tokens 8192 \
-  --max-model-len 131072 \
+  --max-model-len 140000 \
   --max-num-seqs 64 \
   --no-enable-prefix-caching \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' \
@@ -147,7 +147,7 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
 
 ### Step-5-Preview-Channel-FP8-w8a8 Decode BW1100 8x vLLM 0.28.1
 
-单机使用 8 张 BW1100，配置 TP4 / DP2 / EP8，采用 MTP3，图捕获规模上限为 256，调度 token 预算为 32768，上下文上限为 131072 token。
+单机使用 8 张 BW1100，配置 TP4 / DP2 / EP8，采用 MTP3，图捕获规模上限为 256，调度 token 预算为 32768，上下文上限为 140000 token。
 
 ```bash
 set -euo pipefail
@@ -193,7 +193,7 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
   --data-parallel-size 2 \
   --enable-expert-parallel \
   --max-num-batched-tokens 32768 \
-  --max-model-len 131072 \
+  --max-model-len 140000 \
   --max-num-seqs 64 \
   --no-enable-prefix-caching \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' \
