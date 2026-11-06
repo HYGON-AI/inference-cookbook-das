@@ -149,7 +149,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -168,7 +167,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -187,7 +185,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -209,7 +206,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -231,7 +227,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -253,7 +248,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -413,7 +407,6 @@ vllm serve Qwen/Qwen3.5-9B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -436,7 +429,6 @@ vllm serve Qwen/Qwen3.5-9B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -459,7 +451,6 @@ vllm serve Qwen/Qwen3.5-9B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -619,7 +610,6 @@ vllm serve Qwen/Qwen3.5-27B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -642,7 +632,6 @@ vllm serve Qwen/Qwen3.5-27B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -664,7 +653,6 @@ vllm serve Qwen/Qwen3.5-27B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -824,7 +812,6 @@ vllm serve hygon/Qwen3.5-27B-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -848,7 +835,6 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -876,7 +862,6 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -903,7 +888,6 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1075,7 +1059,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1099,7 +1082,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1122,7 +1104,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1296,7 +1277,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1371,7 +1351,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1396,7 +1375,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1420,7 +1398,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1593,7 +1570,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1618,7 +1594,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1642,7 +1617,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1815,7 +1789,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1889,7 +1862,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1922,7 +1894,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1951,7 +1922,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -1984,7 +1954,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2012,7 +1981,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --no-async-scheduling \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -2100,7 +2068,6 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2125,7 +2092,6 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2149,7 +2115,7 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
+  --gpu-memory-utilization 0.92 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2324,7 +2290,6 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
