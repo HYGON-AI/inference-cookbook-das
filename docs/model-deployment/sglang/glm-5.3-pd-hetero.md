@@ -6,8 +6,10 @@
 
 | 模型权重 | 量化方式 | SGLang 版本 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 (P) | 48 | 6P1D | [**`>_`**](#p-node-0) |
-| [zai-org/GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) (FP8) | FP8 | [0.5.18](https://hub.docker.com/r/lmsysorg/sglang/tags?name=v0.5.18-cu130) | B300 (D) | 8 | 6P1D | [**`>_`**](#d-node-0) |
+| [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 (P) | 48 | 6P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-6p1d-bw1100b300-56x-sglang-0518) |
+| [zai-org/GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) (FP8) | FP8 | [0.5.18](https://hub.docker.com/r/lmsysorg/sglang/tags?name=v0.5.18-cu130) | B300 (D) | 8 | 6P1D | [**`>_`**](#glm-53-channel-fp8-w8a8-6p1d-bw1100b300-56x-sglang-0518) |
+
+注： hygon SGLang 0.5.18 的版本目前是测试镜像，可以通过 'docker pull 42.228.13.241:5000/hcu/base_env/sglang:0.5.18-ubuntu22.04-dtk26041-py3.10-20261104-1735-patch' 获取
 
 ## 启动命令
 
@@ -19,13 +21,13 @@
 
 | 节点 | IP | 服务端口 |
 | ---- | -- | -------- |
-| P node 0 | `192.168.5.83` | `30023` |
-| P node 1 | `192.168.5.84` | `30023` |
-| P node 2 | `192.168.5.85` | `30023` |
-| P node 3 | `192.168.5.86` | `30023` |
-| P node 4 | `192.168.5.87` | `30023` |
-| P node 5 | `192.168.5.88` | `30023` |
-| D node 0 | `192.168.5.99` | `30000` |
+| P node 0 | `<p_node0_ip>` | `30023` |
+| P node 1 | `<p_node1_ip>` | `30023` |
+| P node 2 | `<p_node2_ip>` | `30023` |
+| P node 3 | `<p_node3_ip>` | `30023` |
+| P node 4 | `<p_node4_ip>` | `30023` |
+| P node 5 | `<p_node5_ip>` | `30023` |
+| D node 0 | `<d_node0_ip>` | `30000` |
 | Router | — | `8000` |
 
 #### DeepEP 配置
@@ -90,9 +92,9 @@ sglang serve \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --served-model-name GLM-5.3-Channel-FP8-w8a8 \
-  --host 192.168.5.83 \
+  --host <p_node0_ip> \
   --port 30023 \
-  --dist-init-addr 192.168.5.83:5000 \
+  --dist-init-addr <p_node0_ip>:5000 \
   --tp-size 8 \
   --ep-size 8 \
   --attn-cp-size 8 \
@@ -165,9 +167,9 @@ sglang serve \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --served-model-name GLM-5.3-Channel-FP8-w8a8 \
-  --host 192.168.5.84 \
+  --host <p_node1_ip> \
   --port 30023 \
-  --dist-init-addr 192.168.5.84:5000 \
+  --dist-init-addr <p_node1_ip>:5000 \
   --tp-size 8 \
   --ep-size 8 \
   --attn-cp-size 8 \
@@ -240,9 +242,9 @@ sglang serve \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --served-model-name GLM-5.3-Channel-FP8-w8a8 \
-  --host 192.168.5.85 \
+  --host <p_node2_ip> \
   --port 30023 \
-  --dist-init-addr 192.168.5.85:5000 \
+  --dist-init-addr <p_node2_ip>:5000 \
   --tp-size 8 \
   --ep-size 8 \
   --attn-cp-size 8 \
@@ -315,9 +317,9 @@ sglang serve \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --served-model-name GLM-5.3-Channel-FP8-w8a8 \
-  --host 192.168.5.86 \
+  --host <p_node3_ip> \
   --port 30023 \
-  --dist-init-addr 192.168.5.86:5000 \
+  --dist-init-addr <p_node3_ip>:5000 \
   --tp-size 8 \
   --ep-size 8 \
   --attn-cp-size 8 \
@@ -390,9 +392,9 @@ sglang serve \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --served-model-name GLM-5.3-Channel-FP8-w8a8 \
-  --host 192.168.5.87 \
+  --host <p_node4_ip> \
   --port 30023 \
-  --dist-init-addr 192.168.5.87:5000 \
+  --dist-init-addr <p_node4_ip>:5000 \
   --tp-size 8 \
   --ep-size 8 \
   --attn-cp-size 8 \
@@ -465,9 +467,9 @@ sglang serve \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
   --served-model-name GLM-5.3-Channel-FP8-w8a8 \
-  --host 192.168.5.88 \
+  --host <p_node5_ip> \
   --port 30023 \
-  --dist-init-addr 192.168.5.88:5000 \
+  --dist-init-addr <p_node5_ip>:5000 \
   --tp-size 8 \
   --ep-size 8 \
   --attn-cp-size 8 \
@@ -546,7 +548,7 @@ sglang serve \
   --disaggregation-ib-device "ib7s400p0,ib7s400p1,ib7s400p2,ib7s400p3,ib7s400p4,ib7s400p5,ib7s400p6,ib7s400p7" \
   --prefill-round-robin-balance \
   --mem-fraction-static 0.9 \
-  --host 192.168.5.99 \
+  --host <d_node0_ip> \
   --port 30000 \
   --reasoning-parser glm45 \
   --tool-call-parser glm47 \
@@ -560,13 +562,13 @@ sglang serve \
 ```bash
 python3 -m sglang_router.launch_router \
   --pd-disaggregation \
-  --prefill http://192.168.5.83:30023 \
-  --prefill http://192.168.5.84:30023 \
-  --prefill http://192.168.5.85:30023 \
-  --prefill http://192.168.5.86:30023 \
-  --prefill http://192.168.5.87:30023 \
-  --prefill http://192.168.5.88:30023 \
-  --decode http://192.168.5.99:30000 \
+  --prefill http://<p_node0_ip>:30023 \
+  --prefill http://<p_node1_ip>:30023 \
+  --prefill http://<p_node2_ip>:30023 \
+  --prefill http://<p_node3_ip>:30023 \
+  --prefill http://<p_node4_ip>:30023 \
+  --prefill http://<p_node5_ip>:30023 \
+  --decode http://<d_node0_ip>:30000 \
   --prefill-policy round_robin \
   --decode-policy round_robin \
   --host 0.0.0.0 \
