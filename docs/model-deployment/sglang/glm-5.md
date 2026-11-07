@@ -279,7 +279,7 @@ export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
-  --model-path hygon/GLM-5-Channel-INT8-w8a8 \
+  --model-path /parastor/opendas/DL_DATA/llm-models/GLM-5-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tp-size 8 \
   --nsa-prefill-backend flashmla_auto \
