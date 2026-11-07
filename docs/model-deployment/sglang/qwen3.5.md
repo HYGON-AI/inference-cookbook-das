@@ -53,11 +53,11 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 | [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-k100_ai-16x-sglang-0518) |
-|  | BF16 | 0.5.12 | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-sglang-0512) |
-|  | BF16 | 0.5.12 | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-sglang-0512) |
+|  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-sglang-0512) |
 | [hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0518) |
-|  | FP8 W8A8 | 0.5.12 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0512) |
-|  | FP8 W8A8 | 0.5.12 | scaleX40-3G | 24 | PD | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0512) |
+|  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
 | [hygon/Qwen3.5-397B-A17B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0518) |
 |                                                                                                            | FP8 W8A8 | [0.5.10](../docker_images.md) | BW1100 |  4 | IFB  | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0510)   |
 |                                                                                                            | FP8 W8A8 | 0.5.10 | BW1100 | 12 | 1P1D | [**`>_`**](#qwen35-397b-a17b-channel-fp8-1p1d-bw1100-12x-sglang-0510) |
@@ -1370,6 +1370,8 @@ sglang serve \
 
 #### Node 1
 
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
+
 ```bash
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
@@ -1441,6 +1443,8 @@ sglang serve \
 ```
 
 #### Node 1
+
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
