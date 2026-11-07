@@ -96,7 +96,7 @@ sglang serve \
   --max-running-requests 64 \
   --context-length 131072 \
   --chunked-prefill-size 8192 \
-  --dist-init-addr '<node0_ip>:5123' \
+  --dist-init-addr '<node0_ip>:5000' \
   --nnodes 2 \
   --node-rank 0 \
   --dtype bfloat16 \
@@ -144,7 +144,7 @@ sglang serve \
   --max-running-requests 64 \
   --context-length 131072 \
   --chunked-prefill-size 8192 \
-  --dist-init-addr '<node0_ip>:5123' \
+  --dist-init-addr '<node0_ip>:5000' \
   --nnodes 2 \
   --node-rank 1 \
   --dtype bfloat16 \
