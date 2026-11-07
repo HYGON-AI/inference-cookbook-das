@@ -32,7 +32,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hy_v4 \
   --reasoning-parser hy_v4 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

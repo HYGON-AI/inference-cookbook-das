@@ -148,8 +148,8 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-ifb-k100_ai-16x-vllm-018-hotfix) |
 | [hygon/Qwen3-VL-235B-A22B-Instruct-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3-VL-235B-A22B-Instruct-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-instruct-channel-fp8-ifb-bw1100-4x-vllm-0281) |
 | [Qwen/Qwen3-VL-235B-A22B-Thinking](https://www.modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Thinking) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1100-8x-vllm-0281) |
-|  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1000-8x-vllm-0281) |
-|  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-k100_ai-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1000-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-k100_ai-16x-vllm-0281) |
 |  | BF16 | 0.21 | BW1100 | 8x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1100-8x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-bw1000-16x-vllm-021) |
 |  | BF16 | 0.21 | K100_AI | 16x | IFB | [**`>_`**](#qwen3-vl-235b-a22b-thinking-ifb-k100_ai-16x-vllm-021) |
@@ -182,7 +182,6 @@ vllm serve Qwen/Qwen3-VL-2B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -199,7 +198,6 @@ vllm serve Qwen/Qwen3-VL-2B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -214,7 +212,6 @@ vllm serve Qwen/Qwen3-VL-2B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -320,7 +317,6 @@ vllm serve hygon/Qwen3-VL-2B-Instruct-Channel-FP8 \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -338,7 +334,6 @@ vllm serve Qwen/Qwen3-VL-2B-Thinking \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -356,7 +351,6 @@ vllm serve Qwen/Qwen3-VL-2B-Thinking \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -374,7 +368,6 @@ vllm serve Qwen/Qwen3-VL-2B-Thinking \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -482,7 +475,6 @@ vllm serve hygon/Qwen3-VL-2B-Thinking-Channel-FP8 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -499,7 +491,6 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -516,7 +507,6 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -533,7 +523,6 @@ vllm serve Qwen/Qwen3-VL-4B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -639,7 +628,6 @@ vllm serve hygon/Qwen3-VL-4B-Instruct-Channel-FP8 \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -657,7 +645,6 @@ vllm serve Qwen/Qwen3-VL-4B-Thinking \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -675,7 +662,6 @@ vllm serve Qwen/Qwen3-VL-4B-Thinking \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -693,7 +679,6 @@ vllm serve Qwen/Qwen3-VL-4B-Thinking \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -803,7 +788,6 @@ vllm serve Qwen/Qwen3-VL-8B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -821,7 +805,6 @@ vllm serve Qwen/Qwen3-VL-8B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -838,7 +821,6 @@ vllm serve Qwen/Qwen3-VL-8B-Instruct \
   --safetensors-load-strategy prefetch \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -960,7 +942,6 @@ vllm serve hygon/Qwen3-VL-8B-Instruct-Channel-FP8 \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -979,7 +960,6 @@ vllm serve Qwen/Qwen3-VL-8B-Thinking \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -998,7 +978,6 @@ vllm serve Qwen/Qwen3-VL-8B-Thinking \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1017,7 +996,6 @@ vllm serve Qwen/Qwen3-VL-8B-Thinking \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1127,7 +1105,6 @@ vllm serve hygon/Qwen3-VL-8B-Thinking-Channel-FP8 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1147,7 +1124,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1167,7 +1143,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1186,7 +1161,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Instruct \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1298,7 +1272,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Thinking \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1318,7 +1291,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Thinking \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1336,7 +1308,6 @@ vllm serve Qwen/Qwen3-VL-30B-A3B-Thinking \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1448,7 +1419,6 @@ vllm serve Qwen/Qwen3-VL-32B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1595,7 +1565,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1624,7 +1593,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1649,7 +1617,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -1678,7 +1645,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1702,7 +1668,6 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Instruct \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -1844,7 +1809,6 @@ vllm serve hygon/Qwen3-VL-235B-A22B-Instruct-Channel-FP8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1865,12 +1829,15 @@ vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
 
-### Qwen3-VL-235B-A22B-Thinking IFB BW1000 8x vLLM 0.28.1
+### Qwen3-VL-235B-A22B-Thinking IFB BW1000 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+
+#### rank 0
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
@@ -1878,20 +1845,56 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
   --trust-remote-code \
   --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
   --enable-expert-parallel \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
+  --hf-overrides '{"architectures": ["Qwen3VLMoeForConditionalGeneration"], "text_config": {"architectures": ["Qwen3VLMoeForConditionalGeneration"]}}' \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
 
-### Qwen3-VL-235B-A22B-Thinking IFB K100_AI 8x vLLM 0.28.1
+#### rank 1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --hf-overrides '{"architectures": ["Qwen3VLMoeForConditionalGeneration"], "text_config": {"architectures": ["Qwen3VLMoeForConditionalGeneration"]}}' \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --reasoning-parser qwen3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+### Qwen3-VL-235B-A22B-Thinking IFB K100_AI 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+
+#### rank 0
 
 ```bash
 export VLLM_HCU_USE_CUSTOM_OPS=0
@@ -1899,15 +1902,45 @@ export VLLM_HCU_USE_CUSTOM_OPS=0
 vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
   --trust-remote-code \
   --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
   --enable-expert-parallel \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
+  --hf-overrides '{"architectures": ["Qwen3VLMoeForConditionalGeneration"], "text_config": {"architectures": ["Qwen3VLMoeForConditionalGeneration"]}}' \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3-VL-235B-A22B-Thinking \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --hf-overrides '{"architectures": ["Qwen3VLMoeForConditionalGeneration"], "text_config": {"architectures": ["Qwen3VLMoeForConditionalGeneration"]}}' \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### Qwen3-VL-235B-A22B-Thinking IFB BW1100 8x vLLM 0.21
@@ -2047,7 +2080,6 @@ vllm serve hygon/Qwen3-VL-4B-Thinking-Channel-FP8 \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

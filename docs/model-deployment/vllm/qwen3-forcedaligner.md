@@ -31,7 +31,6 @@ vllm serve Qwen/Qwen3-ForcedAligner-0.6B \
   --hf-overrides '{"architectures":["Qwen3ASRForcedAlignerForTokenClassification"]}' \
   --attention-backend FLASH_ATTN \
   --no-enable-prefix-caching \
-  --max-model-len 8192 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

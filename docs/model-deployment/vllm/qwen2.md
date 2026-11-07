@@ -83,7 +83,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -98,7 +97,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -113,7 +111,6 @@ vllm serve Qwen/Qwen2-0.5B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -236,7 +233,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -251,7 +247,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -266,7 +261,6 @@ vllm serve Qwen/Qwen2-1.5B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -390,7 +384,6 @@ vllm serve Qwen/Qwen2-7B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -406,7 +399,6 @@ vllm serve Qwen/Qwen2-7B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype bfloat16 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -421,7 +413,6 @@ vllm serve Qwen/Qwen2-7B-Instruct \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -546,7 +537,6 @@ vllm serve Qwen/Qwen2-57B-A14B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -563,7 +553,6 @@ vllm serve Qwen/Qwen2-57B-A14B-Instruct \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -579,7 +568,6 @@ vllm serve Qwen/Qwen2-57B-A14B-Instruct \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -733,7 +721,6 @@ vllm serve Qwen/Qwen2-72B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -749,7 +736,6 @@ vllm serve Qwen/Qwen2-72B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -764,7 +750,6 @@ vllm serve Qwen/Qwen2-72B-Instruct \
   --tensor-parallel-size 4 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
