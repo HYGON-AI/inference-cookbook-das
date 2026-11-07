@@ -110,6 +110,8 @@ sglang serve \
 
 #### Node 1
 
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
+
 ```bash
 export AITER_AR_ENABLE_REG_CAPTURE=0
 export HIP_GRAPH_ACCUMULATE_DISPATCH=0

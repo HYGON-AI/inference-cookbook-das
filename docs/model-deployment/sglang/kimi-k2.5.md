@@ -107,6 +107,8 @@ sglang serve \
 
 #### Node 1
 
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
+
 ```bash
 export AITER_AR_ENABLE_REG_CAPTURE=0
 export GLOO_SOCKET_IFNAME=ens47f0np0
