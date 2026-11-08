@@ -26,7 +26,6 @@ DeepSeek-V3.2 是 DeepSeek V3 系列的 MoE 大模型版本，面向高吞吐对
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -59,7 +58,7 @@ export HSA_KERNARG_POOL_SIZE=8388608
 export ROC_AQL_QUEUE_SIZE=131072
 export NCCL_SOCKET_IFNAME=ens14f0
 export GLOO_SOCKET_IFNAME=ens14f0
-export NCCL_IB_HCA=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
+export NCCL_IB_HCA=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export USE_SPE_MQP=1
 
@@ -87,7 +86,6 @@ sglang serve \
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -120,7 +118,7 @@ export HSA_KERNARG_POOL_SIZE=8388608
 export ROC_AQL_QUEUE_SIZE=131072
 export NCCL_SOCKET_IFNAME=ens14f0
 export GLOO_SOCKET_IFNAME=ens14f0
-export NCCL_IB_HCA=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
+export NCCL_IB_HCA=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export USE_SPE_MQP=1
 
@@ -148,7 +146,6 @@ sglang serve \
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -181,7 +178,7 @@ export HSA_KERNARG_POOL_SIZE=8388608
 export ROC_AQL_QUEUE_SIZE=131072
 export NCCL_SOCKET_IFNAME=ens14f0
 export GLOO_SOCKET_IFNAME=ens14f0
-export NCCL_IB_HCA=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
+export NCCL_IB_HCA=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export USE_SPE_MQP=1
 
@@ -209,7 +206,6 @@ sglang serve \
 
 ```bash
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -242,7 +238,7 @@ export HSA_KERNARG_POOL_SIZE=8388608
 export ROC_AQL_QUEUE_SIZE=131072
 export NCCL_SOCKET_IFNAME=ens14f0
 export GLOO_SOCKET_IFNAME=ens14f0
-export NCCL_IB_HCA=mlx5_6,mlx5_7,mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_8,mlx5_9
+export NCCL_IB_HCA=mlx5_2,mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_7,mlx5_8,mlx5_9
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
 export USE_SPE_MQP=1
 
