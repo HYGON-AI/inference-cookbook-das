@@ -70,7 +70,6 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 ### Qwen3-0.6B IFB BW1000 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -118,7 +117,6 @@ sglang serve \
 ### Qwen3-0.6B IFB BW100 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -166,7 +164,6 @@ sglang serve \
 ### Qwen3-0.6B IFB K100_AI 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -358,7 +355,6 @@ sglang serve \
 ### Qwen3-4B IFB BW1100 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -406,7 +402,6 @@ sglang serve \
 ### Qwen3-4B IFB BW1000 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -454,7 +449,6 @@ sglang serve \
 ### Qwen3-4B IFB BW100 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -502,7 +496,6 @@ sglang serve \
 ### Qwen3-4B IFB K100_AI 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -860,7 +853,6 @@ sglang serve \
 ### Qwen3-8B IFB BW100 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -961,7 +953,6 @@ python -m sglang.launch_server \
 ### Qwen3-8B-Channel-INT8-w8a8 IFB BW1100 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -1009,7 +1000,6 @@ sglang serve \
 ### Qwen3-8B-Channel-INT8-w8a8 IFB K100_AI 1x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
