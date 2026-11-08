@@ -8,6 +8,7 @@
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518-tp8dp8) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB(tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518-tp8dp8) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw100-8x-sglang-0518) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518-tp8) |
 |  | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB(tp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512-tp8) |
 |  | INT8 W8A8 | 0.5.12 | BW1100 | 8 | IFB (tp8dp8) | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512-tp8dp8) |
@@ -187,6 +188,26 @@ sglang serve \
   --tool-call-parser hunyuan \
   --reasoning-parser hunyuan \
   --quantization slimquant_marlin
+```
+
+### Hy3-Channel-INT8-w8a8 IFB BW100 8x SGLang 0.5.18
+
+```bash
+export SGLANG_ROCM_USE_AITER_MOE=false
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_RMS_ROTARY=0
+export W8A8_SUPPORT_METHODS=2
+export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
+sglang serve \
+  --model-path hygon/Hy3-Channel-INT8-w8a8 \
+  --tp-size 8 \
+  --trust-remote-code \
+  --enable-cache-report \
+  --mem-fraction-static 0.80 \
+  --attention-backend fa3 \
+  --page-size 64 \
+  --tool-call-parser hunyuan \
+  --reasoning-parser hunyuan
 ```
 
 ### Hy3-Channel-INT8-w8a8 IFB K100_AI 8x SGLang 0.5.18 (tp8)
