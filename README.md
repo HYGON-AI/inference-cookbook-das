@@ -233,7 +233,7 @@
     </tr>
     <tr>
       <td>SGLang</td>
-      <td align="center">🚧</td><td align="center">-</td><td align="center">🚧</td><td align="center">🚧</td>
+      <td align="center">🚧</td><td align="center">-</td><td align="center">🚧</td><td align="center"><a href="docs/model-deployment/sglang/glm4.7.md">✅</a></td>
     </tr>
     <tr>
       <td rowspan="2">GLM-5.3</td>
