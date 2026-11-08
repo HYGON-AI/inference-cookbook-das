@@ -118,7 +118,6 @@ sglang serve \
   --pp-size 1 \
   --page-size 64 \
   --mamba-radix-cache-strategy extra_buffer \
-  --kv-cache-dtype fp8_e5m2 \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --trust-remote-code
