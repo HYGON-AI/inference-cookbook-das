@@ -413,6 +413,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
 
 总计 16 卡，2 个节点，每个节点 8 卡；各节点执行对应 rank 命令，`MASTER_ADDR` 为 rank 0 节点地址，所有节点使用相同的 `MASTER_ADDR` 和 `MASTER_PORT`。
 
+`--tokenizer-mode glm5_next` 需要镜像内的 vLLM 已注册该模式（如 0.28.1+das.29071fe.dtk2610 未注册，会报 `No tokenizer registered for tokenizer_mode='glm5_next'`），未注册时使用默认 `auto` 即可。
+
 #### rank 0
 
 ```bash
@@ -433,7 +435,6 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --all2all-backend allgather_reducescatter \
   --kv-cache-dtype fp8_ds_mla \
-  --tokenizer-mode glm5_next \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
@@ -464,7 +465,6 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --all2all-backend allgather_reducescatter \
   --kv-cache-dtype fp8_ds_mla \
-  --tokenizer-mode glm5_next \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
