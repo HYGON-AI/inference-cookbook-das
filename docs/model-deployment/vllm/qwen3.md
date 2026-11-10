@@ -2879,7 +2879,8 @@ vllm serve Qwen/Qwen3-235B-A22B \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 10240 \
+  --gpu-memory-utilization 0.95 \
   --max-num-seqs 64
 ```
 
@@ -2896,7 +2897,8 @@ vllm serve Qwen/Qwen3-235B-A22B \
   --moe-backend triton \
   --enable-prefix-caching \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 10240 \
+  --gpu-memory-utilization 0.95 \
   --max-num-seqs 64
 ```
 
