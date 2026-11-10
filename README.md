@@ -33,7 +33,7 @@
   </tr>
   <tbody>
     <tr>
-      <td rowspan="24" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
+      <td rowspan="26" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
       <td rowspan="2">Qwen3.8</td>
       <td>vLLM</td>
       <td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td>
@@ -105,6 +105,15 @@
     <tr>
       <td>SGLang</td>
       <td align="center"><a href="docs/model-deployment/sglang/qwen3.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/qwen3.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.md">✅</a></td>
+    </tr>
+    <tr>
+      <td rowspan="2">Qwen2.5</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen2.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen2.5.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
       <td rowspan="2">Qwen2.5-VL</td>
