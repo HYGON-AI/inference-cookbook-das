@@ -74,7 +74,6 @@ Qwen3-VL 是阿里云推出的新一代多模态视觉语言模型（Vision-Lang
 | [Qwen/Qwen3-VL-8B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen3-VL-8B-Instruct) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1000-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-k100_ai-1x-vllm-0281) |
-|  | BF16 | 0.25 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1000-1x-vllm-025) |
 |  | BF16 | 0.21 | BW1100 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1100-1x-vllm-021) |
 |  | BF16 | 0.21 | BW1000 | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-bw1000-1x-vllm-021) |
 |  | BF16 | 0.21 | K100_AI | 1x | IFB | [**`>_`**](#qwen3-vl-8b-instruct-ifb-k100_ai-1x-vllm-021) |
@@ -823,20 +822,6 @@ vllm serve Qwen/Qwen3-VL-8B-Instruct \
   --enable-prefix-caching \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
-```
-
-### Qwen3-VL-8B-Instruct IFB BW1000 1x vLLM 0.25
-
-```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_KV_CACHE_LAYOUT=NHD
-
-vllm serve \
-  --model Qwen/Qwen3-VL-8B-Instruct \
-  --attention-backend FLASH_ATTN \
-  --trust-remote-code \
-  --tensor-parallel-size 1 \
-  --max-model-len 32768
 ```
 
 ### Qwen3-VL-8B-Instruct IFB BW1100 1x vLLM 0.21

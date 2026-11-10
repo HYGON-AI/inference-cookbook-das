@@ -12,9 +12,7 @@ DeepSeek-V4 是 DeepSeek 系列大语言模型，本文档提供其在 vLLM 上�
 | [hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-16x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-k100_ai-16x-vllm-0281) |
-|  | INT8 W8A8 | 0.25.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-int8-w8a8-ifb-bw1000-8x-vllm-0251) |
 | [hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
-|  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
 | [hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-v4-flash-0731-w4a8-int4-channel-attn-w8a8-int8-channel-ifb-k100_ai-8x-vllm-0281) |
@@ -258,24 +256,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --max-num-seqs 64
 ```
 
-### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.25.1
-
-```bash
-vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
-  --dtype bfloat16 \
-  --kv-cache-dtype fp8 \
-  --tensor-parallel-size 8 \
-  --max-num-batched-tokens 16384 \
-  --max-model-len 65536 \
-  --max-num-seqs 64 \
-  --block-size 256 \
-  --trust-remote-code \
-  --tokenizer-mode deepseek_v4 \
-  --distributed-executor-backend mp \
-  --moe-backend aiter \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}'
-```
-
 ### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
@@ -303,22 +283,6 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --max-num-seqs 64
 ```
 
-### DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.25.1
-
-```bash
-vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
-  --dtype bfloat16 \
-  --kv-cache-dtype fp8 \
-  --tensor-parallel-size 8 \
-  --max-num-batched-tokens 16384 \
-  --max-num-seqs 64 \
-  --block-size 256 \
-  --trust-remote-code \
-  --tokenizer-mode deepseek_v4 \
-  --distributed-executor-backend mp \
-  --moe-backend aiter \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}'
-```
 ### DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel IFB BW1100 8x vLLM 0.28.1
 
 ```bash
