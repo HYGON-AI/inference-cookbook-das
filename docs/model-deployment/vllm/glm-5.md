@@ -424,9 +424,12 @@ vllm serve hygon/GLM-5-Channel-INT4-w4a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --max-model-len 32768 \
+  --gpu-memory-utilization 0.96 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
+
+> `--gpu-memory-utilization 0.96` 用于容纳 32768 上下文的 KV cache：K100_AI 单卡 64 GB 下权重占 49.8 GiB、CUDA Graph 占 1.9 GiB，默认 `0.92` 只剩 1.35 GiB 可用 KV，而 32768 需要 3.39 GiB，会报 `ValueError: ... KV cache is needed, which is larger than the available KV cache memory`；取 0.96 后可用 KV 为 3.91 GiB（37,440 tokens）。若需保留默认 `0.92`，可将 `--max-model-len` 降至 12288。
 
 ### GLM-5-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.21
 
