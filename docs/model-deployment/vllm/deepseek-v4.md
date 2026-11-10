@@ -44,6 +44,7 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.8 \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --data-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
@@ -70,6 +71,7 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.8 \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --data-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
@@ -90,7 +92,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
 
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
 
-在各节点分别执行对应命令；`MASTER_ADDR` 和 `DATA_PARALLEL_ADDRESS` 均填写 rank 0 节点地址，`MASTER_PORT` 和 `DATA_PARALLEL_RPC_PORT` 分别使用两个不同的可用端口。每个变量的取值须在所有节点保持一致。
+在各节点分别执行对应命令；`MASTER_ADDR` 和 `DATA_PARALLEL_ADDRESS` 均填写 rank 0 节点地址，`MASTER_PORT` 和 `DATA_PARALLEL_RPC_PORT` 分别使用两个不同的可用端口。每个变量的取值须在所有节点保持一致，curl请求地址：${MASTER_ADDR}，默认端口：8000。
 
 #### rank 0
 
@@ -101,13 +103,13 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.9 \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --data-parallel-size 2 \
   --data-parallel-size-local 1 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
-  --load-format fastsafetensors \
   --api-server-count 1 \
   --nnodes 2 \
   --node-rank 0 \
@@ -142,13 +144,13 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.9 \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --data-parallel-size 2 \
   --data-parallel-size-local 1 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
-  --load-format fastsafetensors \
   --nnodes 2 \
   --node-rank 1 \
   --master-addr "${MASTER_ADDR}" \
@@ -281,6 +283,7 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --gpu-memory-utilization 0.8 \
   --data-parallel-size 8 \
   --enable-expert-parallel \
@@ -324,6 +327,7 @@ export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --gpu-memory-utilization 0.8 \
   --data-parallel-size 8 \
   --enable-expert-parallel \
@@ -358,9 +362,9 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
-  --safetensors-load-strategy prefetch \
   --distributed-executor-backend mp \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
@@ -416,6 +420,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-W4A8-INT4-Channel-Attn-W8A8-INT8-Channel
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --distributed-executor-backend mp \
   --quantization slimquant_w4a8 \
@@ -444,6 +449,7 @@ export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 16 \
   --distributed-executor-backend mp \
   --nnodes 2 \
@@ -457,11 +463,12 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --kv-cache-dtype fp8_ds_mla \
   --block-size 256 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
+  --speculative-config '{"method":"dspark","num_speculative_tokens":3,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --gpu-memory-utilization 0.93 \
+  --max-cudagraph-capture-size 64 \
+  --gpu-memory-utilization 0.94 \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 64
@@ -474,6 +481,7 @@ export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 16 \
   --distributed-executor-backend mp \
   --nnodes 2 \
@@ -488,11 +496,12 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --kv-cache-dtype fp8_ds_mla \
   --block-size 256 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
+  --speculative-config '{"method":"dspark","num_speculative_tokens":3,"draft_sample_method":"probabilistic"}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --gpu-memory-utilization 0.93 \
+  --max-cudagraph-capture-size 64 \
+  --gpu-memory-utilization 0.94 \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 64
@@ -504,6 +513,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --distributed-executor-backend mp \
   --quantization slimquant_w4a8 \
@@ -528,6 +538,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT4-Channel \
 ```bash
 vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -536,7 +547,6 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${master_node_ip}" \
-  --port 36821 \
   --api-server-count 1 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
@@ -556,6 +566,7 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
 ```bash
 vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -565,7 +576,6 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --node-rank 1 \
   --master-addr "${master_node_ip}" \
   --headless \
-  --port 36821 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
   --kv-cache-dtype fp8 \
@@ -587,11 +597,11 @@ export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
 vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
   --quantization compressed-tensors \
-  --safetensors-load-strategy prefetch \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
@@ -615,12 +625,12 @@ export VLLM_USE_BREAKABLE_CUDAGRAPH=1
 
 vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --gpu-memory-utilization 0.94 \
   --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
   --quantization compressed-tensors \
-  --safetensors-load-strategy prefetch \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
@@ -650,7 +660,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
   --quantization compressed-tensors \
-  --safetensors-load-strategy prefetch \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend triton \
@@ -674,6 +683,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -682,7 +692,6 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${master_node_ip}" \
-  --port 36821 \
   --api-server-count 1 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
@@ -702,6 +711,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -711,7 +721,6 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --node-rank 1 \
   --master-addr "${master_node_ip}" \
   --headless \
-  --port 36821 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
   --kv-cache-dtype fp8 \
@@ -735,6 +744,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 32 \
   --enable-expert-parallel \
   --nnodes 4 \
@@ -757,6 +767,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 32 \
   --enable-expert-parallel \
   --nnodes 4 \
@@ -780,6 +791,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 32 \
   --enable-expert-parallel \
   --nnodes 4 \
@@ -803,6 +815,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 32 \
   --enable-expert-parallel \
   --nnodes 4 \
@@ -829,6 +842,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -837,7 +851,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${master_node_ip}" \
-  --port 36821 \
   --api-server-count 1 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
@@ -857,6 +870,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -866,7 +880,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --node-rank 1 \
   --master-addr "${master_node_ip}" \
   --headless \
-  --port 36821 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
   --kv-cache-dtype fp8 \
@@ -889,6 +902,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -897,7 +911,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${master_node_ip}" \
-  --port 36821 \
   --api-server-count 1 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
@@ -917,6 +930,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
 ```bash
 vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
   --data-parallel-size 4 \
   --pipeline-parallel-size 1 \
@@ -926,7 +940,6 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --node-rank 1 \
   --master-addr "${master_node_ip}" \
   --headless \
-  --port 36821 \
   --all2all-backend deepep_auto \
   --moe-backend deep_gemm \
   --kv-cache-dtype fp8 \

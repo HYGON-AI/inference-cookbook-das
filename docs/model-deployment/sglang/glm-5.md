@@ -9,7 +9,7 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [ZhipuAI/GLM-5](https://www.modelscope.cn/models/ZhipuAI/GLM-5) | BF16 | 0.5.18 | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-sglang-0518) |
-| [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
+| [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |                                                                                                 | INT8 W8A8 | 0.5.18 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-int8-w8a8-1p2d-bw1100-24x-sglang-0518) |
 |                                                                                                 | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1000-16x-sglang-0518) |
 |                                                                                                 | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
@@ -276,6 +276,7 @@ export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
 export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
   --model-path hygon/GLM-5-Channel-INT8-w8a8 \
@@ -298,7 +299,7 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --custom-all-reduce-backend aiter
+  --custom-all-reduce-backend native
 ```
 
 ### GLM-5-Channel-INT8-w8a8 1P2D BW1100 24x SGLang 0.5.18
