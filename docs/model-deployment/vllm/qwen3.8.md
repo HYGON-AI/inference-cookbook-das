@@ -19,7 +19,6 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100_ai-2x-vllm-0281) |
-|  | BF16 | 0.25 | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-025) |
 |  | BF16 |  [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-021) |
 |  | BF16 |  [0.21](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1000-2x-vllm-021) |
 |  | BF16 | [0.21](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen38-27b-ifb-k100_ai-2x-vllm-021) |
@@ -297,23 +296,6 @@ vllm serve Qwen/Qwen3.8-27B \
   --reasoning-parser qwen3 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
-```
-
-### Qwen3.8-27B IFB BW1000 2x vLLM 0.25
-
-```bash
-export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_KV_CACHE_LAYOUT=HND
-
-vllm serve \
-  --model Qwen/Qwen3.8-27B \
-  --attention-backend FLASH_ATTN \
-  --trust-remote-code \
-  --tensor-parallel-size 2 \
-  --max-model-len 32768 \
-  --reasoning-parser qwen3 \
-  --enable-auto-tool-choice \
-  --tool-call-parser qwen3_coder
 ```
 
 ### Qwen3.8-27B IFB BW1100 1x vLLM 0.21
