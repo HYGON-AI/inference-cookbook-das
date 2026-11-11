@@ -11,7 +11,8 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 | [Qwen/Qwen3.8-Flash-Next](https://www.modelscope.cn/models/Qwen/Qwen3.8-Flash-Next) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-2x-vllm-0281) |
-| [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-vllm-0281) |
+| [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | W4A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-2x-vllm-0281) |
+|  | W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-vllm-0281) |
 |  | W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-k100_ai-4x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Mixed-w4a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Mixed-w4a8) | W4A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1100-2x-vllm-0281) |
 |  | W4A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1000-4x-vllm-0281) |
@@ -116,6 +117,31 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --max-num-seqs 64
 ```
 
+### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1100 2x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
+export VLLM_HCU_PLE_PREFETCH_STREAM=1
+
+vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
+  -tp 2 \
+  --moe-backend aiter \
+  --dtype bfloat16 \
+  --trust-remote-code \
+  --kv-cache-dtype fp8_e5m2 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x vLLM 0.28.1
 
 ```bash
@@ -193,6 +219,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1000 4x vLLM 0.28.1
 ```bash
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
+export VLLM_ENGINE_READY_TIMEOUT_S=3600
 
 vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   -tp 1 \
