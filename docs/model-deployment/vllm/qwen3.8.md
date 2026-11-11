@@ -49,6 +49,7 @@ export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
 export VLLM_HCU_QSA_BACKEND=triton
 vllm serve Qwen/Qwen3.8-Flash-Next \
   --trust-remote-code \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --tensor-parallel-size 8 \
   --moe-backend aiter \
   --enable-prefix-caching \
@@ -82,6 +83,7 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --engram-config.cpu_offload=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --reasoning-parser qwen3 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -95,6 +97,8 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
 
 vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --trust-remote-code \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --tensor-parallel-size 2 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
@@ -128,6 +132,8 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --max-num-batched-tokens 16384 \
@@ -150,6 +156,8 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
   --mamba-cache-mode align \
   --enable-mamba-fine-grained-prefix-cache \
   --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
   --max-num-batched-tokens 16384 \
@@ -168,6 +176,8 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   -dp 2 \
   --trust-remote-code \
   --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
@@ -190,6 +200,8 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   -dp 4 \
   --trust-remote-code \
   --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --mamba-cache-mode align \
@@ -214,6 +226,8 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   -dp 4 \
   --trust-remote-code \
   --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
   --enable-prefix-caching \
   --mamba-cache-mode align \
   --prefix-match-unit 64 \
