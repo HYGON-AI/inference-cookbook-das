@@ -182,7 +182,6 @@ vllm serve Qwen/Qwen3.5-0.8B \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --max-num-batched-tokens 16384 \
@@ -242,7 +241,6 @@ vllm serve Qwen/Qwen3.5-4B \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -445,7 +443,6 @@ vllm serve Qwen/Qwen3.5-9B \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -647,7 +644,6 @@ vllm serve Qwen/Qwen3.5-27B \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -881,7 +877,6 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
@@ -1098,7 +1093,6 @@ vllm serve hygon/Qwen3.5-35B-A3B-Channel-INT8-w8a8 \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -1392,7 +1386,6 @@ vllm serve Qwen/Qwen3.5-122B-A10B \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \

@@ -111,6 +111,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
+  --gpu-memory-utilization 0.92 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -301,7 +302,6 @@ vllm serve Qwen/Qwen3.8-27B \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
@@ -452,7 +452,6 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
