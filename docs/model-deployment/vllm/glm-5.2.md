@@ -27,7 +27,6 @@ GLM-5.2 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 | [hygon/GLM-5.2-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1000-16x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-k100_ai-16x-vllm-0281) |
-|  | INT8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-0251) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1000-16x-vllm-021) |
 |  | INT8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int8-w8a8-ifb-bw1100-8x-vllm-018) |
@@ -64,7 +63,7 @@ vllm serve ZhipuAI/GLM-5.2 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -92,7 +91,7 @@ vllm serve ZhipuAI/GLM-5.2 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -355,7 +354,7 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 131072 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -411,9 +410,12 @@ vllm serve hygon/GLM-5.2-Channel-INT4-w4a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --max-model-len 32768 \
+  --gpu-memory-utilization 0.95 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
+
+> `--gpu-memory-utilization 0.95` 用于容纳 32768 上下文的 KV cache：K100_AI 单卡 64 GB 下权重占 49.3 GiB、CUDA Graph 占 1.8 GiB，默认 `0.92` 只剩 1.79 GiB 可用 KV，而 32768 需要 2.95 GiB，会报 `ValueError: ... KV cache is needed, which is larger than the available KV cache memory`；取 0.95 后可用 KV 为 3.68 GiB（40,512 tokens）。若需保留默认 `0.92`，可将 `--max-model-len` 降至 16384。
 
 ### GLM-5.2-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.21
 
@@ -646,7 +648,7 @@ vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 131072 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -844,7 +846,7 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 131072 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -983,24 +985,6 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
-```
-
-### GLM-5.2-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.25.1
-
-```bash
-vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
-  --tensor-parallel-size 8 \
-  --trust-remote-code \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 10240 \
-  --max-num-seqs 128 \
-  --gpu-memory-utilization 0.9 \
-  --enable-chunked-prefill \
-  --enable-prefix-caching \
-  --block-size 64 \
-  --generation-config vllm \
-  --quantization slimquant_marlin \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":2,"quantization":"slimquant_marlin"}'
 ```
 
 ### GLM-5.2-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.21
