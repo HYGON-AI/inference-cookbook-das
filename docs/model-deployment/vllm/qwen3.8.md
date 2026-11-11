@@ -231,7 +231,6 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
   --default-chat-template-kwargs '{"enable_thinking": false}' \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config.method mtp \
   --speculative-config.num_speculative_tokens 3 \
