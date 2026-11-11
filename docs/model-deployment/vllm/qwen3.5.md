@@ -1604,7 +1604,6 @@ vllm serve hygon/Qwen3.5-122B-A10B-w8a8 \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -1940,7 +1939,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -1967,7 +1965,6 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
@@ -2102,7 +2099,6 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
   --moe-backend triton \
   --enable-prefix-caching \
   --mamba-cache-mode align \
-  --prefix-match-unit 64 \
   --enable-mamba-fine-grained-prefix-cache \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
