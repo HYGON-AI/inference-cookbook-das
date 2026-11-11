@@ -194,6 +194,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1100 2x vLLM 0.28.1
 
 ```bash
+export VLLM_ENGINE_READY_TIMEOUT_S=3600
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
 
 vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
@@ -244,6 +245,7 @@ vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB K100_AI 4x vLLM 0.28.1
 
 ```bash
+export VLLM_ENGINE_READY_TIMEOUT_S=3600
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
 export VLLM_HCU_USE_CUSTOM_OPS=0
 
