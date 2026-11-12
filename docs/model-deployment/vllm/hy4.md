@@ -182,12 +182,11 @@ docker exec -it hy4-d bash
 
 #### 重新安装插件
 
-使用此镜像后，P、D 两端均需在容器内重新安装 [v0.25.1 分支](https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.25.1)的插件，再启动服务：
+使用此镜像后，P、D 两端均需在容器内安装以下版本插件，再启动服务：
 
 ```bash
 python -c 'import ctypes; ctypes.CDLL("libhydmi.so"); print("libhydmi.so OK")'
-git clone --branch v0.25.1 --single-branch https://github.com/HYGON-AI/vllm-plugin-das.git vllm-plugin-das-v0251
-MAX_JOBS=16 python -m pip install --no-deps --no-build-isolation -e ./vllm-plugin-das-v0251
+pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
 ```
 
 #### P node
