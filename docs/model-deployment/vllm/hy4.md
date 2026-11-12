@@ -185,7 +185,6 @@ docker exec -it hy4-d bash
 使用此镜像后，P、D 两端均需在容器内安装以下版本插件，再启动服务：
 
 ```bash
-python -c 'import ctypes; ctypes.CDLL("libhydmi.so"); print("libhydmi.so OK")'
 pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
 ```
 
