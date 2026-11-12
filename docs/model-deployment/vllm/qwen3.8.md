@@ -15,6 +15,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 |  | W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-k100_ai-4x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Mixed-w4a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Mixed-w4a8) | W4A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1100-2x-vllm-0281) |
 |  | W4A8 | 0.28.1 | BW1000 | 8 | 1P1D | [**`>_`**](#qwen38-flash-next-mixed-w4a8-1p1d-bw1000-8x-vllm-0281) |
+|  | W4A8 | 0.28.1 | BW1000 | 16 | 1P1D | [**`>_`**](#qwen38-flash-next-mixed-w4a8-1p1d-bw1000-16x-vllm-0281) |
 |  | W4A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1000-4x-vllm-0281) |
 |  | W4A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-k100_ai-4x-vllm-0281) |
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-0281) |
@@ -424,6 +425,119 @@ python3 "<vllm_source_dir>/examples/disaggregated/mooncake_connector/mooncake_co
   --host 0.0.0.0 \
   --prefill "http://127.0.0.1:8010" 18998 \
   --decode "http://127.0.0.1:8011" \
+  --port 8518
+```
+
+### Qwen3.8-Flash-Next-Mixed-w4a8 1P1D BW1000 16x vLLM 0.28.1
+
+双节点 16 卡部署：P node 独占一个节点的 8 卡，D node 独占另一个节点的 8 卡，均按 `tp2`×`dp4`（每实例 8 卡，EP=8）切分并行度。P、D 服务端口分别为 `8010`、`8011`，代理端口为 `8518`。启动顺序为 P node → D node → Mooncake Connector Proxy。
+
+以下示例中 `10.211.10.10` 为 P 节点、`10.211.10.9` 为 D 节点，实际部署时请根据实际情况修改。两节点 IP 需在 RDMA 网络互相可达，`MC_GID_INDEX` 与 `NCCL_IB_GID_INDEX` 需与网卡绑定一致；每个实例内部仍为单机 8 卡，跨节点流量仅 Mooncake KV 传输（RDMA）与 proxy/D 对 P 节点 bootstrap 端口（`18998`）的 HTTP 查询。
+
+#### P node
+
+```bash
+export VLLM_HOST_IP=10.211.10.10
+export VLLM_MOONCAKE_BOOTSTRAP_PORT=18998
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export MC_GID_INDEX=3
+export NCCL_IB_GID_INDEX=3
+export NO_PROXY='*'
+export VLLM_WORKER_MULTIPROC_METHOD=spawn
+export VLLM_ENGINE_READY_TIMEOUT_S=1800
+export VLLM_HCU_PLE_PREFETCH_STREAM=1
+export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
+export VLLM_HCU_DP_INT8_ALLGATHER=1
+export AITER_PTQ_I8_BACKEND=hip
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=BLHNC
+export VLLM_DEEPEP_BUFFER_SIZE_MB=1024
+export VLLM_HCU_QWEN4_EXP_HC_SP=1
+
+vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
+  -tp 2 \
+  -dp 4 \
+  --enable-expert-parallel \
+  --enable-ep-weight-filter \
+  --all2all-backend deepep_high_throughput \
+  --moe-backend deep_gemm \
+  --port 8010 \
+  --host 0.0.0.0 \
+  --served-model-name qwen38-next \
+  --trust-remote-code \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --max-model-len 262144 \
+  --kv-cache-dtype fp8_e5m2 \
+  --max-num-seqs 32 \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --max-num-batched-tokens 8192 \
+  --gpu-memory-utilization 0.85 \
+  --kv-transfer-config '{"kv_connector":"MooncakeConnector","kv_role":"kv_producer","kv_connector_extra_config":{"mooncake_protocol":"rdma"}}'
+```
+
+#### D node
+
+```bash
+export VLLM_HOST_IP=10.211.10.9
+export MC_ENABLE_DEST_DEVICE_AFFINITY=1
+export MC_GID_INDEX=3
+export NCCL_IB_GID_INDEX=3
+export NO_PROXY='*'
+export VLLM_WORKER_MULTIPROC_METHOD=spawn
+export VLLM_ENGINE_READY_TIMEOUT_S=1800
+export VLLM_HCU_PLE_PREFETCH_STREAM=1
+export VLLM_ROCM_USE_AITER_CUSTOM_AR=1
+export VLLM_HCU_DP_INT8_ALLGATHER=1
+export AITER_PTQ_I8_BACKEND=hip
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_KV_CACHE_LAYOUT=BLHNC
+export VLLM_DEEPEP_BUFFER_SIZE_MB=1024
+
+vllm serve hygon/Qwen3.8-Flash-Next-Mixed-w4a8 \
+  -tp 2 \
+  -dp 4 \
+  --enable-expert-parallel \
+  --enable-ep-weight-filter \
+  --all2all-backend deepep_low_latency \
+  --moe-backend deep_gemm \
+  --port 8011 \
+  --host 0.0.0.0 \
+  --served-model-name qwen38-next \
+  --trust-remote-code \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --engram-config.cpu_offload=true \
+  --engram-config.embedding_across_dp=true \
+  --max-model-len 262144 \
+  --kv-cache-dtype fp8_e5m2 \
+  --max-num-seqs 64 \
+  --speculative-config.method mtp \
+  --speculative-config.num_speculative_tokens 3 \
+  --max-num-batched-tokens 256 \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
+  --gpu-memory-utilization 0.85 \
+  --kv-transfer-config '{"kv_connector":"MooncakeConnector","kv_role":"kv_consumer","kv_connector_extra_config":{"mooncake_protocol":"rdma"}}'
+```
+
+#### Mooncake Connector Proxy
+
+P、D 服务就绪后在任一节点启动代理。双节点部署时 `--prefill` 不能使用 `127.0.0.1`：代理会把 `http://10.211.10.10:18998` 作为 `remote_bootstrap_addr` 下发给 D，D 需跨节点访问该地址查询 P 节点侧 transfer engine，否则 D 会因 `engine_id not found` 导致 KV 接收失败。
+
+```bash
+python3 "<vllm_source_dir>/examples/disaggregated/mooncake_connector/mooncake_connector_proxy.py" \
+  --host 0.0.0.0 \
+  --prefill "http://10.211.10.10:8010" 18998 \
+  --decode "http://10.211.10.9:8011" \
   --port 8518
 ```
 
