@@ -93,7 +93,7 @@ P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 1
 
 镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523`。
 
-P 容器当前目录需有 [r16.json](configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py](configs/hy4/proxy.py)。
+P 容器当前目录需有 [r16.json（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/b873be9a4a3dc7af08227e3b07ef57aafddcee58/docs/model-deployment/vllm/configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py](configs/hy4/proxy.py)。
 
 `/opt/hyhal` 是宿主机驱动目录，两端容器均需只读挂载；若驱动安装在其他目录，将挂载源改为实际目录，容器内目标仍为 `/opt/hyhal`。
 
