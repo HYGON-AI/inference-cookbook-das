@@ -89,18 +89,109 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
 
 ### Hy4-preview-Channel-INT4-w4a8 1P1D BW1100 32x vLLM 0.25.1
 
-P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 16。将 `P_NODE_IP`、`D_NODE_IP` 替换为节点地址，以下命令在仓库根目录执行。
+P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 16。
 
 镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837`。
 
 离线映射使用 [r16.json](configs/hy4/r16.json)，P 启动时直接加载。
 
+#### 设置环境变量
+
+在两台宿主机的本仓库根目录分别执行，替换节点地址及各自的模型目录绝对路径：
+
+```bash
+export P_NODE_IP="<P_IP>"
+export D_NODE_IP="<D_IP>"
+export MODEL_DIR="<MODEL_DIR>"
+```
+
+镜像拉取失败时，在对应宿主机的 `/etc/docker/daemon.json` 中，将 `42.228.13.241:5000` 追加到 `insecure-registries` 数组，保留已有配置：
+
+```json
+{
+  "insecure-registries": ["42.228.13.241:5000"]
+}
+```
+
+修改后、创建容器前重启 Docker；重启会影响该宿主机已有容器。
+
+```bash
+sudo systemctl restart docker
+```
+
+#### P 机器：创建容器
+
+在 P 宿主机执行，最后一条命令进入 P 容器：
+
+```bash
+docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837
+docker run -d \
+  --name hy4-p \
+  --hostname hy4-p \
+  --network host \
+  --shm-size 64g \
+  --cap-add IPC_LOCK \
+  --group-add video \
+  --security-opt seccomp=unconfined \
+  --ulimit memlock=-1:-1 \
+  --ulimit nofile=1048576:1048576 \
+  --device /dev/kfd \
+  --device /dev/mkfd \
+  --device /dev/dri \
+  --device /dev/infiniband \
+  -v /usr/local/hyhal:/usr/local/hyhal:ro \
+  -v /opt/hyhal:/opt/hyhal:ro \
+  -v "$PWD":/workspace \
+  -v "$MODEL_DIR":/models/hy4:ro \
+  -e P_NODE_IP="$P_NODE_IP" \
+  -e D_NODE_IP="$D_NODE_IP" \
+  -e VLLM_HOST_IP="$P_NODE_IP" \
+  --workdir /workspace \
+  --entrypoint /usr/bin/sleep \
+  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837 infinity
+docker exec -it hy4-p bash
+```
+
+#### D 机器：创建容器
+
+在 D 宿主机执行，最后一条命令进入 D 容器：
+
+```bash
+docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837
+docker run -d \
+  --name hy4-d \
+  --hostname hy4-d \
+  --network host \
+  --shm-size 64g \
+  --cap-add IPC_LOCK \
+  --group-add video \
+  --security-opt seccomp=unconfined \
+  --ulimit memlock=-1:-1 \
+  --ulimit nofile=1048576:1048576 \
+  --device /dev/kfd \
+  --device /dev/mkfd \
+  --device /dev/dri \
+  --device /dev/infiniband \
+  -v /usr/local/hyhal:/usr/local/hyhal:ro \
+  -v /opt/hyhal:/opt/hyhal:ro \
+  -v "$PWD":/workspace \
+  -v "$MODEL_DIR":/models/hy4:ro \
+  -e P_NODE_IP="$P_NODE_IP" \
+  -e D_NODE_IP="$D_NODE_IP" \
+  -e VLLM_HOST_IP="$D_NODE_IP" \
+  --workdir /workspace \
+  --entrypoint /usr/bin/sleep \
+  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837 infinity
+docker exec -it hy4-d bash
+```
+
 #### P node
+
+在 P 容器执行：
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_USE_MODELSCOPE=1
-export VLLM_HOST_IP="P_NODE_IP"
+export VLLM_HOST_IP="$P_NODE_IP"
 export VLLM_MOONCAKE_BOOTSTRAP_PORT=18998
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export ROCSHMEM_GDR_DISABLE_XDP=1
@@ -118,7 +209,8 @@ export LIGHTOP_MQA_LOGITS_BETA=1
 export TOKENIZERS_PARALLELISM=true
 export RAYON_NUM_THREADS=4
 
-vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
+vllm serve /models/hy4 \
+  --served-model-name hygon/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --quantization compressed-tensors \
   --host 0.0.0.0 \
@@ -149,10 +241,11 @@ vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
 
 #### D node
 
+在 D 容器执行：
+
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
-export VLLM_USE_MODELSCOPE=1
-export VLLM_HOST_IP="D_NODE_IP"
+export VLLM_HOST_IP="$D_NODE_IP"
 export VLLM_MOONCAKE_BOOTSTRAP_PORT=18999
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export ROCSHMEM_IPC_MNVL=1
@@ -163,7 +256,8 @@ export VLLM_HCU_ENABLE_HYV4_ATTN_INPUT_OVERLAP=1
 export VLLM_HCU_ENABLE_BYTELEVEL_DETOKENIZER_TAIL=1
 export TOKENIZERS_PARALLELISM=false
 
-vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
+vllm serve /models/hy4 \
+  --served-model-name hygon/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --quantization compressed-tensors \
   --host 0.0.0.0 \
@@ -194,26 +288,34 @@ vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
 
 #### Proxy
 
-两端服务就绪后，在 D 节点运行 [text_proxy.py](configs/hy4/text_proxy.py)：
+两端服务就绪后，在 D 宿主机另开终端，进入 D 容器运行 [text_proxy.py](configs/hy4/text_proxy.py)：
+
+```bash
+docker exec -it hy4-d bash
+```
 
 ```bash
 python docs/model-deployment/vllm/configs/hy4/text_proxy.py \
   --host 0.0.0.0 \
   --port 8002 \
-  --prefill http://P_NODE_IP:8000 18998 \
-  --decode http://D_NODE_IP:8000
+  --prefill "http://${P_NODE_IP}:8000" 18998 \
+  --decode "http://${D_NODE_IP}:8000"
 ```
 
 #### 精度测试
 
-服务启动一次，先测 HumanEval，再执行下方两轮性能测试。
+在 D 宿主机另开终端进入 D 容器，先测 HumanEval，再执行下方两轮性能测试：
+
+```bash
+docker exec -it hy4-d bash
+```
 
 ```bash
 python -m pip install evalscope==1.9.1
 evalscope eval \
   --model hygon/Hy4-preview-Channel-INT4-w4a8 \
   --eval-type openai_api \
-  --api-url "http://D_NODE_IP:8002/v1" \
+  --api-url "http://${D_NODE_IP}:8002/v1" \
   --api-key EMPTY \
   --datasets humaneval \
   --repeats 1 \
@@ -229,12 +331,11 @@ evalscope eval \
 输入 85K、输出 1200，RPS 2.55。依次运行 146 和 2920。
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-
 vllm bench serve \
   --backend openai \
   --endpoint /v1/completions \
   --model hygon/Hy4-preview-Channel-INT4-w4a8 \
+  --tokenizer /models/hy4 \
   --dataset-name prefix_repetition \
   --prefix-repetition-num-prefixes 1 \
   --prefix-repetition-prefix-len 79050 \
@@ -247,7 +348,7 @@ vllm bench serve \
   --num-warmups 0 \
   --ready-check-timeout-sec 0 \
   --metric-percentiles 95,99 \
-  --host "D_NODE_IP" \
+  --host "$D_NODE_IP" \
   --port 8002 \
   --num-prompts 146 \
   --max-concurrency 146 \
@@ -261,12 +362,11 @@ vllm bench serve \
 ```
 
 ```bash
-export VLLM_USE_MODELSCOPE=1
-
 vllm bench serve \
   --backend openai \
   --endpoint /v1/completions \
   --model hygon/Hy4-preview-Channel-INT4-w4a8 \
+  --tokenizer /models/hy4 \
   --dataset-name prefix_repetition \
   --prefix-repetition-num-prefixes 1 \
   --prefix-repetition-prefix-len 79050 \
@@ -279,7 +379,7 @@ vllm bench serve \
   --num-warmups 0 \
   --ready-check-timeout-sec 0 \
   --metric-percentiles 95,99 \
-  --host "D_NODE_IP" \
+  --host "$D_NODE_IP" \
   --port 8002 \
   --num-prompts 2920 \
   --max-concurrency 146 \
