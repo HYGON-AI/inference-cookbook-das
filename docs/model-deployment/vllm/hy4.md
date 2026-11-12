@@ -95,6 +95,8 @@ P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 1
 
 P 容器当前目录需有 [r16.json](configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py](configs/hy4/proxy.py)。
 
+`/opt/hyhal` 是宿主机驱动目录，两端容器均需只读挂载；若驱动安装在其他目录，将挂载源改为实际目录，容器内目标仍为 `/opt/hyhal`。
+
 #### 设置环境变量
 
 在两台宿主机分别执行，替换为实际节点地址：
@@ -138,6 +140,7 @@ docker run -d \
   --device /dev/mkfd \
   --device /dev/dri \
   --device /dev/infiniband \
+  -v /opt/hyhal:/opt/hyhal:ro \
   -e P_NODE_IP="$P_NODE_IP" \
   -e D_NODE_IP="$D_NODE_IP" \
   -e VLLM_HOST_IP="$P_NODE_IP" \
@@ -167,6 +170,7 @@ docker run -d \
   --device /dev/mkfd \
   --device /dev/dri \
   --device /dev/infiniband \
+  -v /opt/hyhal:/opt/hyhal:ro \
   -e P_NODE_IP="$P_NODE_IP" \
   -e D_NODE_IP="$D_NODE_IP" \
   -e VLLM_HOST_IP="$D_NODE_IP" \
@@ -181,6 +185,7 @@ docker exec -it hy4-d bash
 使用此镜像后，P、D 两端均需在容器内重新安装 [v0.25.1 分支](https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.25.1)的插件，再启动服务：
 
 ```bash
+python -c 'import ctypes; ctypes.CDLL("libhydmi.so"); print("libhydmi.so OK")'
 git clone --branch v0.25.1 --single-branch https://github.com/HYGON-AI/vllm-plugin-das.git vllm-plugin-das-v0251
 MAX_JOBS=16 python -m pip install --no-deps --no-build-isolation -e ./vllm-plugin-das-v0251
 ```
