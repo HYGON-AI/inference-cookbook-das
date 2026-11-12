@@ -91,7 +91,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
 
 P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 16。将 `P_NODE_IP`、`D_NODE_IP` 替换为节点地址，以下命令在仓库根目录执行。RDMA 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
-镜像：`42.228.13.241:5000/hcu/base_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261110-1933`。
+镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837`。
 
 离线映射使用 [r16.json](configs/hy4/r16.json)，P 启动时直接加载。
 
