@@ -289,14 +289,15 @@ vllm serve /models/hy4 \
 
 #### Proxy
 
-两端服务就绪后，在 D 宿主机另开终端，进入 D 容器运行 [text_proxy.py](configs/hy4/text_proxy.py)：
+两端服务就绪后，在 D 宿主机另开终端，进入 D 容器运行 [proxy.py](configs/hy4/proxy.py)：
 
 ```bash
 docker exec -it hy4-d bash
 ```
 
 ```bash
-python docs/model-deployment/vllm/configs/hy4/text_proxy.py \
+cp docs/model-deployment/vllm/configs/hy4/proxy.py proxy.py
+python proxy.py \
   --host 0.0.0.0 \
   --port 8002 \
   --prefill "http://${P_NODE_IP}:8000" 18998 \
@@ -329,7 +330,7 @@ evalscope eval \
 
 #### 性能测试
 
-输入 85K、输出 1200，RPS 2.55。依次运行 146 和 2920。
+输入 85K、输出 1200，RPS 2.55。
 
 ```bash
 vllm bench serve \
