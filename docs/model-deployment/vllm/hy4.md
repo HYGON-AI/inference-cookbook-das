@@ -10,7 +10,7 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
-| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | 0.25.1 | BW1100 | 32 | 1P1D | [**`>_`**](#hy4-preview-channel-int4-w4a8-1p1d-bw1100-32x-vllm-0251) |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | 0.25.1 | BW1100(超节点) | 32 | 1P1D | [**`>_`**](#hy4-preview-channel-int4-w4a8-1p1d-bw1100-32x-vllm-0251) |
 
 
 ### 0.28.1 平台支持说明
@@ -89,7 +89,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
 
 ### Hy4-preview-Channel-INT4-w4a8 1P1D BW1100 32x vLLM 0.25.1
 
-P、D 各 16 卡，离线 EPLB 冗余专家数为 16。将 `P_NODE_IP`、`D_NODE_IP` 替换为节点地址，以下命令在仓库根目录执行。RDMA 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
+P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 16。将 `P_NODE_IP`、`D_NODE_IP` 替换为节点地址，以下命令在仓库根目录执行。RDMA 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
 镜像：`42.228.13.241:5000/hcu/base_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261110-1933`。
 
