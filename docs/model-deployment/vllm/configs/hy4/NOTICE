@@ -1,0 +1,8 @@
+vllm-plugin-das
+Copyright (c) 2026 Hygon Information Technology Co., Ltd.
+
+This product is licensed under the Apache License, Version 2.0.
+
+This product includes software derived from or adapted for use with the vLLM
+project. Third-party source attributions and modification notices are recorded
+in THIRD_PARTY_NOTICES.md and retained in the relevant source file headers.
