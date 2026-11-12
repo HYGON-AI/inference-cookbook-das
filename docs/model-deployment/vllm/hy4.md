@@ -332,6 +332,8 @@ evalscope eval \
 
 输入 85K、输出 1200，RPS 2.55。
 
+##### 预热：146 请求
+
 ```bash
 vllm bench serve \
   --backend openai \
@@ -362,6 +364,8 @@ vllm bench serve \
   --result-dir results/hy4-146 \
   --result-filename result.json
 ```
+
+##### 实跑：2920 请求
 
 ```bash
 vllm bench serve \
