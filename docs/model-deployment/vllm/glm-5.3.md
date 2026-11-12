@@ -399,7 +399,6 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
-  --tokenizer-mode glm5_next \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
