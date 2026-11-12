@@ -406,3 +406,49 @@ vllm bench serve \
   --result-dir results/hy4-2920 \
   --result-filename result.json
 ```
+
+##### 实测结果：2920 请求
+
+本次客户端输出如下：
+
+```text
+============ Serving Benchmark Result ============
+Successful requests:                     2920
+Failed requests:                         0
+Maximum request concurrency:             146
+Request rate configured (RPS):           2.55
+Benchmark duration (s):                  1182.40
+Total input tokens:                      248200000
+Total generated tokens:                  3504000
+Request throughput (req/s):              2.47
+Output token throughput (tok/s):         2963.46
+Peak output token throughput (tok/s):    1160.00
+Peak concurrent requests:                149.00
+Total token throughput (tok/s):          212875.44
+---------------Time to First Token----------------
+Mean TTFT (ms):                          7880.24
+Median TTFT (ms):                        4687.29
+P95 TTFT (ms):                           18757.51
+P99 TTFT (ms):                           21082.39
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          30.30
+Median TPOT (ms):                        30.13
+P95 TPOT (ms):                           30.92
+P99 TPOT (ms):                           45.67
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           118.80
+Median ITL (ms):                         117.05
+P95 ITL (ms):                            181.52
+P99 ITL (ms):                            308.37
+---------------Speculative Decoding---------------
+Acceptance rate (%):                     96.12
+Acceptance length:                       3.88
+Drafts:                                  903352
+Draft tokens:                            2710056
+Accepted tokens:                         2604839
+Per-position acceptance (%):
+  Position 0:                            97.17
+  Position 1:                            95.91
+  Position 2:                            95.27
+==================================================
+```
