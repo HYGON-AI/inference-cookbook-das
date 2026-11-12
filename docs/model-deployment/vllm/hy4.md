@@ -91,7 +91,7 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
 
 P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 16。
 
-镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837`。
+镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523`。
 
 P 容器当前目录需有 [r16.json](configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py](configs/hy4/proxy.py)。
 
@@ -123,7 +123,7 @@ sudo systemctl restart docker
 在 P 宿主机执行，最后一条命令进入 P 容器：
 
 ```bash
-docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837
+docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523
 docker run -d \
   --name hy4-p \
   --hostname hy4-p \
@@ -143,7 +143,7 @@ docker run -d \
   -e VLLM_HOST_IP="$P_NODE_IP" \
   --workdir /workspace \
   --entrypoint /usr/bin/sleep \
-  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837 infinity
+  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523 infinity
 docker exec -it hy4-p bash
 ```
 
@@ -152,7 +152,7 @@ docker exec -it hy4-p bash
 在 D 宿主机执行，最后一条命令进入 D 容器：
 
 ```bash
-docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837
+docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523
 docker run -d \
   --name hy4-d \
   --hostname hy4-d \
@@ -172,8 +172,17 @@ docker run -d \
   -e VLLM_HOST_IP="$D_NODE_IP" \
   --workdir /workspace \
   --entrypoint /usr/bin/sleep \
-  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837 infinity
+  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523 infinity
 docker exec -it hy4-d bash
+```
+
+#### 重新安装插件
+
+使用此镜像后，P、D 两端均需在容器内重新安装 [v0.25.1 分支](https://github.com/HYGON-AI/vllm-plugin-das/tree/v0.25.1)的插件，再启动服务：
+
+```bash
+git clone --branch v0.25.1 --single-branch https://github.com/HYGON-AI/vllm-plugin-das.git vllm-plugin-das-v0251
+MAX_JOBS=16 python -m pip install --no-deps --no-build-isolation -e ./vllm-plugin-das-v0251
 ```
 
 #### P node
