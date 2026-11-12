@@ -190,6 +190,7 @@ docker exec -it hy4-d bash
 在 P 容器执行：
 
 ```bash
+cp docs/model-deployment/vllm/configs/hy4/r16.json r16.json
 export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_HOST_IP="$P_NODE_IP"
 export VLLM_MOONCAKE_BOOTSTRAP_PORT=18998
@@ -236,7 +237,7 @@ vllm serve /models/hy4 \
   --renderer-num-workers 4 \
   --long-prefill-token-threshold 65536 \
   --enable-eplb \
-  --eplb-config '{"expert_map_path":"docs/model-deployment/vllm/configs/hy4/r16.json","num_redundant_experts":16,"static_dispatch_policy":"nearest"}'
+  --eplb-config '{"expert_map_path":"r16.json","num_redundant_experts":16,"static_dispatch_policy":"nearest"}'
 ```
 
 #### D node
