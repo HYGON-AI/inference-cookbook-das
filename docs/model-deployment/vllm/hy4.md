@@ -93,16 +93,15 @@ P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 1
 
 镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261112-0837`。
 
-离线映射使用 [r16.json](configs/hy4/r16.json)，P 启动时直接加载。
+P 容器当前目录需有 [r16.json](configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py](configs/hy4/proxy.py)。
 
 #### 设置环境变量
 
-在两台宿主机的本仓库根目录分别执行，替换节点地址及各自的模型目录绝对路径：
+在两台宿主机分别执行，替换为实际节点地址：
 
 ```bash
 export P_NODE_IP="<P_IP>"
 export D_NODE_IP="<D_IP>"
-export MODEL_DIR="<MODEL_DIR>"
 ```
 
 镜像拉取失败时，在对应宿主机的 `/etc/docker/daemon.json` 中，将 `42.228.13.241:5000` 追加到 `insecure-registries` 数组，保留已有配置：
@@ -139,10 +138,6 @@ docker run -d \
   --device /dev/mkfd \
   --device /dev/dri \
   --device /dev/infiniband \
-  -v /usr/local/hyhal:/usr/local/hyhal:ro \
-  -v /opt/hyhal:/opt/hyhal:ro \
-  -v "$PWD":/workspace \
-  -v "$MODEL_DIR":/models/hy4:ro \
   -e P_NODE_IP="$P_NODE_IP" \
   -e D_NODE_IP="$D_NODE_IP" \
   -e VLLM_HOST_IP="$P_NODE_IP" \
@@ -172,10 +167,6 @@ docker run -d \
   --device /dev/mkfd \
   --device /dev/dri \
   --device /dev/infiniband \
-  -v /usr/local/hyhal:/usr/local/hyhal:ro \
-  -v /opt/hyhal:/opt/hyhal:ro \
-  -v "$PWD":/workspace \
-  -v "$MODEL_DIR":/models/hy4:ro \
   -e P_NODE_IP="$P_NODE_IP" \
   -e D_NODE_IP="$D_NODE_IP" \
   -e VLLM_HOST_IP="$D_NODE_IP" \
@@ -190,8 +181,8 @@ docker exec -it hy4-d bash
 在 P 容器执行：
 
 ```bash
-cp docs/model-deployment/vllm/configs/hy4/r16.json r16.json
 export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_USE_MODELSCOPE=1
 export VLLM_HOST_IP="$P_NODE_IP"
 export VLLM_MOONCAKE_BOOTSTRAP_PORT=18998
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
@@ -210,8 +201,7 @@ export LIGHTOP_MQA_LOGITS_BETA=1
 export TOKENIZERS_PARALLELISM=true
 export RAYON_NUM_THREADS=4
 
-vllm serve /models/hy4 \
-  --served-model-name hygon/Hy4-preview-Channel-INT4-w4a8 \
+vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --quantization compressed-tensors \
   --host 0.0.0.0 \
@@ -246,6 +236,7 @@ vllm serve /models/hy4 \
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_USE_MODELSCOPE=1
 export VLLM_HOST_IP="$D_NODE_IP"
 export VLLM_MOONCAKE_BOOTSTRAP_PORT=18999
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
@@ -257,8 +248,7 @@ export VLLM_HCU_ENABLE_HYV4_ATTN_INPUT_OVERLAP=1
 export VLLM_HCU_ENABLE_BYTELEVEL_DETOKENIZER_TAIL=1
 export TOKENIZERS_PARALLELISM=false
 
-vllm serve /models/hy4 \
-  --served-model-name hygon/Hy4-preview-Channel-INT4-w4a8 \
+vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --quantization compressed-tensors \
   --host 0.0.0.0 \
@@ -296,7 +286,6 @@ docker exec -it hy4-d bash
 ```
 
 ```bash
-cp docs/model-deployment/vllm/configs/hy4/proxy.py proxy.py
 python proxy.py \
   --host 0.0.0.0 \
   --port 8002 \
@@ -330,16 +319,17 @@ evalscope eval \
 
 #### 性能测试
 
-输入 85K、输出 1200，RPS 2.55。
+输入 85K、输出 1200。
 
 ##### 预热：146 请求
 
 ```bash
+export VLLM_USE_MODELSCOPE=1
+
 vllm bench serve \
   --backend openai \
   --endpoint /v1/completions \
   --model hygon/Hy4-preview-Channel-INT4-w4a8 \
-  --tokenizer /models/hy4 \
   --dataset-name prefix_repetition \
   --prefix-repetition-num-prefixes 1 \
   --prefix-repetition-prefix-len 79050 \
@@ -368,11 +358,12 @@ vllm bench serve \
 ##### 实跑：2920 请求
 
 ```bash
+export VLLM_USE_MODELSCOPE=1
+
 vllm bench serve \
   --backend openai \
   --endpoint /v1/completions \
   --model hygon/Hy4-preview-Channel-INT4-w4a8 \
-  --tokenizer /models/hy4 \
   --dataset-name prefix_repetition \
   --prefix-repetition-num-prefixes 1 \
   --prefix-repetition-prefix-len 79050 \
