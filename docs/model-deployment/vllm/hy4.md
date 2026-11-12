@@ -331,6 +331,12 @@ evalscope eval \
 
 #### 性能测试
 
+在 D 宿主机另开终端进入 D 容器：
+
+```bash
+docker exec -it hy4-d bash
+```
+
 输入 85K、输出 1200。
 
 ##### 预热：146 请求
