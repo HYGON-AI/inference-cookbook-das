@@ -228,7 +228,7 @@ evalscope eval \
 
 #### 性能测试
 
-输入 85K、输出 1200，RPS 2.55。依次运行 146 和 2920，两轮之间不重启服务、不清 KV，不额外预热。
+输入 85K、输出 1200，RPS 2.55。依次运行 146 和 2920。
 
 ```bash
 export VLLM_USE_MODELSCOPE=1
@@ -259,8 +259,7 @@ vllm bench serve \
   --save-result \
   --save-detailed \
   --result-dir results/hy4-146 \
-  --result-filename result.json \
-  --extra-body '{"cache_salt":"hy4-pd-eplb-run1"}'
+  --result-filename result.json
 ```
 
 ```bash
@@ -292,8 +291,7 @@ vllm bench serve \
   --save-result \
   --save-detailed \
   --result-dir results/hy4-2920 \
-  --result-filename result.json \
-  --extra-body '{"cache_salt":"hy4-pd-eplb-run1"}'
+  --result-filename result.json
 ```
 
 ## API 调用
