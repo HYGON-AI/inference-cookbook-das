@@ -14,8 +14,8 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 | [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-vllm-0281) |
 |  | W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-k100_ai-4x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Mixed-w4a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Mixed-w4a8) | W4A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1100-2x-vllm-0281) |
-|  | W4A8 | 0.28.1 | BW1000 | 8 | 1P1D | [**`>_`**](#qwen38-flash-next-mixed-w4a8-1p1d-bw1000-8x-vllm-0281) |
 |  | W4A8 | 0.28.1 | BW1000 | 16 | 1P1D | [**`>_`**](#qwen38-flash-next-mixed-w4a8-1p1d-bw1000-16x-vllm-0281) |
+|  | W4A8 | 0.28.1 | BW1000 | 8 | 1P1D | [**`>_`**](#qwen38-flash-next-mixed-w4a8-1p1d-bw1000-8x-vllm-0281) |
 |  | W4A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1000-4x-vllm-0281) |
 |  | W4A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-k100_ai-4x-vllm-0281) |
 | [Qwen/Qwen3.8-27B](https://www.modelscope.cn/models/Qwen/Qwen3.8-27B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen38-27b-ifb-bw1100-1x-vllm-0281) |
