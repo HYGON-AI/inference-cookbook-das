@@ -9,7 +9,7 @@ MiniMax-M3 是采用 MoE 和 MiniMax Sparse Attention（MSA）的长上下文模
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [MiniMax-M3-BF16](https://www.modelscope.cn/models/MiniMax/MiniMax-M3) | BF16 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m3-bf16-ifb-bw1100-8x-sglang-0518) |
-| [MiniMax-M3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M3-Channel-FP8-w8a8) | FP8 W8A8 + FP8 KV | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+| [MiniMax-M3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M3-Channel-FP8-w8a8) | FP8 W8A8 + FP8 KV | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#minimax-m3-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
 | [MiniMax-M3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M3-Channel-FP8-w8a8) | FP8 W8A8 + BF16 KV | 0.5.18 | BW1100 | 8 | Prefill | [**`>_`**](#minimax-m3-channel-fp8-w8a8-prefill-bw1100-8x-sglang-0518) |
 | [MiniMax-M3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/MiniMax-M3-Channel-FP8-w8a8) | FP8 W8A8 + FP8 KV | 0.5.18 | BW1100 | 8 | Decode | [**`>_`**](#minimax-m3-channel-fp8-w8a8-decode-bw1100-8x-sglang-0518) |
 
@@ -88,11 +88,11 @@ sglang serve \
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
-
 export SGLANG_REQUIRE_KV_CACHE_SCALES=1
 export SGLANG_ENABLE_M3_TRITON_FP8_ATTN_GEMM=1
 export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_LIGHTOP_CHANNEL_FP8=1
+export SGLANG_KV_LAYOUT_HCU_FA=0
 
 sglang serve \
   --model-path hygon/MiniMax-M3-Channel-FP8-w8a8 \
@@ -113,7 +113,6 @@ sglang serve \
   --deepep-dispatcher-output-dtype fp8 \
   --moe-runner-backend deep_gemm \
   --ep-num-redundant-experts 0 \
-  --init-expert-location /xxx/minimax-m3-e128-r0-global.pt \
   --ep-dispatch-algorithm static \
   --disable-shared-experts-fusion \
   --attention-backend triton \
@@ -126,16 +125,14 @@ sglang serve \
   --cuda-graph-backend-decode full \
   --cuda-graph-backend-prefill disabled \
   --cuda-graph-bs-decode 1 2 3 4 8 16 \
-  --context-length 163840 \
   --chunked-prefill-size 16384 \
   --max-prefill-tokens 16384 \
   --max-running-requests 128 \
   --scheduler-recv-interval 1 \
-  --mem-fraction-static 0.80 \
+  --mem-fraction-static 0.9 \
   --reasoning-parser minimax-m3 \
   --tool-call-parser minimax-m3 \
-  --disable-custom-all-reduce \
-  --host 0.0.0.0
+  --disable-custom-all-reduce
 ```
 
 ### MiniMax-M3-Channel-FP8-w8a8 Prefill BW1100 8x SGLang 0.5.18
@@ -219,6 +216,7 @@ sglang serve \
 
 ```bash
 export SGLANG_USE_MODELSCOPE=1
+export SGLANG_KV_LAYOUT_HCU_FA=0
 
 export SGLANG_REQUIRE_KV_CACHE_SCALES=1
 export SGLANG_ENABLE_M3_TRITON_FP8_ATTN_GEMM=1

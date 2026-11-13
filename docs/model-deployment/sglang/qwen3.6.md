@@ -9,30 +9,36 @@ Qwen3.6 模型相较于 Qwen3.5 模型，**在智能体编程能力、推理速�
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [Qwen/Qwen3.6-27B](https://www.modelscope.cn/models/Qwen/Qwen3.6-27B) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1100-2x-sglang-0518) |
-|                                                                       | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1000-2x-sglang-0518) |
+| [Qwen/Qwen3.6-27B](https://www.modelscope.cn/models/Qwen/Qwen3.6-27B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1100-2x-sglang-0518) |
+|                                                                       | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1000-2x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | BW100 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw100-2x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen36-27b-ifb-k100_ai-4x-sglang-0518) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1100-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1000-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-k100_ai-2x-sglang-0512) |
 | [Qwen/Qwen3.6-27B](https://www.modelscope.cn/models/Qwen/Qwen3.6-27B) | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-ifb-bw1100-2x-sglang-0510) |
-| [hygon/Qwen3.6-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
-|  | INT8 W8A8 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+| [hygon/Qwen3.6-27B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw100-2x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-k100_ai-4x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-27b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0512) |
 | [hygon/Qwen3.6-27B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-27B-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-27b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0518) |
-| [Qwen/Qwen3.6-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.6-35B-A3B) | BF16 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1100-2x-sglang-0518) |
-|                                                                                             | BF16 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-sglang-0518) |
+| [Qwen/Qwen3.6-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.6-35B-A3B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1100-2x-sglang-0518) |
+|                                                                                             | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-k100_ai-2x-sglang-0518) |
 |                                                                                             | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1100-2x-sglang-0512) |
 |                                                                                             | BF16 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1000-2x-sglang-0512) |
 |                                                                                             | BF16 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-k100_ai-2x-sglang-0512) |
 |                                                                       | BF16 | 0.5.10 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-ifb-bw1100-2x-sglang-0510) |
-| [hygon/Qwen3.6-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
-|                                                                                                                   | INT8 W8A8 | 0.5.18 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+| [hygon/Qwen3.6-35B-A3B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-35B-A3B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
+|                                                                                                                   | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0518) |
 |                                                                                                                   | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |                                                                                                                   | INT8 W8A8 | 0.5.12 | BW1000 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-bw1000-2x-sglang-0512) |
 |                                                                                                                   | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-int8-w8a8-ifb-k100_ai-2x-sglang-0512) |
-| [hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0518) |
+| [hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.6-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0518) |
 |                                                                                                                  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen36-35b-a3b-channel-fp8-w8a8-ifb-bw1100-2x-sglang-0512) |
 
 ## 启动命令
@@ -90,6 +96,59 @@ sglang serve \
   --reasoning-parser qwen3 \
   --trust-remote-code
 ```
+
+### Qwen3.6-27B IFB BW100 2x SGLang 0.5.18
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve \
+  --model-path Qwen/Qwen3.6-27B \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 \
+  --pp-size 1 \
+  --page-size 64 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
+```
+
+### Qwen3.6-27B IFB K100_AI 4x SGLang 0.5.18
+
+~~~bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve \
+  --model-path Qwen/Qwen3.6-27B \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 4 \
+  --pp-size 1 \
+  --page-size 64 \
+  --mamba-scheduler-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code \
+  --disable-custom-all-reduce
+~~~
 
 ### Qwen3.6-27B IFB BW1100 2x SGLang 0.5.12
 
@@ -241,6 +300,59 @@ sglang serve \
   --reasoning-parser qwen3 \
   --trust-remote-code
 ```
+
+### Qwen3.6-27B-Channel-INT8-w8a8 IFB BW100 2x SGLang 0.5.18
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve \
+  --model-path hygon/Qwen3.6-27B-Channel-INT8-w8a8 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 \
+  --pp-size 1 \
+  --page-size 64 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
+```
+
+### Qwen3.6-27B-Channel-INT8-w8a8 IFB K100_AI 4x SGLang 0.5.18
+
+~~~bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve \
+  --model-path hygon/Qwen3.6-27B-Channel-INT8-w8a8 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 4 \
+  --pp-size 1 \
+  --page-size 64 \
+  --mamba-scheduler-strategy extra_buffer \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code \
+  --disable-custom-all-reduce
+~~~
 
 ### Qwen3.6-27B-Channel-INT8-w8a8 IFB BW1100 2x SGLang 0.5.12
 
@@ -399,6 +511,33 @@ sglang serve \
   --mamba-radix-cache-strategy extra_buffer \
   --chunked-prefill-size 16384 \
   --kv-cache-dtype fp8_e5m2 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
+```
+
+### Qwen3.6-35B-A3B IFB K100_AI 2x SGLang 0.5.18
+
+```bash
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_MARLIN_W16A16_MOE=0
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_USE_LAYER_NORM_FWD=1
+
+sglang serve \
+  --model-path Qwen/Qwen3.6-35B-A3B \
+  --dtype bfloat16 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --mem-fraction-static 0.9 \
+  --page-size 64 \
+  --tp-size 2 \
+  --pp-size 1 \
+  --trust-remote-code \
+  --mamba-radix-cache-strategy extra_buffer \
+  --disable-custom-all-reduce \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```
@@ -585,6 +724,34 @@ sglang serve \
   --chunked-prefill-size 16384 \
   --quantization w8a8_int8 \
   --kv-cache-dtype fp8_e5m2 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3
+```
+
+### Qwen3.6-35B-A3B-Channel-INT8-w8a8 IFB K100_AI 2x SGLang 0.5.18
+
+```bash
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_MARLIN_W16A16_MOE=0
+export SGLANG_ROCM_USE_AITER_MOE=0
+export SGLANG_USE_LAYER_NORM_FWD=1
+
+sglang serve \
+  --model-path hygon/Qwen3.6-35B-A3B-Channel-INT8-w8a8 \
+  --dtype bfloat16 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --mem-fraction-static 0.9 \
+  --page-size 64 \
+  --tp-size 2 \
+  --pp-size 1 \
+  --trust-remote-code \
+  --mamba-radix-cache-strategy extra_buffer \
+  --quantization w8a8_int8 \
+  --disable-custom-all-reduce \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
 ```

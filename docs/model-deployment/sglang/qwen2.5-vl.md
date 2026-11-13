@@ -12,9 +12,9 @@ Qwen2.5-VL 是通义千问视觉语言模型系列，覆盖多种参数规模和
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1100-2x-sglang-0512) |
 |  | BF16 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-4x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen25-vl-32b-instruct-ifb-bw1000-4x-sglang-0512) |
-| [Qwen/Qwen2.5-VL-72B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct) | BF16 | 0.5.18 | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-sglang-0518) |
+| [Qwen/Qwen2.5-VL-72B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1100-4x-sglang-0512) |
-|  | BF16 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-8x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-8x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen25-vl-72b-instruct-ifb-bw1000-8x-sglang-0512) |
 
 ## 启动命令
@@ -472,7 +472,7 @@ sglang serve \
   --dtype bfloat16 \
   --tensor-parallel-size 8 \
   --page-size 64 \
-  --mem-fraction-static 0.9 \
+  --mem-fraction-static 0.8 \
   --attention-backend fa3 \
   --mm-attention-backend fa3
 ```

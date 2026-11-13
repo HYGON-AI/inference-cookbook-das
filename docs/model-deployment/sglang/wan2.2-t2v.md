@@ -4,17 +4,17 @@
 
 Wan2.2-T2V-A14B 是阿里通义实验室推出的文生视频（Text-to-Video）模型，基于 DiT 架构，可根据文本提示词生成高质量视频。SGLang Diffusion 在 HCU 平台上支持通过序列并行、SLA 注意力后端和 Cache-DiT 对 Wan2.2-T2V 推理进行加速。
 
-本文档给出 BW1100（NMZ）4 卡在线推理最佳实践，适用于 1280x720、81 帧、40 步的 Wan2.2-T2V-A14B-Diffusers 推理场景。若使用 BW1000 或显存较小的节点，建议开启 FSDP 或 text encoder CPU offload 作为显存兜底，但性能会低于本文推荐配置。
+本文档给出 BW1100（NMZ）4 卡在线推理配置，目标场景为 1280x720、81 帧、40 步的 Wan2.2-T2V-A14B-Diffusers 推理。若使用 BW1000 或显存较小的节点，可使用 FSDP 或 text encoder CPU offload 降低显存需求；性能需要按实际配置测量。
 
 ## 模型列表
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
-| [Wan-AI/Wan2.2-T2V-A14B-Diffusers](https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B-Diffusers) | BF16 | 0.5.10 | BW1100 | 4x | Online | [启动命令](#wan22-t2v-a14b-diffusers-online-bw1100-4x-sglang-0510) |
+| [Wan-AI/Wan2.2-T2V-A14B-Diffusers](https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B-Diffusers) | BF16 | 0.5.18 | BW1100 | 4x | Online | [启动命令](#wan22-t2v-a14b-diffusers-online-bw1100-4x-sglang-0518) |
 
 ## 启动命令
 
-### Wan2.2-T2V-A14B-Diffusers Online BW1100 4x SGLang 0.5.10
+### Wan2.2-T2V-A14B-Diffusers Online BW1100 4x SGLang 0.5.18
 
 以下命令保留 BW1100 硬件队列性能配置，并启用 Cache-DiT，可降低 Wan2.2 双 transformer denoise 阶段耗时。
 
@@ -39,7 +39,7 @@ sglang serve \
   --use-fsdp-inference false \
   --ulysses-degree 4 \
   --ring-degree 1 \
-  --warmup \
+  --warmup-mode server \
   --warmup-resolutions 1280x720 \
   --warmup-steps 1 \
   --output-path outputs
@@ -78,7 +78,7 @@ curl -sS "http://localhost:30000/v1/videos/<video-id>"
 
 ## 性能参考
 
-以下数据在 BW1100（NMZ）4 卡节点上验证，输入为 `1280x720`、`81` 帧、`16` FPS、`40` inference steps，提示词为 `A curious raccoon`。
+下表沿用本文此前 0.5.10 版本的历史结果：BW1100（NMZ）4 卡，`1280x720`、`81` 帧、`16` FPS、`40` inference steps，提示词为 `A curious raccoon`。尚未在 0.5.18 上按同一配置复测，不应将这些数值视为 0.5.18 的性能结果。
 
 | 配置 | Pixel 总耗时 | Denoise 耗时 | 单步耗时 | Decode 耗时 | API 推理耗时 |
 | ---- | ------------ | ------------ | -------- | ----------- | -------------------- |
@@ -97,23 +97,23 @@ curl -sS "http://localhost:30000/v1/videos/<video-id>"
 
 ## 显存不足时的兜底配置
 
-若在 BW1000 或其他显存较小节点上出现 OOM，可优先尝试以下两项：
+若在 BW1000 或其他显存较小节点上出现 OOM，先将上方的 `SGLANG_CACHE_DIT_ENABLED` 改为 `false`，再尝试以下两项参数。0.5.18 不允许 Cache-DiT 与 FSDP 同时启用：
 
 ```bash
 --use-fsdp-inference true \
 --text-encoder-cpu-offload true
 ```
 
-该配置能降低显存压力，但 text encoder offload 和 FSDP 会引入额外开销。实测在显存较小的 4 卡节点上，兜底配置可完成推理，但 Pixel 总耗时会高于 BW1100 推荐配置。
+该配置能降低显存压力，但 text encoder offload 和 FSDP 会引入额外开销；0.5.18 在目标分辨率下的耗时需另行测量。
 
 ## 日志检查
 
 启动和请求完成后，建议确认日志中包含以下关键行：
 
 ```text
-attention backend: SLA
-Using Wan SLA topk 0.25
-Using Wan SLA skip linear
+Using Wan attention_type=sla for attention_backend=sla_attn
+Using Wan sla_topk=0.25 from attention_backend_config
+Using Wan sla_skip_linear=True
 cache-dit enabled on dual transformers
 [DenoisingStage] average time per step
 Pixel data generated successfully
