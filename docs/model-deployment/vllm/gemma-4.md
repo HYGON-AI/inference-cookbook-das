@@ -52,9 +52,10 @@ vllm serve hygon/gemma-4-31B-it \
 
 ### gemma-4-31B-it IFB BW1000 2x vLLM 0.28.1 MTP FlashAttention
 
-参照此[PR](https://github.com/HYGON-AI/vllm-plugin-das/pull/391?overview=false)修改vllm_dcu
+启动前，请使用包含 [Gemma4 FA 支持](https://github.com/HYGON-AI/vllm-plugin-das/pull/391?overview=false) 的 `vllm_hcu`，并确保当前HCU FlashAttention支持 D512/block32 packed K/V 内层 stride，或版本大于2611111719。
 
 ```bash
+export VLLM_HCU_USE_CUSTOM_OPS=1
 export VLLM_HCU_GEMMA4_USE_FA=1
 
 vllm serve google/gemma-4-31B-it \
