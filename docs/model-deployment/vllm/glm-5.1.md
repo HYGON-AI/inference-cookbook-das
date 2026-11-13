@@ -8,6 +8,8 @@ GLM-5.1 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| [ZhipuAI/GLM-5.1](https://www.modelscope.cn/models/ZhipuAI/GLM-5.1) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#glm-51-ifb-bw1100-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-51-ifb-bw1000-32x-vllm-0281) |
 | [hygon/GLM-5.1-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.1-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-k100_ai-8x-vllm-0281) |
@@ -37,6 +39,169 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 ## 启动命令
 
+### GLM-5.1 IFB BW1100 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点，每个节点 8 卡。各节点均需能够访问完整模型权重，并保持相同的软件环境。`MASTER_ADDR` 为 rank 0 节点可被其他节点访问的地址，各节点使用相同的 `MASTER_PORT`；先在各节点设置这两个环境变量，再执行对应命令。API 请求发往 rank 0 节点。
+
+#### rank 0
+
+```bash
+vllm serve ZhipuAI/GLM-5.1 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+vllm serve ZhipuAI/GLM-5.1 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+### GLM-5.1 IFB BW1000 32x vLLM 0.28.1
+
+总计 32 卡，4 个节点，每个节点 8 卡。各节点均需能够访问完整模型权重，并保持相同的软件环境。`MASTER_ADDR` 为 rank 0 节点可被其他节点访问的地址，各节点使用相同的 `MASTER_PORT`；先在各节点设置这两个环境变量，再执行对应命令。API 请求发往 rank 0 节点。
+
+#### rank 0
+
+```bash
+vllm serve ZhipuAI/GLM-5.1 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+vllm serve ZhipuAI/GLM-5.1 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+#### rank 2
+
+```bash
+vllm serve ZhipuAI/GLM-5.1 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+#### rank 3
+
+```bash
+vllm serve ZhipuAI/GLM-5.1 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+
 ### GLM-5.1-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
@@ -60,7 +225,7 @@ vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -116,9 +281,12 @@ vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --max-model-len 32768 \
+  --gpu-memory-utilization 0.96 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
+
+> `--gpu-memory-utilization 0.96` 用于容纳 32768 上下文的 KV cache：K100_AI 单卡 64 GB 下权重占 49.8 GiB、CUDA Graph 占 1.9 GiB，默认 `0.92` 只剩 1.35 GiB 可用 KV，而 32768 需要 3.39 GiB，会报 `ValueError: ... KV cache is needed, which is larger than the available KV cache memory`；取 0.96 后可用 KV 为 3.91 GiB（37,440 tokens）。若需保留默认 `0.92`，可将 `--max-model-len` 降至 12288。
 
 ### GLM-5.1-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.21
 
@@ -302,7 +470,7 @@ vllm serve hygon/GLM-5.1-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -422,7 +590,7 @@ vllm serve hygon/GLM-5.1-Channel-INT8-w8a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --api-server-count 1 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1037,6 +1205,41 @@ vllm serve hygon/GLM-5.1-Channel-INT8-w8a8 \
 ```
 
 ## API 调用
+
+### GLM-5.1 BF16 IFB
+
+在 rank 0 节点执行以下示例；从其他机器访问时，将 `localhost` 替换为 rank 0 节点地址。
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="not-needed")
+
+response = client.chat.completions.create(
+    model="ZhipuAI/GLM-5.1",
+    messages=[
+        {"role": "user", "content": "用 Python 实现一个高效的 LRU Cache"},
+    ],
+    max_tokens=8192,
+    temperature=0.7,
+)
+message = response.choices[0].message
+print(getattr(message, "reasoning", None) or getattr(message, "reasoning_content", None) or "")
+print(message.content or "")
+```
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "ZhipuAI/GLM-5.1",
+    "messages": [
+      {"role": "user", "content": "用 Python 实现一个高效的 LRU Cache"}
+    ],
+    "max_tokens": 8192,
+    "temperature": 0.7
+  }'
+```
 
 ### IFB
 

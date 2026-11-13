@@ -61,6 +61,17 @@ export LD_LIBRARY_PATH=/opt/rocm/lib:$LD_LIBRARY_PATH
 4. 增加 `--tensor-parallel-size`
 5. 启用 KV Cache 量化
 
+### Q: `ValueError: ... KV cache is needed, which is larger than the available KV cache memory`
+
+**原因：** `--max-model-len` 对应的 KV cache 需求超过预算显存扣除权重与 CUDA Graph 后的剩余部分。日志中会同时给出 `Available KV cache memory` 和 `estimated maximum model length`。
+
+**排查：** 用同一段日志里的 `所需 KV - 可用 KV`，除以单卡显存（K100_AI 为 63.98 GiB）再乘 100，即为需要上调的百分点。
+
+**解决：** 提高 `--gpu-memory-utilization`，或降低 `--max-model-len`。K100_AI 8x 实测：
+
+- `GLM-5.2-Channel-INT4-w4a8`：32768 需要 2.95 GiB，默认 `0.92` 仅剩 1.79 GiB → 取 `0.95`（可用 3.68 GiB / 40,512 tokens）
+- `GLM-5`、`GLM-5.1-Channel-INT4-w4a8`：32768 需要 3.39 GiB，默认 `0.92` 仅剩 1.35 GiB → 取 `0.96`（可用 3.91 GiB / 37,440 tokens）
+
 ### Q: 推理速度异常慢
 
 ```bash

@@ -9,21 +9,21 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [ZhipuAI/GLM-5](https://www.modelscope.cn/models/ZhipuAI/GLM-5) | BF16 | 0.5.18 | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-sglang-0518) |
-| [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
+| [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |                                                                                                 | INT8 W8A8 | 0.5.18 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-int8-w8a8-1p2d-bw1100-24x-sglang-0518) |
-|                                                                                                 | INT8 W8A8 | 0.5.18 | BW1000 | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1000-16x-sglang-0518) |
+|                                                                                                 | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1000-16x-sglang-0518) |
 |                                                                                                 | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0512) |
 |                                                                                                 | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1000-16x-sglang-0512) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-sglang-0510) |
 |                                                                                                 | INT8 W8A8 | 0.5.10 | BW1100 | 24 | 1P1D | [**`>_`**](#glm-5-channel-int8-w8a8-1p1d-bw1100-24x-sglang-0510) |
-| [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8) | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB(tp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
-|                                                                                                 | FP8 W8A8 | 0.5.18 | BW1100 | 8 | IFB(tp8ep8cp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8ep8cp8) |
+| [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8) |
+|                                                                                                 | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB(tp8ep8cp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518-tp8ep8cp8) |
 |                                                                                                 | FP8 W8A8 | 0.5.18 | BW1100 | 24 | 1P2D | [**`>_`**](#glm-5-channel-fp8-w8a8-1p2d-bw1100-24x-sglang-0518) |
 |                                                                                                 | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8) |
 |                                                                                                 | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB(tp8ep8cp8) | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0512-tp8ep8cp8) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0510) |
 |                                                                                                 | FP8 W8A8 | 0.5.10 | BW1100 | 24 | 1P1D | [**`>_`**](#glm-5-channel-fp8-w8a8-1p1d-bw1100-24x-sglang-0510) |
-| [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.5.18 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0518) |
+| [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0518) |
 |                                                                                                 | INT4 W4A8 | 0.5.18 | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-sglang-0518) |
 |                                                                                                 | INT4 W4A8 | 0.5.18 | BW1000 | 32 | 2P2D | [**`>_`**](#glm-5-channel-int4-w4a8-2p2d-bw1000-32x-sglang-0518) |
 |                                                                                                 | INT4 W4A8 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-sglang-0512) |
@@ -276,6 +276,7 @@ export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
 export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
   --model-path hygon/GLM-5-Channel-INT8-w8a8 \
@@ -298,7 +299,7 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --custom-all-reduce-backend aiter
+  --custom-all-reduce-backend native
 ```
 
 ### GLM-5-Channel-INT8-w8a8 1P2D BW1100 24x SGLang 0.5.18
@@ -529,7 +530,7 @@ python3 -m sglang_router.launch_router \
 
 ### GLM-5-Channel-INT8-w8a8 IFB BW1000 16x SGLang 0.5.18
 
-#### node 0
+#### Node 0
 
 ```bash
 export SGLANG_ENABLE_SPEC_V2=1
@@ -553,9 +554,9 @@ export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
 export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
-  --model-path hygon/GLM-5-Channel-INT8-w8a8 \
   --tp-size 16 \
   --nsa-prefill-backend flashmla_auto \
   --nsa-decode-backend flashmla_kv \
@@ -565,6 +566,7 @@ sglang serve \
   --watchdog-timeout 3600 \
   --page-size 64 \
   --kv-cache-dtype fp8_e4m3 \
+  --model-path hygon/GLM-5-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --mem-fraction-static 0.85 \
   --quantization slimquant_marlin \
@@ -575,12 +577,14 @@ sglang serve \
   --speculative-num-draft-tokens 4 \
   --nnodes 2 \
   --node-rank 0 \
-  --dist-init-addr <P_node0_ip>:<port0> \
-  --host xxxxx \
-  --port <port1>
+  --host 0.0.0.0 \
+  --custom-all-reduce-backend native \
+  --dist-init-addr '<node0_ip>:5000'
 ```
 
-#### node 1
+#### Node 1
+
+`--dist-init-addr` 中的 `<node0_ip>` 请替换为 Node 0 的实际 IP。
 
 ```bash
 export SGLANG_ENABLE_SPEC_V2=1
@@ -604,9 +608,9 @@ export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
 export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
-  --model-path hygon/GLM-5-Channel-INT8-w8a8 \
   --tp-size 16 \
   --nsa-prefill-backend flashmla_auto \
   --nsa-decode-backend flashmla_kv \
@@ -616,6 +620,7 @@ sglang serve \
   --watchdog-timeout 3600 \
   --page-size 64 \
   --kv-cache-dtype fp8_e4m3 \
+  --model-path hygon/GLM-5-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --mem-fraction-static 0.85 \
   --quantization slimquant_marlin \
@@ -626,9 +631,9 @@ sglang serve \
   --speculative-num-draft-tokens 4 \
   --nnodes 2 \
   --node-rank 1 \
-  --dist-init-addr <P_node0_ip>:<port0> \
-  --host xxxxx \
-  --port <port1>
+  --host 0.0.0.0 \
+  --custom-all-reduce-backend native \
+  --dist-init-addr '<node0_ip>:5000'
 ```
 
 ### GLM-5-Channel-INT8-w8a8 IFB BW1100 8x SGLang 0.5.12
@@ -1078,6 +1083,7 @@ export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
 export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=0
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
   --model-path hygon/GLM-5-Channel-FP8-w8a8 \
@@ -1141,6 +1147,7 @@ export SGLANG_HOST_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
 export SGLANG_NCCL_ALL_GATHER_IN_OVERLAP_SCHEDULER_SYNC_BATCH=1
 export SGLANG_USE_AITER_AR=0
 export SGLANG_USE_DEEPGEMM_MOE=1
+export SGLANG_OPT_USE_TOPK_V2=0
 
 sglang serve \
   --model-path hygon/GLM-5-Channel-FP8-w8a8 \
@@ -1172,7 +1179,8 @@ sglang serve \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --chunked-prefill-size 16384
+  --chunked-prefill-size 16384 \
+  --custom-all-reduce-backend aiter
 ```
 
 ### GLM-5-Channel-FP8-w8a8 1P2D BW1100 24x SGLang 0.5.18
@@ -1807,10 +1815,11 @@ export SGLANG_ASSIGN_REQ_TO_TOKEN_POOL=1
 export SGLANG_GET_LAST_LOC=1
 export SGLANG_CREATE_FLASHMLA_KV_INDICES_TRITON=1
 export SGLANG_CREATE_CHUNKED_PREFIX_CACHE_KV_INDICES=1
-
+export SGLANG_OPT_USE_TOPK_V2=0
 sysctl -w kernel.numa_balancing=0 || true
 
 sglang serve \
+  --port 8000 \
   --model-path hygon/GLM-5-Channel-INT4-w4a8 \
   --tp-size 8 \
   --pp-size 1 \
@@ -1821,7 +1830,7 @@ sglang serve \
   --nsa-prefill-backend flashmla_auto \
   --nsa-decode-backend flashmla_kv \
   --kv-cache-dtype fp8_e4m3 \
-  --mem-fraction-static 0.85 \
+  --mem-fraction-static 0.9 \
   --chunked-prefill-size 8192 \
   --quantization slimquant_w4a8_marlin \
   --reasoning-parser glm45 \
