@@ -127,7 +127,7 @@ curl http://localhost:8091/v1/chat/completions \
 
 ## YAML 配置
 
-两份配置结构一致，只有 `runtime.devices` 和 `tensor_parallel_size` 随硬件不同而变化，用于匹配 BW1000 与 BW1100 的单机容量。
+两份配置的差异包括 `runtime.devices`、`tensor_parallel_size`，以及 TP=2 配置独有的 `engine_args.compilation_config`。前两项用于匹配 BW1000 与 BW1100 的卡数和张量并行度；TP=2 配置额外设置 `compilation_config.pass_config.fuse_allreduce_rms: false`，关闭多卡张量并行（TP>1）场景下的 allreduce 与 RMSNorm 融合。TP=1 为单卡场景，不涉及跨卡 allreduce，因此省略该配置块。
 
 ### qwen3_omni_moe_thinking_tp2.yaml
 
