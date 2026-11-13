@@ -10,11 +10,9 @@ Hy3 是由腾讯混元团队开发的一款拥有 2950 亿参数的混合专家�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
-|  | FP8 W8A8 | 0.21 | BW1100(风冷) | 8 | P | [**`>_`**](#hy3-channel-fp8-w8a8-p-bw1100-8x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(风冷) | 24 | 1P1D | [**`>_`**](#hy3-channel-fp8-w8a8-1p1d-bw1100-24x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(超节点) | 16 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-16x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(超节点) | 32 | 2P1D | [**`>_`**](#hy3-channel-fp8-w8a8-2p1d-bw1100-32x-vllm-021) |
-
 | [hygon/Hy3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-4x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW100 | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw100-8x-vllm-0281) |
@@ -71,70 +69,6 @@ vllm serve hygon/Hy3-Channel-FP8-w8a8 \
   --gpu-memory-utilization 0.92 \
   --enable-auto-tool-choice \
   --served-model-name hy3-fp8
-```
-
-### Hy3-Channel-FP8-w8a8 P BW1100 8x vLLM 0.21
-
-#### 创建容器
-
-```bash
-docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.21.0-ubuntu22.04-dtk2604-py3.10-20260812-0925
-
-docker run -it --name vllm_hy3 \
---privileged \
---shm-size=500G \
---device=/dev/kfd --device=/dev/dri/ \
---cap-add=SYS_PTRACE \
---security-opt seccomp=unconfined \
---ulimit memlock=-1:-1 \
---ipc=host \
---network host \
---group-add video \
--v /dev/infiniband:/dev/infiniband \
--v /opt/hyhal:/opt/hyhal:ro \
---entrypoint /bin/bash \
-42.228.13.241:5000/jenkins/model_test_env/vllm:0.21.0-ubuntu22.04-dtk2604-py3.10-20260812-0925
-
-这样就会自动进入镜像了
-```
-#### P端的测试指令
-在容器执行:
-
-```bash
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
-export VLLM_HCU_USE_LIGHTOP_MOE_ALIGN=1
-export VLLM_HCU_USE_CUSTOM_FLASH_ATTN=1
-export GPU_MAX_HW_QUEUES=4
-export NCCL_NET_GDR_LEVEL=7
-export NCCL_SDMA_COPY_ENABLE=0
-export ROCSHMEM_HEAP_SIZE=4000000000
-export USE_SPE_MQP=1
-export ROCSHMEM_SQ_SIZE=1024
-export VLLM_SERVER_DEV_MODE=1
-export MC_ENABLE_DEST_DEVICE_AFFINITY=1
-
-VLLM_HCU_USE_FUSED_QKV_SPLIT_RMS_ROPE_KVSTORE=0 \
-vllm serve /model/Hy3-CHANNEL-FP8-w8a8-sero-ignore-from-script3 \
-  --speculative-config.method mtp \
-  --speculative-config.num_speculative_tokens 2 \
-  --speculative-config.quantization "slimquant_marlin" \
-  -q slimquant_marlin \
-  --max-model-len 262144 \
-  --max-num-batched-tokens 12288 \
-  --max-num-seqs 128 \
-  --dtype bfloat16 \
-  --tensor-parallel-size 8 \
-  --enable-prefix-caching \
-  --tool-call-parser hy_v3 \
-  --reasoning-parser hy_v3 \
-  --enable-auto-tool-choice \
-  --enable-custom-sp \
-  --enforce-eager \
-  --kv_cache_dtype fp8_e4m3 \
-  --port 8010 \
-  --enable-expert-parallel \
-  --all2all_backend deepep_high_throughput 
 ```
 
 ### Hy3-Channel-FP8-w8a8 1P1D BW1100 24x vLLM 0.21
