@@ -1678,33 +1678,53 @@ sglang serve \
 
 ### Qwen3.5-397B-A17B-Channel-FP8-w8a8 IFB BW1100 4x SGLang 0.5.18
 
+须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`。
+
 ```bash
+export NCCL_MIN_NCHANNELS=16
+export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_TORCH_PROFILER_DIR=/home/proj_qwen3.5-397b/profiling
+export HSA_ENABLE_COREDUMP=1
+export USE_DCU_CUSTOM_ALLREDUCE=1
+export ALLREDUCE_STREAM_WITH_COMPUTE=1
+export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
+export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
+export HIP_KERNEL_BATCH_CEILING=100
+export GPU_FORCE_BLIT_COPY_SIZE=16
+export HSA_KERNARG_POOL_SIZE=8388608
+export ROC_AQL_QUEUE_SIZE=131072
 export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
 export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_KV_LAYOUT_DCU_FA=1
 export SGLANG_USE_AITER_LINEAR_ATTN=1
 export SGLANG_ROCM_USE_AITER_MOE=1
 
 sglang serve \
-  --model-path hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8 \
-  --dtype bfloat16 \
-  --attention-backend fa3 \
-  --mm-attention-backend fa3 \
-  --trust-remote-code \
-  --mem-fraction-static 0.85 \
-  --page-size 64 \
+  --numa-node 0 0 0 0 1 1 1 1 \
   --tp-size 4 \
   --pp-size 1 \
-  --mamba-radix-cache-strategy extra_buffer \
-  --chunked-prefill-size -1 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --attention-backend fa3 \
+  --quantization slimquant_marlin \
+  --page-size 64 \
+  --watchdog-timeout 36000 \
+  --kv-cache-dtype fp8_e4m3 \
   --speculative-algorithm EAGLE \
   --speculative-num-steps 3 \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
-  --kv-cache-dtype fp8_e4m3 \
+  --model-path hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8 \
+  --mem-fraction-static 0.85 \
+  --mamba-scheduler-strategy extra_buffer \
   --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3
+  --reasoning-parser qwen3 \
+  --chunked-prefill-size 16384 \
+  --skip-server-warmup \
+  --cuda-graph-max-bs 64 --max-running-requests 64
 ```
 
 ### Qwen3.5-397B-A17B-Channel-FP8-w8a8 IFB BW1100 4x SGLang 0.5.12
