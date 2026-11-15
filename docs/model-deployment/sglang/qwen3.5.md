@@ -61,7 +61,7 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 | [hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8-w8a8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0518) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-ifb-bw1100-4x-sglang-0512) |
 |  | FP8 W8A8 | [0.5.12](../docker_images.md) | scaleX40-3G | 24 | PD | [**`>_`**](#qwen35-397b-a17b-channel-fp8-w8a8-pd-scalex40-3g-24x-sglang-0512) |
-|                                                                                                            | FP8 W8A8 | [0.5.10](../docker_images.md) | BW1100 |  4 | IFB  | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0510)   |
+| [hygon/Qwen3.5-397B-A17B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8) | FP8 W8A8 | [0.5.10](../docker_images.md) | BW1100 |  4 | IFB  | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-sglang-0510)   |
 |                                                                                                            | FP8 W8A8 | 0.5.10 | BW1100 | 12 | 1P1D | [**`>_`**](#qwen35-397b-a17b-channel-fp8-1p1d-bw1100-12x-sglang-0510) |
 | [hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-int8-w8a8-ifb-bw1100-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-int8-w8a8-ifb-bw1000-8x-sglang-0518) |
