@@ -46,8 +46,8 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1100-4x-sglang-0512) |
 |                                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-bw1000-8x-sglang-0512) |
 |                                                                                       | BF16 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-122b-a10b-ifb-k100_ai-8x-sglang-0512) |
-| [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1100-4x-sglang-0518) |
+| [hygon/Qwen3.5-122B-A10B-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-122B-A10B-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1100-4x-sglang-0518) |
+|   | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-sglang-0518) |
 |                                                                                                  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-bw1000-4x-sglang-0512) |
 |                                                                                                  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-122b-a10b-w8a8-ifb-k100_ai-4x-sglang-0512) |
@@ -1152,39 +1152,6 @@ sglang serve \
   --reasoning-parser qwen3
 ```
 
-### Qwen3.5-122B-A10B-w8a8 IFB BW1000 4x SGLang 0.5.18
-
-```bash
-export SGLANG_ENABLE_SPEC_V2=1
-export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
-export SGLANG_USE_LIGHTOP=1
-export SGLANG_USE_CAUSAL_CONV1D=1
-export SGLANG_USE_AITER_LINEAR_ATTN=1
-export SGLANG_USE_MODELSCOPE=1
-
-sglang serve \
-  --model-path hygon/Qwen3.5-122B-A10B-w8a8 \
-  --dtype bfloat16 \
-  --attention-backend fa3 \
-  --mm-attention-backend fa3 \
-  --trust-remote-code \
-  --mem-fraction-static 0.9 \
-  --page-size 64 \
-  --tp-size 4 \
-  --pp-size 1 \
-  --mamba-radix-cache-strategy extra_buffer \
-  --chunked-prefill-size -1 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --quantization w8a8_int8 \
-  --moe-runner-backend lightop \
-  --tool-call-parser qwen3_coder \
-  --reasoning-parser qwen3 \
-  --kv-cache-dtype fp8_e5m2
-```
-
 ### Qwen3.5-122B-A10B-w8a8 IFB BW1100 4x SGLang 0.5.18
 
 ```bash
@@ -1217,6 +1184,39 @@ sglang serve \
   --moe-runner-backend lightop \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3
+```
+
+### Qwen3.5-122B-A10B-w8a8 IFB BW1000 4x SGLang 0.5.18
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_MODELSCOPE=1
+
+sglang serve \
+  --model-path hygon/Qwen3.5-122B-A10B-w8a8 \
+  --dtype bfloat16 \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --trust-remote-code \
+  --mem-fraction-static 0.9 \
+  --page-size 64 \
+  --tp-size 4 \
+  --pp-size 1 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --chunked-prefill-size -1 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --quantization w8a8_int8 \
+  --moe-runner-backend lightop \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --kv-cache-dtype fp8_e5m2
 ```
 
 ### Qwen3.5-122B-A10B-w8a8 IFB K100_AI 4x SGLang 0.5.18
