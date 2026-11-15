@@ -19,14 +19,14 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型系列，面向复杂推理�
 | [deepseek-ai/DeepSeek-R1-Distill-Llama-70B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-8x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-8x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | BW100 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw100-8x-sglang-0518) |
-|  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100ai-8x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100_ai-8x-sglang-0518) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1100-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-bw1000-8x-sglang-0512) |
 |  | BF16 | [0.5.12](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-ifb-k100_ai-4x-sglang-0512) |
 | [hygon/DeepSeek-R1-Distill-Llama-70B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-R1-Distill-Llama-70B-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-bw1000-4x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.18](../docker_images.md) | BW100 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-bw100-4x-sglang-0518) |
-|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-k100ai-8x-sglang-0518) |
+|  | INT8 W8A8 | [0.5.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0518) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-bw1100-2x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-bw1000-4x-sglang-0512) |
 |  | INT8 W8A8 | [0.5.12](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#deepseek-r1-distill-llama-70b-channel-int8-w8a8-ifb-k100_ai-8x-sglang-0512) |
