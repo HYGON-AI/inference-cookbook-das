@@ -1681,8 +1681,6 @@ sglang serve \
 须按本机 GPU 与 NUMA 亲和性设置 `--numa-node`。
 
 ```bash
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_qwen3.5-397b/profiling
 export HSA_ENABLE_COREDUMP=1
