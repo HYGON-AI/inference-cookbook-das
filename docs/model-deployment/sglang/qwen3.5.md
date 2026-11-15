@@ -1722,7 +1722,8 @@ sglang serve \
   --reasoning-parser qwen3 \
   --chunked-prefill-size 16384 \
   --skip-server-warmup \
-  --cuda-graph-max-bs 64 --max-running-requests 64
+  --cuda-graph-max-bs 64 \
+  --max-running-requests 64
 ```
 
 ### Qwen3.5-397B-A17B-Channel-FP8-w8a8 IFB BW1100 4x SGLang 0.5.12
