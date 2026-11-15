@@ -12,6 +12,7 @@ Qwen3.5-397B-A17B 采用 MoE 架构（397B 总参数 / 17B 激活参数）。
 | -------- | -------- | ----------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3.5-27B](https://www.modelscope.cn/models/Qwen/Qwen3.5-27B) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0518) |
 |                                                                       | BF16 | [0.5.18](../docker_images.md) | BW1000 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-2x-sglang-0518) |
+|  | BF16 | [0.5.18](../docker_images.md) | BW100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw100-2x-sglang-0518) |
 |  | BF16 | [0.5.18](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-4x-sglang-0518) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1100-2x-sglang-0512) |
 |                                                                       | BF16 | [0.5.12](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen35-27b-ifb-bw1000-4x-sglang-0512) |
@@ -119,6 +120,32 @@ sglang serve \
   --page-size 64 \
   --mamba-radix-cache-strategy extra_buffer \
   --kv-cache-dtype fp8_e5m2 \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --trust-remote-code
+```
+
+### Qwen3.5-27B IFB BW100 2x SGLang 0.5.18
+
+```bash
+export SGLANG_ENABLE_SPEC_V2=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+
+sglang serve \
+  --model-path Qwen/Qwen3.5-27B \
+  --attention-backend fa3 \
+  --mm-attention-backend fa3 \
+  --speculative-algorithm NEXTN \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --tp-size 2 \
+  --pp-size 1 \
+  --page-size 64 \
+  --mamba-radix-cache-strategy extra_buffer \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
   --trust-remote-code
