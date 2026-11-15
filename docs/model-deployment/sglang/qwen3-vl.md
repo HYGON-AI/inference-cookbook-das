@@ -425,7 +425,6 @@ sglang serve \
 ### Qwen3-VL-32B-Instruct IFB BW1100 2x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -470,7 +469,6 @@ sglang serve \
 ### Qwen3-VL-32B-Instruct IFB BW1000 4x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -515,7 +513,6 @@ sglang serve \
 ### Qwen3-VL-32B-Instruct IFB BW100 4x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
@@ -559,7 +556,6 @@ sglang serve \
 ### Qwen3-VL-32B-Instruct IFB K100_AI 4x SGLang 0.5.18
 
 ```bash
-export USE_DCU_CUSTOM_ALLREDUCE=1
 export SGL_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
