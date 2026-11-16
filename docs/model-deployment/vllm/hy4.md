@@ -458,11 +458,21 @@ Per-position acceptance (%):
 
 ### Hy4-preview-Channel-INT4-w4a8 单 P BW1100 16x vLLM 0.25.1
 
-单独使用一个 16 卡 BW1100 超节点，客户端直连本节点 8000 端口，保持 2.55 RPS、均匀到达和最大并发 146。
+P 使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 16。
 
-#### 创建容器
+镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523`。
 
-在 P 宿主机执行，替换 `<P_IP>` 为本节点地址。`/opt/hyhal` 挂载源改为宿主机实际驱动目录，容器内目标保持 `/opt/hyhal`。
+P 容器当前目录需有 [r16.json（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/926d8f20c58734aa2f8cf090870bf1f189db32cf/docs/model-deployment/vllm/configs/hy4/r16.json)。
+
+`/opt/hyhal` 是宿主机驱动目录，容器需只读挂载；若驱动安装在其他目录，将挂载源改为实际目录，容器内目标仍为 `/opt/hyhal`。
+
+#### 设置环境变量
+
+在 P 宿主机执行，替换为实际节点地址：
+
+```bash
+export P_NODE_IP="<P_IP>"
+```
 
 镜像拉取失败时，在宿主机 `/etc/docker/daemon.json` 的 `insecure-registries` 数组中追加 `42.228.13.241:5000`，保留已有配置：
 
@@ -478,9 +488,11 @@ Per-position acceptance (%):
 sudo systemctl restart docker
 ```
 
-```bash
-export P_NODE_IP="<P_IP>"
+#### P 机器：创建容器
 
+在 P 宿主机执行，最后一条命令进入 P 容器：
+
+```bash
 docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523
 docker run -d \
   --name hy4-p \
@@ -507,15 +519,13 @@ docker exec -it hy4-p bash
 
 #### 重新安装插件
 
-在 P 容器内执行：
+使用此镜像后，在 P 容器内安装以下版本插件，再启动服务：
 
 ```bash
 pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
 ```
 
 #### 启动服务
-
-P 使用随机生成的共享前缀数据测试。当前目录准备 [r16.json（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/926d8f20c58734aa2f8cf090870bf1f189db32cf/docs/model-deployment/vllm/configs/hy4/r16.json)，冗余专家总数为 16。
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
@@ -639,11 +649,19 @@ vllm bench serve \
 
 ### Hy4-preview-Channel-INT4-w4a8 单 D BW1100 16x vLLM 0.25.1
 
-单独使用一个 16 卡 BW1100 超节点，客户端直连本节点 8000 端口，保持 2.55 RPS、均匀到达和最大并发 146。
+D 使用一个 16 卡 BW1100 超节点。
 
-#### 创建容器
+镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523`。
 
-在 D 宿主机执行，替换 `<D_IP>` 为本节点地址。`/opt/hyhal` 挂载源改为宿主机实际驱动目录，容器内目标保持 `/opt/hyhal`。
+`/opt/hyhal` 是宿主机驱动目录，容器需只读挂载；若驱动安装在其他目录，将挂载源改为实际目录，容器内目标仍为 `/opt/hyhal`。
+
+#### 设置环境变量
+
+在 D 宿主机执行，替换为实际节点地址：
+
+```bash
+export D_NODE_IP="<D_IP>"
+```
 
 镜像拉取失败时，在宿主机 `/etc/docker/daemon.json` 的 `insecure-registries` 数组中追加 `42.228.13.241:5000`，保留已有配置：
 
@@ -659,9 +677,11 @@ vllm bench serve \
 sudo systemctl restart docker
 ```
 
-```bash
-export D_NODE_IP="<D_IP>"
+#### D 机器：创建容器
 
+在 D 宿主机执行，最后一条命令进入 D 容器：
+
+```bash
 docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523
 docker run -d \
   --name hy4-d \
@@ -688,7 +708,7 @@ docker exec -it hy4-d bash
 
 #### 重新安装插件
 
-在 D 容器内执行：
+使用此镜像后，在 D 容器内安装以下版本插件，再启动服务：
 
 ```bash
 pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
