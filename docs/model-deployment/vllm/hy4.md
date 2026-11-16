@@ -95,7 +95,7 @@ P、D 各使用一个 16 卡 BW1100 超节点，离线 EPLB 冗余专家数为 1
 
 镜像：`42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523`。
 
-P 容器当前目录需有 [r16.json（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/b873be9a4a3dc7af08227e3b07ef57aafddcee58/docs/model-deployment/vllm/configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py](configs/hy4/proxy.py)。
+P 容器当前目录需有 [r16.json（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/b873be9a4a3dc7af08227e3b07ef57aafddcee58/docs/model-deployment/vllm/configs/hy4/r16.json)，D 容器当前目录需有 [proxy.py（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/926d8f20c58734aa2f8cf090870bf1f189db32cf/docs/model-deployment/vllm/configs/hy4/proxy.py)。
 
 `/opt/hyhal` 是宿主机驱动目录，两端容器均需只读挂载；若驱动安装在其他目录，将挂载源改为实际目录，容器内目标仍为 `/opt/hyhal`。
 
@@ -293,7 +293,7 @@ vllm serve hygon/Hy4-preview-Channel-INT4-w4a8 \
 
 #### Proxy
 
-两端服务就绪后，在 D 宿主机另开终端，进入 D 容器运行 [proxy.py](configs/hy4/proxy.py)：
+两端服务就绪后，在 D 宿主机另开终端，进入 D 容器运行 [proxy.py（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/926d8f20c58734aa2f8cf090870bf1f189db32cf/docs/model-deployment/vllm/configs/hy4/proxy.py)：
 
 ```bash
 docker exec -it hy4-d bash
@@ -458,14 +458,70 @@ Per-position acceptance (%):
 
 ### Hy4-preview-Channel-INT4-w4a8 单 P BW1100 16x vLLM 0.25.1
 
-单独使用一个 16 卡 BW1100 超节点，沿用上面的镜像及插件环境。客户端直连本节点 8000 端口，保持 2.55 RPS、均匀到达和最大并发 146。替换 `<P_IP>` 为 P 节点地址。
+单独使用一个 16 卡 BW1100 超节点，客户端直连本节点 8000 端口，保持 2.55 RPS、均匀到达和最大并发 146。
+
+#### 创建容器
+
+在 P 宿主机执行，替换 `<P_IP>` 为本节点地址。`/opt/hyhal` 挂载源改为宿主机实际驱动目录，容器内目标保持 `/opt/hyhal`。
+
+镜像拉取失败时，在宿主机 `/etc/docker/daemon.json` 的 `insecure-registries` 数组中追加 `42.228.13.241:5000`，保留已有配置：
+
+```json
+{
+  "insecure-registries": ["42.228.13.241:5000"]
+}
+```
+
+修改后、创建容器前重启 Docker；重启会影响该宿主机已有容器。
+
+```bash
+sudo systemctl restart docker
+```
+
+```bash
+export P_NODE_IP="<P_IP>"
+
+docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523
+docker run -d \
+  --name hy4-p \
+  --hostname hy4-p \
+  --network host \
+  --shm-size 64g \
+  --cap-add IPC_LOCK \
+  --group-add video \
+  --security-opt seccomp=unconfined \
+  --ulimit memlock=-1:-1 \
+  --ulimit nofile=1048576:1048576 \
+  --device /dev/kfd \
+  --device /dev/mkfd \
+  --device /dev/dri \
+  --device /dev/infiniband \
+  -v /opt/hyhal:/opt/hyhal:ro \
+  -e P_NODE_IP="$P_NODE_IP" \
+  -e VLLM_HOST_IP="$P_NODE_IP" \
+  --workdir /workspace \
+  --entrypoint /usr/bin/sleep \
+  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523 infinity
+docker exec -it hy4-p bash
+```
+
+#### 替换包
+
+在 P 容器内执行：
+
+```bash
+pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
+pip install flash-mla==1.2.0+dtk2604.torch2110.2611131851.g2f4bd3 -i https://pypi.sourcefind.cn/nightly/dtk/
+```
+
+#### 启动服务
 
 P 使用随机生成的共享前缀数据测试。当前目录准备 [r16.json（raw 下载）](https://raw.githubusercontent.com/HYGON-AI/inference-cookbook-das/926d8f20c58734aa2f8cf090870bf1f189db32cf/docs/model-deployment/vllm/configs/hy4/r16.json)，冗余专家总数为 16。
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_USE_MODELSCOPE=1
-export VLLM_HOST_IP="<P_IP>"
+export VLLM_HOST_IP="$P_NODE_IP"
 export ROCSHMEM_GDR_DISABLE_XDP=1
 export DEEP_EP_NORMAL_MNVL=1
 export VLLM_DEEPEP_BUFFER_SIZE_MB=4096
@@ -584,14 +640,70 @@ vllm bench serve \
 
 ### Hy4-preview-Channel-INT4-w4a8 单 D BW1100 16x vLLM 0.25.1
 
-单独使用一个 16 卡 BW1100 超节点，沿用上面的镜像及插件环境。客户端直连本节点 8000 端口，保持 2.55 RPS、均匀到达和最大并发 146。替换 `<D_IP>` 为 D 节点地址。
+单独使用一个 16 卡 BW1100 超节点，客户端直连本节点 8000 端口，保持 2.55 RPS、均匀到达和最大并发 146。
+
+#### 创建容器
+
+在 D 宿主机执行，替换 `<D_IP>` 为本节点地址。`/opt/hyhal` 挂载源改为宿主机实际驱动目录，容器内目标保持 `/opt/hyhal`。
+
+镜像拉取失败时，在宿主机 `/etc/docker/daemon.json` 的 `insecure-registries` 数组中追加 `42.228.13.241:5000`，保留已有配置：
+
+```json
+{
+  "insecure-registries": ["42.228.13.241:5000"]
+}
+```
+
+修改后、创建容器前重启 Docker；重启会影响该宿主机已有容器。
+
+```bash
+sudo systemctl restart docker
+```
+
+```bash
+export D_NODE_IP="<D_IP>"
+
+docker pull 42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523
+docker run -d \
+  --name hy4-d \
+  --hostname hy4-d \
+  --network host \
+  --shm-size 64g \
+  --cap-add IPC_LOCK \
+  --group-add video \
+  --security-opt seccomp=unconfined \
+  --ulimit memlock=-1:-1 \
+  --ulimit nofile=1048576:1048576 \
+  --device /dev/kfd \
+  --device /dev/mkfd \
+  --device /dev/dri \
+  --device /dev/infiniband \
+  -v /opt/hyhal:/opt/hyhal:ro \
+  -e D_NODE_IP="$D_NODE_IP" \
+  -e VLLM_HOST_IP="$D_NODE_IP" \
+  --workdir /workspace \
+  --entrypoint /usr/bin/sleep \
+  42.228.13.241:5000/jenkins/model_test_env/vllm:0.25.1-ubuntu22.04-dtk26041-py3.10-20261111-0523 infinity
+docker exec -it hy4-d bash
+```
+
+#### 替换包
+
+在 D 容器内执行：
+
+```bash
+pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
+pip install flash-mla==1.2.0+dtk2604.torch2110.2611131851.g2f4bd3 -i https://pypi.sourcefind.cn/nightly/dtk/
+```
+
+#### 启动服务
 
 `DecodeBenchConnector` 填充模拟 KV；MTP3 平均接受长度设为 2.95（含 bonus，对应约 65% draft token 接受率）。
 
 ```bash
 export VLLM_USE_V2_MODEL_RUNNER=1
 export VLLM_USE_MODELSCOPE=1
-export VLLM_HOST_IP="<D_IP>"
+export VLLM_HOST_IP="$D_NODE_IP"
 export ROCSHMEM_IPC_MNVL=1
 export VLLM_DEEPEP_BUFFER_SIZE_MB=0
 export GPU_MAX_HW_QUEUES=3
