@@ -505,13 +505,12 @@ docker run -d \
 docker exec -it hy4-p bash
 ```
 
-#### 替换包
+#### 重新安装插件
 
 在 P 容器内执行：
 
 ```bash
 pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
-pip install flash-mla==1.2.0+dtk2604.torch2110.2611131851.g2f4bd3 -i https://pypi.sourcefind.cn/nightly/dtk/
 ```
 
 #### 启动服务
@@ -687,13 +686,12 @@ docker run -d \
 docker exec -it hy4-d bash
 ```
 
-#### 替换包
+#### 重新安装插件
 
 在 D 容器内执行：
 
 ```bash
 pip install vllm-hcu==0.25.1+dtk2604.torch2110.2611121359.g55130a -i https://pypi.sourcefind.cn/nightly/dtk/
-pip install flash-mla==1.2.0+dtk2604.torch2110.2611131851.g2f4bd3 -i https://pypi.sourcefind.cn/nightly/dtk/
 ```
 
 #### 启动服务
