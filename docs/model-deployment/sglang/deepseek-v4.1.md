@@ -8,13 +8,13 @@ DeepSeek-V4.1 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V
 
 | 模型权重                                                     | 量化方式  | SGLang 镜像 | 推荐硬件 | 卡数  | 部署方式 | 启动命令                                                     |
 | ------------------------------------------------------------ | --------- | ----------- | -------- | ----- | -------- | ------------------------------------------------------------ |
-| DeepSeek-V4.1-Flash-Channel-FP8                              | FP8 W8A8  | [0.5.18](../docker_images.md) | BW1100   | 8     | IFB      | [**`>_`**](#deepseek-v41-flash-channel-fp8-ifb-bw1100-8x-sglang-0518) |
-| DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head | FP8 W8A8  | [0.5.18](../docker_images.md) | BW1100   | 16    | 1P1D     | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-wo_a-markov_head-lm_head-1p1d-bw1100-16x-sglang-0518) |
-|                                                              | FP8 W8A8  | [0.5.18](../docker_images.md) | scaleX   | 40    | 1P1D     | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-wo_a-markov_head-lm_head-1p1d-scalex-40x-sglang-0518) |
-| DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1000   | 8     | IFB      | [**`>_`**](#deepseek-v41-flash-1017-channel-int4-w4a8-wo_a-markov_head-lm_head-ifb-bw1000-8x-sglang-0518) |
-|                                                              | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1000   | 16    | 1P1D     | [**`>_`**](#deepseek-v41-flash-1017-channel-int4-w4a8-wo_a-markov_head-lm_head-1p1d-bw1000-16x-sglang-0518) |
-|                                                              | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1000   | 17 | EPD      | [**`>_`**](#deepseek-v41-flash-1017-channel-int4-w4a8-wo_a-markov_head-lm_head-epd-bw1000-17x-sglang-0518) |
-| DeepSeek-V4.1-Flash-Channel-INT4-w4a8                        | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1101   | 8     | 1P1D     | [**`>_`**](#deepseek-v41-flash-channel-int4-w4a8-1p1d-bw1101-8x-sglang-0518) |
+| [hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8](https://modelscope.cn/models/hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8) | FP8 W8A8  | [0.5.18](../docker_images.md) | BW1100   | 8     | IFB      | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-ifb-bw1100-8x-sglang-0518) |
+|  | FP8 W8A8  | [0.5.18](../docker_images.md) | BW1100   | 16    | 1P1D     | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-1p1d-bw1100-16x-sglang-0518) |
+|                                                              | FP8 W8A8  | [0.5.18](../docker_images.md) | scalex40-3G | 40    | 1P1D     | [**`>_`**](#deepseek-v41-flash-1017-channel-fp8-w8a8-1p1d-scalex40-3g-40x-sglang-0518) |
+| [hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8](https://modelscope.cn/models/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8) | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1000   | 8     | IFB      | [**`>_`**](#deepseek-v41-flash-1017-channel-int4-w4a8-ifb-bw1000-8x-sglang-0518) |
+|                                                              | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1000   | 16    | 1P1D     | [**`>_`**](#deepseek-v41-flash-1017-channel-int4-w4a8-1p1d-bw1000-16x-sglang-0518) |
+|                                                              | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1000   | 17 | EPD      | [**`>_`**](#deepseek-v41-flash-1017-channel-int4-w4a8-epd-bw1000-17x-sglang-0518) |
+| [hygon/DeepSeek-V4.1-Flash-Channel-INT4-w4a8](https://modelscope.cn/models/hygon/DeepSeek-V4.1-Flash-Channel-INT4-w4a8) | INT4-W4A8 | [0.5.18](../docker_images.md) | BW1100   | 8     | 1P1D     | [**`>_`**](#deepseek-v41-flash-channel-int4-w4a8-1p1d-bw1100-8x-sglang-0518) |
 
 ## DeepEP 配置
 
@@ -44,10 +44,9 @@ DeepSeek-V4.1 是 DeepSeek 系列的混合专家模型。本页汇总 DeepSeek-V
 
 运行前，请按实际环境替换各段中的 IP 占位符，并核对网卡名。`--host` 填写本机服务监听地址，`--dist-init-addr` 填写对应 P 或 D 分组的 Node 0 地址，同组节点使用同一初始化地址。
 
-### DeepSeek-V4.1-Flash-Channel-FP8 IFB BW1100 8x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 IFB BW1100 8x SGLang 0.5.18
 
 ```bash
-export PYTHONPATH=/home/proj_sglang_fork/sglang-das/python:/usr/local/:
 export NCCL_SOCKET_IFNAME=ens66f1np1
 export GLOO_SOCKET_IFNAME=ens66f1np1
 export SGLANG_TORCH_PROFILER_DIR=/home/proj_dpsk-v4/profile
@@ -63,7 +62,6 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
 export SGLANG_USE_LIGHTOP_PAGED_MQA_LOGITS_FP4=1
 export SGLANG_USE_LIGHTOP_DSV41_PAGED_INDEXER=1
-export ROCBLAS_TENSILE_LIBPATH=/home/proj_dpsk-v4/configs/dpsk-v41-dp8ep8-lib
 export NCCL_SIMPLE_CHANNELS=32
 export NCCL_IB_HCA=mlx5_2
 export ROCSHMEM_MAX_NUM_CONTEXTS=48
@@ -72,8 +70,8 @@ export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export ROCSHMEM_DISABLE_HDP_FLUSH=1
 
 sglang serve \
- --model-path /module/DeepSeek-V4.1-Flash-Channel-FP8 \
- --served-model-name DeepSeek-V4.1-Flash-Channel-FP8 \
+ --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
+ --served-model-name DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
  --tp-size 8 \
  --host 0.0.0.0 \
  --port 10015 \
@@ -97,7 +95,7 @@ sglang serve \
  --enable-dp-lm-head \
  --ep 8 \
  --moe-a2a-backend deepep \
- --deepep-config /home/proj_dpsk-v4/configs/deepep_IntraConfig.json \
+ --deepep-config deepep_IntraConfig.json \
  --deepep-mode auto \
  --moe-runner-backend deep_gemm \
  --enable-single-batch-overlap \
@@ -107,7 +105,7 @@ sglang serve \
  2>&1 | tee running_dpsk-v41_nmz20_decode_nodisagg.log
 ```
 
-### DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head 1P1D BW1100 16x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 1P1D BW1100 16x SGLang 0.5.18
 
 网卡配置参考：[IB 网卡](../../troubleshooting/common-issues.md#ib网卡)。
 
@@ -131,7 +129,6 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
 export SGLANG_USE_LIGHTOP_PAGED_MQA_LOGITS_FP4=1
 export SGLANG_USE_LIGHTOP_DSV41_PAGED_INDEXER=1
-export ROCBLAS_TENSILE_LIBPATH=/home/proj_dpsk-v4/configs/dpsk-v41-dp8ep8-lib
 export NCCL_SIMPLE_CHANNELS=32
 export HSA_USERPTR_FOR_PAGED_MEM=0
 export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
@@ -147,7 +144,7 @@ export SGLANG_OPT_DEEPGEMM_MEGA_MOE_NUM_MAX_TOKENS_PER_RANK=4096
 export SGLANG_HCU_DSV41_BF16_MAIN_PROJ_PREPACK=1
 
 sglang serve \
- --model-path /module/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
+ --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
  --tp-size 8 \
  --host 0.0.0.0 \
  --port 10015 \
@@ -371,7 +368,6 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
 export SGLANG_USE_LIGHTOP_PAGED_MQA_LOGITS_FP4=1
 export SGLANG_USE_LIGHTOP_DSV41_PAGED_INDEXER=1
-export ROCBLAS_TENSILE_LIBPATH=/home/proj_dpsk-v4/configs/dpsk-v41-dp8ep8-lib
 export NCCL_SIMPLE_CHANNELS=32
 export HSA_USERPTR_FOR_PAGED_MEM=0
 export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
@@ -399,7 +395,7 @@ export SGLANG_KV_LAYOUT_HCU_FA=0
 export MOONCAKE_STANDALONE_STORAGE=0
 
 sglang serve \
- --model-path /module/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
+ --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
  --tp-size 8 \
  --host "<P_l3_ip>" \
  --port 10015 \
@@ -430,7 +426,7 @@ sglang serve \
  --disaggregation-transfer-backend mooncake \
  --disaggregation-bootstrap-port 8998 \
  --disable-radix-cache \
- --init-expert-location /home/proj_dpsk-v4/expert_dist/eplb_fp8_runB64_r32.pt \
+ --init-expert-location eplb_fp8_runB64_r32.pt \
  --ep-num-redundant-experts 32 \
  --ep-dispatch-algorithm lp \
  --enable-unified-cache-external-linker \
@@ -455,7 +451,6 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
 export SGLANG_USE_LIGHTOP_PAGED_MQA_LOGITS_FP4=1
 export SGLANG_USE_LIGHTOP_DSV41_PAGED_INDEXER=1
-export ROCBLAS_TENSILE_LIBPATH=/home/proj_dpsk-v4/configs/dpsk-v41-dp8ep8-lib
 export NCCL_SIMPLE_CHANNELS=32
 export NCCL_IB_HCA=mlx5_2
 export ROCSHMEM_MAX_NUM_CONTEXTS=48
@@ -468,10 +463,10 @@ export SGLANG_USE_FP8_W8A8_MOE=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
-export SGLANG_EXPERIMENTAL_LPLB_STATIC_PROBS=/home/lplb_decode_ep8_r32.pt
+export SGLANG_EXPERIMENTAL_LPLB_STATIC_PROBS=/lplb_decode_ep8_r32.pt
 
 sglang serve \
- --model-path /module/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
+ --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
  --tp-size 8 \
  --host 0.0.0.0 \
  --port 10016 \
@@ -495,7 +490,7 @@ sglang serve \
  --enable-dp-lm-head \
  --ep 8 \
  --moe-a2a-backend deepep \
- --deepep-config /home/proj_dpsk-v4/configs/deepep_IntraConfig.json \
+ --deepep-config /deepep_IntraConfig.json \
  --deepep-mode auto \
  --moe-runner-backend deep_gemm \
  --enable-single-batch-overlap \
@@ -512,9 +507,9 @@ sglang serve \
  2>&1 | tee running_dpsk-v41_nmz22_decode.log
 ```
 
-#### Decode - DP16EP16（24 卡方案）
+#### Decode - DP16EP16
 
-```
+```bash
 export NCCL_SOCKET_IFNAME=enp28s0f1u1
 export GLOO_SOCKET_IFNAME=enp28s0f1u1
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
@@ -529,22 +524,19 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=256
 export SGLANG_USE_LIGHTOP_PAGED_MQA_LOGITS_FP4=1
 export SGLANG_USE_LIGHTOP_DSV41_PAGED_INDEXER=1
-export ROCBLAS_TENSILE_LIBPATH=/home/proj_dpsk-v4/configs/dpsk-v41-dp8ep8-lib
 export NCCL_SIMPLE_CHANNELS=32
 export ROCSHMEM_MAX_NUM_CONTEXTS=48
 export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 export SGLANG_USE_FP8_W8A8_MOE=1
-#export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 export DEEPEP_ENABLE_LL_LAYERED_OPT=0
 export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export HSA_USERPTR_FOR_PAGED_MEM=0
 export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
-export PYTHONPATH=/home/pd-20261103/sglang-das/python:${PYTHONPATH}
-export SGLANG_EXPERIMENTAL_LPLB_STATIC_PROBS=/home/lplb_decode_ep16_r32.pt
+export SGLANG_EXPERIMENTAL_LPLB_STATIC_PROBS=/lplb_decode_ep16_r32.pt
 exec sglang serve \
- --model-path /model/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head \
+ --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 \
  --tp-size 16 \
  --host 0.0.0.0 \
  --port 10016 \
@@ -583,7 +575,7 @@ exec sglang serve \
  2>&1 | tee running_dpsk-v41_dp16_decode.log
 ```
 
-### DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head 1P1D scaleX 40x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8 1P1D scalex40-3G 40x SGLang 0.5.18
 
 #### P node
 
@@ -596,7 +588,7 @@ set -euo pipefail
 export LIGHTOP_PREFILL_SPARSE_PREP_FUSION=3
 export NCCL_SOCKET_IFNAME=ibp129s0
 export GLOO_SOCKET_IFNAME=ibp129s0
-export SGLANG_TORCH_PROFILER_DIR=/zhengzhi/1027/profile/prefill
+export SGLANG_TORCH_PROFILER_DIR=/home/profile/prefill
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
 export SGLANG_USE_AITER_AG=0
 export SGLANG_USE_LIGHTOP=1
@@ -609,7 +601,6 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=384
 export SGLANG_USE_LIGHTOP_PAGED_MQA_LOGITS_FP4=1
 export SGLANG_USE_LIGHTOP_DSV41_PAGED_INDEXER=1
-export ROCBLAS_TENSILE_LIBPATH=/opt/dtk/dpsk-v41-dp8ep8-lib
 export NCCL_SIMPLE_CHANNELS=32
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3,shca_4
 export ROCSHMEM_MAX_NUM_CONTEXTS=48
@@ -619,15 +610,11 @@ export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3,shca_4
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 export SGLANG_USE_FP8_W8A8_MOE=1
-
-# 与 C32 对齐的 HCU/超节点运行环境。
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export SGLANG_ENABLE_DSV41_ENGRAM_HOST_TABLE=1
 export SGLANG_DSV41_ENGRAM_HOST_TABLE_LAYOUT=per_rank
 export SGLANG_OPT_BF16_FP32_GEMM_ALGO=lightop
-
-# P 的跨节点 normal 路径需要单独启用 MNVL。
 export DEEP_EP_NORMAL_MNVL=1
 export ROCSHMEM_IPC_MNVL=1
 export HIP_BUFFER_EXTRA_SIZE=0
@@ -639,15 +626,8 @@ export NCCL_IB_DISABLE=0
 export HIP_GRAPH_ACCUMULATE_DISPATCH=1
 export HIP_GRAPH_USE_CMD_CACHE=0
 
-# 真实精度验证时关闭模拟投机解码接受长度。
-# export SGLANG_SIMULATE_ACC_LEN=-1
-# unset SGLANG_SIMULATE_ACC_METHOD
-
-# 健康接口只检查服务状态，实际可用性通过真实 PD 请求验证。
-# export SGLANG_ENABLE_HEALTH_ENDPOINT_GENERATION=0
-
 exec sglang serve \
-    --model-path /DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head/ \
+    --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8/ \
     --tp-size 8 \
     --host 0.0.0.0 \
     --port 10015 \
@@ -690,7 +670,7 @@ exec sglang serve \
 
 #### D node
 
-将下方脚本保存为 `server-DeepSeek-V4.1-Flash-D-dp32ep32-C32.sh`。在各节点上运行 `host_ip="<D_node0_ip>" nodes=8 rank=0 bash server-DeepSeek-V4.1-Flash-D-dp32ep32-C32.sh`，所有节点填写同一个 `<D_node0_ip>`，并分别将 `rank` 设为 `0` 到 `7`。
+在各节点上运行 `host_ip="<D_node0_ip>" nodes=8 rank=0 bash ep32.sh`，所有节点填写同一个 `<D_node0_ip>`，并分别将 `rank` 设为 `0` 到 `7`。
 
 ```bash
 #!/usr/bin/env bash
@@ -731,16 +711,14 @@ export ROCSHMEM_IPC_MNVL=1
 export HIP_BUFFER_EXTRA_SIZE=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
 export DEEPEP_CPU_TIMEOUT_SECS=300
-#dspark接受长度 组合speculative-dspark-block-size使用
 export SGLANG_SIMULATE_ACC_LEN=3.25
 export SGLANG_SIMULATE_ACC_METHOD=match-expected
 export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
-#export SGLANG_LOG_EXPERT_LOCATION_METADATA=1 专家布局日志开关
 
 mkdir -p ./log
 exec sglang serve \
-  --model-path /models/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8-wo_a-markov_head-lm_head/ \
+  --model-path hygon/DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8/ \
   --tp-size 32 \
   --host 0.0.0.0 \
   --port 10016 \
@@ -783,20 +761,15 @@ exec sglang serve \
   --numa-node 0 5 3 2 \
   --tokenizer-worker-num 4 \
   > "./log/node_${rank}_$(TZ=Asia/Shanghai date +%Y%m%d_%H%M%S).log" 2>&1
-
-
 ```
 
-### DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head IFB BW1000 8x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8 IFB BW1000 8x SGLang 0.5.18
 
 ```bash
 #!/bin/bash
 
 set -o pipefail
 ulimit -c 0
-
-export PYTHONPATH=/home/sglang/sglang-das/python:${PYTHONPATH:-}
-
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
 export SGLANG_USE_AITER=0
 export SGLANG_USE_AITER_AG=0
@@ -821,7 +794,7 @@ export HSA_USERPTR_FOR_PAGED_MEM=0
 export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 readonly MAX_RUNNING_REQUESTS=${MAX_RUNNING_REQUESTS:-64}
@@ -853,7 +826,7 @@ sglang serve \
     2>&1 | tee "running_dpsk-v41_DP8EP8_${the_host}.log"
 ```
 
-### DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head 1P1D BW1000 16x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8 1P1D BW1000 16x SGLang 0.5.18
 
 #### P node
 
@@ -901,7 +874,7 @@ export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 
@@ -1214,9 +1187,6 @@ exec env -u MC_FORCE_TCP -u LD_PRELOAD mooncake_client \
 
 set -o pipefail
 ulimit -c 0
-
-export ROCBLAS_TENSILE_LIBPATH=/pd_gemm_BW80_dtk2604_20261017_v10/library_gpu5
-
 export SGLANG_OPT_SWIGLU_CLAMP_FUSION=false
 export SGLANG_USE_AITER=0
 export SGLANG_USE_AITER_AG=0
@@ -1256,7 +1226,7 @@ export SGLANG_KV_LAYOUT_HCU_FA=0
 export MOONCAKE_STANDALONE_STORAGE=0
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-Channel-INT4-w4a8-fix_mtp}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 
@@ -1322,7 +1292,6 @@ export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
 export SGLANG_ENABLE_DSV41_ENGRAM_HOST_TABLE=1
 export SGLANG_DSV41_ENGRAM_HOST_TABLE_LAYOUT=per_rank
 export SGLANG_HCU_ENABLE_DSV41_W4A8_ENGRAM_LOAD_OPTIMIZATION=1
-export SGLANG_DSV41_INT8_SERVICE_OPT=1 #后缀wo_a-markov_head-lm_head这个模型要加上这个
 export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
 export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_HCU_OPT_ENGRAM_GATE=1
@@ -1344,7 +1313,7 @@ export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
 export SGLANG_OPT_BF16_FP32_GEMM_ALGO=lightop
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 readonly BOOTSTRAP_PORT=${BOOTSTRAP_PORT:-8998}
@@ -1386,7 +1355,7 @@ sglang serve \
     2>&1 | tee "running_dpsk-v41_PD_D_DP8EP8_${the_host}.log"
 ```
 
-### DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head EPD BW1000 17x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8 EPD BW1000 17x SGLang 0.5.18
 
 默认配置共 17 卡，包含 1 个 TP1 Encoder（1 卡）、CP8EP8 Prefill（8 卡）和 DP8EP8 Decode（8 卡）。16 卡是 Prefill 和 Decode 的小计。Encoder 每个实例占用 1 卡，调整 `NUM_ENCODERS` 后，总卡数为 `16 + NUM_ENCODERS`。
 
@@ -1400,12 +1369,6 @@ E、P、D 节点分别填写 `<E_node_ip>`、`<P_node_ip>`、`<D_node_ip>`，也
 set -o pipefail
 ulimit -c 0
 
-readonly SGLANG_ROOT=${SGLANG_ROOT:-/public/home/luoyao/projects/sby/epd/sglang-das}
-if [[ -d "${SGLANG_ROOT}/python" ]]; then
-    export PYTHONPATH="${SGLANG_ROOT}/python${PYTHONPATH:+:${PYTHONPATH}}"
-fi
-
-# ── aiter 全局关闭（与 P/D 一致，避免影响其它路径），ViT attention 单独用 --mm-attention-backend 指定 ──
 export SGLANG_USE_AITER=0
 
 # ── VLM / 多模态 ─────────────────────────────────────────────────────────
@@ -1433,7 +1396,7 @@ export MOONCAKE_PROTOCOL=rdma
 export MC_TCP_ENABLE_CONNECTION_POOL=true
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head/}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8/}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 readonly WATCHDOG_TIMEOUT=${WATCHDOG_TIMEOUT:-3600}
 # Prefill 节点的 EncoderBootstrapServer（prefill.sh 的 --language-only 自动开启，默认 8997）。
@@ -1534,10 +1497,6 @@ echo "[encoder] 有实例退出，停止其余实例" >&2
 set -o pipefail
 ulimit -c 0
 
-readonly SGLANG_ROOT=${SGLANG_ROOT:-/public/home/luoyao/projects/sby/epd/sglang-das}
-if [[ -d "${SGLANG_ROOT}/python" ]]; then
-    export PYTHONPATH="${SGLANG_ROOT}/python${PYTHONPATH:+:${PYTHONPATH}}"
-fi
 export ROCBLAS_TENSILE_LIBPATH=/opt/dtk/gemm_asm_gfx936_80cu_20261111/rocblas/library
 export HIPBLASLT_TENSILE_LIBPATH=/opt/dtk/gemm_asm_gfx936_80cu_20261111/hipblaslt/library
 export HIPBLASLT_TUNING_OVERRIDE_FILE=/opt/dtk/gemm_asm_gfx936_80cu_20261111/hipblaslt/tuning.txt
@@ -1574,9 +1533,8 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 export SGLANG_HCU_DSV41_BF16_MAIN_PROJ_PREPACK=1
-#export ROCBLAS_TENSILE_LIBPATH=/public/home/luoyao/projects/sby/pd_gemm_BW80_dtk2604_20261017_v10/library_gpu5
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head/}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8/}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 readonly PREFILL_HOST="${PREFILL_HOST:-<P_node_ip>}"
@@ -1649,10 +1607,6 @@ sglang serve \
 set -o pipefail
 ulimit -c 0
 
-readonly SGLANG_ROOT=${SGLANG_ROOT:-/public/home/luoyao/projects/sby/epd/sglang-das}
-if [[ -d "${SGLANG_ROOT}/python" ]]; then
-    export PYTHONPATH="${SGLANG_ROOT}/python${PYTHONPATH:+:${PYTHONPATH}}"
-fi
 export ROCBLAS_TENSILE_LIBPATH=/opt/dtk/gemm_asm_gfx936_80cu_20261111/rocblas/library
 export HIPBLASLT_TENSILE_LIBPATH=/opt/dtk/gemm_asm_gfx936_80cu_20261111/hipblaslt/library
 export HIPBLASLT_TUNING_OVERRIDE_FILE=/opt/dtk/gemm_asm_gfx936_80cu_20261111/hipblaslt/tuning.txt
@@ -1665,13 +1619,7 @@ export SGLANG_USE_LIGHTOP=1
 export SGLANG_USE_LIGHTOP_GROUP_FP8_QUANT=1
 export SGLANG_USE_DPSKV4_LIGHTOP_QUANT_K_CACHE=1
 export SGLANG_USE_DPSKV4_LIGHTOP_RMSNORM=1
-export SGLANG_DSV41_INT8_SERVICE_OPT=1#后缀wo_a-markov_head-lm_head这个模型要加上这个
-# Disabled: triggers Engram._HostTable -> sgl_kernel.kvcacheio.get_device_accessible_ptr,
-# which ImportErrors on the currently installed sgl_kernel (missing symbol).
-# Re-enable once sgl_kernel is upgraded to a version that exports it, and keep
-# this in sync with prefill.sh -- the P/D engram layout must match.
 export SGLANG_ENABLE_DSV41_ENGRAM_HOST_TABLE=1
-#export ROCBLAS_TENSILE_LIBPATH=/public/home/luoyao/projects/sby/pd_gemm_BW80_dtk2604_20261017_v10/library_gpu5
 export SGLANG_DSV41_ENGRAM_HOST_TABLE_LAYOUT=per_rank
 export SGLANG_HCU_ENABLE_DSV41_W4A8_ENGRAM_LOAD_OPTIMIZATION=1
 export SGLANG_DSV4_SPLIT_PREFILL_DECODE_MLA=1
@@ -1687,7 +1635,7 @@ export SGLANG_HCU_FUSED_MHC_BOUNDARY=1
 export SGLANG_OPT_BF16_FP32_GEMM_ALGO=lightop
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/models/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8-wo_a-markov_head-lm_head/}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-1017-Channel-INT4-w4a8/}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 readonly DECODE_HOST="${DECODE_HOST:-<D_node_ip>}"
@@ -1719,7 +1667,7 @@ sglang serve \
     --disable-radix-cache \
     --enable-single-batch-overlap \
     --language-only \
-   --init-expert-location //decode_static_load.pt \
+   --init-expert-location /decode_static_load.pt \
     --host "$DECODE_HOST" \
     --port "$PORT" \
     --trust-remote-code \
@@ -1747,19 +1695,14 @@ sglang serve \
 
 ```
 
-### DeepSeek-V4.1-Flash-Channel-INT4-w4a8 1P1D BW1101 8x SGLang 0.5.18
+### DeepSeek-V4.1-Flash-Channel-INT4-w4a8 1P1D BW1100 8x SGLang 0.5.18
 
-将 `<P_node_ip>` 和 `<D_node_ip>` 替换为 P、D 服务的实际监听 IP。同机部署时两处可填写同一地址，服务端口分别默认为 `30000` 和 `30001`。`NO_PROXY` 按实际环境填写需要直连的地址。
+将 `<P_node_ip>` 和 `<D_node_ip>` 替换为 P、D 服务的实际监听 IP。同机部署时两处可填写同一地址，服务端口分别默认为 `30000` 和 `30001`。
 
 #### P node
 
 ```bash
 #!/bin/bash
-
-unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY all_proxy ALL_PROXY
-export NO_PROXY="localhost,127.0.0.1,<P_node_ip>,<D_node_ip>"
-export no_proxy="$NO_PROXY"
-
 set -o pipefail
 ulimit -c 0
 
@@ -1784,7 +1727,6 @@ export SGLANG_OPT_FLASHMLA_SPARSE_PREFILL=1
 export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1
 export LIGHTOP_PREFILL_SPARSE_PREP_FUSION=3
 export HSA_USERPTR_FOR_PAGED_MEM=0
-# export SGLANG_DSV41_PAGED_MQA_LOGITS_FREE_MEM_FRACTION=0.05   如果跑1M上下文出现OOM的问题，可以开启这个环境变量解决
 
 readonly HOST_IP="<P_node_ip>"
 readonly SOCKET_IFNAME=ens66f1np1
@@ -1803,7 +1745,7 @@ export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=1200
 export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 
 readonly PORT=${1:-30000}
-readonly MODEL_PATH=${2:-/module/DeepSeek-V4.1-Flash-Channel-INT4-w4a8}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-Channel-INT4-w4a8}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 
@@ -1848,10 +1790,6 @@ sglang serve \
 
 ```bash
 #!/bin/bash
-
-unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY all_proxy ALL_PROXY
-export NO_PROXY="localhost,127.0.0.1,<P_node_ip>,<D_node_ip>"
-export no_proxy="$NO_PROXY"
 
 set -o pipefail
 ulimit -c 0
@@ -1898,7 +1836,7 @@ export SGLANG_DISAGGREGATION_ALL_CP_RANKS_TRANSFER=1
 export SGLANG_HEALTH_CHECK_TIMEOUT=10000
 
 readonly PORT=${1:-30001}
-readonly MODEL_PATH=${2:-/module/DeepSeek-V4.1-Flash-Channel-INT4-w4a8}
+readonly MODEL_PATH=${2:-/hygon/DeepSeek-V4.1-Flash-Channel-INT4-w4a8}
 readonly CPU_OFFLOAD_GB=${CPU_OFFLOAD_GB:-0}
 readonly DIST_TIMEOUT=${DIST_TIMEOUT:-1800}
 readonly BOOTSTRAP_PORT=${BOOTSTRAP_PORT:-8998}
@@ -1968,7 +1906,7 @@ from openai import OpenAI
 client = OpenAI(base_url="http://localhost:10015/v1", api_key="not-needed")
 
 response = client.chat.completions.create(
-    model="DeepSeek-V4.1-Flash-Channel-FP8",
+    model="DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "你好，请介绍一下你自己。"},
@@ -1982,7 +1920,7 @@ print(response.choices[0].message.content)
 ```bash
 curl http://localhost:10015/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -d '{"model": "DeepSeek-V4.1-Flash-Channel-FP8", "messages": [{"role": "user", "content": "你好"}], "max_tokens": 128}'
+  -d '{"model": "DeepSeek-V4.1-Flash-1017-Channel-FP8-w8a8", "messages": [{"role": "user", "content": "你好"}], "max_tokens": 128}'
 ```
 
 ### PD 分离
