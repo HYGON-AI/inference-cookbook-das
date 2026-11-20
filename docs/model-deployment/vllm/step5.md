@@ -10,7 +10,7 @@ Prefill 和 Decode 是分别侧重输入处理、输出生成的独立 API 服�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 144GB（单机） | 8 | IFB | [**`>_`**](#single-ifb) |
+| [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#single-ifb) |
 |  | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100（96G） | 8 | IFB | [**`>_`**](#step-5-preview-channel-fp8-w8a8-ifb-bw110096g-8x-vllm-0281) |
 | [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 144GB（单机） | 8 | Prefill | [**`>_`**](#single-prefill) |
 | [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 144GB（单机） | 8 | Decode | [**`>_`**](#single-decode) |
