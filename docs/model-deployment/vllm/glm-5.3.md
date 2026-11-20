@@ -68,7 +68,7 @@ vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --data-parallel-size 1 \
   --data-parallel-size-local 1 \
   --enable-expert-parallel \
-  --all2all-backend deepep_low_latency \
+  --all2all-backend deepep_high_throughput \
   --attention-backend FLASHMLA_SPARSE \
   --kv-cache-dtype fp8_ds_mla \
   --moe-backend deep_gemm \
