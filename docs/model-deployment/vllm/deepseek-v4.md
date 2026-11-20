@@ -23,14 +23,17 @@ DeepSeek-V4 是 DeepSeek 系列大语言模型，本文档提供其在 vLLM 上�
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-int4-w4a8-ifb-bw1000-16x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-INT4-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-INT4-Channel) | INT4 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-pro-0813-int4-channel-ifb-bw1100-8x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw1100-16x-vllm-0281) |
+|  | FP8 | 0.28.1 | BW1100（96G） | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-fp8-w8a8-ifb-bw110096g-32x-vllm-0281) |
 | [hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#deepseek-v4-flash-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1100-16x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1100（96G） | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw110096g-32x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#deepseek-v4-pro-channel-int8-w8a8-ifb-bw1000-32x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8) | FP8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-fp8-w8a8-ifb-bw1100-16x-vllm-0281) |
-|  | FP8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-fp8-w8a8-ifb-bw110096g-16x-vllm-0281) |
+|  | FP8 | 0.28.1 | BW1100（96G） | 32 | IFB | [**`>_`**](#deepseek-v4-pro-0813-channel-fp8-w8a8-ifb-bw110096g-32x-vllm-0281) |
 | [hygon/DeepSeek-V4-Pro-0813-INT8-Channel](https://www.modelscope.cn/models/hygon/DeepSeek-V4-Pro-0813-INT8-Channel) | INT8 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-v4-pro-0813-int8-channel-ifb-bw1100-16x-vllm-0281) |
+|  | INT8 | 0.28.1 | BW1100（96G） | 32 | IFB | [**`>_`**](#deepseek-v4-pro-0813-int8-channel-ifb-bw110096g-32x-vllm-0281) |
 
 
 ### 0.28.1 平台支持说明
@@ -694,6 +697,142 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --gpu-memory-utilization 0.9
 ```
 
+### DeepSeek-V4-Pro-Channel-FP8-w8a8 IFB BW1100（96G） 32x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --api-server-count 1 \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 1
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 2
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 3
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
 ### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
@@ -840,6 +979,142 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
   --gpu-memory-utilization 0.9
+```
+
+### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1100（96G） 32x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --api-server-count 1 \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 1
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 2
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 3
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
 ```
 
 ### DeepSeek-V4-Pro-Channel-INT8-w8a8 IFB BW1000 32x vLLM 0.28.1
@@ -1001,7 +1276,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --gpu-memory-utilization 0.9
 ```
 
-### DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 IFB BW1100（96G） 16x vLLM 0.28.1
+### DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 IFB BW1100（96G） 32x vLLM 0.28.1
 
 在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
 
@@ -1010,16 +1285,18 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
 ```bash
 export ROCSHMEM_GDA_RAIL_ONLY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
-  --data-parallel-size 4 \
+  --data-parallel-size 8 \
   --pipeline-parallel-size 1 \
   --data-parallel-size-local 2 \
   --enable-expert-parallel \
-  --nnodes 2 \
+  --nnodes 4 \
   --node-rank 0 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
@@ -1030,10 +1307,11 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 1024 \
-  --max-num-seqs 16 \
-  --gpu-memory-utilization 0.9
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
 ```
 
 #### rank 1
@@ -1041,16 +1319,18 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
 ```bash
 export ROCSHMEM_GDA_RAIL_ONLY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --trust-remote-code \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 4 \
-  --data-parallel-size 4 \
+  --data-parallel-size 8 \
   --pipeline-parallel-size 1 \
   --data-parallel-size-local 2 \
   --enable-expert-parallel \
-  --nnodes 2 \
+  --nnodes 4 \
   --node-rank 1 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
@@ -1061,10 +1341,79 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
-  --max-model-len 32768 \
-  --max-num-batched-tokens 1024 \
-  --max-num-seqs 16 \
-  --gpu-memory-utilization 0.9
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 2
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 3
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
 ```
 
 ### DeepSeek-V4-Pro-0813-INT8-Channel IFB BW1100 16x vLLM 0.28.1
@@ -1125,6 +1474,146 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
   --gpu-memory-utilization 0.9
+```
+
+### DeepSeek-V4-Pro-0813-INT8-Channel IFB BW1100（96G） 32x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --api-server-count 1 \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 1
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 2
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
+```
+
+#### rank 3
+
+```bash
+export ROCSHMEM_GDA_RAIL_ONLY=1
+export DEEPEP_ENABLE_LL_LAYERED_OPT=1
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
+  --trust-remote-code \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
+  --tensor-parallel-size 4 \
+  --data-parallel-size 8 \
+  --pipeline-parallel-size 1 \
+  --data-parallel-size-local 2 \
+  --enable-expert-parallel \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --all2all-backend deepep_auto \
+  --moe-backend deep_gemm \
+  --kv-cache-dtype fp8 \
+  --block-size 256 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --max-model-len 167936 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.8
 ```
 
 ## API 调用

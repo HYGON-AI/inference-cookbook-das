@@ -154,6 +154,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1000-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3-235B-A22B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B-Instruct-2507) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-4x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw110096g-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-kv-fp8_e5m2-tp8-pp2-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-k100_ai-16x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-4x-vllm-021) |
@@ -2241,6 +2242,27 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-235B-A22B-Instruct-2507 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
