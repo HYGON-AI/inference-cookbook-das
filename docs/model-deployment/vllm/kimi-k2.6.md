@@ -9,6 +9,7 @@
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [moonshotai/Kimi-K2.6](https://www.modelscope.cn/models/moonshotai/Kimi-K2.6) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k26-ifb-bw1100-8x-vllm-0281) |
+|  | INT4 W4A16 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#kimi-k26-ifb-bw110096g-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#kimi-k26-ifb-bw1000-16x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#kimi-k26-ifb-k100_ai-16x-vllm-0281) |
 
@@ -29,6 +30,24 @@ vllm serve moonshotai/Kimi-K2.6 \
   --reasoning-parser kimi_k2 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### Kimi-K2.6 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+vllm serve moonshotai/Kimi-K2.6 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser kimi_k2 \
+  --reasoning-parser kimi_k2 \
+  --max-model-len 57344 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.92
 ```
 
 ### Kimi-K2.6 IFB BW1000 16x vLLM 0.28.1
