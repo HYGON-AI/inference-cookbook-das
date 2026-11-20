@@ -11,6 +11,7 @@ GLM-5.1 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 | [ZhipuAI/GLM-5.1](https://www.modelscope.cn/models/ZhipuAI/GLM-5.1) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#glm-51-ifb-bw1100-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-51-ifb-bw1000-32x-vllm-0281) |
 | [hygon/GLM-5.1-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.1-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
+|  | INT4 W4A8 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-bw110096g-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-k100_ai-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#glm-51-channel-int4-w4a8-ifb-bw1100-8x-vllm-021) |
@@ -228,6 +229,34 @@ vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-5.1-Channel-INT4-w4a8 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":false}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --no-async-scheduling \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
