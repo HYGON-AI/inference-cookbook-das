@@ -152,11 +152,12 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
 
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
 
-总计 16 卡，2 个节点；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
 
 #### rank 0
 
 ```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -183,6 +184,7 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --trust-remote-code \
@@ -191,6 +193,7 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --node-rank 1 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
+  --headless \
   --dtype bfloat16 \
   --quantization slimquant_marlin \
   --attention-backend FLASHMLA \
@@ -203,10 +206,8 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --no-async-scheduling \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64 \
-  --headless
+  --max-num-seqs 64
 ```
-
 
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB K100_AI 16x vLLM 0.28.1
 
