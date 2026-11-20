@@ -10,6 +10,8 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
+| [hygon/Hy4-preview-Channel-FP8-w8a8-v2](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8-v2) | FP8 W8A8 | 0.25.1 | BW1100(超节点) | 16 | 单 P | [**`>_`**](#hy4-preview-channel-fp8-w8a8-v2-单-p-bw1100-16x-vllm-0251) |
+|  | FP8 W8A8 | 0.25.1 | BW1100(超节点) | 32 | 单 D（fake prefill） | [**`>_`**](#hy4-preview-channel-fp8-w8a8-v2-单-d-bw1100-32x-vllm-0251) |
 | [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | 0.25.1 | BW1100(超节点) | 32 | 1P1D | [**`>_`**](#hy4-preview-channel-int4-w4a8-1p1d-bw1100-32x-vllm-0251) |
 |  | INT4 W4A8 | 0.25.1 | BW1100(超节点) | 16 | 单 P | [**`>_`**](#hy4-preview-channel-int4-w4a8-单-p-bw1100-16x-vllm-0251) |
 |  | INT4 W4A8 | 0.25.1 | BW1100(超节点) | 16 | 单 D（fake prefill） | [**`>_`**](#hy4-preview-channel-int4-w4a8-单-d-bw1100-16x-vllm-0251) |
@@ -87,6 +89,254 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --tool-call-parser hy_v4 \
   --compilation-config '{"cudagraph_capture_sizes":[1,16]}' \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}'
+```
+
+### Hy4-preview-Channel-FP8-w8a8-v2 单 P BW1100 16x vLLM 0.25.1
+
+一个 16 卡 BW1100 超节点。容器创建及插件安装见下方 [P 环境准备](#hy4-preview-channel-int4-w4a8-单-p-bw1100-16x-vllm-0251)。
+
+#### 启动服务
+
+```bash
+export P_NODE_IP="<P_IP>"
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_USE_MODELSCOPE=1
+export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
+export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
+export NCCL_SOCKET_IFNAME="<SOCKET_IFNAME>"
+export GLOO_SOCKET_IFNAME="$NCCL_SOCKET_IFNAME"
+export VLLM_HOST_IP="$P_NODE_IP"
+export HEAD_IP="$P_NODE_IP"
+export NCCL_IB_HCA=mlx5_0:1,mlx5_1:1,mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1,mlx5_6:1,mlx5_7:1,mlx5_8:1,mlx5_9:1,mlx5_10:1,mlx5_11:1,mlx5_12:1,mlx5_13:1,mlx5_14:1,mlx5_15:1
+export NCCL_IB_GID_INDEX=3
+export ROCSHMEM_GDR_DISABLE_XDP=1
+export DEEP_EP_NORMAL_MNVL=1
+export VLLM_DEEPEP_BUFFER_SIZE_MB=4096
+export GPU_MAX_HW_QUEUES=4
+export VLLM_MOE_ROUTING_SIMULATION_STRATEGY=uniform_random
+export VLLM_RANDOMIZE_DP_DUMMY_INPUTS=1
+export LIGHTOP_MQA_LOGITS_BETA_FP8=1
+
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --prefill-context-parallel-size 16 \
+  --enable-expert-parallel \
+  --all2all-backend deepep_high_throughput \
+  --moe-backend deep_gemm \
+  --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
+  --tool-call-parser hy_v4 \
+  --reasoning-parser hy_v4 \
+  --hf-overrides '{"head_dtype":"float32"}' \
+  --max-model-len 86000 \
+  --gpu-memory-utilization 0.90 \
+  --max-num-batched-tokens 32768 \
+  --enable-auto-tool-choice \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":true}' \
+  --enforce-eager
+```
+
+#### 客户端
+
+在 P 容器另开终端执行；两轮不重启服务。
+
+##### 预热：146 请求
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+
+vllm bench serve \
+  --backend openai \
+  --endpoint /v1/completions \
+  --model hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
+  --dataset-name prefix_repetition \
+  --prefix-repetition-num-prefixes 1 \
+  --prefix-repetition-prefix-len 79050 \
+  --prefix-repetition-suffix-len 5950 \
+  --prefix-repetition-output-len 1 \
+  --request-rate 2.55 \
+  --burstiness inf \
+  --temperature 0 \
+  --disable-shuffle \
+  --num-warmups 0 \
+  --ready-check-timeout-sec 0 \
+  --metric-percentiles 95,99 \
+  --host 127.0.0.1 \
+  --port 8000 \
+  --num-prompts 146 \
+  --max-concurrency 146 \
+  --ignore-eos \
+  --trust-remote-code \
+  --seed 0
+```
+
+##### 实跑：2920 请求
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+
+vllm bench serve \
+  --backend openai \
+  --endpoint /v1/completions \
+  --model hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
+  --dataset-name prefix_repetition \
+  --prefix-repetition-num-prefixes 1 \
+  --prefix-repetition-prefix-len 79050 \
+  --prefix-repetition-suffix-len 5950 \
+  --prefix-repetition-output-len 1 \
+  --request-rate 2.55 \
+  --burstiness inf \
+  --temperature 0 \
+  --disable-shuffle \
+  --num-warmups 0 \
+  --ready-check-timeout-sec 0 \
+  --metric-percentiles 95,99 \
+  --host 127.0.0.1 \
+  --port 8000 \
+  --num-prompts 2920 \
+  --max-concurrency 146 \
+  --ignore-eos \
+  --trust-remote-code \
+  --seed 0
+```
+
+### Hy4-preview-Channel-FP8-w8a8-v2 单 D BW1100 32x vLLM 0.25.1
+
+两个 16 卡 BW1100 超节点，DP32＋EP32、fake prefill、MTP3 固定接受长度 2.885。两节点分别按下方 [D 环境准备](#hy4-preview-channel-int4-w4a8-单-d-bw1100-16x-vllm-0251)创建容器并安装插件。
+
+#### 两节点环境变量
+
+在两个 D 容器分别执行：
+
+```bash
+export D_NODE_IP="<D_NODE_0_IP>"
+export D_PEER_IP="<D_NODE_1_IP>"
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+export VLLM_USE_V2_MODEL_RUNNER=1
+export VLLM_USE_MODELSCOPE=1
+export ROCSHMEM_IPC_MNVL=1
+export VLLM_DEEPEP_BUFFER_SIZE_MB=0
+export VLLM_HCU_USE_LIGHTOP_PER_TOKEN_QUANT_FP8=1
+export GPU_MAX_HW_QUEUES=3
+export VLLM_HCU_USE_LIGHTOP_HY_V4_INDEXER=0
+export VLLM_MOE_ROUTING_SIMULATION_STRATEGY=hcu_eplb_balancedness
+export VLLM_HCU_MOE_ROUTING_SIMULATION_BALANCEDNESS=0.6
+export VLLM_RANDOMIZE_DP_DUMMY_INPUTS=1
+export VLLM_HCU_USE_LIGHTOP_FAST_TOPK_TRANSFORM=1
+export VLLM_HCU_USE_AITER_OPUS_PAGED_MQA_LOGITS=1
+```
+
+#### D 节点 0：DP rank 0–15
+
+```bash
+export VLLM_HOST_IP="$D_NODE_IP"
+
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
+  --trust-remote-code \
+  --host 0.0.0.0 \
+  --tensor-parallel-size 1 \
+  --data-parallel-size 32 \
+  --data-parallel-size-local 16 \
+  --data-parallel-start-rank 0 \
+  --data-parallel-address "$D_NODE_IP" \
+  --data-parallel-rpc-port 1127 \
+  --data-parallel-hybrid-lb \
+  --api-server-count 1 \
+  --enable-expert-parallel \
+  --all2all-backend deepep_low_latency \
+  --moe-backend deep_gemm \
+  --no-enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":true,"rejection_sample_method":"synthetic","synthetic_acceptance_length":2.885}' \
+  --gpu-memory-utilization 0.85 \
+  --max-model-len 89088 \
+  --max-num-seqs 8 \
+  --max-num-batched-tokens 32 \
+  --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
+  --reasoning-parser hy_v4 \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v4 \
+  --kv-transfer-config '{"kv_connector":"DecodeBenchConnector","kv_role":"kv_both","kv_connector_extra_config":{"fill_mean":0.015,"fill_std":0.0}}' \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
+  --kv-cache-dtype fp8_e4m3
+```
+
+#### D 节点 1：DP rank 16–31
+
+```bash
+export VLLM_HOST_IP="$D_PEER_IP"
+
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
+  --trust-remote-code \
+  --host 0.0.0.0 \
+  --tensor-parallel-size 1 \
+  --data-parallel-size 32 \
+  --data-parallel-size-local 16 \
+  --data-parallel-start-rank 16 \
+  --data-parallel-address "$D_NODE_IP" \
+  --data-parallel-rpc-port 1127 \
+  --data-parallel-hybrid-lb \
+  --api-server-count 1 \
+  --enable-expert-parallel \
+  --all2all-backend deepep_low_latency \
+  --moe-backend deep_gemm \
+  --no-enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":true,"rejection_sample_method":"synthetic","synthetic_acceptance_length":2.885}' \
+  --gpu-memory-utilization 0.85 \
+  --max-model-len 89088 \
+  --max-num-seqs 8 \
+  --max-num-batched-tokens 32 \
+  --default-chat-template-kwargs '{"reasoning_effort":"no_think"}' \
+  --reasoning-parser hy_v4 \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v4 \
+  --kv-transfer-config '{"kv_connector":"DecodeBenchConnector","kv_role":"kv_both","kv_connector_extra_config":{"fill_mean":0.015,"fill_std":0.0}}' \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
+  --kv-cache-dtype fp8_e4m3
+```
+
+#### Router
+
+在 D 节点 0 容器另开终端执行：
+
+```bash
+export D_NODE_IP="<D_NODE_0_IP>"
+export D_PEER_IP="<D_NODE_1_IP>"
+
+curl -fsS "http://${D_NODE_IP}:8000/health"
+curl -fsS "http://${D_PEER_IP}:8000/health"
+pip install vllm-router
+vllm-router \
+  --host 0.0.0.0 \
+  --port 30000 \
+  --worker-urls "http://${D_NODE_IP}:8000" "http://${D_PEER_IP}:8000" \
+  --policy round_robin
+```
+
+#### 客户端
+
+在 D 节点 0 容器另开终端执行：
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export D_NODE_IP="<D_NODE_0_IP>"
+
+vllm bench serve \
+  --model hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
+  --base-url "http://${D_NODE_IP}:30000" \
+  --dataset-name random \
+  --random-input-len 87040 \
+  --random-output-len 1228 \
+  --random-range-ratio 0 \
+  --num-prompts 512 \
+  --max-concurrency 256 \
+  --request-rate inf \
+  --temperature 0 \
+  --ignore-eos \
+  --trust-remote-code \
+  --metric-percentiles 95,99 \
+  --percentile-metrics ttft,tpot,itl,e2el
 ```
 
 ### Hy4-preview-Channel-INT4-w4a8 1P1D BW1100 32x vLLM 0.25.1
