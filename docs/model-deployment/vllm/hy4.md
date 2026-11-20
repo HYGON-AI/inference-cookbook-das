@@ -156,7 +156,7 @@ vllm bench serve \
   --prefix-repetition-prefix-len 79050 \
   --prefix-repetition-suffix-len 5950 \
   --prefix-repetition-output-len 1 \
-  --request-rate 2.55 \
+  --request-rate 2.6 \
   --burstiness inf \
   --temperature 0 \
   --disable-shuffle \
@@ -186,7 +186,7 @@ vllm bench serve \
   --prefix-repetition-prefix-len 79050 \
   --prefix-repetition-suffix-len 5950 \
   --prefix-repetition-output-len 1 \
-  --request-rate 2.55 \
+  --request-rate 2.6 \
   --burstiness inf \
   --temperature 0 \
   --disable-shuffle \
