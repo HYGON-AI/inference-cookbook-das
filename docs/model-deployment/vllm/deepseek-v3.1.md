@@ -10,6 +10,7 @@ DeepSeek-V3.1 是深度求索推出的混合推理 MoE 大模型（总参数约 
 | 模型权重                                                                                                 | 量化方式 | vLLM 镜像                  | 推荐硬件 | 卡数 | 部署方式 | 启动命令                                                          |
 | -------------------------------------------------------------------------------------------------------- | -------- | -------------------------- | -------- | ---- | -------- | ----------------------------------------------------------------- |
 | [deepseek-ai/DeepSeek-V3.1-Terminus](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-V3.1-Terminus) | FP8 W8A8 | 0.28.1                     | BW1100   | 8    | IFB      | [**`>_`**](#deepseek-v31-terminus-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#deepseek-v31-terminus-ifb-bw110096g-16x-vllm-0281) |
 |                                                                                                          | FP8 W8A8 | [0.21](../docker_images.md) | BW1100   | 8    | IFB      | [**`>_`**](#deepseek-v31-terminus-ifb-bw1100-8x-vllm-021)  |
 
 ## 启动命令
@@ -33,6 +34,59 @@ vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
   --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### DeepSeek-V3.1-Terminus IFB BW1100（96G） 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v31 \
+  --reasoning-parser deepseek_v3 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v31 \
+  --reasoning-parser deepseek_v3 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### DeepSeek-V3.1-Terminus IFB BW1100 8x vLLM 0.21
