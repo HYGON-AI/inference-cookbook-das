@@ -73,11 +73,11 @@
     <tr>
       <td rowspan="2">Qwen3-Omni</td>
       <td>vLLM-Omni</td>
-      <td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-omni.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-omni.md">✅</a></td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-omni.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-omni.md">✅</a></td>
     </tr>
     <tr>
       <td>SGLang-Omni</td>
-      <td align="center">-</td><td align="center">-</td><td align="center">-</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
       <td rowspan="2">Qwen3-TTS</td>
