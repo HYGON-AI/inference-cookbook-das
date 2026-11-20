@@ -544,6 +544,7 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
 ```
