@@ -116,7 +116,7 @@ export VLLM_DEEPEP_BUFFER_SIZE_MB=4096
 export GPU_MAX_HW_QUEUES=4
 export VLLM_MOE_ROUTING_SIMULATION_STRATEGY=uniform_random
 export VLLM_RANDOMIZE_DP_DUMMY_INPUTS=1
-export LIGHTOP_MQA_LOGITS_BETA_FP8=1
+export LIGHTOP_MQA_LOGITS_BETA=1
 
 vllm serve hygon/Hy4-preview-Channel-FP8-w8a8-v2 \
   --trust-remote-code \
