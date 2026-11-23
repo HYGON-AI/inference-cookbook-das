@@ -14,7 +14,14 @@ BW1000 64 GB 单卡推荐使用 BF16、`torch_sdpa` 和 eager 执行。启动时
 ### Qwen-Image 2.1 Online BW1000 1x SGLang 0.5.22
 
 在已安装社区版 SGLang 0.5.22、`adapter-das` 和 `sglang-plugin-das` 的海光容器内运行。
-插件使用 `release/sglang_v0.5.22`。以下命令使用 ModelScope 获取权重，容器需安装
+社区版 SGLang 源码可从 [SGLang v0.5.22](https://github.com/sgl-project/sglang/tree/v0.5.22) 获取；
+`adapter-das` 和 `sglang-plugin-das` 分别从
+[adapter-das 的 release/sglang_v0.5.22 分支](https://github.com/HYGON-AI/adapter-das/tree/release/sglang_v0.5.22) 和
+[sglang-plugin-das 的 release/sglang_v0.5.22 分支](https://github.com/HYGON-AI/sglang-plugin-das/tree/release/sglang_v0.5.22)
+下载源码，并按对应分支的 [adapter 安装说明](https://github.com/HYGON-AI/adapter-das/blob/release/sglang_v0.5.22/README.md#安装) 和
+[plugin 安装说明](https://github.com/HYGON-AI/sglang-plugin-das/blob/release/sglang_v0.5.22/docs/installation.md)
+安装到实际运行服务的同一 Python 环境，所需 DTK、PyTorch HIP 和算子依赖也须匹配。
+以下命令使用 ModelScope 获取权重，容器需安装
 `modelscope`。已有权重时，可把 `--model-path` 换成包含 `model_index.json` 的容器内目录。
 
 ```bash
