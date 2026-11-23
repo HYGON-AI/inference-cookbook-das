@@ -291,7 +291,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend triton \
-  --kv-cache-dtype fp8_e4m3 \
+  --kv-cache-dtype fp8_e5m2 \
   --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
@@ -332,7 +332,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend triton \
-  --kv-cache-dtype fp8_e4m3 \
+  --kv-cache-dtype fp8_e5m2 \
   --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
