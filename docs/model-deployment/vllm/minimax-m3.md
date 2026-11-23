@@ -20,6 +20,9 @@
 export NCCL_GRAPH_MIXING_SUPPORT=1
 export VLLM_KV_CACHE_LAYOUT=HND
 export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
 
 vllm serve MiniMax/MiniMax-M3 \
   --trust-remote-code \
@@ -30,21 +33,20 @@ vllm serve MiniMax/MiniMax-M3 \
   --attention-backend FLASH_ATTN \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser minimax_m3 \
   --reasoning-parser minimax_m3 \
   --no-async-scheduling \
-  --max-model-len 65536 \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
 ### MiniMax-M3 IFB BW1000 16x vLLM 0.28.1
 
-总计 16 卡，2 个节点；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
 
 #### rank 0
 
@@ -73,8 +75,6 @@ vllm serve MiniMax/MiniMax-M3 \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser minimax_m3 \
   --reasoning-parser minimax_m3 \
   --no-async-scheduling \
   --max-model-len 32768 \
@@ -109,8 +109,6 @@ vllm serve MiniMax/MiniMax-M3 \
   --kv-cache-dtype bfloat16 \
   --block-size 128 \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser minimax_m3 \
   --reasoning-parser minimax_m3 \
   --no-async-scheduling \
   --max-model-len 32768 \
@@ -119,10 +117,9 @@ vllm serve MiniMax/MiniMax-M3 \
   --headless
 ```
 
-
 ### MiniMax-M3 IFB K100_AI 16x vLLM 0.28.1
 
-在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。数据并行地址和端口占位符如有使用，也应在各节点保持一致。
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
 
 #### rank 0
 
@@ -144,8 +141,6 @@ vllm serve MiniMax/MiniMax-M3 \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser minimax_m3 \
   --reasoning-parser minimax_m3 \
   --no-async-scheduling \
   --max-model-len 32768 \
@@ -173,8 +168,6 @@ vllm serve MiniMax/MiniMax-M3 \
   --moe-backend triton \
   --all2all-backend allgather_reducescatter \
   --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser minimax_m3 \
   --reasoning-parser minimax_m3 \
   --no-async-scheduling \
   --max-model-len 32768 \

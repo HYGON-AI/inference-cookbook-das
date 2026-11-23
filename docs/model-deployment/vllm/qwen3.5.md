@@ -49,6 +49,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | BF16 | [0.18-hotfix](../docker_images.md) | K100_AI | 2 | IFB | [**`>_`**](#qwen35-27b-ifb-k100_ai-2x-vllm-018-hotfix) |
 | [hygon/Qwen3.5-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-27B-Channel-FP8) | FP8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-27b-channel-fp8-ifb-bw1100-2x-vllm-0281) |
 | [Qwen/Qwen3.5-35B-A3B](https://www.modelscope.cn/models/Qwen/Qwen3.5-35B-A3B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1100（96G） | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw110096g-2x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1000-2x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-k100_ai-2x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-ifb-bw1100-1x-vllm-021) |
@@ -73,6 +74,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-bw1000-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | K100_AI | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-int8-w8a8-ifb-k100_ai-1x-vllm-018-hotfix) |
 | [hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-0281) |
+|  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 2 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw110096g-2x-vllm-0281) |
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-021) |
 |  | FP8 W8A8 | 0.18 | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-018) |
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen35-35b-a3b-channel-fp8-w8a8-ifb-bw1100-1x-vllm-018-hotfix) |
@@ -104,7 +106,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-021) |
 |  | FP8 W8A8 | 0.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-018) |
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-018-hotfix) |
-| [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-vllm-0281) |
+| [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-k100_ai-16x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-vllm-021) |
@@ -122,6 +124,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-int8-ifb-bw1000-8x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-w8a8-int8-ifb-k100_ai-8x-vllm-018-hotfix) |
 | [hygon/Qwen3.5-397B-A17B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.5-397B-A17B-Channel-FP8) | FP8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-vllm-0281) |
+|  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw110096g-8x-vllm-0281) |
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-vllm-021) |
 |  | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-vllm-018) |
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen35-397b-a17b-channel-fp8-ifb-bw1100-4x-vllm-018-hotfix) |
@@ -835,6 +838,29 @@ vllm serve Qwen/Qwen3.5-35B-A3B \
   --max-num-seqs 64
 ```
 
+### Qwen3.5-35B-A3B IFB BW1100（96G） 2x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3.5-35B-A3B \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3.5-35B-A3B IFB BW1000 2x vLLM 0.28.1
 
 ```bash
@@ -1260,6 +1286,29 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 1 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-35B-A3B-Channel-FP8-w8a8 IFB BW1100（96G） 2x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.5-35B-A3B-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
@@ -1835,14 +1884,22 @@ vllm serve hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8 \
   --attention-backend FLASH_ATTN_CUSTOM
 ```
 
-### Qwen3.5-397B-A17B IFB BW1100 8x vLLM 0.28.1
+### Qwen3.5-397B-A17B IFB BW1100 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3.5-397B-A17B \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
   --attention-backend FLASH_ATTN \
   --moe-backend triton \
   --kv-cache-dtype fp8_e4m3 \
@@ -1858,14 +1915,43 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
   --max-num-seqs 64
 ```
 
+#### rank 1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3.5-397B-A17B \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
 ### Qwen3.5-397B-A17B IFB BW1000 16x vLLM 0.28.1
 
-总计 16 卡，2 个节点；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
 
 #### rank 0
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
+export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve Qwen/Qwen3.5-397B-A17B \
   --trust-remote-code \
@@ -1894,6 +1980,7 @@ vllm serve Qwen/Qwen3.5-397B-A17B \
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
+export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve Qwen/Qwen3.5-397B-A17B \
   --trust-remote-code \
@@ -2268,6 +2355,29 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/Qwen3.5-397B-A17B-Channel-FP8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 64 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.5-397B-A17B-Channel-FP8 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3.5-397B-A17B-Channel-FP8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \

@@ -14,6 +14,7 @@ Hy3 是由腾讯混元团队开发的一款拥有 2950 亿参数的混合专家�
 |  | FP8 W8A8 | 0.21 | BW1100(超节点) | 16 | IFB | [**`>_`**](#hy3-channel-fp8-w8a8-ifb-bw1100-16x-vllm-021) |
 |  | FP8 W8A8 | 0.21 | BW1100(超节点) | 32 | 2P1D | [**`>_`**](#hy3-channel-fp8-w8a8-2p1d-bw1100-32x-vllm-021) |
 | [hygon/Hy3-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Hy3-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1100-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1100（96G） | 4 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw110096g-4x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW100 | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-bw100-8x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#hy3-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
@@ -333,6 +334,27 @@ vllm serve hygon/Hy3-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hy_v3 \
   --reasoning-parser hy_v3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Hy3-Channel-INT8-w8a8 IFB BW1100（96G） 4x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Hy3-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v3 \
+  --reasoning-parser hy_v3 \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
