@@ -275,10 +275,10 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.9 \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
-  --tensor-parallel-size 8 \
+  --tensor-parallel-size 4 \
   --enable-expert-parallel \
-  --data-parallel-size 2 \
-  --data-parallel-size-local 1 \
+  --data-parallel-size 4 \
+  --data-parallel-size-local 2 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --api-server-count 1 \
@@ -291,7 +291,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend triton \
-  --kv-cache-dtype fp8_e5m2 \
+  --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
@@ -301,7 +301,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
   --max-model-len 65536 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --disable-custom-all-reduce
 ```
@@ -316,10 +316,10 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --gpu-memory-utilization 0.9 \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
-  --tensor-parallel-size 8 \
+  --tensor-parallel-size 4 \
   --enable-expert-parallel \
-  --data-parallel-size 2 \
-  --data-parallel-size-local 1 \
+  --data-parallel-size 4 \
+  --data-parallel-size-local 2 \
   --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --nnodes 2 \
@@ -332,7 +332,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tokenizer-mode deepseek_v4 \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend triton \
-  --kv-cache-dtype fp8_e5m2 \
+  --kv-cache-dtype fp8_e4m3 \
   --block-size 256 \
   --enable-prefix-caching \
   --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic"}' \
@@ -342,7 +342,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --no-async-scheduling \
   --max-model-len 65536 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --disable-custom-all-reduce
 ```
