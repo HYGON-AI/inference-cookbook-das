@@ -51,7 +51,7 @@ vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v31 \
   --reasoning-parser deepseek_v3 \
@@ -75,7 +75,7 @@ vllm serve deepseek-ai/DeepSeek-V3.1-Terminus \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"quantization":"slimquant_marlin"}' \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v31 \
   --reasoning-parser deepseek_v3 \

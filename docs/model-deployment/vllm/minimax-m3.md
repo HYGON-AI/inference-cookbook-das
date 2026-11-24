@@ -9,6 +9,7 @@
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [MiniMax/MiniMax-M3](https://www.modelscope.cn/models/MiniMax/MiniMax-M3) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#minimax-m3-ifb-bw1100-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#minimax-m3-ifb-bw110096g-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#minimax-m3-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#minimax-m3-ifb-k100_ai-16x-vllm-0281) |
 
@@ -42,6 +43,79 @@ vllm serve MiniMax/MiniMax-M3 \
   --max-model-len -1 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64
+```
+
+### MiniMax-M3 IFB BW1100（96G） 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_KV_CACHE_LAYOUT=HND
+export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_MINIMAX_M3_BLAS_WARMUP=1
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
+
+vllm serve MiniMax/MiniMax-M3 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
+  --kv-cache-dtype bfloat16 \
+  --block-size 128 \
+  --enable-prefix-caching \
+  --reasoning-parser minimax_m3 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_KV_CACHE_LAYOUT=HND
+export VLLM_ROCM_SHUFFLE_KV_CACHE_LAYOUT=0
+export VLLM_MINIMAX_M3_BLAS_WARMUP=1
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_VARLEN=0
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=0
+
+vllm serve MiniMax/MiniMax-M3 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --attention-backend FLASH_ATTN \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
+  --kv-cache-dtype bfloat16 \
+  --block-size 128 \
+  --enable-prefix-caching \
+  --reasoning-parser minimax_m3 \
+  --no-async-scheduling \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### MiniMax-M3 IFB BW1000 16x vLLM 0.28.1

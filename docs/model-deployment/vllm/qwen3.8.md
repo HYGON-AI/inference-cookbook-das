@@ -10,6 +10,7 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 vLLM 
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3.8-Flash-Next](https://www.modelscope.cn/models/Qwen/Qwen3.8-Flash-Next) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-k100_ai-8x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-2x-vllm-0281) |
 |  | FP8 | 0.28.1 | BW1100（96G） | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw110096g-4x-vllm-0281) |
 | [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-2x-vllm-0281) |
@@ -88,6 +89,32 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
   --engram-config.cpu_offload=true \
   --default-chat-template-kwargs '{"enable_thinking": false}' \
   --reasoning-parser qwen3 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3.8-Flash-Next IFB K100_AI 8x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
+export VLLM_HCU_PLE_PREFETCH_STREAM=1
+
+vllm serve Qwen/Qwen3.8-Flash-Next \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --moe-backend triton \
+  --enable-prefix-caching \
+  --mamba-cache-mode align \
+  --prefix-match-unit 80 \
+  --enable-mamba-fine-grained-prefix-cache \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --engram-config.cpu_offload=true \
+  --default-chat-template-kwargs '{"enable_thinking": false}' \
+  --reasoning-parser qwen3 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

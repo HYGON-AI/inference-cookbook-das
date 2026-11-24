@@ -9,6 +9,7 @@ GLM-5.2 是智谱 AI 推出的新一代大语言模型，在中文理解、长�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [ZhipuAI/GLM-5.2](https://www.modelscope.cn/models/ZhipuAI/GLM-5.2) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#glm-52-ifb-bw1100-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1100（96G） | 32 | IFB | [**`>_`**](#glm-52-ifb-bw110096g-32x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-52-ifb-bw1000-32x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 32 | IFB | [**`>_`**](#glm-52-ifb-k100_ai-32x-vllm-0281) |
 | [hygon/GLM-5.2-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.2-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-52-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
@@ -82,6 +83,125 @@ vllm serve ZhipuAI/GLM-5.2 \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 262144 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+### GLM-5.2 IFB BW1100（96G） 32x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
+
+vllm serve ZhipuAI/GLM-5.2 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 262144 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
+
+vllm serve ZhipuAI/GLM-5.2 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 262144 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+#### rank 2
+
+```bash
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
+
+vllm serve ZhipuAI/GLM-5.2 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --max-model-len 262144 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+#### rank 3
+
+```bash
+export LMSLIM_USE_GLOBAL_MOE_CACHE=1
+export VLLM_HCU_USE_FUSED_SILU_MUL_QUANT=0
+
+vllm serve ZhipuAI/GLM-5.2 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 3 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
   --dtype bfloat16 \
@@ -688,7 +808,8 @@ vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -720,6 +841,8 @@ vllm serve hygon/GLM-5.2-Channel-FP8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --headless
 ```
@@ -953,7 +1076,8 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -985,6 +1109,8 @@ vllm serve hygon/GLM-5.2-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --headless
 ```

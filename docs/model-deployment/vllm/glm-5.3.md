@@ -8,7 +8,7 @@
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/GLM-5.3-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-ifb-bw1100-4x-vllm-0281) |
+| [hygon/GLM-5.3-Flash-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Flash-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 | | FP8 W8A8 | 0.28.1 | BW1100 | 16 | 1P1D | [**`>_`**](#glm-53-flash-channel-fp8-w8a8-1p1d-bw1100-16x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw110096g-16x-vllm-0281) |
@@ -32,15 +32,15 @@ BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供
 
 ## 启动命令
 
-### GLM-5.3-Flash-Channel-FP8-w8a8 IFB BW1100 4x vLLM 0.28.1
+### GLM-5.3-Flash-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
 export VLLM_HCU_INDEXER_KCACHE_LAYOUT=normal
 
 vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --tensor-parallel-size 1 \
-  --data-parallel-size 4 \
-  --data-parallel-size-local 4 \
+  --data-parallel-size 8 \
+  --data-parallel-size-local 8 \
   --enable-expert-parallel \
   --all2all-backend allgather_reducescatter \
   --attention-backend FLASHMLA_SPARSE \
@@ -49,7 +49,6 @@ vllm serve hygon/GLM-5.3-Flash-Channel-FP8-w8a8 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":true}' \
   --enable-prefix-caching \
   --reasoning-parser glm45 \
-  --language-model-only \
   --max-model-len 262144 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -162,7 +161,8 @@ vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -194,6 +194,8 @@ vllm serve hygon/GLM-5.3-Channel-FP8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --headless
 ```
@@ -512,7 +514,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -544,7 +547,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --headless
 ```
