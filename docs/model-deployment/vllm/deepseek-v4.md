@@ -72,7 +72,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
 ```bash
 vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --trust-remote-code \
-  --gpu-memory-utilization 0.95 \
+  --gpu-memory-utilization 0.85 \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --data-parallel-size 8 \
   --enable-expert-parallel \
