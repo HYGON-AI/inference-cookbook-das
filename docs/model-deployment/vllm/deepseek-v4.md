@@ -119,7 +119,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -149,7 +148,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 4096 \
   --max-num-seqs 64
@@ -177,7 +175,6 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 4096 \
   --max-num-seqs 64
@@ -206,6 +203,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -233,6 +231,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --max-model-len -1
@@ -261,6 +260,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -288,6 +288,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --max-model-len -1
@@ -331,6 +332,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --no-async-scheduling \
   --max-model-len 65536 \
   --max-num-batched-tokens 8192 \
@@ -372,6 +374,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --no-async-scheduling \
   --max-model-len 65536 \
   --max-num-batched-tokens 8192 \
@@ -414,6 +417,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --enforce-eager \
   --no-async-scheduling \
   --api-server-count 1 \
@@ -454,6 +458,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --enforce-eager \
   --no-async-scheduling \
   --max-model-len 65536 \
