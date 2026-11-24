@@ -33,7 +33,7 @@
   </tr>
   <tbody>
     <tr>
-      <td rowspan="26" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
+      <td rowspan="27" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
       <td rowspan="2">Qwen3.8</td>
       <td>vLLM</td>
       <td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td>
@@ -143,6 +143,11 @@
       <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
+      <td>Qwen-Image 2.1</td>
+      <td>SGLang Diffusion</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/qwen-image-2.1.md">✅</a></td><td align="center">-</td>
+    </tr>
+    <tr>
       <td rowspan="2">Qwen2-72B</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen2.md">✅</a></td>
@@ -162,7 +167,16 @@
       <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/ling-1t.md">✅</a></td>
     </tr>
     <tr>
-      <td rowspan="10" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/6538815d1bdb3c40db94fbfa/xMBly9PUMphrFVMxLX4kq.png" height="40"/><br/>DeepSeek</td>
+      <td rowspan="12" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/6538815d1bdb3c40db94fbfa/xMBly9PUMphrFVMxLX4kq.png" height="40"/><br/>DeepSeek</td>
+      <td rowspan="2">DeepSeek-V4.1</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+    </tr>
+    <tr>
+      <td>SGLang</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.1.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/deepseek-v4.1.md">✅</a></td>
+    </tr>
+    <tr>
       <td rowspan="2">DeepSeek-V4</td>
       <td>vLLM</td>
       <td align="center">🚧</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/deepseek-v4.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/deepseek-v4.md">✅</a></td>

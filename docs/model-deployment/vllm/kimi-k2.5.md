@@ -9,6 +9,7 @@ Kimi-K2.5 是月之暗面（Moonshot AI）推出的新一代大语言模型，�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [moonshotai/Kimi-K2.5](https://www.modelscope.cn/models/moonshotai/Kimi-K2.5) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1100-8x-vllm-0281) |
+|  | INT4 W4A16 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw110096g-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#kimi-k25-ifb-bw1000-16x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#kimi-k25-ifb-k100_ai-16x-vllm-0281) |
 |  | INT4 W4A16 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#kimi-k25-ifb-bw1100-8x-vllm-021) |
@@ -42,6 +43,35 @@ vllm serve moonshotai/Kimi-K2.5 \
   --no-async-scheduling \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### Kimi-K2.5 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_USE_BREAKABLE_CUDAGRAPH=1
+export VLLM_WEIGHT_OFFLOADING_DISABLE_PIN_MEMORY=1
+
+vllm serve moonshotai/Kimi-K2.5 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser kimi_k2 \
+  --reasoning-parser kimi_k2 \
+  --no-async-scheduling \
+  --max-model-len 57344 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.92
 ```
 
 ### Kimi-K2.5 IFB BW1000 16x vLLM 0.28.1

@@ -2,7 +2,7 @@
 
 ## 模型简介
 
-[Qwen3-ASR](https://github.com/QwenLM/Qwen3-ASR) 是 Qwen 团队开源的语音识别模型系列，支持音频转写与语言识别，提供 0.6B 和 1.7B 两种规模。本文整理原始权重及 Hugging Face 格式权重在 BW1100、BW1000 上的 vLLM 部署命令。
+[Qwen3-ASR](https://github.com/QwenLM/Qwen3-ASR) 是 Qwen 团队开源的语音识别模型系列，支持音频转写与语言识别，提供 0.6B 和 1.7B 两种规模。本文整理原始权重及 Hugging Face 格式权重在 BW1100、BW1000、K100_AI 上的 vLLM 部署命令。
 
 需要将音频与已有文本对齐、获取词级时间戳时，请参阅 [Qwen3-ForcedAligner](qwen3-forcedaligner.md)。
 
@@ -14,15 +14,19 @@
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [Qwen/Qwen3-ASR-0.6B-hf](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-0.6B-hf) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-hf-ifb-bw1100-1x-vllm-021) |
 | [Qwen/Qwen3-ASR-1.7B-hf](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-1.7B-hf) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-hf-ifb-bw1100-1x-vllm-021) |
 | [Qwen/Qwen3-ASR-0.6B](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-0.6B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-asr-06b-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-06b-ifb-bw1100-1x-vllm-021) |
 | [Qwen/Qwen3-ASR-1.7B](https://www.modelscope.cn/models/Qwen/Qwen3-ASR-1.7B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen3-asr-17b-ifb-k100_ai-1x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 1x | IFB | [**`>_`**](#qwen3-asr-17b-ifb-bw1100-1x-vllm-021) |
 
 ## 启动命令
@@ -50,6 +54,21 @@ vllm serve Qwen/Qwen3-ASR-0.6B-hf \
   --tensor-parallel-size 1 \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-ASR-0.6B-hf IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3-ASR-0.6B-hf \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
   --no-enable-prefix-caching \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -99,6 +118,21 @@ vllm serve Qwen/Qwen3-ASR-1.7B-hf \
   --max-num-seqs 64
 ```
 
+### Qwen3-ASR-1.7B-hf IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3-ASR-1.7B-hf \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --no-enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3-ASR-1.7B-hf IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -142,6 +176,21 @@ vllm serve Qwen/Qwen3-ASR-0.6B \
   --max-num-seqs 64
 ```
 
+### Qwen3-ASR-0.6B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3-ASR-0.6B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --no-enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3-ASR-0.6B IFB BW1100 1x vLLM 0.21
 
 ```bash
@@ -180,6 +229,21 @@ vllm serve Qwen/Qwen3-ASR-1.7B \
   --tensor-parallel-size 1 \
   --dtype bfloat16 \
   --attention-backend FLASH_ATTN \
+  --no-enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-ASR-1.7B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen3-ASR-1.7B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
   --no-enable-prefix-caching \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
