@@ -1512,12 +1512,14 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
 export ROCSHMEM_GDA_RAIL_ONLY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --disable-custom-all-reduce \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --data-parallel-size 2 \
@@ -1540,8 +1542,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --reasoning-parser deepseek_v4 \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-cudagraph-capture-size 64 \
-  --max-model-len 262144 \
-  --gpu-memory-utilization 0.93 \
+  --max-model-len 167936 \
+  --gpu-memory-utilization 0.9 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
@@ -1550,12 +1552,14 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
 export ROCSHMEM_GDA_RAIL_ONLY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --disable-custom-all-reduce \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --data-parallel-size 2 \
@@ -1579,8 +1583,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --reasoning-parser deepseek_v4 \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-cudagraph-capture-size 64 \
-  --max-model-len 262144 \
-  --gpu-memory-utilization 0.93 \
+  --max-model-len 167936 \
+  --gpu-memory-utilization 0.9 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
