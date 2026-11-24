@@ -178,7 +178,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | W8A8 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-w8a8-ifb-k100_ai-16x-vllm-0281) |
 | [Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic](https://www.modelscope.cn/models/Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic) | FP8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-fp8-dynamic-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-fp8-dynamic-ifb-bw1100-8x-vllm-021) |
-| [Qwen/Qwen3-235B-A22B](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1100-4x-vllm-0281) |
+| [Qwen/Qwen3-235B-A22B](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1000-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-k100_ai-8x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1100-4x-vllm-021) |
@@ -2825,20 +2825,19 @@ vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic \
   --compilation-config '{"pass_config": {"fuse_act_quant": false}}'
 ```
 
-### Qwen3-235B-A22B IFB BW1100 4x vLLM 0.28.1
+### Qwen3-235B-A22B IFB BW1100 8x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3-235B-A22B \
   --trust-remote-code \
-  --tensor-parallel-size 4 \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
