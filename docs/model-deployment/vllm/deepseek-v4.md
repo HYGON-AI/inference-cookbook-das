@@ -64,6 +64,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -89,6 +90,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -118,8 +120,8 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -148,8 +150,8 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 4096 \
   --max-num-seqs 64
@@ -176,8 +178,8 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
-  --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
+  --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 4096 \
   --max-num-seqs 64
@@ -206,6 +208,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -233,6 +236,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --max-model-len -1
@@ -261,6 +265,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -288,6 +293,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --max-model-len -1
@@ -331,6 +337,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --no-async-scheduling \
   --max-model-len 65536 \
   --max-num-batched-tokens 8192 \
@@ -372,6 +379,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --no-async-scheduling \
   --max-model-len 65536 \
   --max-num-batched-tokens 8192 \
@@ -414,6 +422,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --enforce-eager \
   --no-async-scheduling \
   --api-server-count 1 \
@@ -454,6 +463,7 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --enforce-eager \
   --no-async-scheduling \
   --max-model-len 65536 \
@@ -615,6 +625,7 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -643,6 +654,7 @@ vllm serve /llm-models/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -680,6 +692,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -713,6 +726,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -746,6 +760,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -779,6 +794,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-FP8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -811,6 +827,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -839,6 +856,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -876,6 +894,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -909,6 +928,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -942,6 +962,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -975,6 +996,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 167936 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -1002,6 +1024,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1026,6 +1049,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1050,6 +1074,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1074,6 +1099,7 @@ vllm serve hygon/DeepSeek-V4-Pro-Channel-INT8-w8a8 \
   --block-size 256 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1106,6 +1132,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1134,6 +1161,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-FP8-w8a8 \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1306,6 +1334,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1334,6 +1363,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-INT8-Channel \
   --enable-prefix-caching \
   --enable-chunked-prefill \
   --enforce-eager \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 32768 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
@@ -1499,6 +1529,7 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 64
@@ -1512,12 +1543,14 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
 export ROCSHMEM_GDA_RAIL_ONLY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --disable-custom-all-reduce \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --data-parallel-size 2 \
@@ -1540,8 +1573,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --reasoning-parser deepseek_v4 \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-cudagraph-capture-size 64 \
-  --max-model-len 262144 \
-  --gpu-memory-utilization 0.93 \
+  --max-model-len 167936 \
+  --gpu-memory-utilization 0.9 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
@@ -1550,12 +1583,14 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
 export ROCSHMEM_GDA_RAIL_ONLY=1
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1
 export VLLM_ENGINE_READY_TIMEOUT_S=7200
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
+  --disable-custom-all-reduce \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
   --tensor-parallel-size 8 \
   --data-parallel-size 2 \
@@ -1579,8 +1614,8 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --reasoning-parser deepseek_v4 \
   --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --max-cudagraph-capture-size 64 \
-  --max-model-len 262144 \
-  --gpu-memory-utilization 0.93 \
+  --max-model-len 167936 \
+  --gpu-memory-utilization 0.9 \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
@@ -1593,16 +1628,16 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_HCU_BF16_FP32_MMAC=0
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
-  --tensor-parallel-size 8 \
-  --pipeline-parallel-size 2 \
+  --tensor-parallel-size 16 \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 0 \
-   --master-addr "${MASTER_ADDR}" \
+  --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
   --quantization slimquant_w4a8 \
   --tokenizer-mode deepseek_v4 \
@@ -1615,8 +1650,9 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --gpu-memory-utilization 0.96 \
-  --max-model-len 131072 \
+  --max-model-len 143360 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 64 \
   --max-cudagraph-capture-size 16
@@ -1626,12 +1662,12 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
+export VLLM_HCU_BF16_FP32_MMAC=0
 
 vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --trust-remote-code \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
-  --tensor-parallel-size 8 \
-  --pipeline-parallel-size 2 \
+  --tensor-parallel-size 16 \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 1 \
@@ -1649,8 +1685,9 @@ vllm serve hygon/DeepSeek-V4-Pro-0813-Channel-INT4-w4a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --gpu-memory-utilization 0.96 \
-  --max-model-len 131072 \
+  --max-model-len 143360 \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 64 \
   --max-cudagraph-capture-size 16

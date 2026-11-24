@@ -33,7 +33,7 @@
   </tr>
   <tbody>
     <tr>
-      <td rowspan="27" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
+      <td rowspan="29" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/620760a26e3b7210c2ff1943/-s1gyJfvbE1RgO5iBeNOi.png" height="40"/><br/>Qwen</td>
       <td rowspan="2">Qwen3.8</td>
       <td>vLLM</td>
       <td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3.8.md">✅</a></td>
@@ -69,6 +69,15 @@
     <tr>
       <td>SGLang</td>
       <td align="center"><a href="docs/model-deployment/sglang/qwen3.5.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/qwen3.5.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/qwen3.5.md">✅</a></td>
+    </tr>
+    <tr>
+      <td rowspan="2">Qwen3-Omni</td>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/qwen3-omni.md">✅</a></td><td align="center"><a href="docs/model-deployment/vllm/qwen3-omni.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>SGLang-Omni</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
     </tr>
     <tr>
       <td rowspan="2">Qwen3-TTS</td>
@@ -277,7 +286,7 @@
       <td align="center"><a href="docs/model-deployment/sglang/glm-4.md">✅</a></td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/glm-4.md">✅</a></td><td align="center">-</td>
     </tr>
     <tr>
-      <td rowspan="4" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
+      <td rowspan="5" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/5dd96eb166059660ed1ee413/Lp3m-XLpjQGwBItlvn69q.png" height="40"/><br/>Tencent</td>
       <td rowspan="2">Hy4</td>
       <td>vLLM</td>
       <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hy4.md">✅</a></td>
@@ -294,6 +303,11 @@
     <tr>
       <td>SGLang</td>
       <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/sglang/hy3.md">✅</a></td><td align="center"><a href="docs/model-deployment/sglang/hy3.md">✅</a></td>
+    </tr>
+    <tr>
+      <td>HunyuanImage-3.0</td>
+      <td>vLLM-Omni</td>
+      <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/hunyuanimage-3.0.md">✅</a></td>
     </tr>
     <tr>
       <td rowspan="9" align="center"><img src="https://cdn-avatars.huggingface.co/v1/production/uploads/641c1e77c3983aa9490f8121/X1yT2rsaIbR9cdYGEVu0X.jpeg" height="40"/><br/>Moonshot AI</td>
@@ -485,10 +499,27 @@
       <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/bge-reranker.md">✅</a></td><td align="center">-</td>
     </tr>
     <tr>
+      <td rowspan="2" align="center">Stability AI</td>
+      <td rowspan="1">Stable Diffusion 1.5</td>
+      <td>Diffusers</td>
+      <td align="center">-</td><td align="center">✅</td><td align="center">✅</td>
+    </tr>
+    <tr>
+      <td rowspan="1">Stable Diffusion XL</td>
+      <td>Diffusers</td>
+      <td align="center">-</td><td align="center">✅</td><td align="center">✅</td>
+    </tr>
+    <tr>
       <td rowspan="1" align="center"><img src="assets/sand.ai.png" height="40"/><br/>Sand.ai</td>
       <td rowspan="1">MAGI-2-preview</td>
       <td>PyTorch</td>
       <td align="center">🚧</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/diffusion/magi-2-preview/MAGI-2-preview.md">✅</a></td><td align="center">🚧</td>
+    </tr>
+    <tr>
+      <td align="center">Google</td>
+      <td>Gemma-4-26B-A4B-it</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/gemma-4-26b-a4b.md">✅</a></td><td align="center">-</td>
     </tr>
   </tbody>
 </table>
