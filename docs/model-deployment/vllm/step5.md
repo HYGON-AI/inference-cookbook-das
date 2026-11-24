@@ -121,7 +121,7 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
   --enforce-eager \
   --compilation-config '{"mode":0,"cudagraph_mode":"NONE","custom_ops":["+swiglustep_and_mul"]}' \
   --kv-cache-dtype fp8_e4m3 \
-  --limit-mm-per-prompt '{"image": 0}' \
+  --limit-mm-per-prompt '{"image": 1}' \
   --gpu-memory-utilization 0.90
 ```
 
