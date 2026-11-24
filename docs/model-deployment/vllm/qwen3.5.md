@@ -106,7 +106,7 @@ Qwen3.5 是 Qwen3 系列的增强版本，在推理能力、代码生成、多�
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-021) |
 |  | FP8 W8A8 | 0.18 | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-018) |
 |  | FP8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen35-122b-a10b-channel-fp8-w8a8-ifb-bw1100-2x-vllm-018-hotfix) |
-| [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-16x-vllm-0281) |
+| [Qwen/Qwen3.5-397B-A17B](https://www.modelscope.cn/models/Qwen/Qwen3.5-397B-A17B) | BF16 | 0.28.1 | BW1100(96G)| 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-k100_ai-16x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen35-397b-a17b-ifb-bw1100-8x-vllm-021) |
@@ -1884,7 +1884,7 @@ vllm serve hygon/Qwen3.5-122B-A10B-Channel-FP8-w8a8 \
   --attention-backend FLASH_ATTN_CUSTOM
 ```
 
-### Qwen3.5-397B-A17B IFB BW1100 16x vLLM 0.28.1
+### Qwen3.5-397B-A17B IFB BW1100(96G) 16x vLLM 0.28.1
 
 在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
 
