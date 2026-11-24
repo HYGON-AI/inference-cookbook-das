@@ -243,7 +243,7 @@ export VLLM_ENGINE_READY_TIMEOUT_S=7200
 vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --trust-remote-code \
   --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":2}' \
-  --gpu-memory-utilization 0.95 \
+  --gpu-memory-utilization 0.85 \
   --data-parallel-size 8 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
@@ -258,8 +258,9 @@ vllm serve hygon/DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --max-model-len -1
 ```
 
 ### DeepSeek-V4-Flash-0731-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
