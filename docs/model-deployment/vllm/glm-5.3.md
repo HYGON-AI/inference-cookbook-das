@@ -584,7 +584,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --gpu-memory-utilization 0.95 \
+  --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -614,7 +615,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --gpu-memory-utilization 0.95 \
+  --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
