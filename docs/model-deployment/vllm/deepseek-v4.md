@@ -88,8 +88,9 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
-  --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --max-model-len -1
 ```
 
 ### DeepSeek-V4-Flash-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
