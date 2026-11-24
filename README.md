@@ -490,6 +490,12 @@
       <td>PyTorch</td>
       <td align="center">🚧</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/diffusion/magi-2-preview/MAGI-2-preview.md">✅</a></td><td align="center">🚧</td>
     </tr>
+    <tr>
+      <td align="center">Google</td>
+      <td>Gemma-4-26B-A4B-it</td>
+      <td>vLLM</td>
+      <td align="center">-</td><td align="center">-</td><td align="center"><a href="docs/model-deployment/vllm/gemma-4-26b-a4b.md">✅</a></td><td align="center">-</td>
+    </tr>
   </tbody>
 </table>
 
