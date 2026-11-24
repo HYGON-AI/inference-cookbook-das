@@ -64,6 +64,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -89,6 +90,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
@@ -118,6 +120,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
@@ -147,6 +150,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 4096 \
@@ -174,6 +178,7 @@ vllm serve hygon/DeepSeek-V4-Flash-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v4 \
   --reasoning-parser deepseek_v4 \
+  --default-chat-template-kwargs '{"reasoning_effort":"low"}' \
   --reasoning-config '{"reasoning_parser":"deepseek_v4","reasoning_start_str":"","reasoning_end_str":""}' \
   --max-model-len 65536 \
   --max-num-batched-tokens 4096 \
