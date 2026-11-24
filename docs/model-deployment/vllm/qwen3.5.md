@@ -2215,7 +2215,7 @@ vllm serve hygon/Qwen3.5-397B-A17B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser qwen3_coder \
   --reasoning-parser qwen3 \
-  --gpu-memory-utilization 0.92 \
+  --gpu-memory-utilization 0.95 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```

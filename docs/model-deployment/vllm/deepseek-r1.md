@@ -9,6 +9,7 @@ DeepSeek-R1 是 DeepSeek 推出的推理强化模型，面向复杂推理、数�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [unsloth/DeepSeek-R1-BF16](https://www.modelscope.cn/models/unsloth/DeepSeek-R1-BF16) | BF16 | 0.28.1 | BW1100 | 16 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw1100-16x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1100（96G） | 32 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw110096g-32x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#deepseek-r1-bf16-ifb-bw1000-32x-vllm-0281) |
 | [deepseek-ai/DeepSeek-R1-Distill-Qwen-32B](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B) | FP16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1100-1x-vllm-0281) |
 |  | FP16 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#deepseek-r1-distill-qwen-32b-ifb-bw1000-4x-vllm-0281) |
@@ -140,6 +141,125 @@ vllm serve unsloth/DeepSeek-R1-BF16 \
   --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### DeepSeek-R1-BF16 IFB BW1100（96G） 32x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve unsloth/DeepSeek-R1-BF16 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --no-async-scheduling \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve unsloth/DeepSeek-R1-BF16 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --no-async-scheduling \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+#### rank 2
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve unsloth/DeepSeek-R1-BF16 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --no-async-scheduling \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+#### rank 3
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve unsloth/DeepSeek-R1-BF16 \
+  --trust-remote-code \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASHMLA \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --reasoning-parser deepseek_r1 \
+  --no-async-scheduling \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### DeepSeek-R1-BF16 IFB BW1000 32x vLLM 0.28.1

@@ -10,6 +10,7 @@ Gemma-4-31B-it 是 Gemma 系列指令模型，本文档提供其在 vLLM 上的�
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/gemma-4-31B-it](https://www.modelscope.cn/models/hygon/gemma-4-31B-it) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#gemma-4-31b-it-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 2 | IFB | [**`>_`**](#gemma-4-31b-it-ifb-bw1000-2x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 2 | IFB | [**`>_`**](#gemma-4-31b-it-ifb-k100_ai-2x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#gemma-4-31b-it-ifb-bw1000-1x-vllm-021) |
 
 ## 启动命令
@@ -17,7 +18,6 @@ Gemma-4-31B-it 是 Gemma 系列指令模型，本文档提供其在 vLLM 上的�
 ### gemma-4-31B-it IFB BW1100 1x vLLM 0.28.1
 
 ```bash
-
 vllm serve hygon/gemma-4-31B-it \
   --trust-remote-code \
   --tensor-parallel-size 1 \
@@ -28,13 +28,13 @@ vllm serve hygon/gemma-4-31B-it \
   --reasoning-parser gemma4 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --limit-mm-per-prompt '{"image":1,"video":0}'
 ```
 
 ### gemma-4-31B-it IFB BW1000 2x vLLM 0.28.1
 
 ```bash
-
 vllm serve hygon/gemma-4-31B-it \
   --trust-remote-code \
   --tensor-parallel-size 2 \
@@ -45,9 +45,26 @@ vllm serve hygon/gemma-4-31B-it \
   --reasoning-parser gemma4 \
   --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --limit-mm-per-prompt '{"image":1,"video":0}'
 ```
 
+### gemma-4-31B-it IFB K100_AI 2x vLLM 0.28.1
+
+```bash
+vllm serve hygon/gemma-4-31B-it \
+  --trust-remote-code \
+  --tensor-parallel-size 2 \
+  --attention-backend TRITON_ATTN \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser gemma4 \
+  --reasoning-parser gemma4 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --limit-mm-per-prompt '{"image":1,"video":0}'
+```
 
 ### Gemma-4-31B-it IFB BW1000 1x vLLM 0.21
 

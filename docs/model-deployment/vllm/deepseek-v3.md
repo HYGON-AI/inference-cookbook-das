@@ -132,7 +132,6 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8  \
 ### DeepSeek-V3-0324-Channel-INT8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
 ```bash
-
 vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 8 \
@@ -145,8 +144,8 @@ vllm serve hygon/DeepSeek-V3-0324-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser deepseek_v3 \
   --reasoning-parser deepseek_v3 \
-  --max-model-len 131072 \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 

@@ -538,7 +538,8 @@ vllm serve hygon/GLM-5.1-Channel-FP8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -570,6 +571,8 @@ vllm serve hygon/GLM-5.1-Channel-FP8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --headless
 ```
@@ -726,7 +729,8 @@ vllm serve hygon/GLM-5.1-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
@@ -758,6 +762,8 @@ vllm serve hygon/GLM-5.1-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64 \
   --headless
 ```
