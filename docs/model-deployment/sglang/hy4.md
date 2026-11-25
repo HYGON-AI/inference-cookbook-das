@@ -84,7 +84,6 @@ export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
 export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
-#export GPU_MAX_HW_QUEUES=3
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -108,7 +107,6 @@ export SGLANG_HOST_IP=<node0_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
-#export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
 
 export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=0 #contiguous W4A8 packed weight must be [E,N/32,K*16] from pack_w4a8_moe_hipc_weight
 export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1 #AssertionError: Hidden size mismatch w1
@@ -138,7 +136,7 @@ export SGLANG_DSA_LIGHTOP_PREFILL_DEQUANT_KV=1
 time=$(date +"%Y%m%d-%H%M%S")
 echo "当前时间：$time"
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path  /models/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --nnodes 2 \
@@ -257,7 +255,6 @@ export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
 export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
-#export GPU_MAX_HW_QUEUES=3
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -280,7 +277,6 @@ export SGLANG_HOST_IP=<node1_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
-#export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
 
 export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=0 #contiguous W4A8 packed weight must be [E,N/32,K*16] from pack_w4a8_moe_hipc_weight
 export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1
@@ -309,7 +305,7 @@ export SGLANG_DSA_LIGHTOP_PREFILL_DEQUANT_KV=1
 time=$(date +"%Y%m%d-%H%M%S")
 echo "当前时间：$time"
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path  /models/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --nnodes 2 \
@@ -374,11 +370,9 @@ DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
@@ -388,7 +382,6 @@ export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 unset NCCL_IB_GID_INDEX
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -447,7 +440,6 @@ LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node0_$(date +%Y%m%d_%H%M%S)
 export PYTHONUNBUFFERED=1
 
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
@@ -484,10 +476,8 @@ export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
 
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
@@ -495,7 +485,6 @@ export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -554,7 +543,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 0 =====================
 # --cuda-graph-config '{"decode":{"backend":"full","bs":[1,2,4,8,16,32]},"prefill":{"backend":"disabled"}}' \
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -622,11 +611,9 @@ DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
@@ -636,7 +623,6 @@ export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 unset NCCL_IB_GID_INDEX
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -694,7 +680,6 @@ mkdir -p "${SGLANG_LOG_DIR}"
 LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node1_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
 unset SGLANG_ENABLE_PD_DECODE_STEPINFO_SYNC
@@ -729,17 +714,14 @@ export HIP_H2D_DIRECT_COPY_THRESHOLD="${HIP_H2D_DIRECT_COPY_THRESHOLD:-32768}"
 export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -791,19 +773,13 @@ export SGLANG_HY4_DCP2_GATE_A2A_OVERLAP=1
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-# export ROCBLAS_LAYER=3
-# export ROCBLAS_LOG_SPLIT_BY_HANDLE=1
-# export ROCBLAS_LOG_BENCH_PATH=rocblas-bench.log
 # # blast
-# export HIPBLASLT_LOG_MASK=32
-# export HIPBLASLT_LOG_FILE=hipblaslt.log
 
-#export SGLANG_OPT_HY4_IHC_TILELANG=1
 # 上下文长度读取 HY4 config.json，KV token 上限与 d1.sh 保持一致。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 1 =====================
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -871,11 +847,9 @@ DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
@@ -886,7 +860,6 @@ unset NCCL_IB_GID_INDEX
 
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -944,7 +917,6 @@ mkdir -p "${SGLANG_LOG_DIR}"
 LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node2_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
 unset SGLANG_ENABLE_PD_DECODE_STEPINFO_SYNC
@@ -979,17 +951,14 @@ export HIP_H2D_DIRECT_COPY_THRESHOLD="${HIP_H2D_DIRECT_COPY_THRESHOLD:-32768}"
 export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -1003,7 +972,6 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
 unset MC_GID_INDEX
 unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATE_ACC_TOKEN_MODE
-#export SGLANG_OPT_HY4_IHC_TILELANG=1
 export SGLANG_DEBUG_RADIX_CACHE_TIME=0
 
 # SBO
@@ -1043,17 +1011,12 @@ export SGLANG_HY4_DCP2_GATE_A2A_OVERLAP=1
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-# export ROCBLAS_LAYER=3
-# export ROCBLAS_LOG_SPLIT_BY_HANDLE=1
-# export ROCBLAS_LOG_BENCH_PATH=rocblas-bench.log
 # # blast
-# export HIPBLASLT_LOG_MASK=32
-# export HIPBLASLT_LOG_FILE=hipblaslt.log
 
 # 上下文长度读取 HY4 config.json，KV token 上限与 d1.sh 保持一致。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 2 =====================
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -1122,8 +1085,6 @@ DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 
@@ -1137,7 +1098,6 @@ unset NCCL_IB_GID_INDEX
 
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -1195,7 +1155,6 @@ mkdir -p "${SGLANG_LOG_DIR}"
 LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node3_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
 unset SGLANG_ENABLE_PD_DECODE_STEPINFO_SYNC
@@ -1230,17 +1189,14 @@ export HIP_H2D_DIRECT_COPY_THRESHOLD="${HIP_H2D_DIRECT_COPY_THRESHOLD:-32768}"
 export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -1252,7 +1208,6 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
 unset MC_GID_INDEX
 unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATE_ACC_TOKEN_MODE
-# export SGLANG_OPT_HY4_IHC_TILELANG=1
 export SGLANG_DEBUG_RADIX_CACHE_TIME=0
 
 # SBO
@@ -1294,17 +1249,12 @@ export SGLANG_HY4_DCP2_GATE_A2A_OVERLAP=1
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-# export ROCBLAS_LAYER=3
-# export ROCBLAS_LOG_SPLIT_BY_HANDLE=1
-# export ROCBLAS_LOG_BENCH_PATH=rocblas-bench.log
 # # blast
-# export HIPBLASLT_LOG_MASK=32
-# export HIPBLASLT_LOG_FILE=hipblaslt.log
 
 # 上下文长度读取 HY4 config.json，KV token 上限与 d1.sh 保持一致。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 3 =====================
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -1440,7 +1390,6 @@ export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
 export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
-#export GPU_MAX_HW_QUEUES=3
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -1464,7 +1413,6 @@ export SGLANG_HOST_IP=<node0_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
-#export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
 
 export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=0 #contiguous W4A8 packed weight must be [E,N/32,K*16] from pack_w4a8_moe_hipc_weight
 export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1 #AssertionError: Hidden size mismatch w1
@@ -1494,7 +1442,7 @@ export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 time=$(date +"%Y%m%d-%H%M%S")
 echo "当前时间：$time"
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path  /models/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --nnodes 2 \
@@ -1617,7 +1565,6 @@ export SGLANG_USE_LIGHTOP_PREFILL_DEQUANT=1
 export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
-#export GPU_MAX_HW_QUEUES=3
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -1640,7 +1587,6 @@ export SGLANG_HOST_IP=<node1_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
-#export SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK=true
 
 export SGLANG_USE_LIGHTOP_W4A8_MARLIN_MOE=0 #contiguous W4A8 packed weight must be [E,N/32,K*16] from pack_w4a8_moe_hipc_weight
 export SGLANG_USE_W4A8_CONTIGUOUS_HIPC=1
@@ -1669,7 +1615,7 @@ export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 time=$(date +"%Y%m%d-%H%M%S")
 echo "当前时间：$time"
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path  /models/Hy4-preview-Channel-INT4-w4a8 \
   --trust-remote-code \
   --nnodes 2 \
@@ -1738,11 +1684,9 @@ DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
@@ -1752,7 +1696,6 @@ export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 unset NCCL_IB_GID_INDEX
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -1811,7 +1754,6 @@ LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node0_$(date +%Y%m%d_%H%M%S)
 export PYTHONUNBUFFERED=1
 
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
@@ -1848,10 +1790,8 @@ export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
 
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
@@ -1859,7 +1799,6 @@ export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -1918,7 +1857,7 @@ export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 0 =====================
 # --cuda-graph-config '{"decode":{"backend":"full","bs":[1,2,4,8,16,32]},"prefill":{"backend":"disabled"}}' \
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -1989,11 +1928,9 @@ DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
@@ -2003,7 +1940,6 @@ export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 unset NCCL_IB_GID_INDEX
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -2061,7 +1997,6 @@ mkdir -p "${SGLANG_LOG_DIR}"
 LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node1_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
 unset SGLANG_ENABLE_PD_DECODE_STEPINFO_SYNC
@@ -2096,17 +2031,14 @@ export HIP_H2D_DIRECT_COPY_THRESHOLD="${HIP_H2D_DIRECT_COPY_THRESHOLD:-32768}"
 export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -2158,19 +2090,13 @@ export SGLANG_HY4_DCP2_GATE_A2A_OVERLAP=1
 
 export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 
-# export ROCBLAS_LAYER=3
-# export ROCBLAS_LOG_SPLIT_BY_HANDLE=1
-# export ROCBLAS_LOG_BENCH_PATH=rocblas-bench.log
 # # blast
-# export HIPBLASLT_LOG_MASK=32
-# export HIPBLASLT_LOG_FILE=hipblaslt.log
 
-#export SGLANG_OPT_HY4_IHC_TILELANG=1
 # 上下文长度读取 HY4 config.json，KV token 上限与 d1.sh 保持一致。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 1 =====================
 
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -2241,11 +2167,9 @@ DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
@@ -2256,7 +2180,6 @@ unset NCCL_IB_GID_INDEX
 
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -2314,7 +2237,6 @@ mkdir -p "${SGLANG_LOG_DIR}"
 LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node2_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
 unset SGLANG_ENABLE_PD_DECODE_STEPINFO_SYNC
@@ -2349,17 +2271,14 @@ export HIP_H2D_DIRECT_COPY_THRESHOLD="${HIP_H2D_DIRECT_COPY_THRESHOLD:-32768}"
 export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -2373,7 +2292,6 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
 unset MC_GID_INDEX
 unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATE_ACC_TOKEN_MODE
-#export SGLANG_OPT_HY4_IHC_TILELANG=1
 export SGLANG_DEBUG_RADIX_CACHE_TIME=0
 
 # SBO
@@ -2413,17 +2331,12 @@ export SGLANG_HY4_DCP2_GATE_A2A_OVERLAP=1
 
 export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 
-# export ROCBLAS_LAYER=3
-# export ROCBLAS_LOG_SPLIT_BY_HANDLE=1
-# export ROCBLAS_LOG_BENCH_PATH=rocblas-bench.log
 # # blast
-# export HIPBLASLT_LOG_MASK=32
-# export HIPBLASLT_LOG_FILE=hipblaslt.log
 
 # 上下文长度读取 HY4 config.json，KV token 上限与 d1.sh 保持一致。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 2 =====================
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
@@ -2495,8 +2408,6 @@ DECODE_PORT="${DECODE_PORT:-30001}"
 DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 # shared indexer 显存优化
-# export SGLANG_HY4_COMPACT_PD_INDEX_K=1
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 
@@ -2510,7 +2421,6 @@ unset NCCL_IB_GID_INDEX
 
 export NCCL_NET_PLUGIN=shca
 export NCCL_PLUGIN_P2P=ib
-#export NCCL_TOPO_FILE=/opt/topo/built-in-508-topo-input-tj-default.xml
 
 # 关闭 debug 刷屏
 unset NCCL_DEBUG
@@ -2568,7 +2478,6 @@ mkdir -p "${SGLANG_LOG_DIR}"
 LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node3_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
-#export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 # ===================== SGLang / 通用性能参数 =====================
 unset SGLANG_ENABLE_SPEC_V2
 unset SGLANG_ENABLE_PD_DECODE_STEPINFO_SYNC
@@ -2603,17 +2512,14 @@ export HIP_H2D_DIRECT_COPY_THRESHOLD="${HIP_H2D_DIRECT_COPY_THRESHOLD:-32768}"
 export HIP_H2D_HSAAPI_COPY_THRESHOLD="${HIP_H2D_HSAAPI_COPY_THRESHOLD:-32768}"
 export HIP_D2H_DIRECT_COPY_THRESHOLD="${HIP_D2H_DIRECT_COPY_THRESHOLD:-512}"
 export HIP_D2H_HSAAPI_COPY_THRESHOLD="${HIP_D2H_HSAAPI_COPY_THRESHOLD:-512}"
-# export HIP_GRAPH_USE_CMD_CACHE=0
 export SGLANG_USE_MODELSCOPE=1
 export SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT=3600
-#export ROCSHMEM_DISABLE_HDP_FLUSH=1
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_HEAP_SIZE=419430400 # 400 MB
 export SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK=64
 export DEEPEP_ENABLE_LL_LAYERED_OPT=1 # deepep分层
 export DEEPEP_ENABLE_LL_LAYERED_DEVELOP=0
 export ROCSHMEM_GDR_DISABLE_XDP=1
-#export DEEPEP_ENABLE_MORI_EP_LL_LAYERED=1 #mori-ep分层
 export ROCSHMEM_GDA_NUM_QPS_DEFAULT_CTX=288
 export ROCSHMEM_MAX_NUM_CONTEXTS=60
 export ROCSHMEM_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
@@ -2625,7 +2531,6 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export MC_ALLOWED_IBV_DEVICES=shca_0,shca_1,shca_2,shca_3
 unset MC_GID_INDEX
 unset SGLANG_SIMULATE_ACC_LEN SGLANG_SIMULATE_ACC_METHOD SGLANG_SIMULATE_ACC_TOKEN_MODE
-# export SGLANG_OPT_HY4_IHC_TILELANG=1
 export SGLANG_DEBUG_RADIX_CACHE_TIME=0
 
 # SBO
@@ -2667,17 +2572,12 @@ export SGLANG_HY4_DCP2_GATE_A2A_OVERLAP=1
 
 export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 
-# export ROCBLAS_LAYER=3
-# export ROCBLAS_LOG_SPLIT_BY_HANDLE=1
-# export ROCBLAS_LOG_BENCH_PATH=rocblas-bench.log
 # # blast
-# export HIPBLASLT_LOG_MASK=32
-# export HIPBLASLT_LOG_FILE=hipblaslt.log
 
 # 上下文长度读取 HY4 config.json，KV token 上限与 d1.sh 保持一致。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 3 =====================
-python3 -m sglang.launch_server \
+sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
   --served-model-name "${SERVED_MODEL_NAME:-hy4}" \
