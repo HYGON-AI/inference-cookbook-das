@@ -388,8 +388,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
-  --gpu-memory-utilization 0.95 \
-  --host 0.0.0.0
+  --gpu-memory-utilization 0.95
 ```
 
 #### rank 1
@@ -411,6 +410,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --master-port "${MASTER_PORT}" \
   --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
   --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
+  --headless \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
@@ -426,9 +426,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
-  --gpu-memory-utilization 0.95 \
-  --host 0.0.0.0 \
-  --headless
+  --gpu-memory-utilization 0.95
 ```
 
 ### GLM-5.3-Channel-INT4-w4a16 IFB K100_AI 16x vLLM 0.28.1
