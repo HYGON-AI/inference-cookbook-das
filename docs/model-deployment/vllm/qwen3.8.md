@@ -606,6 +606,101 @@ vllm serve hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
   --reasoning-parser qwen3
 ```
 
+#### 在 DTK 26.04 环境中通过 wheel 启动
+
+如果已经有 DTK 26.04 和带 `venv` 的 Python 3.10，可以在独立的 Python 环境中启动。下面用的是超算互联网 Notebook 上的一张 64 GB BW（`gfx936`），系统为 Ubuntu 22.04 x86_64，Python 版本为 3.10.20。验证配置为纯文本、eager 模式、2048 token 上下文。请从同一个可写目录执行下面的命令。
+
+```bash
+unset PYTHONPATH PYTHONHOME
+python3.10 -m venv .venv-vllm021
+source .venv-vllm021/bin/activate
+
+python -m pip install --index-url https://pypi.sourcefind.cn/das_release/dtk/+simple/ \
+  --extra-index-url https://pypi.org/simple \
+  'torch==2.10.0+das.opt1.dtk2604.2608131652.g28498c' \
+  'vllm==0.21.0+das.dtk2604.torch2100.2606111143.g8c979d' \
+  'vllm-hcu==0.21.0+das.dtk2604.torch2100.2608132222.g386d02' \
+  'triton==3.6.0+das185.dtk2604.torch2100.2608131719.gb796b1' \
+  'torchvision==0.25.0+das185.dtk2604.torch2100.2608130858.gdcd044' \
+  'flash-attn==2.8.3+das185.dtk2604.torch2100.2608132155.g9febea' \
+  'aiter==0.1.5+das185.dtk2604.torch2100.2608131714.gb0979d' \
+  'causal-conv1d==1.5.4+das185.dtk2604.torch2100.2608131033.g44ef50' \
+  'lightop==0.6.0+das.dtk2604.torch2100.2608121706.g09a4f3' \
+  'lmslim==0.3.1+das.opt4.dtk2604.torch2100.2607241157.gf9a687' \
+  'tilelang==0.1.9+das185.dtk2604.torch2100.2608121523.gf631c9'
+```
+
+这版 Torch wheel 在 NumPy 2.1.3 下导入时会报 `_ARRAY_API not found`，随后 `torch.from_numpy()` 失败。把 NumPy 1.26.4 和支持它的 `ml-dtypes` 0.5.4 放到单独目录，启动时通过 `PYTHONPATH` 加载。旧版 HCU 插件还依赖海光的 DeepGEMM。安装好后运行 `vllm-hcu-apply-patches`，补上 `FLASH_ATTN_CUSTOM` 所需的配置。
+
+```bash
+python -m pip install --no-deps --only-binary=:all: --target .vllm021-compat \
+  --index-url https://pypi.org/simple numpy==1.26.4 ml-dtypes==0.5.4
+python -m pip install --no-deps --only-binary=:all: --target .vllm021-compat \
+  --index-url https://pypi.sourcefind.cn/das_release/dtk/+simple/ \
+  'deepgemm==2.1.0+das185.dtk2604.torch2100.2608121826.g2b4d4e'
+export PYTHONPATH="$PWD/.vllm021-compat" PYTHONNOUSERSITE=1
+vllm-hcu-apply-patches
+grep -q hcu_flash_attn_mode .venv-vllm021/lib/python3.10/site-packages/vllm/config/attention.py
+
+python - <<'PY'
+import ml_dtypes
+import numpy as np
+import torch
+from deepgemm.m_group_gemm import pack_int8_weight_enk_to_w6_low_latency
+
+x = np.array([1.0], dtype=np.float32)
+assert np.array_equal(torch.from_numpy(x).to("cuda").cpu().numpy(), x)
+assert callable(pack_int8_weight_enk_to_w6_low_latency)
+print(torch.cuda.get_device_name(0), np.__version__, ml_dtypes.__version__)
+PY
+```
+
+该版 Triton 还需要配套的 AI LLVM。基础镜像缺少它时，权重能加载，但 INT8 算子预热会失败。这里使用能编译该算子的 DTK 26.04 版本，将归档解包到当前目录。 [FlagOS 的版本说明](https://flagos-ai.github.io/release-info/base/hygon-dtk26.04/#230)
+
+```bash
+mkdir -p .vllm021-toolchain
+(
+  set -euo pipefail
+  cd .vllm021-toolchain
+  curl -fL --retry 2 \
+    'https://resource.flagos.net/repository/flagos-filestore/hygon/dtk_llvm-1.0.0+dtk2604.2609221416.g5f9d5e-x86_64.run' \
+    -o dtk_llvm.run
+  printf '%s  %s\n' 296d8e21b9dce091f8514f701054df762cf55a85acbfb1b595ecd5d7422aa285 dtk_llvm.run | sha256sum -c -
+  tail -n +"$(awk '/END_OF_COMPRESS_PACK_SCRIPT$/{print NR + 1; exit}' dtk_llvm.run)" dtk_llvm.run |
+    tar -xzf - --no-same-owner --no-same-permissions
+  test -x dtk_llvm/aillvm/bin/clang-18
+) &&
+export TRITON_HIP_CLANG_PATH="$PWD/.vllm021-toolchain/dtk_llvm/aillvm/bin/clang-18" &&
+export LD_LIBRARY_PATH="$PWD/.vllm021-toolchain/dtk_llvm/aillvm/lib:/opt/dtk/dcc/gcvm/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+```
+
+使用 [ModelScope 上的海光 W8A8 权重](https://modelscope.cn/models/hygon/Qwen3.8-27B-Channel-INT8-w8a8)。下载到本地后，由 vLLM 读取权重自带的量化配置。Triton 可能先提示默认的 `/opt/dtk/aillvm` 不存在，随后使用明确指定的编译器。
+
+```bash
+env -u PYTHONPATH python -m pip install --index-url https://pypi.org/simple modelscope
+modelscope download --model hygon/Qwen3.8-27B-Channel-INT8-w8a8 --local_dir ./qwen38-27b-w8a8
+
+vllm serve ./qwen38-27b-w8a8 \
+  --served-model-name hygon/Qwen3.8-27B-Channel-INT8-w8a8 \
+  --tensor-parallel-size 1 --trust-remote-code \
+  --attention-backend FLASH_ATTN_CUSTOM --language-model-only \
+  --max-model-len 2048 --max-num-seqs 4 --enforce-eager --host 127.0.0.1
+```
+
+等服务启动后，从另一个 Shell 发一条请求。实测返回 `4`，服务日志显示 W8A8 线性层选择了 `TritonInt8ScaledMMLinearKernel`。
+
+```bash
+curl -fsS http://127.0.0.1:8000/v1/chat/completions \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model": "hygon/Qwen3.8-27B-Channel-INT8-w8a8",
+    "messages": [{"role": "user", "content": "What is 2+2? Reply with just the number."}],
+    "temperature": 0,
+    "max_tokens": 24,
+    "chat_template_kwargs": {"enable_thinking": false}
+  }'
+```
+
 ### Qwen3.8-27B-Channel-INT8-w8a8 IFB BW1000 2x vLLM 0.21
 
 ```bash
