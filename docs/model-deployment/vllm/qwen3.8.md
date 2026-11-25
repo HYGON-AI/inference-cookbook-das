@@ -98,6 +98,7 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
 ```bash
 export VLLM_HCU_USE_AITER_MOE_SHUFFLE=0
 export VLLM_HCU_PLE_PREFETCH_STREAM=1
+export VLLM_HCU_USE_CUSTOM_OPS=0
 
 vllm serve Qwen/Qwen3.8-Flash-Next \
   --trust-remote-code \
@@ -116,7 +117,8 @@ vllm serve Qwen/Qwen3.8-Flash-Next \
   --reasoning-parser qwen3 \
   --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --gpu-memory-utilization 0.85
 ```
 
 ### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 2x vLLM 0.28.1
