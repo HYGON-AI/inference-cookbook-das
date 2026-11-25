@@ -2,7 +2,7 @@
 
 ## 模型简介
 
-Qwen2.5 是阿里通义千问开源大语言模型系列，支持中英文、多语言、长文本与结构化输出。本页提供 Qwen2.5-14B-Instruct 在 HCU 上基于 vLLM 的推理部署方案。
+Qwen2.5 是阿里通义千问开源大语言模型系列，支持中英文、多语言、长文本与结构化输出。本页提供 Qwen2.5-14B 与 Qwen2.5-14B-Instruct 在 HCU 上基于 vLLM 的推理部署方案。
 
 ## 模型列表
 
@@ -11,6 +11,10 @@ Qwen2.5 是阿里通义千问开源大语言模型系列，支持中英文、多
 | [Qwen/Qwen2.5-14B-Instruct](https://www.modelscope.cn/models/Qwen/Qwen2.5-14B-Instruct) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-14b-instruct-ifb-bw1100-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen25-14b-instruct-ifb-bw1000-1x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen25-14b-instruct-ifb-k100_ai-1x-vllm-0281) |
+
+| [Qwen/Qwen2.5-14B](https://www.modelscope.cn/models/Qwen/Qwen2.5-14B) | BF16 | 0.28.1 | BW1100 | 1 | IFB | [**`>_`**](#qwen25-14b-ifb-bw1100-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 1 | IFB | [**`>_`**](#qwen25-14b-ifb-bw1000-1x-vllm-0281) |
+|  | BF16 | 0.28.1 | K100_AI | 1 | IFB | [**`>_`**](#qwen25-14b-ifb-k100_ai-1x-vllm-0281) |
 
 ## 启动命令
 
@@ -48,6 +52,50 @@ vllm serve Qwen/Qwen2.5-14B-Instruct \
 export VLLM_HCU_USE_CUSTOM_OPS=0
 
 vllm serve Qwen/Qwen2.5-14B-Instruct \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --kv-cache-dtype bfloat16 \
+  --enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen2.5-14B IFB BW1100 1x vLLM 0.28.1
+
+```bash
+vllm serve Qwen/Qwen2.5-14B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype bfloat16 \
+  --enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen2.5-14B IFB BW1000 1x vLLM 0.28.1
+
+```bash
+vllm serve Qwen/Qwen2.5-14B \
+  --trust-remote-code \
+  --tensor-parallel-size 1 \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --kv-cache-dtype bfloat16 \
+  --enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen2.5-14B IFB K100_AI 1x vLLM 0.28.1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve Qwen/Qwen2.5-14B \
   --trust-remote-code \
   --tensor-parallel-size 1 \
   --dtype bfloat16 \
