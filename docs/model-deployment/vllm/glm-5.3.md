@@ -13,7 +13,7 @@
 | [hygon/GLM-5.3-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#glm-53-channel-fp8-w8a8-ifb-bw110096g-16x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
-|  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
+|  | INT4 W4A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a8-ifb-bw1000-16x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a8-ifb-k100_ai-8x-vllm-0281) |
 | [hygon/GLM-5.3-Channel-INT4-w4a16](https://www.modelscope.cn/models/hygon/GLM-5.3-Channel-INT4-w4a16) | INT4 W4A16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1100-8x-vllm-0281) |
 |  | INT4 W4A16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-53-channel-int4-w4a16-ifb-bw1000-16x-vllm-0281) |
@@ -228,16 +228,24 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
   --max-num-seqs 64
 ```
 
-### GLM-5.3-Channel-INT4-w4a8 IFB BW1000 8x vLLM 0.28.1
+### GLM-5.3-Channel-INT4-w4a8 IFB BW1000 16x vLLM 0.28.1
+
+两个节点须设置相同的 `MASTER_PORT`，并使用可用端口（如 5001）。
+
+#### rank 0
 
 ```bash
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
   --trust-remote-code \
-  --tensor-parallel-size 8 \
+  --tensor-parallel-size 16 \
   --enable-expert-parallel \
   --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
@@ -249,9 +257,42 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 163840 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
-  --max-num-seqs 64
+  --max-num-seqs 64 \
+  --host 0.0.0.0
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --no-async-scheduling \
+  --max-model-len 262144 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --host 0.0.0.0 \
+  --headless
 ```
 
 ### GLM-5.3-Channel-INT4-w4a8 IFB K100_AI 8x vLLM 0.28.1
@@ -347,7 +388,8 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
-  --gpu-memory-utilization 0.95
+  --gpu-memory-utilization 0.95 \
+  --host 0.0.0.0
 ```
 
 #### rank 1
@@ -369,7 +411,6 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --master-port "${MASTER_PORT}" \
   --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
   --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
-  --headless \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
@@ -385,7 +426,9 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a16 \
   --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
-  --gpu-memory-utilization 0.95
+  --gpu-memory-utilization 0.95 \
+  --host 0.0.0.0 \
+  --headless
 ```
 
 ### GLM-5.3-Channel-INT4-w4a16 IFB K100_AI 16x vLLM 0.28.1
@@ -584,7 +627,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --gpu-memory-utilization 0.95 \
+  --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -614,7 +658,8 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --gpu-memory-utilization 0.95 \
+  --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
