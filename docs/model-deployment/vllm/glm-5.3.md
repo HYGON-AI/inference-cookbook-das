@@ -663,43 +663,6 @@ vllm serve hygon/GLM-5.3-Channel-INT8-w8a8 \
   --headless
 ```
 
-Rank 0（补充启动命令）
-
-```bash
-model_path=/public/opendas/DL_DATA/llm-models/GLM-5.3-Channel-INT8-w8a8-261106
-port=8000
-tp=16
-
-export NCCL_GRAPH_MIXING_SUPPORT=1
-
-vllm serve ${model_path} \
-  --trust-remote-code \
-  --tensor-parallel-size $tp \
-  --enable-expert-parallel \
-  --distributed-executor-backend mp \
-  --nnodes 2 \
-  --node-rank 0 \
-  --master-addr "${MASTER_ADDR}" \
-  --master-port "${MASTER_PORT}" \
-  --dtype bfloat16 \
-  --safetensors-load-strategy prefetch \
-  --attention-backend FLASHMLA_SPARSE \
-  --moe-backend aiter \
-  --all2all-backend allgather_reducescatter \
-  --kv-cache-dtype fp8_ds_mla \
-  --enable-prefix-caching \
-  --enable-auto-tool-choice \
-  --tool-call-parser glm47 \
-  --reasoning-parser glm47 \
-  --no-async-scheduling \
-  --max-model-len 163840 \
-  --max-num-batched-tokens 16384 \
-  --max-num-seqs 64 \
-  --host 0.0.0.0 \
-  --port $port \
-  --gpu-memory-utilization 0.95
-```
-
 ### GLM-5.3-Channel-INT8-w8a8 IFB K100_AI 16x vLLM 0.28.1
 
 总计 16 卡，2 个节点，每个节点 8 卡；各节点执行对应 rank 命令，`MASTER_ADDR` 为 rank 0 节点地址，所有节点使用相同的 `MASTER_ADDR` 和 `MASTER_PORT`。
