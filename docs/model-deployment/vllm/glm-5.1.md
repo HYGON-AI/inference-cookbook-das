@@ -256,8 +256,8 @@ vllm serve hygon/GLM-5.1-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 65536 \
-  --max-num-batched-tokens 16384 \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
   --max-num-seqs 64
 ```
 
