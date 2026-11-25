@@ -1620,6 +1620,8 @@ vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
 #### rank 0
 
 ```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
 vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 16 \
@@ -1642,6 +1644,8 @@ vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
 #### rank 1
 
 ```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
 vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 16 \
