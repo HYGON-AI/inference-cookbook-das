@@ -9,6 +9,7 @@ Hy4-preview 是 Hy 系列模型，本文档提供其在 vLLM 上的部署示例�
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
 | [hygon/Hy4-preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw110096g-16x-vllm-0281) |
 |  | FP8 W8A8 | 0.25.1 | BW1100 | 8 | IFB | [**`>_`**](#hy4-preview-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0251) |
 
 
@@ -32,9 +33,64 @@ vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hy_v4 \
   --reasoning-parser hy_v4 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### Hy4-preview-Channel-FP8-w8a8 IFB BW1100（96G） 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v4 \
+  --reasoning-parser hy_v4 \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+
+vllm serve hygon/Hy4-preview-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser hy_v4 \
+  --reasoning-parser hy_v4 \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### Hy4-preview-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.25.1

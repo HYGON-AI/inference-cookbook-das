@@ -12,6 +12,7 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 |  | BF16 | 0.28.1 | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1000 | 32 | IFB | [**`>_`**](#glm-5-ifb-bw1000-32x-vllm-021) |
 | [hygon/GLM-5-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT4-w4a8) | INT4 W4A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-0281) |
+|  | INT4 W4A8 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw110096g-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1000-8x-vllm-0281) |
 |  | INT4 W4A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-k100_ai-8x-vllm-0281) |
 |  | INT4 W4A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-021) |
@@ -20,10 +21,12 @@ GLM-5 是智谱 AI 推出的新一代大语言模型，在中文理解、长文�
 |  | INT4 W4A8 | 0.18 | BW1000 | 16 | PP2+TP8 | [**`>_`**](#glm-5-channel-int4-w4a8-pp2tp8-bw1000-16x-vllm-018) |
 |  | INT4 W4A8 | 0.15 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int4-w4a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/GLM-5-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | FP8 W8A8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw110096g-16x-vllm-0281) |
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
 |  | FP8 W8A8 | 0.15 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-fp8-w8a8-ifb-bw1100-8x-vllm-015) |
 | [hygon/GLM-5-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/GLM-5-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1100（96G） | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw110096g-16x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-bw1000-16x-vllm-0281) |
 |  | INT8 W8A8 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#glm-5-channel-int8-w8a8-ifb-k100_ai-16x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**``>_``**](#glm-5-channel-int8-w8a8-ifb-bw1100-8x-vllm-021) |
@@ -64,7 +67,7 @@ vllm serve ZhipuAI/GLM-5 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -92,7 +95,7 @@ vllm serve ZhipuAI/GLM-5 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -368,7 +371,35 @@ vllm serve hygon/GLM-5-Channel-INT4-w4a8 \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### GLM-5-Channel-INT4-w4a8 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve hygon/GLM-5-Channel-INT4-w4a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"use_local_argmax_reduction":false}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --no-async-scheduling \
+  --max-model-len 65536 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -424,9 +455,12 @@ vllm serve hygon/GLM-5-Channel-INT4-w4a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --max-model-len 32768 \
+  --gpu-memory-utilization 0.96 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
+
+> `--gpu-memory-utilization 0.96` 用于容纳 32768 上下文的 KV cache：K100_AI 单卡 64 GB 下权重占 49.8 GiB、CUDA Graph 占 1.9 GiB，默认 `0.92` 只剩 1.35 GiB 可用 KV，而 32768 需要 3.39 GiB，会报 `ValueError: ... KV cache is needed, which is larger than the available KV cache memory`；取 0.96 后可用 KV 为 3.91 GiB（37,440 tokens）。若需保留默认 `0.92`，可将 `--max-model-len` 降至 12288。
 
 ### GLM-5-Channel-INT4-w4a8 IFB BW1100 8x vLLM 0.21
 
@@ -650,9 +684,80 @@ vllm serve hygon/GLM-5-Channel-FP8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### GLM-5-Channel-FP8-w8a8 IFB BW1100（96G） 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+export VLLM_PP_LAYER_PARTITION=38,40
+
+vllm serve hygon/GLM-5-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+export VLLM_PP_LAYER_PARTITION=38,40
+
+vllm serve hygon/GLM-5-Channel-FP8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### GLM-5-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.21
@@ -776,9 +881,80 @@ vllm serve hygon/GLM-5-Channel-INT8-w8a8 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
   --api-server-count 1 \
-  --max-model-len 32768 \
+  --max-model-len 131072 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
+```
+
+### GLM-5-Channel-INT8-w8a8 IFB BW1100（96G） 16x vLLM 0.28.1
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+export VLLM_PP_LAYER_PARTITION=38,40
+
+vllm serve hygon/GLM-5-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+export NCCL_CROSS_NIC=0
+export VLLM_PP_LAYER_PARTITION=38,40
+
+vllm serve hygon/GLM-5-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --safetensors-load-strategy prefetch \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm47 \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3,"attention_backend":"FLASHMLA_SPARSE"}' \
+  --max-model-len -1 \
+  --max-num-batched-tokens 8192 \
+  --max-num-seqs 64 \
+  --headless
 ```
 
 ### GLM-5-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1

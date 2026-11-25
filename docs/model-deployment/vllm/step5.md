@@ -10,7 +10,8 @@ Prefill 和 Decode 是分别侧重输入处理、输出生成的独立 API 服�
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
-| [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 144GB（单机） | 8 | IFB | [**`>_`**](#single-ifb) |
+| [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#single-ifb) |
+|  | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100（96G） | 8 | IFB | [**`>_`**](#step-5-preview-channel-fp8-w8a8-ifb-bw110096g-8x-vllm-0281) |
 | [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 144GB（单机） | 8 | Prefill | [**`>_`**](#single-prefill) |
 | [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | BW1100 144GB（单机） | 8 | Decode | [**`>_`**](#single-decode) |
 | [hygon/Step-5-Preview-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/Step-5-Preview-Channel-FP8-w8a8) | Channel FP8 W8A8 + FP8 KV cache | [0.28.1](https://github.com/HYGON-AI/inference-cookbook-das/blob/main/docs/model-deployment/docker_images.md) | gfx938 超节点（4 节点，每节点 4 卡） | 16 | Prefill | [**`>_`**](#super-prefill) |
@@ -70,11 +71,59 @@ vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
   --enforce-eager \
   --compilation-config '{"mode":0,"cudagraph_mode":"NONE","custom_ops":["+swiglustep_and_mul"]}' \
   --kv-cache-dtype fp8_e4m3 \
-  --limit-mm-per-prompt '{"image": 0}' \
+  --limit-mm-per-prompt '{"image": 1}' \
   --gpu-memory-utilization 0.85
 ```
 
 
+
+### Step-5-Preview-Channel-FP8-w8a8 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export VLLM_USE_MODELSCOPE=1
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export VLLM_HCU_USE_CUSTOM_OPS=1
+export VLLM_USE_V2_MODEL_RUNNER=1
+export NCCL_IB_DISABLE=1
+export HSA_FORCE_FINE_GRAIN_PCIE=1
+export GPU_MAX_HW_QUEUES=4
+export VLLM_HCU_USE_FLASH_ATTN=1
+export VLLM_HCU_USE_FLASH_ATTN_UNIFIED=1
+export VLLM_USE_PD_SPLIT=1
+export VLLM_HCU_USE_LIGHTOP_EP_SCATTER=0
+export VLLM_ROCM_USE_AITER_MOE=1
+export VLLM_USE_FLASH_ATTN_FP8=1
+export VLLM_HCU_USE_LIGHTOP_MOE_ALIGN=1
+export FA_DECODE_NUM_SPLITS=2
+export VLLM_SHARED_EXPERTS_STREAM_TOKEN_THRESHOLD=0
+export VLLM_HCU_EP_FUSED_COMBINE=1
+export VLLM_HCU_DP_CUSTOM_AG=1
+export VLLM_HCU_STEP5_SWA_FUSED_QK=1
+export VLLM_HCU_STEP5_FUSED_GATE=1
+export VLLM_HCU_TRITON_TOKEN_FP8_QUANT=1
+export VLLM_HCU_PIN_MEMORY=1
+export HIP_FORCE_DEV_KERNARG=1
+export VLLM_ENGINE_READY_TIMEOUT_S=1800
+
+vllm serve hygon/Step-5-Preview-Channel-FP8-w8a8 \
+  --served-model-name step5 \
+  --host 0.0.0.0 \
+  --reasoning-parser step3p5 \
+  --tokenizer hygon/Step-5-Preview-Channel-FP8-w8a8 \
+  --tensor-parallel-size 8 \
+  --moe-backend triton \
+  --enable-expert-parallel \
+  --max-model-len 65536 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --no-enable-prefix-caching \
+  --speculative-config '{"method": "mtp", "num_speculative_tokens": 3, "use_local_argmax_reduction": true}' \
+  --enforce-eager \
+  --compilation-config '{"mode":0,"cudagraph_mode":"NONE","custom_ops":["+swiglustep_and_mul"]}' \
+  --kv-cache-dtype fp8_e4m3 \
+  --limit-mm-per-prompt '{"image": 1}' \
+  --gpu-memory-utilization 0.90
+```
 
 ### Step-5-Preview-Channel-FP8-w8a8 Prefill BW1100 8x vLLM 0.28.1
 

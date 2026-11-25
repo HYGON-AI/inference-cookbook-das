@@ -154,6 +154,7 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1100 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1100-1x-vllm-018-hotfix) |
 |  | INT8 W8A8 | [0.18-hotfix](../docker_images.md) | BW1000 | 1 | IFB | [**`>_`**](#qwen3-30b-a3b-instruct-2507-w8a8-int8-ifb-bw1000-1x-vllm-018-hotfix) |
 | [Qwen/Qwen3-235B-A22B-Instruct-2507](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B-Instruct-2507) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-4x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1100（96G） | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw110096g-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-kv-fp8_e5m2-tp8-pp2-ifb-bw1000-16x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-k100_ai-16x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-instruct-2507-ifb-bw1100-4x-vllm-021) |
@@ -172,9 +173,12 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | FP16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-next-80b-a3b-instruct-ifb-bw1100-4x-vllm-021) |
 |  | FP16 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen3-next-80b-a3b-instruct-ifb-bw1000-4x-vllm-021) |
 |  | FP16 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen3-next-80b-a3b-instruct-ifb-k100_ai-4x-vllm-021) |
+| Qwen3-Coder-480B-A35B-Instruct-W8A8 | W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-w8a8-ifb-bw1100-8x-vllm-0281) |
+|  | W8A8 | 0.28.1 | BW1000 | 16 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-w8a8-ifb-bw1000-16x-vllm-0281) |
+|  | W8A8 | 0.28.1 | K100_AI | 16 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-w8a8-ifb-k100_ai-16x-vllm-0281) |
 | [Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic](https://www.modelscope.cn/models/Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic) | FP8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-fp8-dynamic-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 | 0.21 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-coder-480b-a35b-instruct-fp8-dynamic-ifb-bw1100-8x-vllm-021) |
-| [Qwen/Qwen3-235B-A22B](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B) | BF16 | 0.28.1 | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1100-4x-vllm-0281) |
+| [Qwen/Qwen3-235B-A22B](https://www.modelscope.cn/models/Qwen/Qwen3-235B-A22B) | BF16 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1100-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1000-8x-vllm-0281) |
 |  | BF16 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-k100_ai-8x-vllm-0281) |
 |  | BF16 | [0.21](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1100-4x-vllm-021) |
@@ -184,8 +188,9 @@ Qwen3 是阿里通义千问第三代大语言模型，支持 0.6B ~ 235B 多种�
 |  | BF16 | [0.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-bw1000-8x-vllm-018) |
 |  | BF16 | [0.18](../docker_images.md) | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-ifb-k100_ai-8x-vllm-018) |
 | [hygon/Qwen3-235B-A22B-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3-235B-A22B-Channel-INT8-w8a8) | INT8 W8A8 | 0.28.1 | BW1100 | 2 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-bw1100-2x-vllm-0281) |
-|  | INT8 W8A8 | 0.28.1 | BW1000 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-bw1000-4x-vllm-0281) |
-|  | INT8 W8A8 | 0.28.1 | K100_AI | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-k100_ai-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1100（96G） | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-bw110096g-4x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | BW1000 | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-bw1000-8x-vllm-0281) |
+|  | INT8 W8A8 | 0.28.1 | K100_AI | 8 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-k100_ai-8x-vllm-0281) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-bw1100-2x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-bw1000-4x-vllm-021) |
 |  | INT8 W8A8 | [0.21](../docker_images.md) | K100_AI | 4 | IFB | [**`>_`**](#qwen3-235b-a22b-channel-int8-w8a8-ifb-k100_ai-4x-vllm-021) |
@@ -218,7 +223,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -233,7 +237,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -248,7 +251,6 @@ vllm serve Qwen/Qwen3-0.6B \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -380,7 +382,6 @@ vllm serve hygon/Qwen3-0.6B-Channel-FP8 \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -395,7 +396,6 @@ vllm serve Qwen/Qwen3-1.7B \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -410,7 +410,6 @@ vllm serve Qwen/Qwen3-1.7B \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -425,7 +424,6 @@ vllm serve Qwen/Qwen3-1.7B \
   --tensor-parallel-size 1 \
   --attention-backend TRITON_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -546,7 +544,6 @@ vllm serve Qwen/Qwen3-4B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -564,7 +561,6 @@ vllm serve Qwen/Qwen3-4B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -582,7 +578,6 @@ vllm serve Qwen/Qwen3-4B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -711,7 +706,6 @@ vllm serve hygon/Qwen3-4B-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -729,7 +723,6 @@ vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -747,7 +740,6 @@ vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -765,7 +757,6 @@ vllm serve hygon/Qwen3-4B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -857,7 +848,6 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -875,7 +865,6 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -893,7 +882,6 @@ vllm serve Qwen/Qwen3-4B-Thinking-2507 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -978,7 +966,6 @@ vllm serve hygon/Qwen3-4B-Thinking-2507-Channel-FP8 \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
   --default-chat-template-kwargs '{"enable_thinking":true}' \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -997,7 +984,6 @@ vllm serve Qwen/Qwen3-8B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1018,7 +1004,6 @@ vllm serve Qwen/Qwen3-8B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1038,7 +1023,6 @@ vllm serve Qwen/Qwen3-8B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1168,7 +1152,6 @@ vllm serve hygon/Qwen3-8B-Channel-FP8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1187,7 +1170,6 @@ vllm serve hygon/Qwen3-8B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1206,7 +1188,6 @@ vllm serve hygon/Qwen3-8B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1224,7 +1205,6 @@ vllm serve hygon/Qwen3-8B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1334,7 +1314,6 @@ vllm serve Qwen/Qwen3-14B \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1352,7 +1331,6 @@ vllm serve Qwen/Qwen3-14B \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1369,7 +1347,6 @@ vllm serve Qwen/Qwen3-14B \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1498,7 +1475,6 @@ vllm serve hygon/Qwen3-14B-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1516,7 +1492,6 @@ vllm serve hygon/Qwen3-14B-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1533,7 +1508,6 @@ vllm serve hygon/Qwen3-14B-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1628,7 +1602,6 @@ vllm serve Qwen/Qwen3-30B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1649,7 +1622,6 @@ vllm serve Qwen/Qwen3-30B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1669,7 +1641,6 @@ vllm serve Qwen/Qwen3-30B-A3B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1689,7 +1660,6 @@ vllm serve hygon/Qwen3-30B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1709,7 +1679,6 @@ vllm serve hygon/Qwen3-30B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1727,7 +1696,6 @@ vllm serve hygon/Qwen3-30B-A3B-Channel-INT8-w8a8 \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1746,7 +1714,6 @@ vllm serve Qwen/Qwen3-32B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1765,7 +1732,6 @@ vllm serve Qwen/Qwen3-32B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1783,7 +1749,6 @@ vllm serve Qwen/Qwen3-32B \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
   --reasoning-parser qwen3 \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1972,7 +1937,6 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -1989,7 +1953,6 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2005,7 +1968,6 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507 \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2153,7 +2115,6 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2174,7 +2135,6 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2194,7 +2154,6 @@ vllm serve Qwen/Qwen3-30B-A3B-Instruct-2507-W8A8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2296,6 +2255,27 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --max-num-seqs 64
 ```
 
+### Qwen3-235B-A22B-Instruct-2507 IFB BW1100（96G） 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
 ### Qwen3-235B-A22B-Instruct-2507 (KV fp8_e5m2 TP8 PP2) IFB BW1000 16x vLLM 0.28.1
 
 总计 16 卡，2 个节点，每个节点 8 卡；各节点执行对应 rank 命令，MASTER_ADDR 和 MASTER_PORT 在所有节点设置为相同值。
@@ -2380,7 +2360,7 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
+  --max-model-len 40960 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2406,7 +2386,7 @@ vllm serve Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
+  --max-model-len 40960 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
   --headless
@@ -2565,7 +2545,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e4m3 \
   --disable-cascade-attn \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2582,7 +2561,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --attention-backend FLASH_ATTN \
   --kv-cache-dtype fp8_e5m2 \
   --disable-cascade-attn \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2600,7 +2578,6 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --dtype float16 \
   --attention-backend TRITON_ATTN \
   --disable-cascade-attn \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2647,6 +2624,167 @@ vllm serve Qwen/Qwen3-Next-80B-A3B-Instruct \
   --disable-cascade-attn \
   --compilation-config '{"mode": 0}'
 ```
+
+### Qwen3-Coder-480B-A35B-Instruct-W8A8 IFB BW1100 8x vLLM 0.28.1
+
+权重需提前准备到本地路径 `/models/Qwen3-Coder-480B-A35B-Instruct-W8A8`。
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --served-model-name Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 8 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype bfloat16 \
+  --no-enable-prefix-caching \
+  --enable-chunked-prefill \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-Coder-480B-A35B-Instruct-W8A8 IFB BW1000 16x vLLM 0.28.1
+
+各节点需将同一份 W8A8 权重准备到 `/models/Qwen3-Coder-480B-A35B-Instruct-W8A8`。
+
+在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+
+#### rank 0
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --served-model-name Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype bfloat16 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --served-model-name Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype bfloat16 \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
+### Qwen3-Coder-480B-A35B-Instruct-W8A8 IFB K100_AI 16x vLLM 0.28.1
+
+总计 16 卡，2 个节点，每个节点 8 卡。各节点需将同一份 W8A8 权重准备到 `/models/Qwen3-Coder-480B-A35B-Instruct-W8A8`。在各节点设置相同的 `MASTER_ADDR` 和 `MASTER_PORT`，其中 `MASTER_ADDR` 为 rank 0 节点地址，再分别执行对应 rank 命令。
+
+#### rank 0
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --served-model-name Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export VLLM_HCU_USE_CUSTOM_OPS=0
+
+vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --served-model-name Qwen3-Coder-480B-A35B-Instruct-W8A8 \
+  --trust-remote-code \
+  --tensor-parallel-size 16 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 2 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --dtype bfloat16 \
+  --attention-backend TRITON_ATTN \
+  --moe-backend triton \
+  --all2all-backend allgather_reducescatter \
+  --enable-prefix-caching \
+  --enable-chunked-prefill \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64 \
+  --headless
+```
+
 ### Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic IFB BW1100 8x vLLM 0.28.1
 
 ```bash
@@ -2663,7 +2801,7 @@ vllm serve Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic \
   --no-enable-prefix-caching \
   --enable-chunked-prefill \
   --compilation-config '{"pass_config":{"fuse_act_quant":false}}' \
-  --max-model-len 32768 \
+  --max-model-len 262144 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2687,20 +2825,19 @@ vllm serve /models/Qwen3-Coder-480B-A35B-Instruct-FP8-Dynamic \
   --compilation-config '{"pass_config": {"fuse_act_quant": false}}'
 ```
 
-### Qwen3-235B-A22B IFB BW1100 4x vLLM 0.28.1
+### Qwen3-235B-A22B IFB BW1100 8x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
 
 vllm serve Qwen/Qwen3-235B-A22B \
   --trust-remote-code \
-  --tensor-parallel-size 4 \
+  --tensor-parallel-size 8 \
   --enable-expert-parallel \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -2719,7 +2856,8 @@ vllm serve Qwen/Qwen3-235B-A22B \
   --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --max-num-batched-tokens 10240 \
+  --gpu-memory-utilization 0.95 \
   --max-num-seqs 64
 ```
 
@@ -2736,7 +2874,8 @@ vllm serve Qwen/Qwen3-235B-A22B \
   --moe-backend triton \
   --enable-prefix-caching \
   --max-model-len 32768 \
-  --max-num-batched-tokens 16384 \
+  --gpu-memory-utilization 0.95 \
+  --max-num-batched-tokens 10240 \
   --max-num-seqs 64
 ```
 
@@ -2847,12 +2986,12 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
+  --max-model-len 40960 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
 
-### Qwen3-235B-A22B-Channel-INT8-w8a8 IFB BW1000 4x vLLM 0.28.1
+### Qwen3-235B-A22B-Channel-INT8-w8a8 IFB BW1100（96G） 4x vLLM 0.28.1
 
 ```bash
 export VLLM_KV_CACHE_LAYOUT=HND
@@ -2860,6 +2999,23 @@ export VLLM_KV_CACHE_LAYOUT=HND
 vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
+  --attention-backend FLASH_ATTN \
+  --moe-backend aiter \
+  --kv-cache-dtype fp8_e4m3 \
+  --enable-prefix-caching \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### Qwen3-235B-A22B-Channel-INT8-w8a8 IFB BW1000 8x vLLM 0.28.1
+
+```bash
+export VLLM_KV_CACHE_LAYOUT=HND
+
+vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tensor-parallel-size 4 \
+  --pipeline-parallel-size 2 \
   --enable-expert-parallel \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
@@ -2867,12 +3023,12 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
+  --max-model-len 40960 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
 
-### Qwen3-235B-A22B-Channel-INT8-w8a8 IFB K100_AI 4x vLLM 0.28.1
+### Qwen3-235B-A22B-Channel-INT8-w8a8 IFB K100_AI 8x vLLM 0.28.1
 
 ```bash
 export VLLM_HCU_USE_CUSTOM_OPS=0
@@ -2880,13 +3036,13 @@ export VLLM_HCU_USE_CUSTOM_OPS=0
 vllm serve hygon/Qwen3-235B-A22B-Channel-INT8-w8a8 \
   --trust-remote-code \
   --tensor-parallel-size 4 \
+  --pipeline-parallel-size 2 \
   --enable-expert-parallel \
   --attention-backend TRITON_ATTN \
   --moe-backend triton \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser hermes \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -3016,7 +3172,6 @@ vllm serve hygon/Qwen3-235B-A22B-Channel-FP8-w8a8 \
   --moe-backend aiter \
   --kv-cache-dtype fp8_e4m3 \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
@@ -3167,3 +3322,14 @@ response = client.chat.completions.create(
 print(response.choices[0].message.tool_calls)
 ```
 
+### Qwen3-Coder-480B-A35B-Instruct-W8A8（vLLM 0.28.1）
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "Qwen3-Coder-480B-A35B-Instruct-W8A8",
+    "messages": [{"role": "user", "content": "中国的首都是什么？"}],
+    "max_tokens": 400
+  }'
+```

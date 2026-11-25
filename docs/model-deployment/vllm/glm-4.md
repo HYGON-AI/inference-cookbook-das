@@ -30,7 +30,6 @@ vllm serve ZhipuAI/GLM-4-32B-0414 \
   --tensor-parallel-size 1 \
   --attention-backend FLASH_ATTN \
   --enable-prefix-caching \
-  --max-model-len 32768 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
 ```
