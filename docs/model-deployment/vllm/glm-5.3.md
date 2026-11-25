@@ -230,6 +230,8 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
 
 ### GLM-5.3-Channel-INT4-w4a8 IFB BW1000 16x vLLM 0.28.1
 
+两个节点须设置相同的 `MASTER_PORT`，并使用可用端口（如 5001）。
+
 #### rank 0
 
 ```bash
@@ -243,7 +245,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${MASTER_ADDR}" \
-  --master-port 5001 \
+  --master-port "${MASTER_PORT}" \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
@@ -274,7 +276,7 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
   --nnodes 2 \
   --node-rank 1 \
   --master-addr "${MASTER_ADDR}" \
-  --master-port 5001 \
+  --master-port "${MASTER_PORT}" \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
