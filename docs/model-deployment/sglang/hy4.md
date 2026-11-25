@@ -4,12 +4,12 @@
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | PD | [**`>_`**](#hy4-preview-channel-int4-w4a8-pd分离-bw1000-48-x-sglang-0518-ppp2cp8ep8ddcp4dp8ep32) |
-| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | PD (HiCache) | [**`>_`**](#hy4-preview-channel-int4-w4a8-pd分离-bw1000-48-x-sglang-0518-ppp2cp8ep8ddcp4dp8ep32hicache) |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | PD | [**`>_`**](#hy4-preview-channel-int4-w4a8-pd分离-bw1000-48-x-sglang-0518-ppp2cp8ep8ddcp4dp8ep16) |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | PD (HiCache) | [**`>_`**](#hy4-preview-channel-int4-w4a8-pd分离-bw1000-48-x-sglang-0518-ppp2cp8ep8ddcp4dp8ep16hicache) |
 
 ## 启动命令
 
-### Hy4-preview-Channel-INT4-w4a8 PD分离 BW1000 48 x SGLang 0.5.18 (P:PP2CP8EP8，D:DCP4DP8EP32)
+### Hy4-preview-Channel-INT4-w4a8 PD分离 BW1000 48 x SGLang 0.5.18 (P:PP2CP8EP8，D:DCP4DP8EP16)
 
 > 占位符说明：`<node0_ip>` / `<node1_ip>` … 请替换为该集群对应节点的实际内网 IP；`--dist-init-addr` 中的地址指向 0 号节点。Router 中的 `<P_node_ip>` / `<D_node_ip>` 分别替换为 P1、D1 节点 IP。
 
@@ -66,7 +66,7 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
 # deepep的deepgemm HT的work space 
 export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=0
-# mqa logits 申请0.5 GiB
+# mqa logits 申请1 GiB
 export SGLANG_NSA_DCU_MQA_LOGITS_WORKSPACE_GB=1
 
 # 对长序列input logprob的全词表logits进行分块，避免瞬时显存OOM；
@@ -237,7 +237,7 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
 # deepep的deepgemm HT的work space 
 export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=0
-# mqa logits 申请0.5 GiB
+# mqa logits 申请1 GiB
 export SGLANG_NSA_DCU_MQA_LOGITS_WORKSPACE_GB=1
 
 # 对长序列input logprob的全词表logits进行分块，避免瞬时显存OOM；
@@ -436,7 +436,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node0_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node0_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 
 # rocm tuning
@@ -542,7 +542,6 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 # 上下文长度读取 HY4 config.json，KV 容量按可用显存计算。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 0 =====================
-# --cuda-graph-config '{"decode":{"backend":"full","bs":[1,2,4,8,16,32]},"prefill":{"backend":"disabled"}}' \
 sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
@@ -677,7 +676,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node1_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node1_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
 # ===================== SGLang / 通用性能参数 =====================
@@ -914,7 +913,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node2_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node2_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
 # ===================== SGLang / 通用性能参数 =====================
@@ -1152,7 +1151,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node3_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node3_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
 # ===================== SGLang / 通用性能参数 =====================
@@ -1315,7 +1314,7 @@ sglang serve \
 python -m sglang_router.launch_router     --pd-disaggregation     --policy round_robin     --host 0.0.0.0     --port 8000     --prefill http://<P_node_ip>:30000     --decode http://<D_node_ip>:30001
 ```
 
-### Hy4-preview-Channel-INT4-w4a8 PD分离 BW1000 48 x SGLang 0.5.18 (P:PP2CP8EP8，D:DCP4DP8EP32，HiCache)
+### Hy4-preview-Channel-INT4-w4a8 PD分离 BW1000 48 x SGLang 0.5.18 (P:PP2CP8EP8，D:DCP4DP8EP16，HiCache)
 
 > 占位符说明：`<node0_ip>` / `<node1_ip>` … 请替换为该集群对应节点的实际内网 IP；`--dist-init-addr` 中的地址指向 0 号节点。Router 中的 `<P_node_ip>` / `<D_node_ip>` 分别替换为 P1、D1 节点 IP。
 
@@ -1372,7 +1371,7 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
 # deepep的deepgemm HT的work space 
 export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=0
-# mqa logits 申请0.5 GiB
+# mqa logits 申请1 GiB
 export SGLANG_NSA_DCU_MQA_LOGITS_WORKSPACE_GB=1
 
 # 对长序列input logprob的全词表logits进行分块，避免瞬时显存OOM；
@@ -1547,7 +1546,7 @@ export MC_ENABLE_DEST_DEVICE_AFFINITY=1
 export SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1
 # deepep的deepgemm HT的work space 
 export SGLANG_REUSE_W8A8_INT8_EP_MOE_WORKSPACE=0
-# mqa logits 申请0.5 GiB
+# mqa logits 申请1 GiB
 export SGLANG_NSA_DCU_MQA_LOGITS_WORKSPACE_GB=1
 
 # 对长序列input logprob的全词表logits进行分块，避免瞬时显存OOM；
@@ -1750,7 +1749,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node0_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node0_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 
 # rocm tuning
@@ -1856,7 +1855,6 @@ export SGLANG_OPT_HICACHE_STAGED_LAYER_SPLIT_BACKUP=1
 # 上下文长度读取 HY4 config.json，KV 容量按可用显存计算。
 # 如需限制，可在调用脚本时追加 --context-length / --max-total-tokens。
 # ===================== 启动 HY4 Decode：node-rank 0 =====================
-# --cuda-graph-config '{"decode":{"backend":"full","bs":[1,2,4,8,16,32]},"prefill":{"backend":"disabled"}}' \
 sglang serve \
   --model-path "${MODEL_PATH}" \
   --trust-remote-code \
@@ -1994,7 +1992,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node1_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node1_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
 # ===================== SGLang / 通用性能参数 =====================
@@ -2234,7 +2232,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node2_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node2_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
 # ===================== SGLang / 通用性能参数 =====================
@@ -2475,7 +2473,7 @@ PY_TMP_CHECK
 # Keep service logs on the work volume.
 SGLANG_LOG_DIR="${SGLANG_LOG_DIR:-/hy4_work/hy4_w4a8/dcp/dcp4/logs}"
 mkdir -p "${SGLANG_LOG_DIR}"
-LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp2_dp16_ep32_node3_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="${SGLANG_LOG_DIR}/hy4_w4a8_dcp4_dp8_ep16_node3_$(date +%Y%m%d_%H%M%S).log"
 export PYTHONUNBUFFERED=1
 # rocm tuning
 # ===================== SGLang / 通用性能参数 =====================
