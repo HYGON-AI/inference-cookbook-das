@@ -235,62 +235,85 @@ vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
 #### rank 0
 
 ```bash
+model_path=/public/opendas/DL_DATA/llm-models/GLM-5.3-Channel-INT4-w4a16
+port=8000
+tp=8
+
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
-vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
+vllm serve ${model_path} \
   --trust-remote-code \
-  --tensor-parallel-size 16 \
+  --tensor-parallel-size $tp \
   --enable-expert-parallel \
+  --data-parallel-size 2 \
+  --data-parallel-size-local 1 \
+  --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 0 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
+  --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
+  --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
   --all2all-backend allgather_reducescatter \
-  --kv-cache-dtype fp8_ds_mla \
+  --kv-cache-dtype bfloat16 \
+  --block-size 64 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 262144 \
+  --api-server-count 1 \
+  --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
-  --host 0.0.0.0
+  --gpu-memory-utilization 0.95 \
+  --host 0.0.0.0 \
+  --port $port
 ```
 
 #### rank 1
 
 ```bash
+model_path=/public/opendas/DL_DATA/llm-models/GLM-5.3-Channel-INT4-w4a16
+tp=8
+
 export NCCL_GRAPH_MIXING_SUPPORT=1
 
-vllm serve hygon/GLM-5.3-Channel-INT4-w4a8 \
+vllm serve ${model_path} \
   --trust-remote-code \
-  --tensor-parallel-size 16 \
+  --tensor-parallel-size $tp \
   --enable-expert-parallel \
+  --data-parallel-size 2 \
+  --data-parallel-size-local 1 \
+  --data-parallel-backend mp \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 1 \
   --master-addr "${MASTER_ADDR}" \
   --master-port "${MASTER_PORT}" \
+  --data-parallel-address "${DATA_PARALLEL_ADDRESS}" \
+  --data-parallel-rpc-port "${DATA_PARALLEL_RPC_PORT}" \
   --dtype bfloat16 \
   --safetensors-load-strategy prefetch \
   --attention-backend FLASHMLA_SPARSE \
   --moe-backend aiter \
   --all2all-backend allgather_reducescatter \
-  --kv-cache-dtype fp8_ds_mla \
+  --kv-cache-dtype bfloat16 \
+  --block-size 64 \
   --enable-prefix-caching \
   --enable-auto-tool-choice \
   --tool-call-parser glm47 \
   --reasoning-parser glm47 \
   --no-async-scheduling \
-  --max-model-len 262144 \
+  --max-model-len 163840 \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64 \
+  --gpu-memory-utilization 0.95 \
   --host 0.0.0.0 \
   --headless
 ```
