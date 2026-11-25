@@ -1,18 +1,18 @@
-# hy4
-
 # Hy4
 
 ## 模型列表
 
 | 模型权重 | 量化方式 | SGLang 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | 0.5.18 | BW1000 | 48 | PD分离(P:PP2CP8EP8，D:DCP4DP8EP32) | **`>_`** |
-| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | 0.5.18 | BW1000 | 48 | PD分离(P:PP2CP8EP8，D:DCP4DP8EP32，HiCache) | **`>_`** |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | PD | [**`>_`**](#hy4-preview-channel-int4-w4a8-pd分离-bw1000-48-x-sglang-0518-ppp2cp8ep8ddcp4dp8ep32) |
+| [hygon/Hy4-preview-Channel-INT4-w4a8](https://www.modelscope.cn/models/hygon/Hy4-preview-Channel-INT4-w4a8) | INT4 W4A8 | [0.5.18](../docker_images.md) | BW1000 | 48 | PD (HiCache) | [**`>_`**](#hy4-preview-channel-int4-w4a8-pd分离-bw1000-48-x-sglang-0518-ppp2cp8ep8ddcp4dp8ep32hicache) |
 
 ## 启动命令
 
 ### Hy4-preview-Channel-INT4-w4a8 PD分离 BW1000 48 x SGLang 0.5.18 (P:PP2CP8EP8，D:DCP4DP8EP32)
 
+> 占位符说明：`<node0_ip>` / `<node1_ip>` … 请替换为该集群对应节点的实际内网 IP；`--dist-init-addr` 中的地址指向 0 号节点。Router 中的 `<P_node_ip>` / `<D_node_ip>` 分别替换为 P1、D1 节点 IP。
+
 #### P节点
 
 ##### P1
@@ -20,12 +20,9 @@
 ```bash
 export NCCL_PXN_DISABLE=0   #开启PXN
 export RCCL_PXN_GPU_BALANCE=1  #开启PXN的DCU负载均衡开关
-#export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export RCCL_NET_PLANE="shca_0,shca_3|shca_1,shca_2"  #双平面检测开关
 export NCCL_PLUGIN_P2P=ib
 export NCCL_NET_PLUGIN=shca
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_PP_LAYER_PARTITION=39,39
 export SGLANG_PP_PREFILL_STEP_OVERLAP=1
@@ -35,7 +32,7 @@ export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export HIP_KERNEL_BATCH_CEILING=100
@@ -88,7 +85,6 @@ export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
 #export GPU_MAX_HW_QUEUES=3
-export PYTHONPATH=/jsyadmin/zhaole/hy4/1023/sglang-das/python:${PYTHONPATH:-}
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -104,13 +100,11 @@ export VLLM_USE_LIGHTOP_MOE_ALIGN="${VLLM_USE_LIGHTOP_MOE_ALIGN:-1}"
 export LMSLIM_USE_LIGHTOP="${LMSLIM_USE_LIGHTOP:-1}"
 export MC_GID_INDEX="${MC_GID_INDEX:-0}"
 
-export NCCL_MAX_NCHANNELS="${NCCL_MAX_NCHANNELS:-16}"
-export NCCL_MIN_NCHANNELS="${NCCL_MIN_NCHANNELS:-16}"
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
 export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export SGLANG_HOST_IP=10.211.10.11
+export SGLANG_HOST_IP=<node0_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
@@ -149,8 +143,8 @@ python3 -m sglang.launch_server \
   --trust-remote-code \
   --nnodes 2 \
   --node-rank 0 \
-  --host 10.211.10.11 \
-  --dist-init-addr 10.211.10.11:5001 \
+  --host <node0_ip> \
+  --dist-init-addr <node0_ip>:5001 \
   --port 30000 \
   --random-seed 42 \
   --chunked-prefill-size 32768 \
@@ -199,22 +193,19 @@ python3 -m sglang.launch_server \
 ```bash
 export NCCL_PXN_DISABLE=0   #开启PXN
 export RCCL_PXN_GPU_BALANCE=1  #开启PXN的DCU负载均衡开关
-#export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export RCCL_NET_PLANE="shca_0,shca_3|shca_1,shca_2"  #双平面检测开关
 export NCCL_PLUGIN_P2P=ib
 export NCCL_NET_PLUGIN=shca
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_PP_LAYER_PARTITION=39,39
 export SGLANG_PP_PREFILL_STEP_OVERLAP=1
 export SGLANG_NSA_LAYER_SPLIT_ASYNC_BROADCAST=0
 export HSA_ENABLE_COREDUMP=1
-export USE_DCU_CUSTOM_ALLREDUCE=0DAS
+export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export HIP_KERNEL_BATCH_CEILING=100
@@ -267,7 +258,6 @@ export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
 #export GPU_MAX_HW_QUEUES=3
-export PYTHONPATH=/jsyadmin/zhaole/hy4/1023/sglang-das/python:${PYTHONPATH:-}
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -283,12 +273,10 @@ export VLLM_USE_LIGHTOP_MOE_ALIGN="${VLLM_USE_LIGHTOP_MOE_ALIGN:-1}"
 export LMSLIM_USE_LIGHTOP="${LMSLIM_USE_LIGHTOP:-1}"
 export MC_GID_INDEX="${MC_GID_INDEX:-0}"
 
-export NCCL_MAX_NCHANNELS="${NCCL_MAX_NCHANNELS:-16}"
-export NCCL_MIN_NCHANNELS="${NCCL_MIN_NCHANNELS:-16}"
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
 export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export SGLANG_HOST_IP=10.211.10.12
+export SGLANG_HOST_IP=<node1_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
@@ -326,8 +314,8 @@ python3 -m sglang.launch_server \
   --trust-remote-code \
   --nnodes 2 \
   --node-rank 1 \
-  --host 10.211.10.12 \
-  --dist-init-addr 10.211.10.11:5001 \
+  --host <node1_ip> \
+  --dist-init-addr <node0_ip>:5001 \
   --port 30000 \
   --random-seed 42 \
   --chunked-prefill-size 32768 \
@@ -379,12 +367,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.8}"
+DECODE_HOST="${DECODE_HOST:-<node0_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 #export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
@@ -392,8 +380,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -470,7 +456,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -629,12 +615,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.9}"
+DECODE_HOST="${DECODE_HOST:-<node1_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 #export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
@@ -642,8 +628,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -718,7 +702,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -880,12 +864,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.13}"
+DECODE_HOST="${DECODE_HOST:-<node2_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 #export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
@@ -893,8 +877,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -970,7 +952,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -1132,12 +1114,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.14}"
+DECODE_HOST="${DECODE_HOST:-<node3_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
@@ -1146,8 +1128,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -1223,7 +1203,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -1382,11 +1362,13 @@ python3 -m sglang.launch_server \
 #### Router
 
 ```bash
-python -m sglang_router.launch_router     --pd-disaggregation     --policy round_robin     --host 0.0.0.0     --port 8000     --prefill http://10.211.10.11:30000     --decode http://10.211.10.8:30001
+python -m sglang_router.launch_router     --pd-disaggregation     --policy round_robin     --host 0.0.0.0     --port 8000     --prefill http://<P_node_ip>:30000     --decode http://<D_node_ip>:30001
 ```
 
 ### Hy4-preview-Channel-INT4-w4a8 PD分离 BW1000 48 x SGLang 0.5.18 (P:PP2CP8EP8，D:DCP4DP8EP32，HiCache)
 
+> 占位符说明：`<node0_ip>` / `<node1_ip>` … 请替换为该集群对应节点的实际内网 IP；`--dist-init-addr` 中的地址指向 0 号节点。Router 中的 `<P_node_ip>` / `<D_node_ip>` 分别替换为 P1、D1 节点 IP。
+
 #### P节点
 
 ##### P1
@@ -1394,12 +1376,9 @@ python -m sglang_router.launch_router     --pd-disaggregation     --policy round
 ```bash
 export NCCL_PXN_DISABLE=0   #开启PXN
 export RCCL_PXN_GPU_BALANCE=1  #开启PXN的DCU负载均衡开关
-#export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export RCCL_NET_PLANE="shca_0,shca_3|shca_1,shca_2"  #双平面检测开关
 export NCCL_PLUGIN_P2P=ib
 export NCCL_NET_PLUGIN=shca
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_PP_LAYER_PARTITION=39,39
 export SGLANG_PP_PREFILL_STEP_OVERLAP=1
@@ -1409,7 +1388,7 @@ export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export HIP_KERNEL_BATCH_CEILING=100
@@ -1462,7 +1441,6 @@ export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
 #export GPU_MAX_HW_QUEUES=3
-export PYTHONPATH=/jsyadmin/zhaole/hy4/1023/sglang-das/python:${PYTHONPATH:-}
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -1478,13 +1456,11 @@ export VLLM_USE_LIGHTOP_MOE_ALIGN="${VLLM_USE_LIGHTOP_MOE_ALIGN:-1}"
 export LMSLIM_USE_LIGHTOP="${LMSLIM_USE_LIGHTOP:-1}"
 export MC_GID_INDEX="${MC_GID_INDEX:-0}"
 
-export NCCL_MAX_NCHANNELS="${NCCL_MAX_NCHANNELS:-16}"
-export NCCL_MIN_NCHANNELS="${NCCL_MIN_NCHANNELS:-16}"
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
 export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export SGLANG_HOST_IP=10.211.10.11
+export SGLANG_HOST_IP=<node0_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
@@ -1523,8 +1499,8 @@ python3 -m sglang.launch_server \
   --trust-remote-code \
   --nnodes 2 \
   --node-rank 0 \
-  --host 10.211.10.11 \
-  --dist-init-addr 10.211.10.11:5001 \
+  --host <node0_ip> \
+  --dist-init-addr <node0_ip>:5001 \
   --port 30000 \
   --random-seed 42 \
   --chunked-prefill-size 32768 \
@@ -1577,22 +1553,19 @@ python3 -m sglang.launch_server \
 ```bash
 export NCCL_PXN_DISABLE=0   #开启PXN
 export RCCL_PXN_GPU_BALANCE=1  #开启PXN的DCU负载均衡开关
-#export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export RCCL_NET_PLANE="shca_0,shca_3|shca_1,shca_2"  #双平面检测开关
 export NCCL_PLUGIN_P2P=ib
 export NCCL_NET_PLUGIN=shca
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export SGLANG_ENABLE_SPEC_V2=1
 export SGLANG_PP_LAYER_PARTITION=39,39
 export SGLANG_PP_PREFILL_STEP_OVERLAP=1
 export SGLANG_NSA_LAYER_SPLIT_ASYNC_BROADCAST=0
 export HSA_ENABLE_COREDUMP=1
-export USE_DCU_CUSTOM_ALLREDUCE=0DAS
+export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export SGLANG_CUSTOM_ALLREDUCE_INPUT_FENCE=thread0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export HIP_KERNEL_BATCH_CEILING=100
@@ -1645,7 +1618,6 @@ export SGLANG_USE_FUSED_SILU_MUL_CLAMP_QUANT=1
 # aiter 的topk P用
 export SGLANG_NSA_KPOOL_AITER_TOPK=1
 #export GPU_MAX_HW_QUEUES=3
-export PYTHONPATH=/jsyadmin/zhaole/hy4/1023/sglang-das/python:${PYTHONPATH:-}
 export SGLANG_USE_HICACHE_OPTIMIZATION_KERNEL=1
 export SGLANG_PROFILE_TP_RANKS=0
 
@@ -1661,12 +1633,10 @@ export VLLM_USE_LIGHTOP_MOE_ALIGN="${VLLM_USE_LIGHTOP_MOE_ALIGN:-1}"
 export LMSLIM_USE_LIGHTOP="${LMSLIM_USE_LIGHTOP:-1}"
 export MC_GID_INDEX="${MC_GID_INDEX:-0}"
 
-export NCCL_MAX_NCHANNELS="${NCCL_MAX_NCHANNELS:-16}"
-export NCCL_MIN_NCHANNELS="${NCCL_MIN_NCHANNELS:-16}"
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
 export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-eth0}"
 export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export SGLANG_HOST_IP=10.211.10.12
+export SGLANG_HOST_IP=<node1_ip>
 export SGLANG_USE_DEEPGEMM_MOE=1
 export SGLANG_OPT_USE_TOPK_V2=false
 export SGLANG_OPT_HY4_IHC_TILELANG=1
@@ -1704,8 +1674,8 @@ python3 -m sglang.launch_server \
   --trust-remote-code \
   --nnodes 2 \
   --node-rank 1 \
-  --host 10.211.10.12 \
-  --dist-init-addr 10.211.10.11:5001 \
+  --host <node1_ip> \
+  --dist-init-addr <node0_ip>:5001 \
   --port 30000 \
   --random-seed 42 \
   --chunked-prefill-size 32768 \
@@ -1761,12 +1731,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.8}"
+DECODE_HOST="${DECODE_HOST:-<node0_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 #export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
@@ -1774,8 +1744,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -1852,7 +1820,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -2014,12 +1982,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.9}"
+DECODE_HOST="${DECODE_HOST:-<node1_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 #export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
@@ -2027,8 +1995,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -2103,7 +2069,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -2268,12 +2234,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.13}"
+DECODE_HOST="${DECODE_HOST:-<node2_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 #export ROCBLAS_TENSILE_LIBPATH=/hy4_work/auto_select_tools/optimization_configs/new/config/library_gpu5
 export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
@@ -2281,8 +2247,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -2358,7 +2322,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -2523,12 +2487,12 @@ python3 -m sglang.launch_server \
 #!/bin/bash
 set -euo pipefail
 export PYTHONPATH=/hy4_work/sglang/python:${PYTHONPATH:-} 
-# SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
+SGLANG_ROOT="${SGLANG_ROOT:-/hy4_work/sglang}"
 MODEL_PATH="${MODEL_PATH:-/models/Hy4-preview-Channel-INT4-w4a8}"
-DECODE_HOST="${DECODE_HOST:-10.211.10.14}"
+DECODE_HOST="${DECODE_HOST:-<node3_ip>}"
 DECODE_BIND_HOST="${DECODE_BIND_HOST:-${DECODE_HOST}}"
 DECODE_PORT="${DECODE_PORT:-30001}"
-DIST_INIT_ADDR="${DIST_INIT_ADDR:-10.211.10.8:5000}"
+DIST_INIT_ADDR="${DIST_INIT_ADDR:-<node0_ip>:5000}"
 export SGLANG_HOST_IP="${SGLANG_HOST_IP:-${DECODE_HOST}}"
 # shared indexer 显存优化
 # export SGLANG_HY4_COMPACT_PD_INDEX_K=1
@@ -2537,8 +2501,6 @@ export LIGHTOP_PAGED_MQA_LOGITS_BACKEND=1
 export LIGHTOP_PAGED_MQA_LOGITS_GROUP_SIZE=3
 
 # ===================== RCCL / NCCL =====================
-export NCCL_MIN_NCHANNELS=16
-export NCCL_MAX_NCHANNELS=16
 export NCCL_IB_DISABLE=0
 export NCCL_IB_HCA=shca_0,shca_1,shca_2,shca_3
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-eth0}"
@@ -2614,7 +2576,7 @@ export HSA_ENABLE_COREDUMP=0
 export USE_DCU_CUSTOM_ALLREDUCE=0
 export SGLANG_USE_AITER_AR=0
 export ALLREDUCE_STREAM_WITH_COMPUTE=1
-export HIP_KERNEL_EVENT_SYSTENFENCE=1
+export HIP_KERNEL_EVENT_SYSTEMFENCE=1
 export SGLANG_CHUNKED_PREFIX_CACHE_THRESHOLD=0
 export GLIBC_TUNABLES=glibc.rtld.optional_static_tls=0x40000
 export LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/amdsmi:$LD_LIBRARY_PATH
@@ -2776,7 +2738,7 @@ python3 -m sglang.launch_server \
 #### Router
 
 ```bash
-python -m sglang_router.launch_router     --pd-disaggregation     --policy round_robin     --host 0.0.0.0     --port 8000     --prefill http://10.211.10.11:30000     --decode http://10.211.10.8:30001
+python -m sglang_router.launch_router     --pd-disaggregation     --policy round_robin     --host 0.0.0.0     --port 8000     --prefill http://<P_node_ip>:30000     --decode http://<D_node_ip>:30001
 ```
 
 ## API 调用
