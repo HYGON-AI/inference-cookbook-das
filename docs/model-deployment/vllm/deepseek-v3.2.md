@@ -1,4 +1,4 @@
-# Deepseek-v3.2-w8a8 on vLLM
+# DeepSeek-V3.2 on vLLM
 
 ## 模型简介
 
@@ -8,6 +8,8 @@ DeepSeek V3.2 是深度求索公司于 2025 年底发布的大语言模型，基
 
 | 模型权重 | 量化方式 | vLLM 镜像 | 推荐硬件 | 卡数 | 部署方式 | 启动命令 |
 | -------- | -------- | --------- | -------- | ---- | -------- | -------- |
+| DeepSeek-V3.2-bf16（本地权重） | BF16 | 0.28.1 | BW1100（96GB） | 32（4 × 8） | IFB | [**`>_`**](#deepseek-v32-bf16-ifb-bw110096gb-32x-vllm-0281) |
+|  | BF16 | 0.28.1 | BW1000 | 32（4 × 8） | IFB | [**`>_`**](#deepseek-v32-bf16-ifb-bw1000-32x-vllm-0281) |
 | [hygon/DeepSeek-V3.2-Channel-FP8-w8a8](https://www.modelscope.cn/models/hygon/DeepSeek-V3.2-Channel-FP8-w8a8) | FP8 W8A8 | 0.28.1 | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-0281) |
 |  | FP8 W8A8 | [0.21](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-021) |
 |  | FP8 W8A8 | [0.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#deepseek-v32-channel-fp8-w8a8-ifb-bw1100-8x-vllm-018) |
@@ -25,6 +27,324 @@ DeepSeek V3.2 是深度求索公司于 2025 年底发布的大语言模型，基
 BW1000 不支持本次发版所列 FP8 权重模型；以下 FP8 权重仅提供 BW1100 启动命令：`hygon/DeepSeek-V3.2-Channel-FP8-w8a8`。
 
 ## 启动命令
+
+### BF16 四机部署准备与参数说明
+
+以下两套命令面向海光适配的 vLLM 0.28.1，均为 4 个节点、每节点 8 卡，总计 32 卡；BW1100 按每卡 96GB、BW1000 按每卡 64GB 编写。四台机器需使用相同的镜像及软件环境，并在容器内通过相同路径访问完整权重目录：
+
+```text
+/public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16
+```
+
+该目录的 `config.json` 为 `DeepseekV32ForCausalLM` / `deepseek_v32`，`torch_dtype` 为 `bfloat16`，且权重包含 MTP 层。命令使用 `--dtype bfloat16` 加载 BF16 权重；FP8 选项仅用于 KV cache。
+
+两套配置综合参考了本页 V3.2 INT8 的稀疏注意力、tokenizer、MTP 和工具调用设置，[DeepSeek-R1 BF16 的 BW1100（96G）/ BW1000 四机配置](deepseek-r1.md)，以及 [GLM-5 BF16 的 BW1000 四机稀疏注意力配置](glm-5.md)。这些是待实机验证的启动配置，尚未在上述 BF16 权重和两种四机环境上完成启动、精度或性能验证。
+
+| 参数 | BW1100（96GB）四机 | BW1000 四机 |
+| ---- | ----------------- | ----------- |
+| 并行方式 | TP32 + EP，`mp`，`--nnodes 4` | TP32 + EP，`mp`，`--nnodes 4` |
+| Attention / MoE | `FLASHMLA_SPARSE` / `aiter` | `FLASHMLA_SPARSE` / `aiter` |
+| KV cache / block size | `fp8_e4m3` / 64 | `fp8_ds_mla` / 64 |
+| 上下文长度 | 131072（128K） | 32768（32K） |
+| MTP | 3 个 speculative tokens | 3 个 speculative tokens |
+| 批处理上限 | 16384 tokens / 64 sequences | 16384 tokens / 64 sequences |
+
+BW1100 的 KV cache 设置沿用本页 0.28.1 示例；BW1000 使用本页 BW1000 示例的 `fp8_ds_mla` 稀疏 MLA 布局。BW1000 的 32K 上下文为初始配置，后续根据启动日志中的可用 KV cache 容量调整。
+
+先在四个节点的启动终端中设置相同的通信地址和端口。将下面的 `192.168.1.10` 改为 rank 0 节点实际的内网 IP；`29500` 用于多机通信，需空闲且节点间可达。容器部署时需保证各节点间网络互通，例如使用 host 网络。
+
+```bash
+export MASTER_ADDR=192.168.1.10
+export MASTER_PORT=29500
+```
+
+每台机器均需有 8 张空闲且对当前进程可见的 HCU。各节点执行对应 rank 的命令；rank 0 会等待其余节点加入，rank 1、2、3 使用 `--headless`。API 服务位于 rank 0 的默认端口 `8000`，请求中的模型名称统一为 `DeepSeek-V3.2-bf16`。
+
+### DeepSeek-V3.2-bf16 IFB BW1100（96GB） 32x vLLM 0.28.1
+
+按上节完成四个节点的准备后，分别执行以下命令。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 2
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 3
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_e4m3 \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 131072 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+### DeepSeek-V3.2-bf16 IFB BW1000 32x vLLM 0.28.1
+
+按上节完成四个节点的准备后，分别执行以下命令。
+
+#### rank 0
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 0 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 1
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 1 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 2
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 2 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
+
+#### rank 3
+
+```bash
+export NCCL_GRAPH_MIXING_SUPPORT=1
+
+vllm serve /public/opendas/DL_DATA/llm-models/deepseek-v3.2/DeepSeek-V3.2-bf16 \
+  --served-model-name DeepSeek-V3.2-bf16 \
+  --trust-remote-code \
+  --dtype bfloat16 \
+  --tensor-parallel-size 32 \
+  --enable-expert-parallel \
+  --distributed-executor-backend mp \
+  --nnodes 4 \
+  --node-rank 3 \
+  --master-addr "${MASTER_ADDR}" \
+  --master-port "${MASTER_PORT}" \
+  --headless \
+  --tokenizer-mode deepseek_v32 \
+  --attention-backend FLASHMLA_SPARSE \
+  --moe-backend aiter \
+  --all2all-backend allgather_reducescatter \
+  --kv-cache-dtype fp8_ds_mla \
+  --block-size 64 \
+  --enable-prefix-caching \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
+  --enable-auto-tool-choice \
+  --tool-call-parser deepseek_v32 \
+  --reasoning-parser deepseek_v3 \
+  --no-async-scheduling \
+  --gpu-memory-utilization 0.9 \
+  --max-model-len 32768 \
+  --max-num-batched-tokens 16384 \
+  --max-num-seqs 64
+```
 
 ### DeepSeek-V3.2-Channel-FP8-w8a8 IFB BW1100 8x vLLM 0.28.1
 
@@ -336,6 +656,23 @@ vllm serve hygon/DeepSeek-V3.2-Channel-FP8-w8a8 \
 ```
 
 ## API 调用
+
+### BF16 四机服务
+
+两种硬件配置均在 rank 0 节点执行以下命令；从其他机器访问时，将 `localhost` 替换为 rank 0 的 IP。
+
+```bash
+curl --fail http://localhost:8000/health
+
+curl --fail http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "DeepSeek-V3.2-bf16",
+    "messages": [{"role": "user", "content": "你好，请用一句话介绍你自己。"}],
+    "temperature": 0,
+    "max_tokens": 256
+  }'
+```
 
 ### IFB
 
