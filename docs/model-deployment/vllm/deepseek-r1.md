@@ -1668,7 +1668,7 @@ vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
 
 ### DeepSeek-R1-0528-Channel-INT8-w8a8 IFB BW1000 16x vLLM 0.28.1
 
-在各节点分别执行对应命令；`MASTER_ADDR` 为 rank 0 节点地址，各节点使用相同的 `MASTER_PORT`。
+总计 16 卡，2 个节点，每个节点 8 卡，采用 PP2×TP8（流水线并行 2、张量并行 8）。在各节点分别设置 `MASTER_ADDR` 和 `MASTER_PORT` 后执行对应命令；`MASTER_ADDR` 为 rank 0 节点可被其他节点访问的地址，各节点使用相同的 `MASTER_PORT`。rank 0 提供 API，rank 1 使用 `--headless`。
 
 #### rank 0
 
@@ -1677,7 +1677,8 @@ export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 16 \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 0 \
@@ -1704,7 +1705,8 @@ export NCCL_GRAPH_MIXING_SUPPORT=1
 
 vllm serve hygon/DeepSeek-R1-0528-Channel-INT8-w8a8 \
   --trust-remote-code \
-  --tensor-parallel-size 16 \
+  --tensor-parallel-size 8 \
+  --pipeline-parallel-size 2 \
   --distributed-executor-backend mp \
   --nnodes 2 \
   --node-rank 1 \
