@@ -549,7 +549,6 @@ vllm serve Qwen/Qwen2-57B-A14B-Instruct \
   --tensor-parallel-size 4 \
   --attention-backend FLASH_ATTN \
   --moe-backend aiter \
-  --kv-cache-dtype fp8_e5m2 \
   --enable-prefix-caching \
   --max-num-batched-tokens 16384 \
   --max-num-seqs 64
