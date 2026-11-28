@@ -28,10 +28,12 @@ Qwen3.8 系列模型面向长上下文推理与工具调用场景，支持 SGLan
 | [hygon/Qwen3.8-27B-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-27B-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 2 | IFB | [**`>_`**](#qwen38-27b-channel-fp8-ifb-bw1100-2x-sglang-0518) |
 | [Qwen/Qwen3.8-Flash-Next](https://www.modelscope.cn/models/Qwen/Qwen3.8-Flash-Next) | BF16 | [0.5.18](../docker_images.md) | BW1100 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1100-8x-sglang-0518) |
 | | BF16 | [0.5.18](../docker_images.md) | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-sglang-0518) |
+|  | BF16 | 0.5.22 | BW1000 | 8 | IFB | [**`>_`**](#qwen38-flash-next-ifb-bw1000-8x-sglang-0522) |
 | [hygon/Qwen3.8-Flash-Next-Channel-FP8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-FP8) | FP8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0518) |
 | | FP8 W8A8 | 0.5.22 | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-fp8-ifb-bw1100-4x-sglang-0522) |
 | [hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8) | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1100 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1100-4x-sglang-0518) |
 | | INT8 W8A8 | [0.5.18](../docker_images.md) | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-sglang-0518) |
+| | INT8 W8A8 | 0.5.22 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-channel-int8-w8a8-ifb-bw1000-4x-sglang-0522) |
 | [hygon/Qwen3.8-Flash-Next-Mixed-w4a8](https://www.modelscope.cn/models/hygon/Qwen3.8-Flash-Next-Mixed-w4a8) | INT4 W4A8 | 0.5.18 | BW1000 | 4 | IFB | [**`>_`**](#qwen38-flash-next-mixed-w4a8-ifb-bw1000-4x-sglang-0518) |
 
 
@@ -626,6 +628,52 @@ sglang serve \
   --numa-node 3 1 1 0 7 5 5 4
 ```
 
+### Qwen3.8-Flash-Next IFB BW1000 8x SGLang 0.5.22
+
+```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export HCU_ADAPTER_HOST=sglang
+export SGLANG_PLUGINS=hcu
+
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_AITER_AR=1
+export W8A8_SUPPORT_METHODS=3
+export SGLANG_ROCM_USE_AITER_MOE=1
+
+sglang serve \
+  --model-path Qwen/Qwen3.8-Flash-Next \
+  --trust-remote-code \
+  --tp-size 8 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --moe-runner-backend aiter \
+  --speculative-moe-runner-backend aiter \
+  --dtype bfloat16 \
+  --context-length 40960 \
+  --mem-fraction-static 0.80 \
+  --cuda-graph-max-bs-prefill 2048 \
+  --chunked-prefill-size 4096 \
+  --page-size 64 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --kv-cache-dtype fp8_e5m2 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --watchdog-timeout 1200 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --ple-offload-embedding \
+  --numa-node 3 1 1 0 7 5 5 4
+```
+
+`--numa-node` 须按本机 GPU 与 NUMA 亲和性设置，各 rank 依次对应一张卡。
+可用 `hy-smi --showtoponuma` 查询各卡所属 NUMA node。
+
 ### Qwen3.8-Flash-Next-Channel-FP8 IFB BW1100 4x SGLang 0.5.18
 
 ```bash
@@ -779,6 +827,51 @@ sglang serve \
   --ple-offload-embedding \
   --numa-node 0 0 0 0
 ```
+
+### Qwen3.8-Flash-Next-Channel-INT8-w8a8 IFB BW1000 4x SGLang 0.5.22
+
+```bash
+export HIP_VISIBLE_DEVICES=0,1,2,3
+export HCU_ADAPTER_HOST=sglang
+export SGLANG_PLUGINS=hcu
+
+export SGLANG_USE_LIGHTOP=1
+export SGLANG_USE_FUSED_TOPK_SOFTMAX=1
+export SGLANG_USE_CAUSAL_CONV1D=1
+export SGLANG_USE_AITER_LINEAR_ATTN=1
+export SGLANG_USE_AITER_AR=1
+export W8A8_SUPPORT_METHODS=3
+
+sglang serve \
+  --model-path hygon/Qwen3.8-Flash-Next-Channel-INT8-w8a8 \
+  --trust-remote-code \
+  --tp-size 4 \
+  --pp-size 1 \
+  --dp-size 1 \
+  --ep-size 1 \
+  --moe-runner-backend aiter \
+  --speculative-moe-runner-backend aiter \
+  --dtype bfloat16 \
+  --context-length 40960 \
+  --mem-fraction-static 0.72 \
+  --cuda-graph-max-bs-prefill 1024 \
+  --chunked-prefill-size 4096 \
+  --page-size 64 \
+  --mamba-radix-cache-strategy extra_buffer \
+  --kv-cache-dtype fp8_e5m2 \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --watchdog-timeout 1200 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --ple-offload-embedding \
+  --numa-node 0 0 0 0
+```
+
+`--numa-node` 须按本机 GPU 与 NUMA 亲和性设置，各 rank 依次对应一张卡。
+可用 `hy-smi --showtoponuma` 查询各卡所属 NUMA node。
 
 ### Qwen3.8-Flash-Next-Mixed-w4a8 IFB BW1000 4x SGLang 0.5.18
 
