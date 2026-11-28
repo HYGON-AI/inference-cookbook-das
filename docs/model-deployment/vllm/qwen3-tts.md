@@ -229,7 +229,6 @@ stages:
     temperature: 0.9
     top_k: 50
     max_tokens: 4096
-    seed: 42
     repetition_penalty: 1.05
   subtalker_sampling_params:
     do_sample: true
@@ -253,7 +252,6 @@ stages:
     top_p: 1.0
     top_k: -1
     max_tokens: 32768
-    seed: 42
     repetition_penalty: 1.0
 platforms:
   npu:
@@ -304,7 +302,6 @@ stages:
     temperature: 0.9
     top_k: 50
     max_tokens: 4096
-    seed: 42
     repetition_penalty: 1.05
   subtalker_sampling_params:
     do_sample: true
@@ -329,7 +326,6 @@ stages:
     top_p: 1.0
     top_k: -1
     max_tokens: 32768
-    seed: 42
     repetition_penalty: 1.0
 platforms:
   npu:
@@ -382,7 +378,6 @@ stages:
     temperature: 0.9
     top_k: 50
     max_tokens: 4096
-    seed: 42
     repetition_penalty: 1.05
   subtalker_sampling_params:
     do_sample: true
@@ -407,7 +402,6 @@ stages:
     top_p: 1.0
     top_k: -1
     max_tokens: 32768
-    seed: 42
     repetition_penalty: 1.0
 platforms:
   npu:
